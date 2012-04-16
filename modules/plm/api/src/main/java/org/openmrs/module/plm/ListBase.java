@@ -42,7 +42,7 @@ public abstract class ListBase<T extends Collection<ListItem>> implements List, 
 	protected abstract int getItemOrdinal(ListItem item);
 
 	@Override
-	public void Initialize() {
+	public void initialize() {
 		log.debug("Initializing the '" + key + "' list...");
 
 		synchronized (syncLock) {

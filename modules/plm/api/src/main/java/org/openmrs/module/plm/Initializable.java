@@ -1,5 +1,5 @@
 package org.openmrs.module.plm;
 
 public interface Initializable {
-	void Initialize();
+	void initialize();
 }
