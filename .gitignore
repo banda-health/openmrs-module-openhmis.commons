@@ -1,3 +1,11 @@
+# java specific
+*.class
+
+# Package File
+*.jar
+*.war
+*.ear
+
 # eclipse conf file
 .settings
 .classpath
@@ -12,9 +20,6 @@
 *.ipr
 *.iws
 
-# misc
-.DS_Store
-
 # building
 target
 build
@@ -24,3 +29,10 @@ temp
 dist
 test-output
 build.log
+
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
