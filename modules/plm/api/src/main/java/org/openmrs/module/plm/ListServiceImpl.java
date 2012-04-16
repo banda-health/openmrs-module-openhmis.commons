@@ -7,9 +7,8 @@ import org.openhmis.common.Utility;
 import java.util.*;
 
 /*
-	Simple synchronized plm of the lists that have been defined in the system.  The read operations are not
-	synchronized so that they operate as fast as possible while ensureList may acquire a lock if the plm is new and
-	removeList will always acquire a lock if the plm is found.
+	Synchronized list manager.  Read operations are not	synchronized so that they operate as fast as possible while
+	ensureList may acquire a lock if the list is new and removeList will always acquire a lock if the list is found.
  */
 public class ListServiceImpl implements ListService {
 	private Log log = LogFactory.getLog(ListServiceImpl.class);

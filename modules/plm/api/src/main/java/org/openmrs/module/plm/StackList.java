@@ -24,7 +24,7 @@ public class StackList extends ListBase<Stack<ListItem>> {
 	}
 
 	@Override
-	protected int getItemOrdinal(ListItem item) {
+	protected int getItemIndex(ListItem item) {
 		/*
 			New items are added to the front of the list.
 		    Rather than have to reorder each item order every time a new item is added

@@ -66,7 +66,7 @@ public class PriorityQueueList extends ListBase<PriorityQueue<ListItem>> {
 	}
 
 	@Override
-	protected int getItemOrdinal(ListItem item) {
+	protected int getItemIndex(ListItem item) {
 		/*
 			There is no good way to get the index where this item was added to the priority queue.  So the (crappy)
 			solution is to simply iterate through the queue and find it.  The lookup time is thus O(n).

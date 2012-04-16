@@ -24,7 +24,7 @@ public class QueueList extends ListBase<LinkedList<ListItem>> {
 	}
 
 	@Override
-	protected int getItemOrdinal(ListItem item) {
+	protected int getItemIndex(ListItem item) {
 		// New items go to the end of the queue
 		return cachedItems.size();
 	}

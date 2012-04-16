@@ -3,7 +3,18 @@ package org.openmrs.module.plm;
 public class ListItem {
 	private String key;
 	private Object item;
-	private Integer order;
+
+	ListItem() {
+	}
+
+	public ListItem(String key) {
+		this(key, null);
+	}
+
+	public ListItem(String key, Object item) {
+		this.key = key;
+		this.item = item;
+	}
 
 	public Object getItem() {
 		return item;
@@ -19,14 +30,6 @@ public class ListItem {
 
 	public void setKey(String key) {
 		this.key = key;
-	}
-
-	Integer getOrder() {
-		return order;
-	}
-
-	void setOrder(Integer order) {
-		this.order = order;
 	}
 }
 

@@ -39,7 +39,7 @@ public abstract class ListBase<T extends Collection<ListItem>> implements List, 
 	public abstract ListItem getNextAndRemove();
 
 	protected abstract T initializeCache();
-	protected abstract int getItemOrdinal(ListItem item);
+	protected abstract int getItemIndex(ListItem item);
 
 	@Override
 	public void initialize() {
@@ -76,11 +76,8 @@ public abstract class ListBase<T extends Collection<ListItem>> implements List, 
 				// Add the item to the cached items
 				cachedItems.add(item);
 
-				// Get the item order for the added item
-				item.setOrder(getItemOrdinal(item));
-
-				// Add the item to the provider
-				provider.add(item);
+				// Add the item to the provider at the specified index
+				provider.add(item, getItemIndex(item));
 			}
 		} catch (Exception ex) {
 			// If there was an exception while trying to add the item ensure that it is no longer in the cache.
