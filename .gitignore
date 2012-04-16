@@ -1,0 +1,16 @@
+# eclipse conf file
+.settings
+.classpath
+.project
+.manager
+.scala_dependencies
+.cache
+
+# idea conf files
+.idea
+*.iml
+*.ipr
+*.iws
+
+# misc
+.DS_Store
