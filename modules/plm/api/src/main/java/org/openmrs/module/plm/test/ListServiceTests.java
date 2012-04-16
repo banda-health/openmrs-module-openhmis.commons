@@ -3,18 +3,18 @@ package org.openmrs.module.plm.test;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.module.plm.List;
-import org.openmrs.module.plm.ListService;
-import org.openmrs.module.plm.ListServiceImpl;
+import org.openmrs.module.plm.*;
 
 import java.util.Collection;
 
 public class ListServiceTests {
+	protected ListServiceProvider provider;
 	protected ListService service;
 
 	@Before
 	public void before() {
-		service = new ListServiceImpl();
+		provider = new TestServiceProvider();
+		service = new ListServiceImpl(provider);
 	}
 
 	@Test
@@ -122,7 +122,7 @@ public class ListServiceTests {
 		Collection<List> lists = service.getLists();
 
 		Assert.assertNotNull(lists);
-		Assert.assertEquals(3, lists.size());
+		Assert.assertEquals(2, lists.size());
 		Assert.assertEquals(list, service.getList(key));
 		Assert.assertEquals(list2, service.getList(key2));
 
@@ -130,7 +130,8 @@ public class ListServiceTests {
 		service.ensureList(list3);
 
 		// The list should not be in the list previously returned
-		Assert.assertNull(service.getList(key3));
+		Assert.assertEquals(2, lists.size());
+		Assert.assertFalse(lists.contains(list3));
 	}
 
 	@Test

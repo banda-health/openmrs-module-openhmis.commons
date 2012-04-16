@@ -2,11 +2,9 @@ package org.openmrs.module.plm;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openhmis.common.Utility;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /*
 	Simple synchronized plm of the lists that have been defined in the system.  The read operations are not
@@ -74,12 +72,16 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public Collection<List> getLists() {
-	    return lists.values();
+	    return new ArrayList<List>(lists.values());
     }
 
     @Override
     public List getList(String key) {
-        return lists.get(key);
+        if (Utility.isNullOrEmpty(key)) {
+	        throw new IllegalArgumentException("The list key must be defined");
+        }
+
+	    return lists.get(key);
     }
 
     @Override
@@ -90,7 +92,7 @@ public class ListServiceImpl implements ListService {
 
     @Override
     public void onShutdown() {
-        //To change body of implemented methods use File | Settings | File Templates.
+
     }
 
 	private void loadLists() {
@@ -100,6 +102,12 @@ public class ListServiceImpl implements ListService {
 		Collection<List> providerLists = provider.getLists();
 		for (Iterator<List> iterator = providerLists.iterator(); iterator.hasNext(); ) {
 			List list = iterator.next();
+
+			// Make sure the list is initialized if required
+			Initializable init = Utility.as(Initializable.class, list);
+			if (init != null) {
+				init.initialize();
+			}
 
 			lists.put(list.getKey(), list);
 		}

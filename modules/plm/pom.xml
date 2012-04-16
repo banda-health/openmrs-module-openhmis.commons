@@ -8,7 +8,7 @@
 	<packaging>pom</packaging>
 	<name>Persistent List Manager Module</name>
 	<description>Persistent storage of volatile lists of items.</description>
-	<url>https://wiki.openmrs.org/display/docs/Persistent+List+Manager+Module</url>
+	<url>https://github.com/OpenHMIS/OpenHMIS/wiki</url>
 	
 	<developers>
 		<developer>
@@ -18,13 +18,13 @@
 	
 	<organization>
 		<name>OpenHMIS</name>
-		<url>http://todo.com</url>
+		<url>http://openhmis.github.com/OpenHMIS/</url>
 	</organization>
 
 	<scm>
-		<connection>scm:svn:https://svn.openmrs.org/openmrs-modules/list/trunk/</connection>
-		<developerConnection>scm:svn:https://svn.openmrs.org/openmrs-modules/list/trunk/</developerConnection>
-		<url>https://svn.openmrs.org/openmrs-modules/list/trunk/</url>
+		<connection>scm:git:git@github.com:OpenHMIS/OpenHMIS.git</connection>
+		<developerConnection>scm:git:git@github.com:OpenHMIS/OpenHMIS.git</developerConnection>
+		<url>git@github.com:OpenHMIS/OpenHMIS.git</url>
 	</scm>
 
 	<modules>
