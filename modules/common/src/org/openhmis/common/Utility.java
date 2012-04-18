@@ -7,8 +7,4 @@ public class Utility {
 		}
 		return null;
 	}
-
-	public static boolean isNullOrEmpty(String s) {
-		return s == null || s.trim().equals("");
-	}
 }
