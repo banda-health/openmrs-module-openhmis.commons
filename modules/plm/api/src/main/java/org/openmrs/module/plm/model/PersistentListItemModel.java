@@ -4,7 +4,7 @@ import org.openmrs.User;
 
 import java.util.Date;
 
-public class ListItemModel {
+public class PersistentListItemModel {
 	private int itemId;
 	private int listId;
 	private int itemOrder;

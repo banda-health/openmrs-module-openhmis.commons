@@ -1,19 +1,24 @@
 package org.openmrs.module.plm;
 
-public class ListItem {
+import java.util.Date;
+
+public class PersistentListItem {
 	private String key;
 	private Object item;
+	private Date createdAt;
 
-	ListItem() {
+	PersistentListItem() {
 	}
 
-	public ListItem(String key) {
+	public PersistentListItem(String key) {
 		this(key, null);
 	}
 
-	public ListItem(String key, Object item) {
+	public PersistentListItem(String key, Object item) {
 		this.key = key;
 		this.item = item;
+
+		createdAt = new Date();
 	}
 
 	public Object getItem() {
@@ -30,6 +35,14 @@ public class ListItem {
 
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 }
 
