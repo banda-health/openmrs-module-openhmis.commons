@@ -2,15 +2,15 @@ package org.openmrs.module.plm;
 
 import org.apache.commons.lang.NotImplementedException;
 
-public class DatabasePersistentListProvider implements PersistentListProvider {
+public class DatabaseProvider implements PersistentListProvider {
 	@Override
 	public String getName() {
-		return "Database PersistentList Provider";
+		return "Database List Provider";
 	}
 
 	@Override
 	public String getDescription() {
-		return "A list provider that stores list items in an OpenMRS database.";
+		return "A persistent list provider that stores list items in an OpenMRS database.";
 	}
 
 	@Override

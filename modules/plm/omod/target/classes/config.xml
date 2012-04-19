@@ -22,7 +22,7 @@
 	
 	<!-- Adds link to admin page -->
 	<extension>
-		<point>org.openmrs.admin.list</point>
+		<point>org.openmrs.admin.queue</point>
 		<class>org.openmrs.module.persistentListManager.extension.html.AdminList</class>
 	</extension>
 	

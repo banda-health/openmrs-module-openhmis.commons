@@ -4,21 +4,23 @@ import org.junit.Test;
 import org.openmrs.module.plm.PersistentList;
 import org.openmrs.module.plm.PersistentListItem;
 import org.openmrs.module.plm.PersistentListProvider;
-import org.openmrs.module.plm.PersistentQueue;
+import org.openmrs.module.plm.PersistentStack;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-public class PersistentQueueTests extends PersistentListTestBase {
+public class PersistentStackTests extends PersistentListTestBase {
+
 	@Override
 	protected PersistentList createList(PersistentListProvider provider) {
-		PersistentQueue queue = new PersistentQueue("test", provider);
-		queue.initialize();
+		PersistentStack stack = new PersistentStack("test", provider);
+		stack.initialize();
 
-		return queue;
+		return stack;
 	}
 
 	@Test
-	public void shouldReturnItemsInLIFOOrder() {
+	public void shouldReturnItemsInFIFOOrder() {
 		PersistentListItem item1 = new PersistentListItem("1");
 		PersistentListItem item2 = new PersistentListItem("2");
 		PersistentListItem item3 = new PersistentListItem("3");
@@ -31,7 +33,7 @@ public class PersistentQueueTests extends PersistentListTestBase {
 
 		PersistentListItem item = list.getNextAndRemove();
 		assertNotNull(item);
-		assertEquals(item1, item);
+		assertEquals(item3, item);
 
 		item = list.getNextAndRemove();
 		assertNotNull(item);
@@ -39,7 +41,6 @@ public class PersistentQueueTests extends PersistentListTestBase {
 
 		item = list.getNextAndRemove();
 		assertNotNull(item);
-		assertEquals(item3, item);
+		assertEquals(item1, item);
 	}
 }
-
