@@ -4,8 +4,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openhmis.common.Initializable;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 
 /**
  * Base type for Persistent List Manager lists.  Provides a thread-safe list implementation base that caches the items
@@ -32,6 +34,7 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	protected String key;
 	protected PersistentListProvider provider;
 	protected T cachedItems;
+	protected ArrayList<String> itemKeys = new ArrayList<String>();
 
 	@Override
 	public abstract PersistentListItem getNext();
@@ -79,7 +82,12 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 					// Store the reference to the current item (in case of an exception)
 					item = listItem;
 
+					if (itemKeys.contains(item.getKey())) {
+						throw new IllegalArgumentException("An item with the key '" + item.getKey() + "' has already been added to this persistent list.");
+					}
+
 					// Add the item to the cached items
+					itemKeys.add(item.getKey());
 					cachedItems.add(item);
 
 					// Add the item to the provider at the specified index
@@ -109,6 +117,7 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 		synchronized (syncLock) {
 			Boolean wasRemovedFromProvider = provider.remove(item);
 			Boolean wasRemovedFromCache = cachedItems.remove(item);
+			itemKeys.remove(item.getKey());
 
 			return wasRemovedFromProvider || wasRemovedFromCache;
 		}
@@ -119,6 +128,7 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 		synchronized (syncLock) {
 			provider.clear();
 			cachedItems.clear();
+			itemKeys.clear();
 		}
 	}
 

@@ -1,22 +1,32 @@
 package org.openmrs.module.plm.test;
 
 import junit.framework.Assert;
+import org.apache.commons.lang.NotImplementedException;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.matchers.JUnitMatchers.hasItems;
+
 import org.openmrs.module.plm.PersistentList;
+import org.openmrs.module.plm.PersistentListException;
 import org.openmrs.module.plm.PersistentListItem;
 import org.openmrs.module.plm.PersistentListProvider;
+
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class PersistentListTestBase {
 	protected PersistentListProvider provider;
 	protected PersistentList list;
 
-	protected abstract PersistentList createList();
+	protected abstract PersistentList createList(PersistentListProvider provider);
 
 	@Before
 	public void before() {
 		provider = new TestPersistentListProvider();
-		list = createList();
+		list = createList(provider);
 	}
 
 	@Test
@@ -55,7 +65,24 @@ public abstract class PersistentListTestBase {
 		Assert.assertEquals(item, items[0]);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
+	public void shouldAddMultipleItems() {
+		PersistentListItem item = new PersistentListItem("1");
+		PersistentListItem item2 = new PersistentListItem("2");
+		list.add(item, item2);
+
+		Assert.assertEquals(2, list.getCount());
+
+		PersistentListItem[] items = list.getItems();
+		Assert.assertNotNull(items);
+		Assert.assertEquals(2, items.length);
+
+		// Just check that the items are in the list, order is not important
+		List<PersistentListItem> itemList = Arrays.asList(items);
+		assertThat(itemList, hasItems(item, item2));
+	}
+
+	@Test(expected = PersistentListException.class)
 	public void shouldThrowExceptionWhenDuplicateItemsAreAdded() {
 		PersistentListItem item1 = new PersistentListItem("1");
 		PersistentListItem item2 = new PersistentListItem("1");
@@ -70,15 +97,17 @@ public abstract class PersistentListTestBase {
 		PersistentListItem item2 = new PersistentListItem("2");
 		PersistentListItem item3 = new PersistentListItem("3");
 
-		list.add(item1);
-		list.add(item2);
-		list.add(item3);
+		list.add(item1, item2, item3);
 
 		Assert.assertEquals(3, list.getCount());
 
 		PersistentListItem[] items = list.getItems();
 		Assert.assertNotNull(items);
 		Assert.assertEquals(3, items.length);
+
+		// Just check that the items are in the list, order is not important
+		List<PersistentListItem> itemList = Arrays.asList(items);
+		assertThat(itemList, hasItems(item1, item2, item3));
 	}
 
 	@Test
