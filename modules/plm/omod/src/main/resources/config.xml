@@ -22,7 +22,7 @@
 	
 	<!-- Adds link to admin page -->
 	<extension>
-		<point>org.openmrs.admin.list</point>
+		<point>org.openmrs.admin.queue</point>
 		<class>${project.parent.groupId}.${project.parent.artifactId}.extension.html.AdminList</class>
 	</extension>
 	

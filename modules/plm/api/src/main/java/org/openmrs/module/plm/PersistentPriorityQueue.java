@@ -6,8 +6,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
-public class PriorityQueuePersistentList extends PersistentListBase<PriorityQueue<PersistentListItem>> {
-	public PriorityQueuePersistentList(String key, PersistentListProvider provider) {
+public class PersistentPriorityQueue extends PersistentListBase<PriorityQueue<PersistentListItem>> {
+	public PersistentPriorityQueue(String key, PersistentListProvider provider) {
 		super(key, provider);
 	}
 

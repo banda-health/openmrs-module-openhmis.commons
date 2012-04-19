@@ -2,8 +2,8 @@ package org.openmrs.module.plm;
 
 import java.util.LinkedList;
 
-public class QueuePersistentList extends PersistentListBase<LinkedList<PersistentListItem>> {
-	public QueuePersistentList(String key, PersistentListProvider provider) {
+public class PersistentQueue extends PersistentListBase<LinkedList<PersistentListItem>> {
+	public PersistentQueue(String key, PersistentListProvider provider) {
 		super(key, provider);
 	}
 

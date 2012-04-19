@@ -1,21 +1,20 @@
 package org.openmrs.module.plm.test;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.module.plm.PersistentList;
 import org.openmrs.module.plm.PersistentListItem;
 import org.openmrs.module.plm.PersistentListProvider;
-import org.openmrs.module.plm.QueuePersistentList;
+import org.openmrs.module.plm.PersistentQueue;
 
 import static org.junit.Assert.*;
 
-public class QueueListTests extends PersistentListTestBase {
+public class PersistentQueueTests extends PersistentListTestBase {
 	@Override
 	protected PersistentList createList(PersistentListProvider provider) {
-		QueuePersistentList list = new QueuePersistentList("test", provider);
-		list.initialize();
+		PersistentQueue queue = new PersistentQueue("test", provider);
+		queue.initialize();
 
-		return list;
+		return queue;
 	}
 
 	@Test

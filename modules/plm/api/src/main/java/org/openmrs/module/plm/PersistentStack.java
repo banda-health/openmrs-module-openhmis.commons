@@ -2,8 +2,8 @@ package org.openmrs.module.plm;
 
 import java.util.Stack;
 
-public class StackPersistentList extends PersistentListBase<Stack<PersistentListItem>> {
-	public StackPersistentList(String key, PersistentListProvider provider) {
+public class PersistentStack extends PersistentListBase<Stack<PersistentListItem>> {
+	public PersistentStack(String key, PersistentListProvider provider) {
 		super(key, provider);
 	}
 
