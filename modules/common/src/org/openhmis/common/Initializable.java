@@ -1,4 +1,4 @@
-package org.openmrs.module.plm;
+package org.openhmis.common;
 
 public interface Initializable {
 	void initialize();
