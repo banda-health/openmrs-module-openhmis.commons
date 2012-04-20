@@ -3,6 +3,8 @@ package org.openmrs.module.plm;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openhmis.common.Initializable;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.plm.model.PersistentListItemModel;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,7 +18,21 @@ import java.util.Map;
  * @param <T> The collection type for the list implementation.
  */
 public abstract class PersistentListBase<T extends Collection<PersistentListItem>> implements PersistentList, Initializable {
+	private Log log = LogFactory.getLog(PersistentListBase.class);
+
+	protected final Object syncLock = new Object();
+
+	protected Integer id;
+	protected String key;
+	protected PersistentListProvider provider;
+	protected T cachedItems;
+	protected ArrayList<String> itemKeys = new ArrayList<String>();
+
 	protected PersistentListBase(String key, PersistentListProvider provider) {
+		this(null, key, provider);
+	}
+
+	protected PersistentListBase(Integer id, String key, PersistentListProvider provider) {
 		if (key == null || key.trim().equals("")) {
 			throw new IllegalArgumentException("Key has no content.");
 		}
@@ -24,17 +40,10 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 			throw new IllegalArgumentException("Provider is not defined.");
 		}
 
+		this.id = id;
 		this.key = key;
 		this.provider = provider;
 	}
-
-	private Log log = LogFactory.getLog(PersistentListServiceImpl.class);
-
-	protected Object syncLock = new Object();
-	protected String key;
-	protected PersistentListProvider provider;
-	protected T cachedItems;
-	protected ArrayList<String> itemKeys = new ArrayList<String>();
 
 	@Override
 	public abstract PersistentListItem getNext();
@@ -61,6 +70,15 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	@Override
 	public String getKey() {
 		return key;
+	}
+
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override
@@ -91,7 +109,8 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 					cachedItems.add(item);
 
 					// Add the item to the provider at the specified index
-					provider.add(item, getItemIndex(item));
+					PersistentListItemModel modelItem = createItemModel(item);
+					provider.add(modelItem);
 				}
 			}
 		} catch (Exception ex) {
@@ -115,7 +134,7 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	@Override
 	public boolean remove(PersistentListItem item) {
 		synchronized (syncLock) {
-			Boolean wasRemovedFromProvider = provider.remove(item);
+			Boolean wasRemovedFromProvider = provider.remove(createItemModel(item));
 			Boolean wasRemovedFromCache = cachedItems.remove(item);
 			itemKeys.remove(item.getKey());
 
@@ -126,7 +145,7 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	@Override
 	public void clear() {
 		synchronized (syncLock) {
-			provider.clear();
+			provider.clear(this);
 			cachedItems.clear();
 			itemKeys.clear();
 		}
@@ -138,11 +157,25 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	}
 
 	protected PersistentListItem[] loadList() {
-		return provider.getItems();
+		PersistentListItemModel[] modelItems = provider.getItems(this);
+
+		PersistentListItem[] items = new PersistentListItem[modelItems.length];
+		int i = 0;
+		for (PersistentListItemModel model : modelItems) {
+			items[i++] = createItem(model);
+		}
+
+		return items;
 	}
 
-	protected PersistentListItem createNewItem() {
-		return new PersistentListItem();
+	protected PersistentListItem createItem(PersistentListItemModel model) {
+		return new PersistentListItem(model.getItemId(), model.getItemKey(),
+				model.getCreatedBy(), model.getCreatedOn());
+	}
+
+	protected PersistentListItemModel createItemModel(PersistentListItem item) {
+		return new PersistentListItemModel(this, item.getKey(), getItemIndex(item),
+				item.getCreatedBy());
 	}
 }
 

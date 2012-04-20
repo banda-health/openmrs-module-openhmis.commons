@@ -12,12 +12,12 @@
 		Persistent storage of volatile lists of items.
 	</description>
 	<updateURL>https://modules.openmrs.org/modules/download/persistentListManager/update.rdf</updateURL>
-	<require_version>1.8.2</require_version>
-	<!-- / Module Properties -->
+	<require_version>1.9.0-RC3</require_version>
 
+	<!-- / Module Properties -->
 	
 	<!-- Module Activator -->
-	<activator>org.openmrs.module.persistentListManager.ListModuleActivator</activator>
+	<activator>org.openmrs.module.persistentListManager.PersistentListManagerModuleActivator</activator>
 	
 	
 	<!-- Adds link to admin page -->

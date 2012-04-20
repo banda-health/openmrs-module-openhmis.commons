@@ -7,6 +7,10 @@ public class PersistentQueue extends PersistentListBase<LinkedList<PersistentLis
 		super(key, provider);
 	}
 
+	public PersistentQueue(int id, String key, PersistentListProvider provider) {
+		super(id, key, provider);
+	}
+
 	@Override
 	public PersistentListItem getNext() {
 		return cachedItems.peek();
@@ -24,8 +28,13 @@ public class PersistentQueue extends PersistentListBase<LinkedList<PersistentLis
 
 	@Override
 	protected int getItemIndex(PersistentListItem item) {
-		// New items go to the end of the queue
-		return cachedItems.size();
+		int index = cachedItems.indexOf(item);
+		if (index < 0) {
+			// New items go to the end of the queue
+			index = cachedItems.size();
+		}
+
+		return index;
 	}
 }
 

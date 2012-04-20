@@ -13,11 +13,11 @@
 	</description>
 	<updateURL>https://modules.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
 	<require_version>${openMRSVersion}</require_version>
-	<!-- / Module Properties -->
 
+	<!-- / Module Properties -->
 	
 	<!-- Module Activator -->
-	<activator>${project.parent.groupId}.${project.parent.artifactId}.ListModuleActivator</activator>
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.PersistentListManagerModuleActivator</activator>
 	
 	
 	<!-- Adds link to admin page -->

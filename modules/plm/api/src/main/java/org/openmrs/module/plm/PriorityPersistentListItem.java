@@ -1,5 +1,11 @@
 package org.openmrs.module.plm;
 
+import org.openmrs.User;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.plm.model.PersistentListItemModel;
+
+import java.util.Date;
+
 public class PriorityPersistentListItem extends PersistentListItem {
 	private int priority;
 	private Integer order;
@@ -7,19 +13,34 @@ public class PriorityPersistentListItem extends PersistentListItem {
 	PriorityPersistentListItem() {
 	}
 
+	public PriorityPersistentListItem(PersistentListItemModel model) {
+		super(model);
+
+		this.setPriority(model.getPrimaryOrder());
+		this.setOrder(model.getSecondaryOrder());
+	}
+
 	public PriorityPersistentListItem(String key) {
-		this(key, 0, null, null);
+		this(null, key, Context.getAuthenticatedUser(), new Date(), 0, null);
 	}
 
-	public PriorityPersistentListItem(String key, int priority, Integer order) {
-		this(key, priority, order, null);
+	public PriorityPersistentListItem(String key, User createdBy) {
+		this(null, key, createdBy, new Date(), 0, null);
 	}
 
-	public PriorityPersistentListItem(String key, int priority, Integer order, Object item) {
-		super(key, item);
+	public PriorityPersistentListItem(String key, User createdBy, Date createdOn) {
+		this(null, key, createdBy, createdOn, 0, null);
+	}
+
+	public PriorityPersistentListItem(Integer id, String key, User createdBy, Date createdOn, int priority, Integer order) {
+		super(id, key, createdBy, createdOn);
 
 		this.priority = priority;
 		this.order = order;
+	}
+
+	public PriorityPersistentListItem(String key, int priority, Integer order) {
+
 	}
 
 	public int getPriority() {

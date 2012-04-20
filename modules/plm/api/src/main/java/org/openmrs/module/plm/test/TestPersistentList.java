@@ -20,13 +20,19 @@ public class TestPersistentList implements PersistentList {
 		this.count = count;
 	}
 
+	Integer id;
 	String key;
 	PersistentListProvider provider;
 	int count;
 
 	@Override
 	public String getKey() {
-		return key;  //To change body of implemented methods use File | Settings | File Templates.
+		return key;
+	}
+
+	@Override
+	public Integer getId() {
+		return id;
 	}
 
 	@Override

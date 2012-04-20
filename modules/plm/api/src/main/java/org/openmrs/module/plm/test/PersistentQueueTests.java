@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class PersistentQueueTests extends PersistentListTestBase {
 	@Override
 	protected PersistentList createList(PersistentListProvider provider) {
-		PersistentQueue queue = new PersistentQueue("test", provider);
+		PersistentQueue queue = new PersistentQueue(1, "test", provider);
 		queue.initialize();
 
 		return queue;
@@ -19,9 +19,9 @@ public class PersistentQueueTests extends PersistentListTestBase {
 
 	@Test
 	public void shouldReturnItemsInLIFOOrder() {
-		PersistentListItem item1 = new PersistentListItem("1");
-		PersistentListItem item2 = new PersistentListItem("2");
-		PersistentListItem item3 = new PersistentListItem("3");
+		PersistentListItem item1 = new PersistentListItem("1", null);
+		PersistentListItem item2 = new PersistentListItem("2", null);
+		PersistentListItem item3 = new PersistentListItem("3", null);
 
 		list.add(item1, item2, item3);
 

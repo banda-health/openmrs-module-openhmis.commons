@@ -1,32 +1,41 @@
 package org.openmrs.module.plm;
 
+import org.openmrs.User;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.plm.model.PersistentListItemModel;
+
 import java.util.Date;
 
 public class PersistentListItem {
+	private Integer id;
 	private String key;
-	private Object item;
-	private Date createdAt;
+	private User createdBy;
+	private Date createdOn;
 
 	PersistentListItem() {
 	}
 
+	public PersistentListItem(PersistentListItemModel model) {
+		this(model.getItemId(), model.getItemKey(), model.getCreatedBy(), model.getCreatedOn());
+	}
+
 	public PersistentListItem(String key) {
-		this(key, null);
+		this(null, key, Context.getAuthenticatedUser(), new Date());
 	}
 
-	public PersistentListItem(String key, Object item) {
+	public PersistentListItem(String key, User createdBy) {
+		this(null, key, createdBy, new Date());
+	}
+
+	public PersistentListItem(String key, User createdBy, Date createdOn) {
+		this(null, key, createdBy, createdOn);
+	}
+
+	public PersistentListItem(Integer id, String key, User createdBy, Date createdOn) {
+		this.id = id;
 		this.key = key;
-		this.item = item;
-
-		createdAt = new Date();
-	}
-
-	public Object getItem() {
-		return item;
-	}
-
-	public void setItem(Object item) {
-		this.item = item;
+		this.createdBy = createdBy;
+		this.createdOn = createdOn;
 	}
 
 	public String getKey() {
@@ -37,12 +46,28 @@ public class PersistentListItem {
 		this.key = key;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
+	public Date getCreatedOn() {
+		return createdOn;
 	}
 
-	void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	void setCreatedOn(Date createdAt) {
+		this.createdOn = createdAt;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
 	}
 }
 

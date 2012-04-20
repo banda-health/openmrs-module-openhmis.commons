@@ -1,7 +1,9 @@
 package org.openmrs.module.plm.test;
 
+import org.openmrs.module.plm.PersistentList;
 import org.openmrs.module.plm.PersistentListItem;
 import org.openmrs.module.plm.PersistentListProvider;
+import org.openmrs.module.plm.model.PersistentListItemModel;
 
 public class TestPersistentListProvider implements PersistentListProvider {
 
@@ -16,21 +18,21 @@ public class TestPersistentListProvider implements PersistentListProvider {
 	}
 
 	@Override
-	public void add(PersistentListItem item, int index) {
+	public void add(PersistentListItemModel item) {
 	}
 
 	@Override
-	public boolean remove(PersistentListItem item) {
+	public boolean remove(PersistentListItemModel item) {
 		return false;
 	}
 
 	@Override
-	public void clear() {
+	public void clear(PersistentList list) {
 
 	}
 
 	@Override
-	public PersistentListItem[] getItems() {
-		return new PersistentListItem[0];
+	public PersistentListItemModel[] getItems(PersistentList list) {
+		return new PersistentListItemModel[0];
 	}
 }

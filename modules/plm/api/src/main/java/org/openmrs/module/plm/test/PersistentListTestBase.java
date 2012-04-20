@@ -33,13 +33,13 @@ public abstract class PersistentListTestBase {
 	public void getCountShouldReturnNumberOfItems() {
 		Assert.assertEquals(0, list.getCount());
 
-		list.add(new PersistentListItem("1"));
+		list.add(new PersistentListItem("1", null));
 		Assert.assertEquals(1, list.getCount());
 
-		list.add(new PersistentListItem("2"));
+		list.add(new PersistentListItem("2", null));
 		Assert.assertEquals(2, list.getCount());
 
-		list.add(new PersistentListItem("3"));
+		list.add(new PersistentListItem("3", null));
 		Assert.assertEquals(3, list.getCount());
 	}
 
@@ -54,7 +54,7 @@ public abstract class PersistentListTestBase {
 
 	@Test
 	public void shouldReturnItemWhenAdded() {
-		PersistentListItem item = new PersistentListItem("1");
+		PersistentListItem item = new PersistentListItem("1", null);
 		list.add(item);
 
 		Assert.assertEquals(1, list.getCount());
@@ -67,8 +67,8 @@ public abstract class PersistentListTestBase {
 
 	@Test
 	public void shouldAddMultipleItems() {
-		PersistentListItem item = new PersistentListItem("1");
-		PersistentListItem item2 = new PersistentListItem("2");
+		PersistentListItem item = new PersistentListItem("1", null);
+		PersistentListItem item2 = new PersistentListItem("2", null);
 		list.add(item, item2);
 
 		Assert.assertEquals(2, list.getCount());
@@ -84,8 +84,8 @@ public abstract class PersistentListTestBase {
 
 	@Test(expected = PersistentListException.class)
 	public void shouldThrowExceptionWhenDuplicateItemsAreAdded() {
-		PersistentListItem item1 = new PersistentListItem("1");
-		PersistentListItem item2 = new PersistentListItem("1");
+		PersistentListItem item1 = new PersistentListItem("1", null);
+		PersistentListItem item2 = new PersistentListItem("1", null);
 
 		list.add(item1);
 		list.add(item2);
@@ -93,9 +93,9 @@ public abstract class PersistentListTestBase {
 
 	@Test
 	public void getItemsShouldReturnAllItems() {
-		PersistentListItem item1 = new PersistentListItem("1");
-		PersistentListItem item2 = new PersistentListItem("2");
-		PersistentListItem item3 = new PersistentListItem("3");
+		PersistentListItem item1 = new PersistentListItem("1", null);
+		PersistentListItem item2 = new PersistentListItem("2", null);
+		PersistentListItem item3 = new PersistentListItem("3", null);
 
 		list.add(item1, item2, item3);
 
@@ -112,7 +112,7 @@ public abstract class PersistentListTestBase {
 
 	@Test
 	public void shouldRemoveItem() {
-		PersistentListItem item = new PersistentListItem("1");
+		PersistentListItem item = new PersistentListItem("1", null);
 		list.add(item);
 
 		PersistentListItem[] items = list.getItems();
@@ -129,7 +129,7 @@ public abstract class PersistentListTestBase {
 
 	@Test
 	public void shouldReturnFalseIfItemNotRemoved() {
-		boolean result = list.remove(new PersistentListItem("1"));
+		boolean result = list.remove(new PersistentListItem("1", null));
 
 		Assert.assertEquals(0, list.getCount());
 		Assert.assertEquals(false, result);
@@ -137,8 +137,8 @@ public abstract class PersistentListTestBase {
 
 	@Test
 	public void shouldRemoveAllItemsWhenCleared() {
-		PersistentListItem item = new PersistentListItem("1");
-		PersistentListItem item2 = new PersistentListItem("2");
+		PersistentListItem item = new PersistentListItem("1", null);
+		PersistentListItem item2 = new PersistentListItem("2", null);
 		list.add(item);
 		list.add(item2);
 

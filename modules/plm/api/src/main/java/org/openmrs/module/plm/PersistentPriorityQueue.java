@@ -1,6 +1,7 @@
 package org.openmrs.module.plm;
 
 import org.openhmis.common.Utility;
+import org.openmrs.module.plm.model.PersistentListItemModel;
 
 import java.util.Comparator;
 import java.util.Iterator;
@@ -18,7 +19,7 @@ public class PersistentPriorityQueue extends PersistentListBase<PriorityQueue<Pe
 
 			if (p1 == null && p2 == null) {
 				// Both items are not priority items: just use item order
-				return o1.getCreatedAt().compareTo(o2.getCreatedAt());
+				return o1.getCreatedOn().compareTo(o2.getCreatedOn());
 			} else if (p1 != null && p2 == null) {
 				// item1 is priority item, item2 is not: item 1 is first
 				return 1;
@@ -34,13 +35,13 @@ public class PersistentPriorityQueue extends PersistentListBase<PriorityQueue<Pe
 			} else {
 				// Both items are priority items with the same priority, use item order
 				if (p1.getOrder() == null && p2.getOrder() == null) {
-					return p1.getCreatedAt().compareTo(p2.getCreatedAt());
+					return p1.getCreatedOn().compareTo(p2.getCreatedOn());
 				} else if (p1.getOrder() == null) {
 					return 1;
 				} else if (p2.getOrder() == null) {
 					return -1;
 				} else {
-					return p1.getCreatedAt().compareTo(p2.getCreatedAt());
+					return p1.getCreatedOn().compareTo(p2.getCreatedOn());
 				}
 			}
 		}
@@ -62,8 +63,8 @@ public class PersistentPriorityQueue extends PersistentListBase<PriorityQueue<Pe
 	}
 
 	@Override
-	protected PersistentListItem createNewItem() {
-		return new PriorityPersistentListItem();
+	protected PersistentListItem createItem(PersistentListItemModel model) {
+		return new PriorityPersistentListItem(model);
 	}
 
 	@Override

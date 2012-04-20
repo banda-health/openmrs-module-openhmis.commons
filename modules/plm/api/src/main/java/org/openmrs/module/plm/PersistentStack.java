@@ -7,6 +7,10 @@ public class PersistentStack extends PersistentListBase<Stack<PersistentListItem
 		super(key, provider);
 	}
 
+	public PersistentStack(int id, String key, PersistentListProvider provider) {
+		super(id, key, provider);
+	}
+
 	@Override
 	public PersistentListItem getNext() {
 		return cachedItems.peek();
@@ -32,6 +36,12 @@ public class PersistentStack extends PersistentListBase<Stack<PersistentListItem
 				Item 2: -1
 				Item 3: -2
 		*/
-		return cachedItems.size() * -1;
+		int index = cachedItems.indexOf(item);
+		if (index < 0) {
+			// New items go to the end of the queue
+			index = cachedItems.size();
+		}
+
+		return index * -1;
 	}
 }

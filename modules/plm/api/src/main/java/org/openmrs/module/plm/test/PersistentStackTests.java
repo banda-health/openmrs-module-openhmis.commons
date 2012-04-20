@@ -13,7 +13,7 @@ public class PersistentStackTests extends PersistentListTestBase {
 
 	@Override
 	protected PersistentList createList(PersistentListProvider provider) {
-		PersistentStack stack = new PersistentStack("test", provider);
+		PersistentStack stack = new PersistentStack(1, "test", provider);
 		stack.initialize();
 
 		return stack;
@@ -21,9 +21,9 @@ public class PersistentStackTests extends PersistentListTestBase {
 
 	@Test
 	public void shouldReturnItemsInFIFOOrder() {
-		PersistentListItem item1 = new PersistentListItem("1");
-		PersistentListItem item2 = new PersistentListItem("2");
-		PersistentListItem item3 = new PersistentListItem("3");
+		PersistentListItem item1 = new PersistentListItem("1", null);
+		PersistentListItem item2 = new PersistentListItem("2", null);
+		PersistentListItem item3 = new PersistentListItem("3", null);
 
 		list.add(item1, item2, item3);
 
