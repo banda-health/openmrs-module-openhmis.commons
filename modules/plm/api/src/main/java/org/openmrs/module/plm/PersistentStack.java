@@ -1,6 +1,6 @@
 package org.openmrs.module.plm;
 
-import java.util.Stack;
+import java.util.*;
 
 public class PersistentStack extends PersistentListBase<Stack<PersistentListItem>> {
 	public PersistentStack(String key, PersistentListProvider provider) {
@@ -13,12 +13,25 @@ public class PersistentStack extends PersistentListBase<Stack<PersistentListItem
 
 	@Override
 	public PersistentListItem getNext() {
-		return cachedItems.peek();
+		if (cachedItems.size() == 0) {
+			return null;
+		} else {
+			return cachedItems.peek();
+		}
 	}
 
 	@Override
 	public PersistentListItem getNextAndRemove() {
 		return cachedItems.pop();
+	}
+
+	@Override
+	public PersistentListItem[] getItems() {
+		//The items must be reversed so that the first item is at index 0
+		List<PersistentListItem> list = Arrays.asList(super.getItems());
+		Collections.reverse(list);
+
+		return list.toArray(new PersistentListItem[0]);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package org.openmrs.module.plm.test;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.junit.Test;
 import org.openmrs.module.plm.PersistentList;
 import org.openmrs.module.plm.PersistentListItem;
@@ -19,6 +20,23 @@ public class PersistentQueueTests extends PersistentListTestBase {
 
 	@Test
 	public void shouldReturnItemsInLIFOOrder() {
+		PersistentListItem item1 = new PersistentListItem("1", null);
+		PersistentListItem item2 = new PersistentListItem("2", null);
+		PersistentListItem item3 = new PersistentListItem("3", null);
+
+		list.add(item1, item2, item3);
+
+		PersistentListItem[] items = list.getItems();
+		assertNotNull(items);
+		assertEquals(3, items.length);
+
+		assertEquals(item1, items[0]);
+		assertEquals(item2, items[1]);
+		assertEquals(item3, items[2]);
+	}
+
+	@Test
+	public void getNextAndRemoveShouldReturnItemsInLIFOOrder() {
 		PersistentListItem item1 = new PersistentListItem("1", null);
 		PersistentListItem item2 = new PersistentListItem("2", null);
 		PersistentListItem item3 = new PersistentListItem("3", null);

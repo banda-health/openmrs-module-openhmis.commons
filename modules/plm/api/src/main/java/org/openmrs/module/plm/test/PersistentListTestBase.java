@@ -4,7 +4,8 @@ import junit.framework.Assert;
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertThat;
+
+import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.matchers.JUnitMatchers.hasItems;
@@ -153,6 +154,38 @@ public abstract class PersistentListTestBase {
 	public void shouldNotThrowExceptionWhenEmptyListIsCleared() {
 		list.clear();
 		Assert.assertEquals(0, list.getCount());
+	}
+
+	@Test
+	public void getNextShouldNotRemoveItem() {
+		PersistentListItem item = new PersistentListItem("1", null);
+		list.add(item);
+
+		assertEquals(1, list.getCount());
+		item = list.getNext();
+
+		assertNotNull(item);
+		assertEquals(1, list.getCount());
+	}
+
+	@Test
+	public void getNextShouldReturnNullWhenEmpty() {
+		PersistentListItem item = list.getNext();
+
+		assertNull(item);
+	}
+
+	@Test
+	public void getNextAndRemoveShouldRemoveItem() {
+		PersistentListItem item = new PersistentListItem("1", null);
+		list.add(item);
+
+		assertEquals(1, list.getCount());
+
+		item = list.getNextAndRemove();
+
+		assertNotNull(item);
+		assertEquals(0, list.getCount());
 	}
 }
 
