@@ -68,6 +68,18 @@ public class PersistentPriorityQueue extends PersistentListBase<PriorityQueue<Pe
 	}
 
 	@Override
+	protected PersistentListItemModel createItemModel(PersistentListItem item) {
+		PriorityPersistentListItem priorityItem = Utility.as(PriorityPersistentListItem.class, item);
+
+		if (priorityItem == null) {
+			return super.createItemModel(item);
+		} else {
+			return new PersistentListItemModel(this, priorityItem.getKey(), getItemIndex(item), priorityItem.getPriority(),
+				priorityItem.getOrder(), item.getCreator(), item.getCreatedOn());
+		}
+	}
+
+	@Override
 	protected int getItemIndex(PersistentListItem item) {
 		/*
 			There is no good way to get the index where this item was added to the priority queue.  So the (crappy)

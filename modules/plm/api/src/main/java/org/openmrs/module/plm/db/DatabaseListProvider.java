@@ -1,10 +1,11 @@
 package org.openmrs.module.plm.db;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.*;
 
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.jdbc.Work;
 import org.openmrs.module.plm.*;
 import org.openmrs.module.plm.model.PersistentListItemModel;
@@ -12,8 +13,14 @@ import org.openmrs.module.plm.model.PersistentListItemModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseListProvider implements PersistentListProvider {
+	private static final String ADD_SQL = "UPDATE plm_list_items SET primary_order = primary_order + 1 WHERE list_id = ? AND primary_order >= ?";
+	private static final String REMOVE_SQL = "UPDATE plm_list_items SET primary_order = primary_order - 1 WHERE list_id = ? AND primary_order >= ?";
+	private static final String CLEAR_SQL = "DELETE FROM plm_list_items WHERE list_id = ?";
+
 	private Log log = LogFactory.getLog(PersistentListServiceImpl.class);
 	private SessionFactory sessionFactory;
 
@@ -46,7 +53,7 @@ public class DatabaseListProvider implements PersistentListProvider {
 			session.doWork(new Work() {
 				public void execute(Connection connection) {
 					try {
-						PreparedStatement cmd = connection.prepareStatement("UPDATE table SET PrimaryOrder = PrimaryOrder + 1 WHERE ListId = ? AND PrimaryOrder >= ?");
+						PreparedStatement cmd = connection.prepareStatement(ADD_SQL);
 						cmd.setInt(1, item.getItemId());
 						cmd.setInt(2, item.getPrimaryOrder());
 
@@ -93,7 +100,7 @@ public class DatabaseListProvider implements PersistentListProvider {
 			session.doWork(new Work() {
 				public void execute(Connection connection) {
 					try {
-						PreparedStatement cmd = connection.prepareStatement("UPDATE table SET PrimaryOrder = PrimaryOrder - 1 WHERE ListId = ? AND PrimaryOrder >= ?");
+						PreparedStatement cmd = connection.prepareStatement(REMOVE_SQL);
 						cmd.setInt(1, item.getItemId());
 						cmd.setInt(2, item.getPrimaryOrder());
 
@@ -120,16 +127,55 @@ public class DatabaseListProvider implements PersistentListProvider {
 	}
 
 	@Override
-	public void clear(PersistentList list) {
-		// Delete all items with list key
+	public void clear(final PersistentList list) {
+		Session session = sessionFactory.getCurrentSession();
 
+		try {
+			// Delete all items with list key
+			session.doWork(new Work() {
+				public void execute(Connection connection) {
+					try {
+						PreparedStatement cmd = connection.prepareStatement(CLEAR_SQL);
+						cmd.setInt(1, list.getId());
+
+						cmd.executeUpdate();
+					} catch (SQLException sex) {
+						throw new PersistentListException(sex);
+					}
+				}
+			});
+		} catch (Exception ex) {
+			throw new PersistentListException("An exception occurred while attempting to get the list items.", ex);
+		} finally {
+			session.close();
+		}
 	}
 
 	@Override
 	public PersistentListItemModel[] getItems(PersistentList list) {
-		throw new NotImplementedException();
+		List<PersistentListItemModel> result = null;
 
-		// Return sorted list of items
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			// Return the items in the specified list ordered by the primary order
+			Criteria search = session.createCriteria(PersistentListItemModel.class)
+					.add(Restrictions.eq("list_id", list.getId()))
+					.addOrder(Order.asc("primary_order"))
+					.addOrder(Order.asc("secondary_order"))
+					.addOrder(Order.asc("tertiary_order"));
+
+			result = new ArrayList<PersistentListItemModel>(search.list());
+		} catch (Exception ex) {
+			throw new PersistentListException("An exception occurred while attempting to get the list items.", ex);
+		} finally {
+			session.close();
+		}
+
+		if (result == null) {
+			return new PersistentListItemModel[0];
+		} else {
+			return result.toArray(new PersistentListItemModel[0]);
+		}
 	}
 }
 

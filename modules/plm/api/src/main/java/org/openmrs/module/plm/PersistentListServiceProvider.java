@@ -1,9 +1,9 @@
 package org.openmrs.module.plm;
 
-import java.util.Collection;
+import org.openmrs.module.plm.model.PersistentListModel;
 
 public interface PersistentListServiceProvider {
-	Collection<PersistentList> getLists();
-	void addList(PersistentList list);
+	PersistentListModel[] getLists();
+	void addList(PersistentListModel list);
 	void removeList(String key);
 }

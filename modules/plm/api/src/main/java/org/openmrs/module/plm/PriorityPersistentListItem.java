@@ -16,8 +16,8 @@ public class PriorityPersistentListItem extends PersistentListItem {
 	public PriorityPersistentListItem(PersistentListItemModel model) {
 		super(model);
 
-		this.setPriority(model.getPrimaryOrder());
-		this.setOrder(model.getSecondaryOrder());
+		this.setPriority(model.getSecondaryOrder());
+		this.setOrder(model.getTertiaryOrder());
 	}
 
 	public PriorityPersistentListItem(String key) {
@@ -37,10 +37,6 @@ public class PriorityPersistentListItem extends PersistentListItem {
 
 		this.priority = priority;
 		this.order = order;
-	}
-
-	public PriorityPersistentListItem(String key, int priority, Integer order) {
-
 	}
 
 	public int getPriority() {

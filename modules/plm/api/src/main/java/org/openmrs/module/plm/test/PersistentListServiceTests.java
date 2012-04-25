@@ -13,8 +13,9 @@ public class PersistentListServiceTests {
 
 	@Before
 	public void before() {
-		provider = new TestServiceProviderPersistent();
+		provider = new TestPersistentServiceProvider();
 		service = new PersistentListServiceImpl(provider);
+		service.onStartup();
 	}
 
 	@Test

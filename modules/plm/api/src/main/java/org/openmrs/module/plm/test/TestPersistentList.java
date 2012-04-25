@@ -4,10 +4,11 @@ import org.apache.commons.lang.NotImplementedException;
 import org.openmrs.module.plm.PersistentList;
 import org.openmrs.module.plm.PersistentListItem;
 import org.openmrs.module.plm.PersistentListProvider;
+import org.openmrs.module.plm.model.PersistentListModel;
 
 public class TestPersistentList implements PersistentList {
 	public TestPersistentList(String key) {
-		this(key, null, 0);
+		this(key, new TestPersistentListProvider(), 0);
 	}
 
 	public TestPersistentList(String key, PersistentListProvider provider) {
@@ -22,6 +23,7 @@ public class TestPersistentList implements PersistentList {
 
 	Integer id;
 	String key;
+	String description;
 	PersistentListProvider provider;
 	int count;
 
@@ -35,18 +37,36 @@ public class TestPersistentList implements PersistentList {
 		return id;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public PersistentListProvider getProvider() {
-		return provider;  //To change body of implemented methods use File | Settings | File Templates.
+		return provider;
+	}
+
+	@Override
+	public void setProvider(PersistentListProvider provider) {
+		this.provider = provider;
 	}
 
 	@Override
 	public int getCount() {
-		return count;  //To change body of implemented methods use File | Settings | File Templates.
+		return count;
 	}
 
 	@Override
-	public void add(PersistentListItem... item) {
+	public void load(PersistentListModel model) {
+		throw new NotImplementedException();
+	}
+
+	@Override
+	public void add(PersistentListItem... items) {
 		throw new NotImplementedException();
 	}
 

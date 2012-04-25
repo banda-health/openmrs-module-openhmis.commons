@@ -3,13 +3,12 @@ package org.openmrs.module.plm;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openhmis.common.Initializable;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.plm.model.PersistentListItemModel;
+import org.openmrs.module.plm.model.PersistentListModel;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
 
 /**
  * Base type for Persistent List Manager lists.  Provides a thread-safe list implementation base that caches the items
@@ -24,9 +23,13 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 
 	protected Integer id;
 	protected String key;
+	protected String description;
 	protected PersistentListProvider provider;
 	protected T cachedItems;
 	protected ArrayList<String> itemKeys = new ArrayList<String>();
+
+	protected PersistentListBase() {
+	}
 
 	protected PersistentListBase(String key, PersistentListProvider provider) {
 		this(null, key, provider);
@@ -68,8 +71,25 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	}
 
 	@Override
+	public void load(PersistentListModel model) {
+		this.id = model.getListId();
+		this.key = model.getKey();
+		this.description = model.getDescription();
+	}
+
+	@Override
 	public String getKey() {
 		return key;
+	}
+
+	@Override
+	public String getDescription() {
+		return description;
+	}
+
+	@Override
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override
@@ -84,6 +104,11 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	@Override
 	public PersistentListProvider getProvider() {
 		return provider;
+	}
+
+	@Override
+	public void setProvider(PersistentListProvider provider) {
+		this.provider = provider;
 	}
 
 	@Override
@@ -170,12 +195,12 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 
 	protected PersistentListItem createItem(PersistentListItemModel model) {
 		return new PersistentListItem(model.getItemId(), model.getItemKey(),
-				model.getCreatedBy(), model.getCreatedOn());
+				model.getCreator(), model.getCreatedOn());
 	}
 
 	protected PersistentListItemModel createItemModel(PersistentListItem item) {
-		return new PersistentListItemModel(this, item.getKey(), getItemIndex(item),
-				item.getCreatedBy());
+		return new PersistentListItemModel(this, item.getKey(), getItemIndex(item), null, null,
+				item.getCreator(), item.getCreatedOn());
 	}
 }
 
