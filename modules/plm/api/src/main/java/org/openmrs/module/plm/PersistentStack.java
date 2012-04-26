@@ -2,6 +2,9 @@ package org.openmrs.module.plm;
 
 import java.util.*;
 
+/**
+ * A persistent list which is implemented as a stack (first in, last out) data structure.
+ */
 public class PersistentStack extends PersistentListBase<Stack<PersistentListItem>> {
 	public PersistentStack(String key, PersistentListProvider provider) {
 		super(key, provider);
@@ -22,7 +25,11 @@ public class PersistentStack extends PersistentListBase<Stack<PersistentListItem
 
 	@Override
 	public PersistentListItem getNextAndRemove() {
-		return cachedItems.pop();
+		if (cachedItems.size() == 0) {
+			return null;
+		} else {
+			return cachedItems.pop();
+		}
 	}
 
 	@Override

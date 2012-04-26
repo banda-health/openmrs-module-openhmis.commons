@@ -4,6 +4,9 @@ import org.openmrs.module.plm.model.PersistentListModel;
 
 import java.util.LinkedList;
 
+/**
+ * A persistent list which is implemented as a queue (first in, first out) data structure.
+ */
 public class PersistentQueue extends PersistentListBase<LinkedList<PersistentListItem>> {
 	public PersistentQueue(String key, PersistentListProvider provider) {
 		super(key, provider);
@@ -20,7 +23,11 @@ public class PersistentQueue extends PersistentListBase<LinkedList<PersistentLis
 
 	@Override
 	public PersistentListItem getNextAndRemove() {
-		return cachedItems.pop();
+		if (cachedItems.size() == 0) {
+			return null;
+		} else {
+			return cachedItems.pop();
+		}
 	}
 
 	@Override

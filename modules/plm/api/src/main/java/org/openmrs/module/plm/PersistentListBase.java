@@ -112,7 +112,7 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	}
 
 	@Override
-	public int getCount() {
+	public int getSize() {
 		return cachedItems.size();
 	}
 

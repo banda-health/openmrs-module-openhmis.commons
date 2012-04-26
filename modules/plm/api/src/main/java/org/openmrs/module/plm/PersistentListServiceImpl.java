@@ -78,8 +78,8 @@ public class PersistentListServiceImpl implements PersistentListService {
     }
 
     @Override
-    public Collection<PersistentList> getLists() {
-	    return new ArrayList<PersistentList>(lists.values());
+    public PersistentList[] getLists() {
+	    return lists.values().toArray(new PersistentList[0]);
     }
 
     @Override

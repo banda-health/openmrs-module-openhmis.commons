@@ -3,7 +3,7 @@ package org.openmrs.module.plm;
 import org.openmrs.module.plm.model.PersistentListItemModel;
 
 /**
- *  Represents types that handle loading and saving list items.
+ *  Represents classes that handle loading and saving list items.
  */
 public interface PersistentListProvider {
 	/**

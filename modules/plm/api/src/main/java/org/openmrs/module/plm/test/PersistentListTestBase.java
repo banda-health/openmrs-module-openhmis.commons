@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.junit.matchers.JUnitMatchers.hasItems;
 
 import org.openmrs.module.plm.PersistentList;
@@ -32,21 +30,21 @@ public abstract class PersistentListTestBase {
 
 	@Test
 	public void getCountShouldReturnNumberOfItems() {
-		Assert.assertEquals(0, list.getCount());
+		Assert.assertEquals(0, list.getSize());
 
 		list.add(new PersistentListItem("1", null));
-		Assert.assertEquals(1, list.getCount());
+		Assert.assertEquals(1, list.getSize());
 
 		list.add(new PersistentListItem("2", null));
-		Assert.assertEquals(2, list.getCount());
+		Assert.assertEquals(2, list.getSize());
 
 		list.add(new PersistentListItem("3", null));
-		Assert.assertEquals(3, list.getCount());
+		Assert.assertEquals(3, list.getSize());
 	}
 
 	@Test
 	public void shouldReturnEmptyArrayWhenNoItems() {
-		Assert.assertEquals(0, list.getCount());
+		Assert.assertEquals(0, list.getSize());
 
 		PersistentListItem[] items =  list.getItems();
 		Assert.assertNotNull(items);
@@ -58,7 +56,7 @@ public abstract class PersistentListTestBase {
 		PersistentListItem item = new PersistentListItem("1", null);
 		list.add(item);
 
-		Assert.assertEquals(1, list.getCount());
+		Assert.assertEquals(1, list.getSize());
 
 		PersistentListItem[] items = list.getItems();
 		Assert.assertNotNull(items);
@@ -72,7 +70,7 @@ public abstract class PersistentListTestBase {
 		PersistentListItem item2 = new PersistentListItem("2", null);
 		list.add(item, item2);
 
-		Assert.assertEquals(2, list.getCount());
+		Assert.assertEquals(2, list.getSize());
 
 		PersistentListItem[] items = list.getItems();
 		Assert.assertNotNull(items);
@@ -100,7 +98,7 @@ public abstract class PersistentListTestBase {
 
 		list.add(item1, item2, item3);
 
-		Assert.assertEquals(3, list.getCount());
+		Assert.assertEquals(3, list.getSize());
 
 		PersistentListItem[] items = list.getItems();
 		Assert.assertNotNull(items);
@@ -124,7 +122,7 @@ public abstract class PersistentListTestBase {
 
 		boolean result = list.remove(item);
 
-		Assert.assertEquals(0, list.getCount());
+		Assert.assertEquals(0, list.getSize());
 		Assert.assertEquals(true, result);
 	}
 
@@ -132,7 +130,7 @@ public abstract class PersistentListTestBase {
 	public void shouldReturnFalseIfItemNotRemoved() {
 		boolean result = list.remove(new PersistentListItem("1", null));
 
-		Assert.assertEquals(0, list.getCount());
+		Assert.assertEquals(0, list.getSize());
 		Assert.assertEquals(false, result);
 	}
 
@@ -143,17 +141,17 @@ public abstract class PersistentListTestBase {
 		list.add(item);
 		list.add(item2);
 
-		Assert.assertEquals(2, list.getCount());
+		Assert.assertEquals(2, list.getSize());
 
 		list.clear();
 
-		Assert.assertEquals(0, list.getCount());
+		Assert.assertEquals(0, list.getSize());
 	}
 
 	@Test
 	public void shouldNotThrowExceptionWhenEmptyListIsCleared() {
 		list.clear();
-		Assert.assertEquals(0, list.getCount());
+		Assert.assertEquals(0, list.getSize());
 	}
 
 	@Test
@@ -161,11 +159,11 @@ public abstract class PersistentListTestBase {
 		PersistentListItem item = new PersistentListItem("1", null);
 		list.add(item);
 
-		assertEquals(1, list.getCount());
+		assertEquals(1, list.getSize());
 		item = list.getNext();
 
 		assertNotNull(item);
-		assertEquals(1, list.getCount());
+		assertEquals(1, list.getSize());
 	}
 
 	@Test
@@ -180,12 +178,19 @@ public abstract class PersistentListTestBase {
 		PersistentListItem item = new PersistentListItem("1", null);
 		list.add(item);
 
-		assertEquals(1, list.getCount());
+		assertEquals(1, list.getSize());
 
 		item = list.getNextAndRemove();
 
 		assertNotNull(item);
-		assertEquals(0, list.getCount());
+		assertEquals(0, list.getSize());
+	}
+
+	@Test
+	public void getNextAndRemoveShouldReturnNullWhenEmpty() {
+		PersistentListItem item = list.getNextAndRemove();
+
+		assertNull(item);
 	}
 }
 

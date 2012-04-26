@@ -56,7 +56,7 @@ public class TestPersistentList implements PersistentList {
 	}
 
 	@Override
-	public int getCount() {
+	public int getSize() {
 		return count;
 	}
 

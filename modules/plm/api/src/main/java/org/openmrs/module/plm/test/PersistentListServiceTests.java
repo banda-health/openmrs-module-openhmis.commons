@@ -1,11 +1,15 @@
 package org.openmrs.module.plm.test;
 
+import org.apache.solr.client.solrj.response.SpellCheckResponse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.matchers.JUnitMatchers.hasItems;
 import org.openmrs.module.plm.*;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PersistentListServiceTests {
 	protected PersistentListServiceProvider provider;
@@ -23,7 +27,7 @@ public class PersistentListServiceTests {
 		PersistentList list = new TestPersistentList("test");
 
 		Assert.assertNotNull(service.getLists());
-		Assert.assertEquals(0, service.getLists().size());
+		Assert.assertEquals(0, service.getLists().length);
 	}
 
 	@Test
@@ -33,11 +37,11 @@ public class PersistentListServiceTests {
 
 		PersistentList search = service.getList(key);
 		Assert.assertNull(search);
-		Assert.assertEquals(0, service.getLists().size());
+		Assert.assertEquals(0, service.getLists().length);
 
 		service.ensureList(list);
 
-		Assert.assertEquals(1, service.getLists().size());
+		Assert.assertEquals(1, service.getLists().length);
 		Assert.assertEquals(list, service.getList(key));
 	}
 
@@ -48,18 +52,18 @@ public class PersistentListServiceTests {
 
 		// Add the list to the service
 		service.ensureList(list);
-		Assert.assertEquals(1, service.getLists().size());
+		Assert.assertEquals(1, service.getLists().length);
 		Assert.assertEquals(list, service.getList(key));
 
 		// Re-add the list to the service, no change should be made
 		service.ensureList(list);
-		Assert.assertEquals(1, service.getLists().size());
+		Assert.assertEquals(1, service.getLists().length);
 		Assert.assertEquals(list, service.getList(key));
 
 		// Add a new list with a different key, no change should be made
 		PersistentList list2 = new TestPersistentList(key);
 		service.ensureList(list2);
-		Assert.assertEquals(1, service.getLists().size());
+		Assert.assertEquals(1, service.getLists().length);
 		Assert.assertEquals(list, service.getList(key));
 	}
 
@@ -70,12 +74,12 @@ public class PersistentListServiceTests {
 
 		// Add the list to the service
 		service.ensureList(list);
-		Assert.assertEquals(1, service.getLists().size());
+		Assert.assertEquals(1, service.getLists().length);
 		Assert.assertEquals(list, service.getList(key));
 
 		// Now remove that list
 		service.removeList(list.getKey());
-		Assert.assertEquals(0, service.getLists().size());
+		Assert.assertEquals(0, service.getLists().length);
 		Assert.assertNull(service.getList(key));
 	}
 
@@ -98,10 +102,10 @@ public class PersistentListServiceTests {
 		service.ensureList(list2);
 		service.ensureList(list3);
 
-		Collection<PersistentList> lists = service.getLists();
+		PersistentList[] lists = service.getLists();
 
 		Assert.assertNotNull(lists);
-		Assert.assertEquals(3, lists.size());
+		Assert.assertEquals(3, lists.length);
 		Assert.assertEquals(list, service.getList(key));
 		Assert.assertEquals(list2, service.getList(key2));
 		Assert.assertEquals(list3, service.getList(key3));
@@ -120,10 +124,10 @@ public class PersistentListServiceTests {
 		service.ensureList(list);
 		service.ensureList(list2);
 
-		Collection<PersistentList> lists = service.getLists();
+		PersistentList[] lists = service.getLists();
 
 		Assert.assertNotNull(lists);
-		Assert.assertEquals(2, lists.size());
+		Assert.assertEquals(2, lists.length);
 		Assert.assertEquals(list, service.getList(key));
 		Assert.assertEquals(list2, service.getList(key2));
 
@@ -131,8 +135,9 @@ public class PersistentListServiceTests {
 		service.ensureList(list3);
 
 		// The list should not be in the list previously returned
-		Assert.assertEquals(2, lists.size());
-		Assert.assertFalse(lists.contains(list3));
+		Assert.assertEquals(2, lists.length);
+		List<PersistentList> listCollection = Arrays.asList(lists);
+		Assert.assertFalse(listCollection.contains(list3));
 	}
 
 	@Test
@@ -152,7 +157,7 @@ public class PersistentListServiceTests {
 
 		// Add the list to the service
 		service.ensureList(list);
-		Assert.assertEquals(1, service.getLists().size());
+		Assert.assertEquals(1, service.getLists().length);
 		Assert.assertNull(service.getList("other"));
 	}
 
