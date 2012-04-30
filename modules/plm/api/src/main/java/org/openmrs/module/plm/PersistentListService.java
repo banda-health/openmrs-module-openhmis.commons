@@ -10,9 +10,23 @@ import java.util.Collection;
 public interface PersistentListService extends OpenmrsService {
 	/**
 	 * Checks that the specified list exists and if it does not, creates it.
-	 * @param list The list to check.
+	 * @param listClass The list type to create.
+	 * @param key The list key.
+	 * @param description An optional description of the list purpose.
+	 * @param <T> A type that implements the {@link PersistentList} interface.
+	 * @return The existing or newly created {@link PersistentList}.
 	 */
-	void ensureList(PersistentList list);
+	<T extends PersistentList> PersistentList ensureList(Class<T> listClass, String key, String description);
+
+	/**
+	 * Creates a new list of the specified type with the specified key.
+	 * @param listClass The list type to create.
+	 * @param key The list key.
+	 * @param description An optional description of the list purpose.
+	 * @param <T> A type that implements the {@link PersistentList} interface.
+	 * @return The newly created {@link PersistentList}.
+	 */
+	<T extends PersistentList> PersistentList createList(Class<T> listClass, String key, String description);
 
 	/**
 	 * Removes the list and associated items.

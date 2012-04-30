@@ -24,8 +24,8 @@ public class DatabaseListProvider implements PersistentListProvider {
 	private Log log = LogFactory.getLog(PersistentListServiceImpl.class);
 	private SessionFactory sessionFactory;
 
-	public DatabaseListProvider(SessionFactory factory) {
-		sessionFactory = factory;
+	public DatabaseListProvider(SessionFactory sessionFactory) {
+		sessionFactory = sessionFactory;
 	}
 
 	@Override

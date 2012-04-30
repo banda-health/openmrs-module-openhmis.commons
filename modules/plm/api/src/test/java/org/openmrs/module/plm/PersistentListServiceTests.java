@@ -1,17 +1,13 @@
-package org.openmrs.module.plm.test;
+package org.openmrs.module.plm;
 
-import org.apache.solr.client.solrj.response.SpellCheckResponse;
+import org.apache.commons.lang.NotImplementedException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.matchers.JUnitMatchers.hasItems;
-import org.openmrs.module.plm.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 
-public class PersistentListServiceTests {
+public class PersistentListServiceTests extends BaseModuleContextSensitiveTest {
 	protected PersistentListServiceProvider provider;
 	protected PersistentListService service;
 
@@ -24,8 +20,6 @@ public class PersistentListServiceTests {
 
 	@Test
 	public void shouldReturnEmptyListWhenNoListsDefined() {
-		PersistentList list = new TestPersistentList("test");
-
 		Assert.assertNotNull(service.getLists());
 		Assert.assertEquals(0, service.getLists().length);
 	}
@@ -33,49 +27,53 @@ public class PersistentListServiceTests {
 	@Test
 	public void shouldAddNewListWhenNotExisting() {
 		String key = "test";
-		PersistentList list = new TestPersistentList(key);
+		String desc = "desc";
 
 		PersistentList search = service.getList(key);
 		Assert.assertNull(search);
 		Assert.assertEquals(0, service.getLists().length);
 
-		service.ensureList(list);
+		service.ensureList(TestPersistentList.class, key, desc);
 
-		Assert.assertEquals(1, service.getLists().length);
-		Assert.assertEquals(list, service.getList(key));
+		assertList(TestPersistentList.class, key, desc);
 	}
 
 	@Test
 	public void shouldNotAddOrUpdateNewListWhenExistingKey() {
 		String key = "test";
-		PersistentList list = new TestPersistentList(key);
+		String desc = "desc";
 
 		// Add the list to the service
-		service.ensureList(list);
+		service.ensureList(TestPersistentList.class, key, desc);
 		Assert.assertEquals(1, service.getLists().length);
-		Assert.assertEquals(list, service.getList(key));
+		PersistentList list = assertList(TestPersistentList.class, key, desc);
 
 		// Re-add the list to the service, no change should be made
-		service.ensureList(list);
+		service.ensureList(TestPersistentList.class, key, "something else");
 		Assert.assertEquals(1, service.getLists().length);
 		Assert.assertEquals(list, service.getList(key));
+		Assert.assertEquals(desc, service.getList(key).getDescription());
+	}
 
-		// Add a new list with a different key, no change should be made
-		PersistentList list2 = new TestPersistentList(key);
-		service.ensureList(list2);
-		Assert.assertEquals(1, service.getLists().length);
-		Assert.assertEquals(list, service.getList(key));
+	@Test
+	public void shouldAddNewListWhenCreateList() {
+		String key = "test";
+		String desc = "desc";
+
+		Assert.assertEquals(0, service.getLists().length);
+
+		service.createList(TestPersistentList.class, key, desc);
+
+		assertList(TestPersistentList.class, key, desc);
 	}
 
 	@Test
 	public void shouldRemoveListWhenExisting() {
 		String key = "test";
-		PersistentList list = new TestPersistentList(key);
 
 		// Add the list to the service
-		service.ensureList(list);
-		Assert.assertEquals(1, service.getLists().length);
-		Assert.assertEquals(list, service.getList(key));
+		service.ensureList(TestPersistentList.class, key, null);
+		PersistentList list = assertList(TestPersistentList.class, key, null);
 
 		// Now remove that list
 		service.removeList(list.getKey());
@@ -93,22 +91,16 @@ public class PersistentListServiceTests {
 		String key = "test";
 		String key2 = "test2";
 		String key3 = "test3";
-		PersistentList list = new TestPersistentList(key);
-		PersistentList list2 = new TestPersistentList(key2);
-		PersistentList list3 = new TestPersistentList(key3);
 
 		// Add the lists to the service
-		service.ensureList(list);
-		service.ensureList(list2);
-		service.ensureList(list3);
+		service.ensureList(TestPersistentList.class, key, null);
+		service.ensureList(TestPersistentList.class, key2, null);
+		service.ensureList(TestPersistentList.class, key3, null);
 
 		PersistentList[] lists = service.getLists();
 
 		Assert.assertNotNull(lists);
 		Assert.assertEquals(3, lists.length);
-		Assert.assertEquals(list, service.getList(key));
-		Assert.assertEquals(list2, service.getList(key2));
-		Assert.assertEquals(list3, service.getList(key3));
 	}
 
 	@Test
@@ -116,63 +108,46 @@ public class PersistentListServiceTests {
 		String key = "test";
 		String key2 = "test2";
 		String key3 = "test3";
-		PersistentList list = new TestPersistentList(key);
-		PersistentList list2 = new TestPersistentList(key2);
-		PersistentList list3 = new TestPersistentList(key3);
 
 		// Add the lists to the service
-		service.ensureList(list);
-		service.ensureList(list2);
+		service.ensureList(TestPersistentList.class, key, null);
+		service.ensureList(TestPersistentList.class, key2, null);
 
 		PersistentList[] lists = service.getLists();
 
 		Assert.assertNotNull(lists);
 		Assert.assertEquals(2, lists.length);
-		Assert.assertEquals(list, service.getList(key));
-		Assert.assertEquals(list2, service.getList(key2));
 
 		// Now add another list to the service
-		service.ensureList(list3);
+		service.ensureList(TestPersistentList.class, key3, null);
 
 		// The list should not be in the list previously returned
 		Assert.assertEquals(2, lists.length);
-		List<PersistentList> listCollection = Arrays.asList(lists);
-		Assert.assertFalse(listCollection.contains(list3));
 	}
 
 	@Test
 	public void shouldReturnListByKey() {
 		String key = "test";
-		PersistentList list = new TestPersistentList(key);
 
 		// Add the list to the service
-		service.ensureList(list);
-		Assert.assertEquals(list, service.getList(key));
+		service.ensureList(TestPersistentList.class, key, null);
+		assertList(TestPersistentList.class, key, null);
 	}
 
 	@Test
 	public void shouldReturnNullForUndefinedKeys() {
 		String key = "test";
-		PersistentList list = new TestPersistentList(key);
 
 		// Add the list to the service
-		service.ensureList(list);
+		service.ensureList(TestPersistentList.class, key, null);
 		Assert.assertEquals(1, service.getLists().length);
 		Assert.assertNull(service.getList("other"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void throwIllegalArgumentExceptionInEnsureListWithNullKey() {
-		PersistentList list = new TestPersistentList(null);
-
 		// This should throw
-		service.ensureList(list);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void throwIllegalArgumentExceptionInEnsureListWithNullList() {
-		// This should throw
-		service.ensureList(null);
+		service.ensureList(TestPersistentList.class, null, null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -189,7 +164,17 @@ public class PersistentListServiceTests {
 
 	@Test
 	public void shouldLoadListsDuringStartup() {
+		throw new NotImplementedException();
+	}
 
+	private PersistentList assertList(Class cls, String key, String desc) {
+		PersistentList list = service.getList(key);
+		Assert.assertNotNull(list);
+		Assert.assertEquals(cls, list.getClass());
+		Assert.assertEquals(key, list.getKey());
+		Assert.assertEquals(desc, list.getDescription());
+
+		return list;
 	}
 }
 

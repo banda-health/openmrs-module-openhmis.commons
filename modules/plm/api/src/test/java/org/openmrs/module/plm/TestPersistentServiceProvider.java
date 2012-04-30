@@ -1,10 +1,7 @@
-package org.openmrs.module.plm.test;
+package org.openmrs.module.plm;
 
-import org.openmrs.module.plm.PersistentList;
 import org.openmrs.module.plm.PersistentListServiceProvider;
 import org.openmrs.module.plm.model.PersistentListModel;
-
-import java.util.Collection;
 
 public class TestPersistentServiceProvider implements PersistentListServiceProvider {
 	@Override

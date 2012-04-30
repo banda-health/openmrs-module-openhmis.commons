@@ -1,10 +1,6 @@
-package org.openmrs.module.plm.test;
+package org.openmrs.module.plm;
 
 import org.junit.Test;
-import org.openmrs.module.plm.PersistentList;
-import org.openmrs.module.plm.PersistentListItem;
-import org.openmrs.module.plm.PersistentListProvider;
-import org.openmrs.module.plm.PersistentStack;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

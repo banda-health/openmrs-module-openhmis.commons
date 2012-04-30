@@ -1,17 +1,11 @@
-package org.openmrs.module.plm.test;
+package org.openmrs.module.plm;
 
 import junit.framework.Assert;
-import org.apache.commons.lang.NotImplementedException;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.hasItems;
-
-import org.openmrs.module.plm.PersistentList;
-import org.openmrs.module.plm.PersistentListException;
-import org.openmrs.module.plm.PersistentListItem;
-import org.openmrs.module.plm.PersistentListProvider;
 
 import java.util.Arrays;
 import java.util.List;

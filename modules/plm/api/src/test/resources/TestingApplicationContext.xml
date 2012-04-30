@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jee="http://www.springframework.org/schema/jee"
-    xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
   		    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
   		    http://www.springframework.org/schema/context
   		    http://www.springframework.org/schema/context/spring-context-3.0.xsd
@@ -19,12 +19,10 @@
   		    http://www.springframework.org/schema/util
   		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-	<!-- Add the database service provider for the list service -->
-    <bean id="plmServiceProvider" class="org.openmrs.module.plm.db.DatabaseServiceProvider">
-        <constructor-arg name="sessionFactory" ref="sessionFactory"  />
+    <!-- Add the test providers for the service and list providers-->
+    <bean id="plmServiceProvider" class="org.openmrs.module.plm.TestPersistentServiceProvider">
     </bean>
-    <bean id="plmListProvider" class="org.openmrs.module.plm.db.DatabaseListProvider">
-        <constructor-arg name="sessionFactory" ref="sessionFactory"  />
+    <bean id="plmListProvider" class="org.openmrs.module.plm.TestPersistentListProvider">
     </bean>
 
     <!-- Add the list service module which uses the service provider above -->

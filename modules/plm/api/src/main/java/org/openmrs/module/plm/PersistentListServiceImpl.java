@@ -31,46 +31,79 @@ public class PersistentListServiceImpl implements PersistentListService {
 	}
 
     @Override
-    public void ensureList(PersistentList list) {
-        if (list == null) {
-	        throw new IllegalArgumentException("The list to ensure must be defined.");
+    public <T extends PersistentList> PersistentList ensureList(Class<T> listClass, String key, String description) {
+        if (listClass == null) {
+	        throw new IllegalArgumentException("The list class must be defined.");
         }
-
-	    String key = list.getKey();
 	    if (StringUtils.isEmpty(key)) {
 		    throw new IllegalArgumentException("The list must have a key.");
 	    }
 
         //Check to see if plm has already been defined
-	    PersistentList temp = lists.get(key);
+	    PersistentList list = lists.get(key);
 
         //If not defined, synchronize and check again (double-check locking)
-        if (temp == null) {
+        if (list == null) {
 	        synchronized (syncLock){
-		        temp = lists.get(key);
-		        if (temp == null) {
+		        list = lists.get(key);
+		        if (list == null) {
 			        log.debug("Could not find the '" + key + "' list.  Creating a new list...");
 
-			        //  If still not found, create a new plm in db
-					createList(key, list);
-			        
-			        //  Add to map
-			        lists.put(key, list);
+			        createList(listClass, key, description);
 
 			        log.debug("The '" + key + "' list was created.");
 		        }
 	        }
         }
+
+	    return list;
     }
+
+	@Override
+	public <T extends PersistentList> PersistentList createList(Class<T> listClass, String key, String description) {
+		if (listClass == null) {
+			throw new IllegalArgumentException("The list class must be defined.");
+		}
+		if (StringUtils.isEmpty(key)) {
+			throw new IllegalArgumentException("The list must have a key.");
+		}
+
+		synchronized (syncLock) {
+			// Make sure no other list with the specified key exists
+			if (lists.containsKey(key)) {
+				throw new IllegalArgumentException("A list with the key '" + key + "' has already been added to this service.");
+			}
+
+			// Create list provider instance
+			PersistentListProvider listProvider = Context.getService(PersistentListProvider.class);
+
+			// Create list model
+			PersistentListModel model = new PersistentListModel(null, key, listProvider.getClass().getName(), listClass.getName(),
+					description, new Date());
+
+			// Persist the list model
+			provider.addList(model);
+
+			// Create list instance and load properties from model
+			PersistentList list = createList(model);
+
+			// Add the list to the service list and key caches
+			lists.put(list.getKey(), list);
+			lists.put(key, list);
+
+			return list;
+		}
+	}
 
     @Override
     public void removeList(String key) {
-        PersistentList temp = lists.get(key);
-	    if (temp != null) {
+        PersistentList list = lists.get(key);
+	    if (list != null) {
 		    log.debug("Deleting the " + key + "list...");
 
 		    synchronized (syncLock) {
-			    deleteList(temp);
+			    provider.removeList(key);
+			    lists.remove(key);
 		    }
 
 		    log.debug("The '" + key + "' list was deleted.");
@@ -132,18 +165,6 @@ public class PersistentListServiceImpl implements PersistentListService {
 		log.debug("Loaded " + lists.size() + " lists.");
 	}
 
-	private void createList(String key, PersistentList list) {
-		PersistentListModel model = createListModel(list);
-
-		provider.addList(model);
-		lists.put(list.getKey(), list);
-	}
-	
-	private void deleteList(PersistentList list) {
-		provider.removeList(list.getKey());
-		lists.remove(list.getKey());
-	}
-
 	protected PersistentList createList(PersistentListModel model) {
 		Class providerClass = null;
 		Class listClass = null;
@@ -185,11 +206,6 @@ public class PersistentListServiceImpl implements PersistentListService {
 
 		return list;
 
-	}
-
-	protected PersistentListModel createListModel(PersistentList list) {
-		return new PersistentListModel(list.getId(), list.getKey(), list.getProvider().getClass().getName(),
-				list.getClass().getName(), list.getDescription(), new Date());
 	}
 }
 

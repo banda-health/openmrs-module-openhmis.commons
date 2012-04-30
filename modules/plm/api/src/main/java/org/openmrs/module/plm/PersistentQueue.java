@@ -1,7 +1,5 @@
 package org.openmrs.module.plm;
 
-import org.openmrs.module.plm.model.PersistentListModel;
-
 import java.util.LinkedList;
 
 /**
