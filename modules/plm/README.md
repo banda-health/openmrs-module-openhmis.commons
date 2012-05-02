@@ -39,7 +39,8 @@ The general usage is as follows:
     PersistentListItem item1Again = list.getNextAndRemove();
 
 ##Events
-Not yet implmeneted
+*Not yet implmeneted*
+
     PersistentListService service = ...
     service.onListAdded(...);
     service.onListRemoved(...);
