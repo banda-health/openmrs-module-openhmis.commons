@@ -1,14 +1,16 @@
 package org.openmrs.module.plm;
 
-import com.sun.org.apache.xml.internal.security.Init;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openhmis.common.EventRaiser;
+import org.openhmis.common.FireableEventListenerList;
 import org.openhmis.common.Initializable;
 import org.openhmis.common.Utility;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.plm.model.PersistentListModel;
 
+import javax.swing.event.EventListenerList;
 import java.util.*;
 
 /*
@@ -19,15 +21,28 @@ import java.util.*;
 public class PersistentListServiceImpl implements PersistentListService {
 	private final Log log = LogFactory.getLog(PersistentListServiceImpl.class);
 	private final Object syncLock = new Object();
+	private final Object eventLock = new Object();
 
 	private Map<String, PersistentList> lists = new HashMap<String, PersistentList>();
-    private boolean isLoaded = false;
+	private FireableEventListenerList listenerList = new FireableEventListenerList();
+	private boolean isLoaded = false;
 
 	PersistentListServiceProvider provider;
 
 	public PersistentListServiceImpl(PersistentListServiceProvider provider) {
 		this.provider = provider;
 		this.isLoaded = true;
+	}
+
+	@Override
+	public void onStartup() {
+		// Load lists from the database
+		loadLists();
+	}
+
+	@Override
+	public void onShutdown() {
+
 	}
 
     @Override
@@ -68,6 +83,9 @@ public class PersistentListServiceImpl implements PersistentListService {
 			throw new IllegalArgumentException("The list must have a key.");
 		}
 
+		log.debug("Creating the '" + key + "' list...");
+
+		PersistentList list = null;
 		synchronized (syncLock) {
 			// Make sure no other list with the specified key exists
 			if (lists.containsKey(key)) {
@@ -85,14 +103,18 @@ public class PersistentListServiceImpl implements PersistentListService {
 			provider.addList(model);
 
 			// Create list instance and load properties from model
-			PersistentList list = createList(model);
+			list = createList(model);
 
 			// Add the list to the service list and key caches
 			lists.put(list.getKey(), list);
 			lists.put(key, list);
-
-			return list;
 		}
+
+		fireServiceEvent(new ListServiceEvent(this, list, ListServiceEvent.ServiceOperation.ADDED));
+
+		log.debug("The '" + key + "' was created.");
+
+		return list;
 	}
 
     @Override
@@ -105,6 +127,8 @@ public class PersistentListServiceImpl implements PersistentListService {
 			    provider.removeList(key);
 			    lists.remove(key);
 		    }
+
+		    fireServiceEvent(new ListServiceEvent(this, list, ListServiceEvent.ServiceOperation.REMOVED));
 
 		    log.debug("The '" + key + "' list was deleted.");
 	    }
@@ -127,16 +151,31 @@ public class PersistentListServiceImpl implements PersistentListService {
 	    return lists.get(key);
     }
 
-    @Override
-    public void onStartup() {
-        // Load lists from the database
-	    loadLists();
-    }
+	@Override
+	public void addEventListener(ListServiceEventListener listener) {
+		listenerList.add(ListServiceEventListener.class, listener);
+	}
 
-    @Override
-    public void onShutdown() {
+	@Override
+	public void removeEventListener(ListServiceEventListener listener) {
+		listenerList.remove(ListServiceEventListener.class, listener);
+	}
 
-    }
+	private void fireServiceEvent(final ListServiceEvent event) {
+		listenerList.fire(ListServiceEventListener.class, new EventRaiser<ListServiceEventListener>() {
+			@Override
+			public void fire(ListServiceEventListener listener) {
+				switch (event.getOperation()) {
+					case ADDED:
+						listener.listAdded(event);
+						break;
+					case REMOVED:
+						listener.listRemoved(event);
+						break;
+				}
+			}
+		});
+	}
 
 	private void loadLists() {
 		// Load lists from the database

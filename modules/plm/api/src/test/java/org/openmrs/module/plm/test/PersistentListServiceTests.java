@@ -1,6 +1,5 @@
 package org.openmrs.module.plm.test;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -165,7 +164,94 @@ public class PersistentListServiceTests extends BaseModuleContextSensitiveTest {
 
 	@Test
 	public void shouldLoadListsDuringStartup() {
-		throw new NotImplementedException();
+		Assert.fail("Not implemented");
+	}
+
+	@Test
+	public void shouldFireListAddedEvent() {
+		TestListServiceEventListener listener = new TestListServiceEventListener();
+		service.addEventListener(listener);
+
+		service.createList(TestPersistentList.class, "test", null);
+
+		Assert.assertEquals(1, listener.added);
+		Assert.assertEquals(0, listener.added);
+	}
+
+	@Test
+	public void shouldNotFireListAddedEventWhenAlreadyExists() {
+		// First, create list
+		service.createList(TestPersistentList.class, "test", null);
+
+		// Now attach the listener
+		TestListServiceEventListener listener = new TestListServiceEventListener();
+		service.addEventListener(listener);
+
+		// And attempt to add a list with the same key (this won't do anything)
+		service.ensureList(TestPersistentList.class, "test", null);
+
+		// No additions should have been fired
+		Assert.assertEquals(0, listener.added);
+		Assert.assertEquals(0, listener.added);
+	}
+
+	@Test
+	public void shouldReferenceCorrectServiceAndListWhenListAddedEvent() {
+		final String key = "test";
+
+		service.addEventListener(new ListServiceEventListenerAdapter() {
+			@Override
+			public void listAdded(ListServiceEvent event) {
+				Assert.assertEquals(ListServiceEvent.ServiceOperation.ADDED, event.getOperation());
+				Assert.assertEquals(service, event.getSource());
+				Assert.assertEquals(TestPersistentList.class, event.getList().getClass());
+				Assert.assertEquals(key, event.getList().getKey());
+			}
+		});
+
+		service.createList(TestPersistentList.class, key, null);
+	}
+
+	@Test
+	public void shouldFireListRemovedEvent() {
+		service.createList(TestPersistentList.class, "test", null);
+
+		TestListServiceEventListener listener = new TestListServiceEventListener();
+		service.addEventListener(listener);
+
+		service.removeList("test");
+
+		Assert.assertEquals(0, listener.added);
+		Assert.assertEquals(1, listener.added);
+	}
+
+	@Test
+	public void shouldNotFireListRemovedEventWhenListNotFound() {
+		TestListServiceEventListener listener = new TestListServiceEventListener();
+		service.addEventListener(listener);
+
+		service.removeList("test");
+
+		Assert.assertEquals(0, listener.added);
+		Assert.assertEquals(0, listener.added);
+	}
+
+	@Test
+	public void shouldReferenceCorrectServiceAndListWhenListRemovedEvent() {
+		final String key = "test";
+		service.createList(TestPersistentList.class, key, null);
+
+		service.addEventListener(new ListServiceEventListenerAdapter() {
+			@Override
+			public void listRemoved(ListServiceEvent event) {
+				Assert.assertEquals(ListServiceEvent.ServiceOperation.REMOVED, event.getOperation());
+				Assert.assertEquals(service, event.getSource());
+				Assert.assertEquals(TestPersistentList.class, event.getList().getClass());
+				Assert.assertEquals(key, event.getList().getKey());
+			}
+		});
+
+		service.removeList(key);
 	}
 
 	private PersistentList assertList(Class cls, String key, String desc) {
@@ -177,5 +263,19 @@ public class PersistentListServiceTests extends BaseModuleContextSensitiveTest {
 
 		return list;
 	}
-}
 
+	public class TestListServiceEventListener implements ListServiceEventListener {
+		public int added;
+		public int removed;
+
+		@Override
+		public void listAdded(ListServiceEvent event) {
+			added++;
+		}
+
+		@Override
+		public void listRemoved(ListServiceEvent event) {
+			removed++;
+		}
+	}
+}

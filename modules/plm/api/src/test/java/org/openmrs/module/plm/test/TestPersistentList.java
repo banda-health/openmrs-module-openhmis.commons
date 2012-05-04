@@ -62,11 +62,11 @@ public class TestPersistentList implements PersistentList {
 	}
 
 	@Override
-	public void addListEventListener(ListEventListener listener) {
+	public void addEventListener(ListEventListener listener) {
 	}
 
 	@Override
-	public void removeListEventListener(ListEventListener listener) {
+	public void removeEventListener(ListEventListener listener) {
 	}
 
 	@Override

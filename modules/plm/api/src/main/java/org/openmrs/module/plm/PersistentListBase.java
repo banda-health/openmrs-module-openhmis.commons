@@ -2,12 +2,14 @@ package org.openmrs.module.plm;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openhmis.common.EventRaiser;
+import org.openhmis.common.FireableEventListenerList;
 import org.openhmis.common.Initializable;
+import org.openhmis.common.Utility;
 import org.openmrs.module.plm.model.PersistentListItemModel;
 import org.openmrs.module.plm.model.PersistentListModel;
 
 import javax.swing.event.EventListenerList;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,7 +25,6 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	private Log log = LogFactory.getLog(PersistentListBase.class);
 
 	protected final Object syncLock = new Object();
-	protected final Object eventLock = new Object();
 
 	protected Integer id;
 	protected String key;
@@ -31,7 +32,7 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	protected PersistentListProvider provider;
 	protected T cachedItems;
 	protected List<String> itemKeys = new ArrayList<String>();
-	protected ArrayList<ListEventListener> listenerList = new ArrayList<ListEventListener>();
+	private FireableEventListenerList listenerList = new FireableEventListenerList();
 
 	protected PersistentListBase() {
 	}
@@ -153,7 +154,7 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 
 			// Fire the add events outside of the synchronized block
 			for (PersistentListItem listItem : items) {
-				onListEvent(new ListEvent(this, listItem, ListEvent.ListOperation.ADDED));
+				fireListEvent(new ListEvent(this, listItem, ListEvent.ListOperation.ADDED));
 			}
 		} catch (Exception ex) {
 			// If there was an exception while trying to add an item ensure that it is no longer in the cache.
@@ -184,7 +185,7 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 
 		// Fire the remove event outside of the synchronized block
 		if (wasRemovedFromProvider || wasRemovedFromCache) {
-			onListEvent(new ListEvent(this, item, ListEvent.ListOperation.REMOVED));
+			fireListEvent(new ListEvent(this, item, ListEvent.ListOperation.REMOVED));
 
 			return true;
 		} else {
@@ -200,7 +201,7 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 			itemKeys.clear();
 		}
 
-		onListEvent(new ListEvent(this, null, ListEvent.ListOperation.CLEARED));
+		fireListEvent(new ListEvent(this, null, ListEvent.ListOperation.CLEARED));
 	}
 
 	@Override
@@ -209,17 +210,13 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	}
 
 	@Override
-	public void addListEventListener(ListEventListener listener) {
-		synchronized (eventLock) {
-			listenerList.add(listener);
-		}
+	public void addEventListener(ListEventListener listener) {
+		listenerList.add(ListEventListener.class, listener);
 	}
 
 	@Override
-	public void removeListEventListener(ListEventListener listener) {
-		synchronized (eventLock) {
-			listenerList.remove(listener);
-		}
+	public void removeEventListener(ListEventListener listener) {
+		listenerList.remove(ListEventListener.class, listener);
 	}
 
 	protected PersistentListItem[] loadList() {
@@ -244,17 +241,10 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 				item.getCreator(), item.getCreatedOn());
 	}
 
-	protected void onListEvent(ListEvent event) {
-		// Copy the list to an array so that listeners can be added/removed on another thread without have to wait for
-		//  the event code to complete.
-		ListEventListener[] listeners = new ListEventListener[0];
-		synchronized (eventLock) {
-			listeners = listenerList.toArray(listeners);
-		}
-
-		// Fire the event for each listener
-		if (listeners != null && listeners.length > 0) {
-			for (ListEventListener listener : listeners) {
+	protected void fireListEvent(final ListEvent event) {
+		listenerList.fire(ListEventListener.class, new EventRaiser<ListEventListener>() {
+			@Override
+			public void fire(ListEventListener listener) {
 				switch (event.getOperation()) {
 					case ADDED:
 						listener.itemAdded(event);
@@ -267,7 +257,7 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 						break;
 				}
 			}
-		}
+		});
 	}
 }
 

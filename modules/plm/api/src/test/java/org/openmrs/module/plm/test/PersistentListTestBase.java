@@ -1,7 +1,6 @@
 package org.openmrs.module.plm.test;
 
 import junit.framework.Assert;
-import org.apache.commons.lang.NotImplementedException;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.plm.*;
@@ -192,7 +191,7 @@ public abstract class PersistentListTestBase {
 	@Test
 	public void shouldFireAddEvent() {
 		TestListEventListener listener = new TestListEventListener();
-		list.addListEventListener(listener);
+		list.addEventListener(listener);
 
 		PersistentListItem item = new PersistentListItem("key", null);
 		list.add(item);
@@ -205,7 +204,7 @@ public abstract class PersistentListTestBase {
 	@Test
 	public void shouldFireAddEventForEachItemAdded() {
 		TestListEventListener listener = new TestListEventListener();
-		list.addListEventListener(listener);
+		list.addEventListener(listener);
 
 		PersistentListItem item = new PersistentListItem("key", null);
 		PersistentListItem item2 = new PersistentListItem("key2", null);
@@ -221,7 +220,7 @@ public abstract class PersistentListTestBase {
 	public void shouldReferenceCorrectListAndItemWhenItemAddedEvent() {
 		final PersistentListItem item = new PersistentListItem("key", null);
 
-		list.addListEventListener(new ListEventListenerAdapter() {
+		list.addEventListener(new ListEventListenerAdapter() {
 			@Override
 			public void itemAdded(ListEvent event) {
 				Assert.assertEquals(list, event.getSource());
@@ -239,7 +238,7 @@ public abstract class PersistentListTestBase {
 		list.add(item);
 
 		TestListEventListener listener = new TestListEventListener();
-		list.addListEventListener(listener);
+		list.addEventListener(listener);
 
 		list.remove(item);
 
@@ -251,7 +250,7 @@ public abstract class PersistentListTestBase {
 	@Test
 	public void shouldNotFireRemoveEventForItemsNotInList() {
 		TestListEventListener listener = new TestListEventListener();
-		list.addListEventListener(listener);
+		list.addEventListener(listener);
 
 		PersistentListItem item = new PersistentListItem("key", null);
 		list.remove(item);
@@ -265,7 +264,7 @@ public abstract class PersistentListTestBase {
 	public void shouldReferenceCorrectListAndItemWhenItemRemovedEvent() {
 		final PersistentListItem item = new PersistentListItem("key", null);
 
-		list.addListEventListener(new ListEventListenerAdapter() {
+		list.addEventListener(new ListEventListenerAdapter() {
 			@Override
 			public void itemRemoved(ListEvent event) {
 				Assert.assertEquals(list, event.getSource());
@@ -280,7 +279,7 @@ public abstract class PersistentListTestBase {
 	@Test
 	public void shouldFireClearEvent() {
 		TestListEventListener listener = new TestListEventListener();
-		list.addListEventListener(listener);
+		list.addEventListener(listener);
 
 		list.clear();
 
@@ -291,7 +290,7 @@ public abstract class PersistentListTestBase {
 
 	@Test
 	public void shouldReferenceCorrectListAndNullItemWhenListClearedEvent() {
-		list.addListEventListener(new ListEventListenerAdapter() {
+		list.addEventListener(new ListEventListenerAdapter() {
 			@Override
 			public void listCleared(ListEvent event) {
 				Assert.assertEquals(list, event.getSource());
@@ -301,6 +300,28 @@ public abstract class PersistentListTestBase {
 		});
 
 		list.clear();
+	}
+
+	@Test
+	public void shouldNotFireEventsForRemovedListeners() {
+		TestListEventListener listener1 = new TestListEventListener();
+		TestListEventListener listener2 = new TestListEventListener();
+
+		list.addEventListener(listener1);
+		list.addEventListener(listener2);
+
+		PersistentListItem item = new PersistentListItem("key", null);
+		list.add(item);
+
+		Assert.assertEquals(1, listener1.added);
+		Assert.assertEquals(1, listener2.added);
+
+		list.removeEventListener(listener1);
+
+		list.remove(item);
+
+		Assert.assertEquals(0, listener1.removed);
+		Assert.assertEquals(1, listener2.removed);
 	}
 
 	private class TestListEventListener implements ListEventListener {
@@ -330,4 +351,3 @@ public abstract class PersistentListTestBase {
 		}
 	}
 }
-

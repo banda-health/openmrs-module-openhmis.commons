@@ -96,12 +96,12 @@ public interface PersistentList {
 	 * Adds a listener to the list events.
 	 * @param listener The listener instance to add.
 	 */
-	void addListEventListener(ListEventListener listener);
+	void addEventListener(ListEventListener listener);
 
 	/**
 	 * Removes a listener from the list events.
 	 * @param listener The listener instance to remove.
 	 */
-	void removeListEventListener(ListEventListener listener);
+	void removeEventListener(ListEventListener listener);
 }
 

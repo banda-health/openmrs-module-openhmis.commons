@@ -46,5 +46,9 @@ public interface PersistentListService extends OpenmrsService {
 	 * @return The list or <code>null</code> if the list cannot be found.
 	 */
     PersistentList getList(String key);
+
+	void addEventListener(ListServiceEventListener listener);
+
+	void removeEventListener(ListServiceEventListener listener);
 }
 

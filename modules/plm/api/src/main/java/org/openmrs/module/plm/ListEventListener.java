@@ -3,7 +3,7 @@ package org.openmrs.module.plm;
 import java.util.EventListener;
 
 /**
- * Represents types that can handle {@link ListEvent} events.
+ * Represents types that can handle {@link ListEvent}'s.
  */
 public interface ListEventListener extends EventListener {
 	/**

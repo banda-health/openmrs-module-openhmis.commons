@@ -7,7 +7,7 @@ import java.util.EventObject;
  */
 public class ListEvent extends EventObject {
 	/**
-	 * The list operation type.
+	 * The list operation types.
 	 */
 	public enum ListOperation {
 		/**
@@ -28,13 +28,12 @@ public class ListEvent extends EventObject {
 	private transient ListOperation operation;
 
 	/**
-	 * Constructs a prototypical Event.
+	 * Constructs the list event.
 	 *
 	 * @param list The {@link PersistentList} on which the event initially occurred.
 	 * @param item The {@link PersistentListItem} that the operation occurred upon.
 	 * @param operation The {@link ListOperation} that occurred.
-	 * @throws IllegalArgumentException if list is null.
-	 * @throws IllegalArgumentException if the item is null and the operation is not CLEARED.
+	 * @throws IllegalArgumentException if list is null or if the item is null and the operation is not CLEARED.
 	 */
 	public ListEvent(PersistentList list, PersistentListItem item, ListOperation operation) {
 		super(list);
