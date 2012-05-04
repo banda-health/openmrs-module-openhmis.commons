@@ -1,8 +1,10 @@
-package org.openmrs.module.plm;
+package org.openmrs.module.plm.test;
 
 import junit.framework.Assert;
+import org.apache.commons.lang.NotImplementedException;
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.module.plm.*;
 
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.hasItems;
@@ -185,6 +187,147 @@ public abstract class PersistentListTestBase {
 		PersistentListItem item = list.getNextAndRemove();
 
 		assertNull(item);
+	}
+
+	@Test
+	public void shouldFireAddEvent() {
+		TestListEventListener listener = new TestListEventListener();
+		list.addListEventListener(listener);
+
+		PersistentListItem item = new PersistentListItem("key", null);
+		list.add(item);
+
+		Assert.assertEquals(1, listener.added);
+		Assert.assertEquals(0, listener.removed);
+		Assert.assertEquals(0, listener.cleared);
+	}
+
+	@Test
+	public void shouldFireAddEventForEachItemAdded() {
+		TestListEventListener listener = new TestListEventListener();
+		list.addListEventListener(listener);
+
+		PersistentListItem item = new PersistentListItem("key", null);
+		PersistentListItem item2 = new PersistentListItem("key2", null);
+		PersistentListItem item3 = new PersistentListItem("key3", null);
+		list.add(item, item2, item3);
+
+		Assert.assertEquals(3, listener.added);
+		Assert.assertEquals(0, listener.removed);
+		Assert.assertEquals(0, listener.cleared);
+	}
+
+	@Test
+	public void shouldReferenceCorrectListAndItemWhenItemAddedEvent() {
+		final PersistentListItem item = new PersistentListItem("key", null);
+
+		list.addListEventListener(new ListEventListenerAdapter() {
+			@Override
+			public void itemAdded(ListEvent event) {
+				Assert.assertEquals(list, event.getSource());
+				Assert.assertEquals(item, event.getItem());
+				Assert.assertEquals(ListEvent.ListOperation.ADDED, event.getOperation());
+			}
+		});
+
+		list.add(item);
+	}
+
+	@Test
+	public void shouldFireRemoveEvent() {
+		PersistentListItem item = new PersistentListItem("key", null);
+		list.add(item);
+
+		TestListEventListener listener = new TestListEventListener();
+		list.addListEventListener(listener);
+
+		list.remove(item);
+
+		Assert.assertEquals(0, listener.added);
+		Assert.assertEquals(1, listener.removed);
+		Assert.assertEquals(0, listener.cleared);
+	}
+
+	@Test
+	public void shouldNotFireRemoveEventForItemsNotInList() {
+		TestListEventListener listener = new TestListEventListener();
+		list.addListEventListener(listener);
+
+		PersistentListItem item = new PersistentListItem("key", null);
+		list.remove(item);
+
+		Assert.assertEquals(0, listener.added);
+		Assert.assertEquals(0, listener.removed);
+		Assert.assertEquals(0, listener.cleared);
+	}
+
+	@Test
+	public void shouldReferenceCorrectListAndItemWhenItemRemovedEvent() {
+		final PersistentListItem item = new PersistentListItem("key", null);
+
+		list.addListEventListener(new ListEventListenerAdapter() {
+			@Override
+			public void itemRemoved(ListEvent event) {
+				Assert.assertEquals(list, event.getSource());
+				Assert.assertEquals(item, event.getItem());
+				Assert.assertEquals(ListEvent.ListOperation.REMOVED, event.getOperation());
+			}
+		});
+
+		list.remove(item);
+	}
+
+	@Test
+	public void shouldFireClearEvent() {
+		TestListEventListener listener = new TestListEventListener();
+		list.addListEventListener(listener);
+
+		list.clear();
+
+		Assert.assertEquals(0, listener.added);
+		Assert.assertEquals(0, listener.removed);
+		Assert.assertEquals(1, listener.cleared);
+	}
+
+	@Test
+	public void shouldReferenceCorrectListAndNullItemWhenListClearedEvent() {
+		list.addListEventListener(new ListEventListenerAdapter() {
+			@Override
+			public void listCleared(ListEvent event) {
+				Assert.assertEquals(list, event.getSource());
+				Assert.assertNull(event.getItem());
+				Assert.assertEquals(ListEvent.ListOperation.CLEARED, event.getOperation());
+			}
+		});
+
+		list.clear();
+	}
+
+	private class TestListEventListener implements ListEventListener {
+		public int added;
+		public int removed;
+		public int cleared;
+
+		public void reset() {
+			added = 0;
+			removed = 0;
+			cleared = 0;
+		}
+
+		@Override
+		public void itemAdded(ListEvent event) {
+			added++;
+		}
+
+		@Override
+		public void itemRemoved(ListEvent event) {
+			removed++;
+		}
+
+		@Override
+		public void listCleared(ListEvent event) {
+			cleared++;
+		}
 	}
 }
 

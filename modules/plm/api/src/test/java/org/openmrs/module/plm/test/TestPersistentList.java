@@ -1,6 +1,10 @@
-package org.openmrs.module.plm;
+package org.openmrs.module.plm.test;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.openmrs.module.plm.ListEventListener;
+import org.openmrs.module.plm.PersistentList;
+import org.openmrs.module.plm.PersistentListItem;
+import org.openmrs.module.plm.PersistentListProvider;
 import org.openmrs.module.plm.model.PersistentListModel;
 
 public class TestPersistentList implements PersistentList {
@@ -55,6 +59,14 @@ public class TestPersistentList implements PersistentList {
 	@Override
 	public int getSize() {
 		return count;
+	}
+
+	@Override
+	public void addListEventListener(ListEventListener listener) {
+	}
+
+	@Override
+	public void removeListEventListener(ListEventListener listener) {
 	}
 
 	@Override

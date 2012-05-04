@@ -6,9 +6,12 @@ import org.openhmis.common.Initializable;
 import org.openmrs.module.plm.model.PersistentListItemModel;
 import org.openmrs.module.plm.model.PersistentListModel;
 
+import javax.swing.event.EventListenerList;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Base type for Persistent List Manager lists.  Provides a thread-safe list implementation base that caches the items
@@ -20,13 +23,15 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	private Log log = LogFactory.getLog(PersistentListBase.class);
 
 	protected final Object syncLock = new Object();
+	protected final Object eventLock = new Object();
 
 	protected Integer id;
 	protected String key;
 	protected String description;
 	protected PersistentListProvider provider;
 	protected T cachedItems;
-	protected ArrayList<String> itemKeys = new ArrayList<String>();
+	protected List<String> itemKeys = new ArrayList<String>();
+	protected ArrayList<ListEventListener> listenerList = new ArrayList<ListEventListener>();
 
 	protected PersistentListBase() {
 	}
@@ -62,9 +67,16 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 		log.debug("Initializing the '" + key + "' list...");
 
 		synchronized (syncLock) {
+			// Initialize the cache object, as determined by the subtype.
 			cachedItems = initializeCache();
 
+			// Load the items into the cache
 			Collections.addAll(cachedItems, loadList());
+
+			// Load the item keys into the key cache
+			for (PersistentListItem item : cachedItems) {
+				itemKeys.add(item.getKey());
+			}
 		}
 
 		log.debug("The '" + key + "' has been initialized.");
@@ -138,6 +150,11 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 					provider.add(modelItem);
 				}
 			}
+
+			// Fire the add events outside of the synchronized block
+			for (PersistentListItem listItem : items) {
+				onListEvent(new ListEvent(this, listItem, ListEvent.ListOperation.ADDED));
+			}
 		} catch (Exception ex) {
 			// If there was an exception while trying to add an item ensure that it is no longer in the cache.
 			cachedItems.remove(item);
@@ -158,12 +175,20 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 
 	@Override
 	public boolean remove(PersistentListItem item) {
+		Boolean wasRemovedFromProvider, wasRemovedFromCache;
 		synchronized (syncLock) {
-			Boolean wasRemovedFromProvider = provider.remove(createItemModel(item));
-			Boolean wasRemovedFromCache = cachedItems.remove(item);
+			wasRemovedFromProvider = provider.remove(createItemModel(item));
+			wasRemovedFromCache = cachedItems.remove(item);
 			itemKeys.remove(item.getKey());
+		}
 
-			return wasRemovedFromProvider || wasRemovedFromCache;
+		// Fire the remove event outside of the synchronized block
+		if (wasRemovedFromProvider || wasRemovedFromCache) {
+			onListEvent(new ListEvent(this, item, ListEvent.ListOperation.REMOVED));
+
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -174,11 +199,27 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 			cachedItems.clear();
 			itemKeys.clear();
 		}
+
+		onListEvent(new ListEvent(this, null, ListEvent.ListOperation.CLEARED));
 	}
 
 	@Override
 	public PersistentListItem[] getItems() {
 		return cachedItems.toArray(new PersistentListItem[cachedItems.size()]);
+	}
+
+	@Override
+	public void addListEventListener(ListEventListener listener) {
+		synchronized (eventLock) {
+			listenerList.add(listener);
+		}
+	}
+
+	@Override
+	public void removeListEventListener(ListEventListener listener) {
+		synchronized (eventLock) {
+			listenerList.remove(listener);
+		}
 	}
 
 	protected PersistentListItem[] loadList() {
@@ -201,6 +242,32 @@ public abstract class PersistentListBase<T extends Collection<PersistentListItem
 	protected PersistentListItemModel createItemModel(PersistentListItem item) {
 		return new PersistentListItemModel(this, item.getKey(), getItemIndex(item), null, null,
 				item.getCreator(), item.getCreatedOn());
+	}
+
+	protected void onListEvent(ListEvent event) {
+		// Copy the list to an array so that listeners can be added/removed on another thread without have to wait for
+		//  the event code to complete.
+		ListEventListener[] listeners = new ListEventListener[0];
+		synchronized (eventLock) {
+			listeners = listenerList.toArray(listeners);
+		}
+
+		// Fire the event for each listener
+		if (listeners != null && listeners.length > 0) {
+			for (ListEventListener listener : listeners) {
+				switch (event.getOperation()) {
+					case ADDED:
+						listener.itemAdded(event);
+						break;
+					case REMOVED:
+						listener.itemRemoved(event);
+						break;
+					case CLEARED:
+						listener.listCleared(event);
+						break;
+				}
+			}
+		}
 	}
 }
 

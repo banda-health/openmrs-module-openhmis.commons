@@ -20,9 +20,9 @@
   		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
     <!-- Add the test providers for the service and list providers-->
-    <bean id="plmServiceProvider" class="org.openmrs.module.plm.TestPersistentServiceProvider">
+    <bean id="plmServiceProvider" class="org.openmrs.module.plm.test.TestPersistentServiceProvider">
     </bean>
-    <bean id="plmListProvider" class="org.openmrs.module.plm.TestPersistentListProvider">
+    <bean id="plmListProvider" class="org.openmrs.module.plm.test.TestPersistentListProvider">
     </bean>
 
     <!-- Add the list service module which uses the service provider above -->

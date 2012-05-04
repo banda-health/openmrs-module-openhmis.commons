@@ -2,6 +2,8 @@ package org.openmrs.module.plm;
 
 import org.openmrs.module.plm.model.PersistentListModel;
 
+import java.util.EventObject;
+
 /**
  * Represents classes that can persist items and return them according to some data structure.
  */
@@ -89,5 +91,17 @@ public interface PersistentList {
 	 * @return The number of items currently in the list.
 	 */
 	int getSize();
+
+	/**
+	 * Adds a listener to the list events.
+	 * @param listener The listener instance to add.
+	 */
+	void addListEventListener(ListEventListener listener);
+
+	/**
+	 * Removes a listener from the list events.
+	 * @param listener The listener instance to remove.
+	 */
+	void removeListEventListener(ListEventListener listener);
 }
 

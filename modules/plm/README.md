@@ -39,13 +39,23 @@ The general usage is as follows:
     PersistentListItem item1Again = list.getNextAndRemove();
 
 ##Events
-*Not yet implmeneted*
+*Service events yet implemeneted*
 
     PersistentListService service = ...
     service.onListAdded(...);
     service.onListRemoved(...);
     
     PersistentList list = ...
-    list.onItemAdded(...);
-    list.onItemRemoved(...);
-    list.onCleared(...);
+    list.addListEventListener(...);
+    
+    public class ListEvent {
+    	public Object getSource () { ... }
+    	public ListOperation getListOperation() { ... }
+    	public PersistentListItem getItem() { ... }
+    }
+    	
+    public interface ListEventListener {
+		void itemAdded(ListEvent event);
+		void itemRemoved(ListEvent event);
+		void listCleared(ListEvent event);
+	}

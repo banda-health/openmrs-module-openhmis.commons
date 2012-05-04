@@ -1,10 +1,11 @@
-package org.openmrs.module.plm;
+package org.openmrs.module.plm.test;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.openmrs.module.plm.*;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 public class PersistentListServiceTests extends BaseModuleContextSensitiveTest {

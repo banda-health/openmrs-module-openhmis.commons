@@ -1,4 +1,4 @@
-package org.openmrs.module.plm;
+package org.openmrs.module.plm.test;
 
 import org.openmrs.module.plm.PersistentList;
 import org.openmrs.module.plm.PersistentListProvider;
