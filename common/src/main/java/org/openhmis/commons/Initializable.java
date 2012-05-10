@@ -1,4 +1,4 @@
-package org.openhmis.common;
+package org.openhmis.commons;
 
 /**
  * Represents types that must be initialized before being used.
