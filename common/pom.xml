@@ -7,4 +7,33 @@
     <groupId>org.openhmis.commons</groupId>
     <artifactId>openhmis-commons</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    
+   	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+			    	<execution>
+			    		<id>copy</id>
+		      			<phase>package</phase>
+		      			<goals>
+		       				<goal>copy</goal>
+		      			</goals>
+		      			<configuration>
+							<artifactItems>
+				            	<artifactItem>
+				                   <groupId>org.openhmis.commons</groupId>
+				                   <artifactId>openhmis-commons</artifactId>
+				                   <version>1.0.0-SNAPSHOT</version>
+				                   <type>jar</type>
+				                   <outputDirectory>${project.basedir}/repo/org/openhmis/commons/${project.artifactId}/${project.version}</outputDirectory>
+				               </artifactItem>
+				            </artifactItems>
+		      			</configuration>
+			     	</execution>
+			    </executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
