@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Application-Name: OpenHMIS Commons
+Application-Version: 1.0.0
