@@ -3,9 +3,6 @@
     <output-path>$PROJECT_DIR$/target/artifacts/org_openhmis_commons</output-path>
     <root id="archive" name="org.openhmis.commons.jar">
       <element id="module-output" name="OpenHMIS Commons" />
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
-      </element>
     </root>
   </artifact>
 </component>
