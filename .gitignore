@@ -38,6 +38,7 @@ test-output
 build.log
 .externalToolBuilders
 release.properties
+pom.xml.releaseBackup
 
 ## generic files to ignore
 *~
