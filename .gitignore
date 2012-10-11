@@ -3,7 +3,7 @@
 
 # Package File
 *.jar
-!*/lib/*
+!lib/*
 *.war
 *.ear
 
@@ -20,8 +20,12 @@
 # *.iml
 *.ipr
 *.iws
-*/.idea/workspace.xml
-*/.idea/libraries
+common/.idea/workspace.xml
+common/.idea/misc.xml
+common/.idea/libraries
+common/.idea/*datasources.*
+common/.idea/encodings.xml
+common/.idea/dictionaries/*
 
 # building
 target
@@ -32,6 +36,8 @@ temp
 dist
 test-output
 build.log
+.externalToolBuilders
+release.properties
 
 ## generic files to ignore
 *~
