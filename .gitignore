@@ -20,12 +20,12 @@
 *.iml
 *.ipr
 *.iws
-.idea/workspace.xml
-.idea/misc.xml
-.idea/libraries
-.idea/*datasources.*
-.idea/encodings.xml
-.idea/dictionaries/*
+**/.idea/workspace.xml
+**/.idea/misc.xml
+**/.idea/libraries
+**/.idea/*datasources.*
+**/.idea/encodings.xml
+**/.idea/dictionaries/*
 
 # building
 target
