@@ -11,20 +11,15 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.openhmis.commons.api;
+package org.openmrs.module.openhmis.commons.api.entity.security;
 
 /**
- * Utility methods type.
+ * Represents types that define the privileges for the core {@link org.openmrs.module.openhmis.commons.api.entity.IMetadataService} operations.
  */
-public class Utility {
-	// Do not allow types to be instantiated.
-	private Utility() { }
-
-	public static <T> T as(Class<T> cls, Object o){
-		if(cls.isInstance(o)){
-			return cls.cast(o);
-		}
-		return null;
-	}
+public interface IMetadataAuthorizationPrivileges extends IEntityAuthorizationPrivileges {
+	/**
+	 * The privilege required to retire or unretire metadata or {@code null} for no authorization.
+	 * @return The privilege name.
+	 */
+	String getRetirePrivilege();
 }
-

@@ -13,18 +13,19 @@
  */
 package org.openmrs.module.openhmis.commons.api;
 
-/**
- * Utility methods type.
- */
-public class Utility {
-	// Do not allow types to be instantiated.
-	private Utility() { }
+import org.openmrs.Provider;
+import org.openmrs.api.ProviderService;
+import org.openmrs.api.context.Context;
 
-	public static <T> T as(Class<T> cls, Object o){
-		if(cls.isInstance(o)){
-			return cls.cast(o);
+import java.util.Collection;
+
+public class ProviderHelper {
+	public static Provider getCurrentProvider(ProviderService providerService) {
+		Collection<Provider> providers = providerService.getProvidersByPerson(Context.getAuthenticatedUser().getPerson());
+			if (providers.size() > 0) {
+				return providers.iterator().next();
+			}
+
+			return null;
 		}
-		return null;
-	}
 }
-

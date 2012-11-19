@@ -1,6 +1,6 @@
-/**
+/*
  * The contents of this file are subject to the OpenMRS Public License
- * Version 1.0 (the "License"); you may not use this file except in
+ * Version 1.1 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
  * http://license.openmrs.org
  *
@@ -12,7 +12,6 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 package org.openmrs.module.openhmis.commons;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,42 +28,42 @@ public class CommonsModuleActivator implements ModuleActivator {
 	 * @see org.openmrs.module.ModuleActivator#willRefreshContext()
 	 */
 	public void willRefreshContext() {
-		log.info("Refreshing OpenHMIS Cashier Module Module");
+		log.info("Refreshing OpenHMIS Commons Module");
 	}
 
 	/**
 	 * @see org.openmrs.module.ModuleActivator#contextRefreshed()
 	 */
 	public void contextRefreshed() {
-		log.info("OpenHMIS Cashier Module Module refreshed");
+		log.info("OpenHMIS Commons Module refreshed");
 	}
 
 	/**
 	 * @see org.openmrs.module.ModuleActivator#willStart()
 	 */
 	public void willStart() {
-		log.info("Starting OpenHMIS Cashier Module Module");
+		log.info("Starting OpenHMIS Commons Module");
 	}
 
 	/**
 	 * @see org.openmrs.module.ModuleActivator#started()
 	 */
 	public void started() {
-		log.info("OpenHMIS Cashier Module Module started");
+		log.info("OpenHMIS Commons Module started");
 	}
 
 	/**
 	 * @see org.openmrs.module.ModuleActivator#willStop()
 	 */
 	public void willStop() {
-		log.info("Stopping OpenHMIS Cashier Module Module");
+		log.info("Stopping OpenHMIS Commons Module");
 	}
 
 	/**
 	 * @see org.openmrs.module.ModuleActivator#stopped()
 	 */
 	public void stopped() {
-		log.info("OpenHMIS Cashier Module Module stopped");
+		log.info("OpenHMIS Commons Module stopped");
 	}
 		
 }
