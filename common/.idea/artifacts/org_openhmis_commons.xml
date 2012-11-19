@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="org.openhmis.commons">
-    <output-path>$PROJECT_DIR$/target/artifacts/org_openhmis_commons</output-path>
-    <root id="archive" name="org.openhmis.commons.jar">
-      <element id="module-output" name="commons" />
-    </root>
-  </artifact>
-</component>
