@@ -17,15 +17,15 @@
 
 # idea conf files
 # .idea
-# *.iml
+*.iml
 *.ipr
 *.iws
-common/.idea/workspace.xml
-common/.idea/misc.xml
-common/.idea/libraries
-common/.idea/*datasources.*
-common/.idea/encodings.xml
-common/.idea/dictionaries/*
+.idea/workspace.xml
+.idea/misc.xml
+.idea/libraries
+.idea/*datasources.*
+.idea/encodings.xml
+.idea/dictionaries/*
 
 # building
 target
@@ -37,7 +37,7 @@ dist
 test-output
 build.log
 .externalToolBuilders
-release.properties
+# release.properties
 pom.xml.releaseBackup
 
 ## generic files to ignore
