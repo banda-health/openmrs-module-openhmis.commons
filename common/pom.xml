@@ -4,7 +4,11 @@
 
     <groupId>org.openhmis.commons</groupId>
     <artifactId>openhmis.commons</artifactId>
-    <version>1.5.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<version>1.5.0-SNAPSHOT</version>
+	<name>OpenHMIS Commons Module</name>
+	<description>Module that provides core functionality used by the OpenHMIS modules.</description>
+	<url>http://openhmis.github.com/</url>
 
 	<developers>
 		<developer>
@@ -16,6 +20,10 @@
 		<name>OpenHMIS</name>
 		<url>http://openhmis.github.com/OpenHMIS/</url>
 	</organization>
+	<modules>
+		<module>api</module>
+		<module>omod</module>
+	</modules>
 
 	<scm>
 		<connection>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</connection>
@@ -23,6 +31,62 @@
 		<url>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</url>
 	  <tag>HEAD</tag>
   </scm>
+
+	<properties>
+		<openMRSVersion>1.9.1</openMRSVersion>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.openmrs.api</groupId>
+				<artifactId>openmrs-api</artifactId>
+				<version>${openMRSVersion}</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.web</groupId>
+				<artifactId>openmrs-web</artifactId>
+				<version>${openMRSVersion}</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.api</groupId>
+				<artifactId>openmrs-api</artifactId>
+				<version>${openMRSVersion}</version>
+				<type>test-jar</type>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.web</groupId>
+				<artifactId>openmrs-web</artifactId>
+				<version>${openMRSVersion}</version>
+				<type>test-jar</type>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.test</groupId>
+				<artifactId>openmrs-test</artifactId>
+				<version>${openMRSVersion}</version>
+				<type>pom</type>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-module-junit4-rule-agent</artifactId>
+				<version>1.4.10</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<pluginManagement>
