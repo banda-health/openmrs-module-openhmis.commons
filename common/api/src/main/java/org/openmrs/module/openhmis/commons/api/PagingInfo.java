@@ -14,8 +14,6 @@
 package org.openmrs.module.openhmis.commons.api;
 
 public class PagingInfo {
-	public static final PagingInfo ALL = new PagingInfo(-1, -1);
-
 	private int page;
 	private int pageSize;
 	private Long totalRecordCount;
