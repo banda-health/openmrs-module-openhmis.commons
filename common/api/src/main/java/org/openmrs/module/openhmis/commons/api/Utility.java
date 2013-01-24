@@ -17,7 +17,7 @@ package org.openmrs.module.openhmis.commons.api;
  * Utility methods type.
  */
 public class Utility {
-	// Do not allow types to be instantiated.
+	// Do not allow this type to be instantiated.
 	private Utility() { }
 
 	public static <T> T as(Class<T> cls, Object o){

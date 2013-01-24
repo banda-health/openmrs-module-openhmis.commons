@@ -18,7 +18,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.BaseOpenmrsMetadata;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.openhmis.cashier.api.util.PagingInfo;
+import org.openmrs.module.openhmis.commons.api.PagingInfo;
 
 import java.util.Date;
 import java.util.List;
@@ -237,7 +237,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return all specified entity records if paging is null
-	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.cashier.api.util.PagingInfo)
+	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void findByName_shouldReturnAllSpecifiedEntityRecordsIfPagingIsNull() throws Exception {
@@ -253,7 +253,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return all specified entity records if paging page or size is less than one
-	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.cashier.api.util.PagingInfo)
+	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void findByName_shouldReturnAllSpecifiedEntityRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
@@ -277,7 +277,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies set the paging total records to the total number of entity records
-	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.cashier.api.util.PagingInfo)
+	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void findByName_shouldSetThePagingTotalRecordsToTheTotalNumberOfEntityRecords() throws Exception {
@@ -291,7 +291,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies not get the total paging record count if it is more than zero
-	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.cashier.api.util.PagingInfo)
+	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void findByName_shouldNotGetTheTotalPagingRecordCountIfItIsMoreThanZero() throws Exception {
@@ -325,7 +325,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return paged entity records if paging is specified
-	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.cashier.api.util.PagingInfo)
+	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void findByName_shouldReturnPagedEntityRecordsIfPagingIsSpecified() throws Exception {
@@ -345,7 +345,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return all specified entity records if paging is null
-	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.cashier.api.util.PagingInfo)
+	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldReturnAllSpecifiedEntityRecordsIfPagingIsNull() throws Exception {
@@ -363,7 +363,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return all specified entity records if paging page or size is less than one
-	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.cashier.api.util.PagingInfo)
+	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldReturnAllSpecifiedEntityRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
@@ -388,7 +388,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies set the paging total records to the total number of entity records
-	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.cashier.api.util.PagingInfo)
+	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldSetThePagingTotalRecordsToTheTotalNumberOfEntityRecords() throws Exception {
@@ -435,7 +435,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return paged entity records if paging is specified
-	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.cashier.api.util.PagingInfo)
+	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldReturnPagedEntityRecordsIfPagingIsSpecified() throws Exception {

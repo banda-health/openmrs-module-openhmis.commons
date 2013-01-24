@@ -21,6 +21,20 @@ import org.openmrs.api.context.Context;
 import java.util.Date;
 
 public abstract class IDataServiceTest<S extends IDataService<E>, E extends BaseOpenmrsData> extends IEntityServiceTest<S, E> {
+	@Override
+	protected void assertEntity(E expected, E actual) {
+		super.assertEntity(expected, actual);
+
+		Assert.assertEquals(expected.getChangedBy(), actual.getChangedBy());
+		Assert.assertEquals(expected.getCreator(), actual.getCreator());
+		Assert.assertEquals(expected.getDateChanged(), actual.getDateChanged());
+		Assert.assertEquals(expected.getDateCreated(), actual.getDateCreated());
+		Assert.assertEquals(expected.getVoided(), actual.getVoided());
+		Assert.assertEquals(expected.getVoidedBy(), actual.getVoidedBy());
+		Assert.assertEquals(expected.getVoidReason(), actual.getVoidReason());
+		Assert.assertEquals(expected.getDateVoided(), actual.getDateVoided());
+	}
+
 	/**
 	 * @verifies void the entity
 	 * @see IDataService#voidEntity(org.openmrs.OpenmrsData, String)
