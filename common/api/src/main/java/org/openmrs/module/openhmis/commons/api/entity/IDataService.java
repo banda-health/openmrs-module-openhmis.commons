@@ -66,35 +66,4 @@ public interface IDataService<E extends OpenmrsData> extends IEntityService<E> {
 	 * @should return all unvoided entities when voided is set to false
 	 */
 	List<E> getAll(boolean includeVoided, PagingInfo paging) throws APIException;
-
-	/**
-	 * Finds all the entities that start with the specified name.
-	 * @param nameFragment The name fragment.
-	 * @param includeVoided Whether voided items should be included in the results.
-	 * @return All items that start with the specified name.
-	 * @throws org.openmrs.api.APIException
-	 * @should throw IllegalArgumentException if the name is null
-	 * @should throw IllegalArgumentException if the name is empty
-	 * @should throw IllegalArgumentException if the name is longer than 255 characters
-	 * @should return an empty list if no entities are found
-	 * @should not return voided entities unless specified
-	 * @should return entities that start with the specified name
-	 */
-	List<E> findByName(String nameFragment, boolean includeVoided) throws APIException;
-
-	/**
-	 * Finds all the entities that start with the specified name and paging.
-	 * @param nameFragment The name fragment.
-	 * @param includeRetired Whether voided items should be included in the results.
-	 * @param paging The paging information.
-	 * @return All items that start with the specified name.
-	 * @throws org.openmrs.api.APIException
-	 * @should throw IllegalArgumentException if the name is null
-	 * @should throw IllegalArgumentException if the name is empty
-	 * @should throw IllegalArgumentException if the name is longer than 255 characters
-	 * @should return an empty list if no entities are found
-	 * @should not return voided entities unless specified
-	 * @should return entities that start with the specified name
-	 */
-	List<E> findByName(String nameFragment, boolean includeRetired, PagingInfo paging) throws APIException;
 }
