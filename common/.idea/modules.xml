@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/commons.iml" filepath="$PROJECT_DIR$/commons.iml" />
-      <module fileurl="file://$PROJECT_DIR$/api/commons-api.iml" filepath="$PROJECT_DIR$/api/commons-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/openhmis.commons.iml" filepath="$PROJECT_DIR$/openhmis.commons.iml" />
       <module fileurl="file://$PROJECT_DIR$/api/openhmis.commons-api.iml" filepath="$PROJECT_DIR$/api/openhmis.commons-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/omod/openhmis.commons-omod.iml" filepath="$PROJECT_DIR$/omod/openhmis.commons-omod.iml" />

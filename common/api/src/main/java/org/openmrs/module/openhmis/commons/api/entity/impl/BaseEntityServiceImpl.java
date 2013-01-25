@@ -17,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.openmrs.BaseOpenmrsObject;
+import org.openmrs.OpenmrsObject;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -35,7 +35,7 @@ import java.util.List;
  * @param <E> The entity model type.
  */
 @Transactional
-public abstract class BaseEntityServiceImpl<E extends BaseOpenmrsObject, P extends IEntityAuthorizationPrivileges>
+public abstract class BaseEntityServiceImpl<E extends OpenmrsObject, P extends IEntityAuthorizationPrivileges>
 		extends BaseOpenmrsService implements IEntityService<E> {
 	protected IGenericHibernateDAO dao;
 	private Class entityClass = null;

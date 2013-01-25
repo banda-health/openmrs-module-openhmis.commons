@@ -17,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.openmrs.BaseOpenmrsMetadata;
+import org.openmrs.OpenmrsMetadata;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
@@ -33,7 +33,7 @@ import java.util.List;
  * @param <E> THe entity model type.
  */
 @Transactional
-public abstract class BaseMetadataServiceImpl<E extends BaseOpenmrsMetadata>
+public abstract class BaseMetadataServiceImpl<E extends OpenmrsMetadata>
 		extends BaseEntityServiceImpl<E, IMetadataAuthorizationPrivileges> implements IMetadataService<E> {
 
 	@Override

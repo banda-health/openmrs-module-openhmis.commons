@@ -16,7 +16,7 @@ package org.openmrs.module.openhmis.commons.api.entity.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.openmrs.BaseOpenmrsData;
+import org.openmrs.OpenmrsData;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
@@ -32,7 +32,7 @@ import java.util.List;
  * @param <E> The entity model type.
  */
 @Transactional
-public abstract class BaseDataServiceImpl<E extends BaseOpenmrsData>
+public abstract class BaseDataServiceImpl<E extends OpenmrsData>
 		extends BaseEntityServiceImpl<E, IDataAuthorizationPrivileges> implements IDataService<E> {
 
 	@Override

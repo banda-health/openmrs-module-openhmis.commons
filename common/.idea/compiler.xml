@@ -26,12 +26,14 @@
         <processorPath useClasspath="true" />
         <module name="commons-omod" />
         <module name="openhmis.commons-api" />
+        <module name="openhmis.commons-omod" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="commons-omod" target="1.6" />
       <module name="openhmis.commons" target="1.6" />
       <module name="openhmis.commons-api" target="1.6" />
+      <module name="openhmis.commons-omod" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>
