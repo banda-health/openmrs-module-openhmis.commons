@@ -22,10 +22,10 @@ import org.openmrs.api.APIException;
 import java.io.Serializable;
 import java.util.List;
 
-public class GenericHibernateDAO implements IGenericHibernateDAO {
+public class HibernateRepository implements IHibernateRepository {
 	SessionFactory sessionFactory;
 
-	public GenericHibernateDAO(SessionFactory sessionFactory) {
+	public HibernateRepository(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 

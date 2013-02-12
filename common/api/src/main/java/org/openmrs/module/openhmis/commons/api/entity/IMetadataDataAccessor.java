@@ -25,7 +25,7 @@ import java.util.List;
  * @param <E> The entity model class.
  */
 @Transactional
-public interface IMetadataService<E extends OpenmrsMetadata> extends IEntityService<E> {
+public interface IMetadataDataAccessor<E extends OpenmrsMetadata> extends IObjectDataAccessor<E> {
 	/**
 	 * Retires the specified entity. This effectively removes the entity from circulation or use.
 	 *

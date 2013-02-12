@@ -17,15 +17,15 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.openhmis.commons.api.entity.IEntityService;
+import org.openmrs.module.openhmis.commons.api.entity.IObjectDataAccessor;
 
 import java.beans.PropertyEditorSupport;
 import java.lang.reflect.ParameterizedType;
 
 public class EntityPropertyEditor<E extends OpenmrsObject> extends PropertyEditorSupport {
-	private IEntityService<E> service;
+	private IObjectDataAccessor<E> service;
 
-	public EntityPropertyEditor(Class<? extends IEntityService<E>> service) {
+	public EntityPropertyEditor(Class<? extends IObjectDataAccessor<E>> service) {
 		this.service = Context.getService(service);
 	}
 

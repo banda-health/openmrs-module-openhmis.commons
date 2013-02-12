@@ -17,7 +17,7 @@ import org.openmrs.OpenmrsObject;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
-import org.openmrs.module.openhmis.commons.api.entity.db.hibernate.IGenericHibernateDAO;
+import org.openmrs.module.openhmis.commons.api.entity.db.hibernate.IHibernateRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -27,14 +27,14 @@ import java.util.List;
  * @param <E> The entity model class.
  */
 @Transactional
-public interface IEntityService<E extends OpenmrsObject> extends OpenmrsService {
+public interface IObjectDataAccessor<E extends OpenmrsObject> extends OpenmrsService {
 	/**
 	 * Set the data access object that the service will use to interact with the database. This is
 	 * set by spring in the applicationContext-service.xml file
 	 *
 	 * @param dao The data access object that the service will use
 	 */
-	void setDao(IGenericHibernateDAO dao);
+	void setRepository(IHibernateRepository dao);
 
 	/**
 	 * Saves the entity to the database, creating a new entity or updating an existing one.

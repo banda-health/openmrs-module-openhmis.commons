@@ -25,7 +25,7 @@ import java.util.List;
  * @param <E> The entity model class.
  */
 @Transactional
-public interface IDataService<E extends OpenmrsData> extends IEntityService<E> {
+public interface IEntityDataAccessor<E extends OpenmrsData> extends IObjectDataAccessor<E> {
 	/**
 	 * Voiding an entity essentially removes it from circulation.
 	 *

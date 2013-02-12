@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Represents types that can provide access to a data source through hibernate.
  */
-public interface IGenericHibernateDAO {
+public interface IHibernateRepository {
 	/**
 	 * Creates a new {@link org.hibernate.Criteria}.
 	 * @param cls The entity class.

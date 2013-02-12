@@ -21,7 +21,7 @@ import org.openmrs.OpenmrsMetadata;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
-import org.openmrs.module.openhmis.commons.api.entity.IMetadataService;
+import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataAccessor;
 import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthorizationPrivileges;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,12 +29,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The base type for {@link IMetadataService}s.
+ * The base type for {@link org.openmrs.module.openhmis.commons.api.entity.IMetadataDataAccessor}s.
  * @param <E> THe entity model type.
  */
 @Transactional
-public abstract class BaseMetadataServiceImpl<E extends OpenmrsMetadata>
-		extends BaseEntityServiceImpl<E, IMetadataAuthorizationPrivileges> implements IMetadataService<E> {
+public abstract class BaseMetadataDataAccessorImpl<E extends OpenmrsMetadata>
+		extends BaseObjectDataAccessorImpl<E, IMetadataAuthorizationPrivileges> implements IMetadataDataAccessor<E> {
 
 	@Override
 	@Transactional
@@ -92,13 +92,13 @@ public abstract class BaseMetadataServiceImpl<E extends OpenmrsMetadata>
 			Context.requirePrivilege(privileges.getGetPrivilege());
 		}
 
-		Criteria criteria = dao.createCriteria(getEntityClass());
+		Criteria criteria = repository.createCriteria(getEntityClass());
 		if (!includeRetired) {
 			criteria.add(Restrictions.eq("retired", false));
 		}
 
 		loadPagingTotal(pagingInfo, criteria);
-		return dao.select(getEntityClass(), createPagingCriteria(pagingInfo, criteria));
+		return repository.select(getEntityClass(), createPagingCriteria(pagingInfo, criteria));
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public abstract class BaseMetadataServiceImpl<E extends OpenmrsMetadata>
 			throw new IllegalArgumentException("the name fragment must be less than 256 characters long.");
 		}
 
-		Criteria criteria = dao.createCriteria(getEntityClass());
+		Criteria criteria = repository.createCriteria(getEntityClass());
 		criteria.add(Restrictions.ilike("name", nameFragment, MatchMode.START));
 
 		if (!includeRetired) {
@@ -130,6 +130,6 @@ public abstract class BaseMetadataServiceImpl<E extends OpenmrsMetadata>
 		}
 
 		loadPagingTotal(pagingInfo, criteria);
-		return dao.select(getEntityClass(), createPagingCriteria(pagingInfo, criteria));
+		return repository.select(getEntityClass(), createPagingCriteria(pagingInfo, criteria));
 	}
 }
