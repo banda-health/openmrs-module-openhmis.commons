@@ -25,7 +25,7 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, E extends BaseOpenmrsObject>
+public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E extends BaseOpenmrsObject>
 		extends BaseModuleContextSensitiveTest {
 	protected S service;
 
@@ -52,7 +52,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies throw NullPointerException if the entity is null
-	 * @see IObjectDataAccessor#save(org.openmrs.OpenmrsObject)
+	 * @see IObjectDataService#save(org.openmrs.OpenmrsObject)
 	 */
 	@Test(expected = NullPointerException.class)
 	public void save_shouldThrowNullPointerExceptionIfTheEntityIsNull() throws Exception {
@@ -61,7 +61,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies validate the entity before saving
-	 * @see IObjectDataAccessor#save(org.openmrs.OpenmrsObject)
+	 * @see IObjectDataService#save(org.openmrs.OpenmrsObject)
 	 */
 	@Test(expected = APIException.class)
 	public void save_shouldValidateTheEntityBeforeSaving() throws Exception {
@@ -72,7 +72,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies return saved entity
-	 * @see IObjectDataAccessor#save(org.openmrs.OpenmrsObject)
+	 * @see IObjectDataService#save(org.openmrs.OpenmrsObject)
 	 */
 	@Test
 	public void save_shouldReturnSavedEntity() throws Exception {
@@ -87,7 +87,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies update the entity successfully
-	 * @see IObjectDataAccessor#save(org.openmrs.OpenmrsObject)
+	 * @see IObjectDataService#save(org.openmrs.OpenmrsObject)
 	 */
 	@Test
 	public void save_shouldUpdateTheEntitySuccessfully() throws Exception {
@@ -105,7 +105,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies create the entity successfully
-	 * @see IObjectDataAccessor#save(org.openmrs.OpenmrsObject)
+	 * @see IObjectDataService#save(org.openmrs.OpenmrsObject)
 	 */
 	@Test
 	public void save_shouldCreateTheEntitySuccessfully() throws Exception {
@@ -120,7 +120,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies throw NullPointerException if the entity is null
-	 * @see IObjectDataAccessor#purge(org.openmrs.OpenmrsObject)
+	 * @see IObjectDataService#purge(org.openmrs.OpenmrsObject)
 	 */
 	@Test(expected = NullPointerException.class)
 	public void purge_shouldThrowNullPointerExceptionIfTheEntityIsNull() throws Exception {
@@ -129,7 +129,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies delete the specified entity
-	 * @see IObjectDataAccessor#purge(org.openmrs.OpenmrsObject)
+	 * @see IObjectDataService#purge(org.openmrs.OpenmrsObject)
 	 */
 	@Test
 	public void purge_shouldDeleteTheSpecifiedEntity() throws Exception {
@@ -145,7 +145,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies return all entity records
-	 * @see IObjectDataAccessor#getAll()
+	 * @see IObjectDataService#getAll()
 	 */
 	@Test
 	public void getAll_shouldReturnAllEntityRecords() throws Exception {
@@ -157,7 +157,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies return an empty list if there are no entities
-	 * @see IObjectDataAccessor#getAll()
+	 * @see IObjectDataService#getAll()
 	 */
 	@Test
 	public void getAll_shouldReturnAnEmptyListIfThereAreNoEntities() throws Exception {
@@ -175,7 +175,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies return the entity with the specified id
-	 * @see IObjectDataAccessor#getById(int)
+	 * @see IObjectDataService#getById(int)
 	 */
 	@Test
 	public void getById_shouldReturnTheEntityWithTheSpecifiedId() throws Exception {
@@ -186,7 +186,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies return null if no entity can be found.
-	 * @see IObjectDataAccessor#getById(int)
+	 * @see IObjectDataService#getById(int)
 	 */
 	@Test
 	public void getById_shouldReturnNullIfNoEntityCanBeFound() throws Exception {
@@ -197,7 +197,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies find the entity with the specified uuid
-	 * @see IObjectDataAccessor#getByUuid(String)
+	 * @see IObjectDataService#getByUuid(String)
 	 */
 	@Test
 	public void getByUuid_shouldFindTheEntityWithTheSpecifiedUuid() throws Exception {
@@ -209,7 +209,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies return null if no entity is found
-	 * @see IObjectDataAccessor#getByUuid(String)
+	 * @see IObjectDataService#getByUuid(String)
 	 */
 	@Test
 	public void getByUuid_shouldReturnNullIfNoEntityIsFound() throws Exception {
@@ -220,7 +220,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies throw IllegalArgumentException if uuid is null
-	 * @see IObjectDataAccessor#getByUuid(String)
+	 * @see IObjectDataService#getByUuid(String)
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void getByUuid_shouldThrowIllegalArgumentExceptionIfUuidIsNull() throws Exception {
@@ -229,7 +229,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies throw IllegalArgumentException if uuid is empty
-	 * @see IObjectDataAccessor#getByUuid(String)
+	 * @see IObjectDataService#getByUuid(String)
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void getByUuid_shouldThrowIllegalArgumentExceptionIfUuidIsEmpty() throws Exception {
@@ -238,7 +238,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies return all entity records if paging is null
-	 * @see IObjectDataAccessor#getAll(org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IObjectDataService#getAll(org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldReturnAllEntityRecordsIfPagingIsNull() throws Exception {
@@ -250,7 +250,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies return all entity records if paging page or size is less than one
-	 * @see IObjectDataAccessor#getAll(org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IObjectDataService#getAll(org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldReturnAllEntityRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
@@ -269,7 +269,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies set the paging total records to the total number of entity records
-	 * @see IObjectDataAccessor#getAll(org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IObjectDataService#getAll(org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldSetThePagingTotalRecordsToTheTotalNumberOfEntityRecords() throws Exception {
@@ -283,7 +283,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies not get the total paging record count if it is more than zero
-	 * @see IObjectDataAccessor#getAll(org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IObjectDataService#getAll(org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldNotGetTheTotalPagingRecordCountIfItIsMoreThanZero() throws Exception {
@@ -298,7 +298,7 @@ public abstract class IObjectDataAccessorTest<S extends IObjectDataAccessor<E>, 
 
 	/**
 	 * @verifies return paged entity records if paging is specified
-	 * @see IObjectDataAccessor#getAll(org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IObjectDataService#getAll(org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldReturnPagedEntityRecordsIfPagingIsSpecified() throws Exception {

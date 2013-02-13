@@ -22,10 +22,10 @@ import java.util.List;
 
 /**
  * Represents classes that provide data access services to model types that implement {@link org.openmrs.OpenmrsData}.
- * @param <E> The entity model class.
+ * @param <E> The {@link org.openmrs.OpenmrsData} model class.
  */
 @Transactional
-public interface IEntityDataAccessor<E extends OpenmrsData> extends IObjectDataAccessor<E> {
+public interface IEntityDataService<E extends OpenmrsData> extends IObjectDataService<E> {
 	/**
 	 * Voiding an entity essentially removes it from circulation.
 	 *

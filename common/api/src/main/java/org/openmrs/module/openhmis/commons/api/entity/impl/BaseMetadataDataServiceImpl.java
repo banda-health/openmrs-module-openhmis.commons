@@ -21,7 +21,7 @@ import org.openmrs.OpenmrsMetadata;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
-import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataAccessor;
+import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
 import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthorizationPrivileges;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,12 +29,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The base type for {@link org.openmrs.module.openhmis.commons.api.entity.IMetadataDataAccessor}s.
- * @param <E> THe entity model type.
+ * The base type for {@link org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService}s.
+ * @param <E> The entity metadata model type.
  */
 @Transactional
-public abstract class BaseMetadataDataAccessorImpl<E extends OpenmrsMetadata>
-		extends BaseObjectDataAccessorImpl<E, IMetadataAuthorizationPrivileges> implements IMetadataDataAccessor<E> {
+public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
+		extends BaseObjectDataServiceImpl<E, IMetadataAuthorizationPrivileges> implements IMetadataDataService<E> {
 
 	@Override
 	@Transactional

@@ -20,7 +20,7 @@ import org.openmrs.OpenmrsData;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
-import org.openmrs.module.openhmis.commons.api.entity.IEntityDataAccessor;
+import org.openmrs.module.openhmis.commons.api.entity.IEntityDataService;
 import org.openmrs.module.openhmis.commons.api.entity.security.IDataAuthorizationPrivileges;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,12 +28,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The base type for {@link org.openmrs.module.openhmis.commons.api.entity.IEntityDataAccessor}s.
+ * The base type for {@link org.openmrs.module.openhmis.commons.api.entity.IEntityDataService}s.
  * @param <E> The entity model type.
  */
 @Transactional
-public abstract class BaseEntityDataAccessorImpl<E extends OpenmrsData>
-		extends BaseObjectDataAccessorImpl<E, IDataAuthorizationPrivileges> implements IEntityDataAccessor<E> {
+public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
+		extends BaseObjectDataServiceImpl<E, IDataAuthorizationPrivileges> implements IEntityDataService<E> {
 
 	@Override
 	@Transactional

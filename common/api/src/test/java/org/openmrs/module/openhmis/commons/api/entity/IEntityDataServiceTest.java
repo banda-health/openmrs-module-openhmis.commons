@@ -20,7 +20,7 @@ import org.openmrs.api.context.Context;
 
 import java.util.Date;
 
-public abstract class IEntityDataAccessorTest<S extends IEntityDataAccessor<E>, E extends BaseOpenmrsData> extends IObjectDataAccessorTest<S, E> {
+public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E extends BaseOpenmrsData> extends IObjectDataServiceTest<S, E> {
 	@Override
 	protected void assertEntity(E expected, E actual) {
 		super.assertEntity(expected, actual);
@@ -37,7 +37,7 @@ public abstract class IEntityDataAccessorTest<S extends IEntityDataAccessor<E>, 
 
 	/**
 	 * @verifies void the entity
-	 * @see IEntityDataAccessor#voidEntity(org.openmrs.OpenmrsData, String)
+	 * @see IEntityDataService#voidEntity(org.openmrs.OpenmrsData, String)
 	 */
 	@Test
 	public void voidEntity_shouldVoidTheEntity() throws Exception {
@@ -57,7 +57,7 @@ public abstract class IEntityDataAccessorTest<S extends IEntityDataAccessor<E>, 
 
 	/**
 	 * @verifies throw IllegalArgumentException with null reason parameter
-	 * @see IEntityDataAccessor#voidEntity(org.openmrs.OpenmrsData, String)
+	 * @see IEntityDataService#voidEntity(org.openmrs.OpenmrsData, String)
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void voidEntity_shouldThrowIllegalArgumentExceptionWithNullReasonParameter() throws Exception {
@@ -68,7 +68,7 @@ public abstract class IEntityDataAccessorTest<S extends IEntityDataAccessor<E>, 
 
 	/**
 	 * @verifies throw NullPointerException with null entity
-	 * @see IEntityDataAccessor#voidEntity(org.openmrs.OpenmrsData, String)
+	 * @see IEntityDataService#voidEntity(org.openmrs.OpenmrsData, String)
 	 */
 	@Test(expected = NullPointerException.class)
 	public void voidEntity_shouldThrowNullPointerExceptionWithNullEntity() throws Exception {
@@ -77,7 +77,7 @@ public abstract class IEntityDataAccessorTest<S extends IEntityDataAccessor<E>, 
 
 	/**
 	 * @verifies unvoid the entity
-	 * @see IEntityDataAccessor#unvoidEntity(org.openmrs.OpenmrsData)
+	 * @see IEntityDataService#unvoidEntity(org.openmrs.OpenmrsData)
 	 */
 	@Test
 	public void unvoidEntity_shouldUnvoidTheEntity() throws Exception {
@@ -104,7 +104,7 @@ public abstract class IEntityDataAccessorTest<S extends IEntityDataAccessor<E>, 
 
 	/**
 	 * @verifies throw NullPointerException with null entity
-	 * @see IEntityDataAccessor#unvoidEntity(org.openmrs.OpenmrsData)
+	 * @see IEntityDataService#unvoidEntity(org.openmrs.OpenmrsData)
 	 */
 	@Test(expected = NullPointerException.class)
 	public void unvoidEntity_shouldThrowNullPointerExceptionWithNullEntity() throws Exception {
