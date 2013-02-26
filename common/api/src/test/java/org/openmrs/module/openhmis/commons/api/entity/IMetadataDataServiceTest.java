@@ -23,7 +23,7 @@ import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import java.util.Date;
 import java.util.List;
 
-public abstract class IMetadataServiceTest<S extends IMetadataDataService<E>, E extends BaseOpenmrsMetadata>
+public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>, E extends BaseOpenmrsMetadata>
 		extends IObjectDataServiceTest<S, E> {
 
 	@Override

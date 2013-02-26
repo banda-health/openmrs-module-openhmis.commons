@@ -24,16 +24,21 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="common-test" />
         <module name="commons-omod" />
+        <module name="openhmis.common-test" />
         <module name="openhmis.commons-api" />
         <module name="openhmis.commons-omod" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="common-test" target="1.6" />
       <module name="commons-omod" target="1.6" />
+      <module name="openhmis.common-test" target="1.6" />
       <module name="openhmis.commons" target="1.6" />
       <module name="openhmis.commons-api" target="1.6" />
       <module name="openhmis.commons-omod" target="1.6" />
+      <module name="openhmis.commons-test" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>
