@@ -14,7 +14,7 @@
 package org.openmrs.module.openhmis.commons.api.entity.security;
 
 /**
- * Represents types that define the privileges for the core {@link org.openmrs.module.openhmis.commons.api.entity.IDataService} operations.
+ * Represents types that define the privileges for the core {@link org.openmrs.module.openhmis.commons.api.entity.IEntityDataService} operations.
  */
 public interface IDataAuthorizationPrivileges extends IEntityAuthorizationPrivileges{
 	/**

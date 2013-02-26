@@ -20,7 +20,7 @@ import org.openmrs.OpenmrsData;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
-import org.openmrs.module.openhmis.commons.api.entity.IDataService;
+import org.openmrs.module.openhmis.commons.api.entity.IEntityDataService;
 import org.openmrs.module.openhmis.commons.api.entity.security.IDataAuthorizationPrivileges;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,12 +28,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * The base type for {@link IDataService}s.
+ * The base type for {@link org.openmrs.module.openhmis.commons.api.entity.IEntityDataService}s.
  * @param <E> The entity model type.
  */
 @Transactional
-public abstract class BaseDataServiceImpl<E extends OpenmrsData>
-		extends BaseEntityServiceImpl<E, IDataAuthorizationPrivileges> implements IDataService<E> {
+public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
+		extends BaseObjectDataServiceImpl<E, IDataAuthorizationPrivileges> implements IEntityDataService<E> {
 
 	@Override
 	@Transactional
@@ -91,12 +91,12 @@ public abstract class BaseDataServiceImpl<E extends OpenmrsData>
 			Context.requirePrivilege(privileges.getGetPrivilege());
 		}
 
-		Criteria criteria = dao.createCriteria(getEntityClass());
+		Criteria criteria = repository.createCriteria(getEntityClass());
 		if (!includeVoided) {
 			criteria.add(Restrictions.eq("voided", false));
 		}
 
 		loadPagingTotal(pagingInfo, criteria);
-		return dao.select(getEntityClass(), createPagingCriteria(pagingInfo, criteria));
+		return repository.select(getEntityClass(), createPagingCriteria(pagingInfo, criteria));
 	}
 }

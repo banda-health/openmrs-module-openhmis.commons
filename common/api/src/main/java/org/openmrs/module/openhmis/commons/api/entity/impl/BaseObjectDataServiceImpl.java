@@ -22,8 +22,8 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
-import org.openmrs.module.openhmis.commons.api.entity.IEntityService;
-import org.openmrs.module.openhmis.commons.api.entity.db.hibernate.IGenericHibernateDAO;
+import org.openmrs.module.openhmis.commons.api.entity.IObjectDataService;
+import org.openmrs.module.openhmis.commons.api.entity.db.hibernate.IHibernateRepository;
 import org.openmrs.module.openhmis.commons.api.entity.security.IEntityAuthorizationPrivileges;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,13 +31,13 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
- * The base type for entity services. Provides the core implementation for the common {@link org.openmrs.BaseOpenmrsObject} operations.
- * @param <E> The entity model type.
+ * The base type for object services. Provides the core implementation for the common {@link org.openmrs.OpenmrsObject} operations.
+ * @param <E> The  {@link org.openmrs.OpenmrsObject} model type.
  */
 @Transactional
-public abstract class BaseEntityServiceImpl<E extends OpenmrsObject, P extends IEntityAuthorizationPrivileges>
-		extends BaseOpenmrsService implements IEntityService<E> {
-	protected IGenericHibernateDAO dao;
+public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P extends IEntityAuthorizationPrivileges>
+		extends BaseOpenmrsService implements IObjectDataService<E> {
+	protected IHibernateRepository repository;
 	private Class entityClass = null;
 
 	/**
@@ -47,58 +47,58 @@ public abstract class BaseEntityServiceImpl<E extends OpenmrsObject, P extends I
 	protected abstract P getPrivileges();
 
 	/**
-	 * Validates the specified entity, throwing an exception in the validation fails.
-	 * @param entity The entity to validate.
+	 * Validates the specified object, throwing an exception in the validation fails.
+	 * @param object The object to validate.
 	 * @should not throw an exception for valid objects
-	 * @should throw IllegalArgumentException with a null entity
+	 * @should throw IllegalArgumentException with a null object
 	 * @should throw an exception for invalid objects
 	 */
-	protected abstract void validate(E entity) throws APIException;
+	protected abstract void validate(E object) throws APIException;
 
 	/**
-	 * @param dao the dao to set
+	 * @param repository the repository to set
 	 */
-	public void setDao(IGenericHibernateDAO dao) {
-		this.dao = dao;
+	public void setRepository(IHibernateRepository repository) {
+		this.repository = repository;
 	}
 
 	/**
-	 * @return the dao
+	 * @return the repository
 	 */
-	public IGenericHibernateDAO getDao() {
-		return dao;
+	public IHibernateRepository getRepository() {
+		return repository;
 	}
 
 	@Override
 	@Transactional
-	public E save(E entity) throws APIException {
+	public E save(E object) throws APIException {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getSavePrivilege())) {
 			Context.requirePrivilege(privileges.getSavePrivilege());
 		}
 
-		if (entity == null) {
-			throw new NullPointerException("The entity to save cannot be null.");
+		if (object == null) {
+			throw new NullPointerException("The object to save cannot be null.");
 		}
 
-		validate(entity);
+		validate(object);
 
-		return dao.save(entity);
+		return repository.save(object);
 	}
 
 	@Override
 	@Transactional
-	public void purge(E entity) throws APIException {
+	public void purge(E object) throws APIException {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getPurgePrivilege())) {
 			Context.requirePrivilege(privileges.getPurgePrivilege());
 		}
 
-		if (entity == null) {
-			throw new NullPointerException("The entity to purge cannot be null.");
+		if (object == null) {
+			throw new NullPointerException("The object to purge cannot be null.");
 		}
 
-		dao.delete(entity);
+		repository.delete(object);
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public abstract class BaseEntityServiceImpl<E extends OpenmrsObject, P extends I
 
 		loadPagingTotal(pagingInfo);
 
-		return dao.select(getEntityClass(), createPagingCriteria(pagingInfo));
+		return repository.select(getEntityClass(), createPagingCriteria(pagingInfo));
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public abstract class BaseEntityServiceImpl<E extends OpenmrsObject, P extends I
 			Context.requirePrivilege(privileges.getGetPrivilege());
 		}
 
-		return dao.selectSingle(getEntityClass(), entityId);
+		return repository.selectSingle(getEntityClass(), entityId);
 	}
 
 	@Override
@@ -143,10 +143,10 @@ public abstract class BaseEntityServiceImpl<E extends OpenmrsObject, P extends I
 			throw new IllegalArgumentException("The UUID must be defined.");
 		}
 
-		Criteria criteria = dao.createCriteria(getEntityClass());
+		Criteria criteria = repository.createCriteria(getEntityClass());
 		criteria.add(Restrictions.eq("uuid", uuid));
 
-		return dao.selectSingle(getEntityClass(), criteria);
+		return repository.selectSingle(getEntityClass(), criteria);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -160,21 +160,33 @@ public abstract class BaseEntityServiceImpl<E extends OpenmrsObject, P extends I
 		return entityClass;
 	}
 
+	/**
+	 * Loads the total number of records for the specified object type into the specified paging object.
+	 *
+	 * @param pagingInfo The {@link PagingInfo}  object to load with the record count.
+	 */
 	protected void loadPagingTotal(PagingInfo pagingInfo) {
 		loadPagingTotal(pagingInfo, null);
 	}
 
+	/**
+	 * Loads the record count for the specified criteria into the specified paging object.
+	 *
+	 * @param pagingInfo The {@link PagingInfo} object to load with the record count.
+	 * @param criteria The {@link Criteria} to execute against the hibernate data source or {@code null} to create
+	 *                    a new one.
+	 */
 	protected void loadPagingTotal(PagingInfo pagingInfo, Criteria criteria) {
 		if (pagingInfo != null && pagingInfo.getPage() > 0 && pagingInfo.getPageSize() > 0) {
 			if (criteria == null) {
-				criteria = dao.createCriteria(getEntityClass());
+				criteria = repository.createCriteria(getEntityClass());
 			}
 
 			if (pagingInfo.shouldLoadRecordCount()) {
 				try {
 				criteria.setProjection(Projections.rowCount());
 
-				pagingInfo.setTotalRecordCount(dao.<Long>selectValue(criteria));
+				pagingInfo.setTotalRecordCount(repository.<Long>selectValue(criteria));
 				pagingInfo.setLoadRecordCount(false);
 				} finally {
 					// Reset the criteria to return the result rather than the row count
@@ -185,21 +197,30 @@ public abstract class BaseEntityServiceImpl<E extends OpenmrsObject, P extends I
 		}
 	}
 
+	/**
+	 * Creates a new {@link Criteria} to retrieve the data specified by the {@link PagingInfo} object.
+	 * @param pagingInfo The {@link PagingInfo} object that specifies which data should be retrieved.
+	 * @return A new {@link Criteria} with the paging settings.
+	 */
 	protected Criteria createPagingCriteria(PagingInfo pagingInfo) {
 		return createPagingCriteria(pagingInfo, null);
 	}
 
+	/**
+	 * Updates the specified {@link Criteria} object to retrieve the data specified by the {@link PagingInfo} object.
+	 * @param pagingInfo The {@link PagingInfo} object that specifies which data should be retrieved.
+	 * @param criteria The {@link Criteria} to add the paging settings to, or {@code null} to create a new one.
+	 * @return The {@link Criteria} object with the paging settings applied.
+	 */
 	protected Criteria createPagingCriteria(PagingInfo pagingInfo, Criteria criteria) {
 		if (pagingInfo != null && pagingInfo.getPage() > 0 && pagingInfo.getPageSize() > 0) {
 			if (criteria == null) {
-				criteria = dao.createCriteria(getEntityClass());
+				criteria = repository.createCriteria(getEntityClass());
 			}
 
 			criteria.setFirstResult((pagingInfo.getPage() - 1) * pagingInfo.getPageSize());
 			criteria.setMaxResults(pagingInfo.getPageSize());
 			criteria.setFetchSize(pagingInfo.getPageSize());
-
-
 		}
 
 		return criteria;

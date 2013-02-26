@@ -23,8 +23,8 @@ import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import java.util.Date;
 import java.util.List;
 
-public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E extends BaseOpenmrsMetadata>
-		extends IEntityServiceTest<S, E> {
+public abstract class IMetadataServiceTest<S extends IMetadataDataService<E>, E extends BaseOpenmrsMetadata>
+		extends IObjectDataServiceTest<S, E> {
 
 	@Override
 	protected void assertEntity(E expected, E actual) {
@@ -44,7 +44,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies retire the entity successfully
-	 * @see IMetadataService#retire(org.openmrs.OpenmrsMetadata, String)
+	 * @see IMetadataDataService#retire(org.openmrs.OpenmrsMetadata, String)
 	 */
 	@Test
 	public void retire_shouldRetireTheEntitySuccessfully() throws Exception {
@@ -66,7 +66,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies throw NullPointerException when the entity is null
-	 * @see IMetadataService#retire(org.openmrs.OpenmrsMetadata, String)
+	 * @see IMetadataDataService#retire(org.openmrs.OpenmrsMetadata, String)
 	 */
 	@Test(expected = NullPointerException.class)
 	public void retire_shouldThrowNullPointerExceptionWhenTheEntityIsNull() throws Exception {
@@ -75,7 +75,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies throw IllegalArgumentException when no reason is given
-	 * @see IMetadataService#retire(org.openmrs.OpenmrsMetadata, String)
+	 * @see IMetadataDataService#retire(org.openmrs.OpenmrsMetadata, String)
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void retire_shouldThrowIllegalArgumentExceptionWhenNoReasonIsGiven() throws Exception {
@@ -86,7 +86,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies throw NullPointerException if the entity is null
-	 * @see IMetadataService#unretire(org.openmrs.OpenmrsMetadata)
+	 * @see IMetadataDataService#unretire(org.openmrs.OpenmrsMetadata)
 	 */
 	@Test(expected = NullPointerException.class)
 	public void unretire_shouldThrowNullPointerExceptionIfTheEntityIsNull() throws Exception {
@@ -95,7 +95,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies unretire the entity
-	 * @see IMetadataService#unretire(org.openmrs.OpenmrsMetadata)
+	 * @see IMetadataDataService#unretire(org.openmrs.OpenmrsMetadata)
 	 */
 	@Test
 	public void unretire_shouldUnretireTheEntity() throws Exception {
@@ -121,7 +121,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return all retired entities when retired is set to true
-	 * @see IMetadataService#getAll(boolean)
+	 * @see IMetadataDataService#getAll(boolean)
 	 */
 	@Test
 	public void getAll_shouldReturnAllEntitiesWhenIncludeRetiredIsSetToTrue() throws Exception {
@@ -138,7 +138,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return all unretired entities when retired is set to false
-	 * @see IMetadataService#getAll(boolean)
+	 * @see IMetadataDataService#getAll(boolean)
 	 */
 	@Test
 	public void getAll_shouldReturnAllUnretiredEntitiesWhenRetiredIsSetToFalse() throws Exception {
@@ -155,7 +155,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies throw IllegalArgumentException if the name is null
-	 * @see IMetadataService#findByName(String, boolean)
+	 * @see IMetadataDataService#findByName(String, boolean)
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void findByName_shouldThrowIllegalArgumentExceptionIfTheNameIsNull() throws Exception {
@@ -164,7 +164,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies throw IllegalArgumentException if the name is empty
-	 * @see IMetadataService#findByName(String, boolean)
+	 * @see IMetadataDataService#findByName(String, boolean)
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void findByName_shouldThrowIllegalArgumentExceptionIfTheNameIsEmpty() throws Exception {
@@ -173,7 +173,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies throw IllegalArgumentException if the name is longer than 255 characters
-	 * @see IMetadataService#findByName(String, boolean)
+	 * @see IMetadataDataService#findByName(String, boolean)
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void findByName_shouldThrowIllegalArgumentExceptionIfTheNameIsLongerThan255Characters() throws Exception {
@@ -182,7 +182,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return an empty list if no entities are found
-	 * @see IMetadataService#findByName(String, boolean)
+	 * @see IMetadataDataService#findByName(String, boolean)
 	 */
 	@Test
 	public void findByName_shouldReturnAnEmptyListIfNoEntitiesAreFound() throws Exception {
@@ -194,7 +194,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies not return retired entities unless specified
-	 * @see IMetadataService#findByName(String, boolean)
+	 * @see IMetadataDataService#findByName(String, boolean)
 	 */
 	@Test
 	public void findByName_shouldNotReturnRetiredEntitiesUnlessSpecified() throws Exception {
@@ -213,7 +213,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return entities that start with the specified name
-	 * @see IMetadataService#findByName(String, boolean)
+	 * @see IMetadataDataService#findByName(String, boolean)
 	 */
 	@Test
 	public void findByName_shouldReturnEntitiesThatStartWithTheSpecifiedName() throws Exception {
@@ -237,7 +237,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return all specified entity records if paging is null
-	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void findByName_shouldReturnAllSpecifiedEntityRecordsIfPagingIsNull() throws Exception {
@@ -253,7 +253,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return all specified entity records if paging page or size is less than one
-	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void findByName_shouldReturnAllSpecifiedEntityRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
@@ -277,7 +277,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies set the paging total records to the total number of entity records
-	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void findByName_shouldSetThePagingTotalRecordsToTheTotalNumberOfEntityRecords() throws Exception {
@@ -291,7 +291,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies not get the total paging record count if it is more than zero
-	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void findByName_shouldNotGetTheTotalPagingRecordCountIfItIsMoreThanZero() throws Exception {
@@ -325,7 +325,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return paged entity records if paging is specified
-	 * @see IMetadataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void findByName_shouldReturnPagedEntityRecordsIfPagingIsSpecified() throws Exception {
@@ -345,7 +345,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return all specified entity records if paging is null
-	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldReturnAllSpecifiedEntityRecordsIfPagingIsNull() throws Exception {
@@ -363,7 +363,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return all specified entity records if paging page or size is less than one
-	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldReturnAllSpecifiedEntityRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
@@ -388,7 +388,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies set the paging total records to the total number of entity records
-	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldSetThePagingTotalRecordsToTheTotalNumberOfEntityRecords() throws Exception {
@@ -402,7 +402,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies not get the total paging record count if it is more than zero
-	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.cashier.api.util.PagingInfo)
+	 * @see IMetadataDataService#getAll(boolean, org.openmrs.module.openhmis.cashier.api.util.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldNotGetTheTotalPagingRecordCountIfItIsMoreThanZero() throws Exception {
@@ -435,7 +435,7 @@ public abstract class IMetadataServiceTest<S extends IMetadataService<E>, E exte
 
 	/**
 	 * @verifies return paged entity records if paging is specified
-	 * @see IMetadataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldReturnPagedEntityRecordsIfPagingIsSpecified() throws Exception {
