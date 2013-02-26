@@ -24,7 +24,7 @@ import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.IObjectDataService;
 import org.openmrs.module.openhmis.commons.api.entity.db.hibernate.IHibernateRepository;
-import org.openmrs.module.openhmis.commons.api.entity.security.IEntityAuthorizationPrivileges;
+import org.openmrs.module.openhmis.commons.api.entity.security.IObjectAuthorizationPrivileges;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.ParameterizedType;
@@ -35,7 +35,7 @@ import java.util.List;
  * @param <E> The  {@link org.openmrs.OpenmrsObject} model type.
  */
 @Transactional
-public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P extends IEntityAuthorizationPrivileges>
+public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P extends IObjectAuthorizationPrivileges>
 		extends BaseOpenmrsService implements IObjectDataService<E> {
 	protected IHibernateRepository repository;
 	private Class entityClass = null;

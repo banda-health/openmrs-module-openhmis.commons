@@ -21,7 +21,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.IEntityDataService;
-import org.openmrs.module.openhmis.commons.api.entity.security.IDataAuthorizationPrivileges;
+import org.openmrs.module.openhmis.commons.api.entity.security.IEntityAuthorizationPrivileges;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -33,12 +33,12 @@ import java.util.List;
  */
 @Transactional
 public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
-		extends BaseObjectDataServiceImpl<E, IDataAuthorizationPrivileges> implements IEntityDataService<E> {
+		extends BaseObjectDataServiceImpl<E, IEntityAuthorizationPrivileges> implements IEntityDataService<E> {
 
 	@Override
 	@Transactional
 	public E voidEntity(E entity, String reason) {
-		IDataAuthorizationPrivileges privileges = getPrivileges();
+		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getVoidPrivilege())) {
 			Context.requirePrivilege(privileges.getVoidPrivilege());
 		}
@@ -61,7 +61,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 	@Override
 	@Transactional
 	public E unvoidEntity(E entity) throws APIException {
-		IDataAuthorizationPrivileges privileges = getPrivileges();
+		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getVoidPrivilege())) {
 			Context.requirePrivilege(privileges.getVoidPrivilege());
 		}
@@ -86,7 +86,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 	@Override
 	@Transactional(readOnly = true)
 	public List<E> getAll(boolean includeVoided, PagingInfo pagingInfo) throws APIException {
-		IDataAuthorizationPrivileges privileges = getPrivileges();
+		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
 			Context.requirePrivilege(privileges.getGetPrivilege());
 		}

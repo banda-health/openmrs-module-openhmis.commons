@@ -16,7 +16,7 @@ package org.openmrs.module.openhmis.commons.api.entity.security;
 /**
  * Represents types that define the privileges for the core {@link org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService} operations.
  */
-public interface IMetadataAuthorizationPrivileges extends IEntityAuthorizationPrivileges {
+public interface IMetadataAuthorizationPrivileges extends IObjectAuthorizationPrivileges {
 	/**
 	 * The privilege required to retire or unretire metadata or {@code null} for no authorization.
 	 * @return The privilege name.

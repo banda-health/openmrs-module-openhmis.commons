@@ -11,29 +11,15 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-
 package org.openmrs.module.openhmis.commons.api.entity.security;
 
 /**
- * Represents types that define the privileges for core {@link org.openmrs.module.openhmis.commons.api.entity.IObjectDataService} operations.
+ * Represents types that define the privileges for the core {@link org.openmrs.module.openhmis.commons.api.entity.IEntityDataService} operations.
  */
-public interface IEntityAuthorizationPrivileges {
+public interface IEntityAuthorizationPrivileges extends IObjectAuthorizationPrivileges {
 	/**
-	 * The privilege required to save an entity or {@code null} for no authorization.
+	 * The privilege required to void or unvoid an entity or {@code null} for no authorization.
 	 * @return The privilege name.
 	 */
-	String getSavePrivilege();
-
-	/**
-	 * The privilege required to purge an entity or {@code null} for no authorization.
-	 * @return The privilege name.
-	 */
-	String getPurgePrivilege();
-
-	/**
-	 * The privilege required to get an entity or {@code null} for no authorization.
-	 * @return The privilege name.
-	 */
-	String getGetPrivilege();
+	String getVoidPrivilege();
 }
-
