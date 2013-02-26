@@ -4,8 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
   		    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<!-- Core Module Beans -->
-	<!-- <bean id="genericDAO" class="org.openmrs.module.openhmis.cashier.api.db.hibernate.HibernateRepository">
+	<bean id="genericRepository" class="org.openmrs.module.openhmis.commons.api.entity.db.hibernate.HibernateRepository">
 		<constructor-arg name="sessionFactory" ref="sessionFactory" />
-	</bean>-->
+	</bean>
 </beans>
