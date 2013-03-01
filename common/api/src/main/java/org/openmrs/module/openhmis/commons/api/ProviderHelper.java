@@ -20,6 +20,10 @@ import org.openmrs.api.context.Context;
 import java.util.Collection;
 
 public class ProviderHelper {
+	public static Provider getCurrentProvider() {
+		return getCurrentProvider(Context.getProviderService());
+	}
+	
 	public static Provider getCurrentProvider(ProviderService providerService) {
 		Collection<Provider> providers = providerService.getProvidersByPerson(Context.getAuthenticatedUser().getPerson());
 			if (providers.size() > 0) {
