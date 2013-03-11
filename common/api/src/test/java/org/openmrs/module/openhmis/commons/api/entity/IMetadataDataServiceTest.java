@@ -154,6 +154,23 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
+	 * @verifies return all unretired entities when retired is not specified
+	 * @see IMetadataDataService#getAll(boolean)
+	 */
+	@Test
+	public void getAll_shouldReturnAllUnretiredEntitiesWhenRetiredIsNotSpecified() throws Exception {
+		String reason = "test retire";
+		E entity = service.getById(0);
+		service.retire(entity, reason);
+
+		Context.flushSession();
+
+		List<E> entities = service.getAll();
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(getTestEntityCount() - 1, entities.size());
+	}
+
+	/**
 	 * @verifies throw IllegalArgumentException if the name is null
 	 * @see IMetadataDataService#findByName(String, boolean)
 	 */

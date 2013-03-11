@@ -19,6 +19,7 @@ import org.openmrs.BaseOpenmrsData;
 import org.openmrs.api.context.Context;
 
 import java.util.Date;
+import java.util.List;
 
 public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E extends BaseOpenmrsData> extends IObjectDataServiceTest<S, E> {
 	@Override
@@ -109,5 +110,56 @@ public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E 
 	@Test(expected = NullPointerException.class)
 	public void unvoidEntity_shouldThrowNullPointerExceptionWithNullEntity() throws Exception {
 		service.unvoidEntity(null);
+	}
+
+	/**
+	 * @verifies return all entities when include voided is set to true
+	 * @see IMetadataDataService#getAll(boolean)
+	 */
+	@Test
+	public void getAll_shouldReturnAllEntitiesWhenIncludeVoidedIsSetToTrue() throws Exception {
+		String reason = "test void";
+		E entity = service.getById(0);
+		service.voidEntity(entity, reason);
+
+		Context.flushSession();
+
+		List<E> entities = service.getAll(true);
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(getTestEntityCount(), entities.size());
+	}
+
+	/**
+	 * @verifies return all unvoided entities when include voided is set to false
+	 * @see IMetadataDataService#getAll(boolean)
+	 */
+	@Test
+	public void getAll_shouldReturnAllUnvoidedEntitiesWhenIncludeVoidedIsSetToFalse() throws Exception {
+		String reason = "test void";
+		E entity = service.getById(0);
+		service.voidEntity(entity, reason);
+
+		Context.flushSession();
+
+		List<E> entities = service.getAll(false);
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(getTestEntityCount() - 1, entities.size());
+	}
+
+	/**
+	 * @verifies return all unvoided entities when voided is not specified
+	 * @see IMetadataDataService#getAll(boolean)
+	 */
+	@Test
+	public void getAll_shouldReturnAllUnvoidedEntitiesWhenVoidedIsNotSpecified() throws Exception {
+		String reason = "test void";
+		E entity = service.getById(0);
+		service.voidEntity(entity, reason);
+
+		Context.flushSession();
+
+		List<E> entities = service.getAll();
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(getTestEntityCount() - 1, entities.size());
 	}
 }

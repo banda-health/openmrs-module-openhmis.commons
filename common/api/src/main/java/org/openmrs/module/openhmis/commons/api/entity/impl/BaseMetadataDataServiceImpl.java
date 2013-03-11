@@ -78,6 +78,19 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 		return save(entity);
 	}
 
+	/**
+	 * Gets all unretired entites.
+	 * @param pagingInfo
+	 * @return Returns all unretired entities
+	 * @throws APIException
+	 * @should return all unretired entities when retired is not specified
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public List<E> getAll(PagingInfo pagingInfo) throws APIException {
+		return getAll(false, pagingInfo);
+	}
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<E> getAll(boolean includeRetired) throws APIException {

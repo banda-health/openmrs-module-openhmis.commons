@@ -77,6 +77,19 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 		return save(entity);
 	}
 
+	/**
+	 * Gets all unvoided entites.
+	 * @param pagingInfo
+	 * @return Returns all unvoided entities
+	 * @throws APIException
+	 * @should return all unvoided entities when voided is not specified
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public List<E> getAll(PagingInfo pagingInfo) throws APIException {
+		return getAll(false, pagingInfo);
+	}
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<E> getAll(boolean includeVoided) throws APIException {

@@ -152,7 +152,7 @@ public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E 
 		List<E> entities = service.getAll();
 		Assert.assertNotNull(entities);
 
-		Assert.assertEquals(entities.size(), getTestEntityCount());
+		Assert.assertEquals(getTestEntityCount(), entities.size());
 	}
 
 	/**
