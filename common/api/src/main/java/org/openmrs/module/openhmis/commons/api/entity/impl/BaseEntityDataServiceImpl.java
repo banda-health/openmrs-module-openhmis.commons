@@ -17,13 +17,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.OpenmrsData;
+import org.openmrs.OpenmrsObject;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
+import org.openmrs.module.openhmis.commons.api.Utility;
 import org.openmrs.module.openhmis.commons.api.entity.IEntityDataService;
 import org.openmrs.module.openhmis.commons.api.entity.security.IEntityAuthorizationPrivileges;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,8 +37,8 @@ import java.util.List;
  */
 @Transactional
 public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
-		extends BaseObjectDataServiceImpl<E, IEntityAuthorizationPrivileges> implements IEntityDataService<E> {
-
+		extends BaseObjectDataServiceImpl<E, IEntityAuthorizationPrivileges>
+		implements IEntityDataService<E> {
 	@Override
 	@Transactional
 	public E voidEntity(E entity, String reason) {
@@ -50,12 +54,35 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 			throw new IllegalArgumentException("The reason to void must be defined.");
 		}
 
-		entity.setVoided(true);
-		entity.setVoidReason(reason);
-		entity.setVoidedBy(Context.getAuthenticatedUser());
-		entity.setDateVoided(new Date());
+		User user = Context.getAuthenticatedUser();
+		Date dateVoided = new Date();
+		setVoidProperties(entity, reason, user, dateVoided);
 
-		return save(entity);
+		List<OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
+		List<OpenmrsData> updatedObjects = new ArrayList<OpenmrsData>();
+		if (relatedObjects != null && relatedObjects.size() > 0) {
+			for (OpenmrsObject object : relatedObjects) {
+				OpenmrsData data = Utility.as(OpenmrsData.class, object);
+				if (data != null) {
+					setVoidProperties(data, reason, user, dateVoided);
+
+					updatedObjects.add(data);
+				}
+			}
+		}
+
+		if (updatedObjects.size() > 0) {
+			return saveAll(entity, relatedObjects);
+		} else {
+			return save(entity);
+		}
+	}
+
+	protected void setVoidProperties(OpenmrsData data, String reason, User user, Date dateVoided) {
+		data.setVoided(true);
+		data.setVoidReason(reason);
+		data.setVoidedBy(user);
+		data.setDateVoided(dateVoided);
 	}
 
 	@Override
@@ -70,11 +97,32 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 			throw new NullPointerException("The entity to unvoid cannot be null.");
 		}
 
-		entity.setVoided(false);
-		entity.setVoidReason(null);
-		entity.setVoidedBy(null);
+		setUnvoidProperties(entity);
 
-		return save(entity);
+		List<OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
+		List<OpenmrsData> updatedObjects = new ArrayList<OpenmrsData>();
+		if (relatedObjects != null && relatedObjects.size() > 0) {
+			for (OpenmrsObject object : relatedObjects) {
+				OpenmrsData data = Utility.as(OpenmrsData.class, object);
+				if (data != null) {
+					setUnvoidProperties(data);
+
+					updatedObjects.add(data);
+				}
+			}
+		}
+
+		if (updatedObjects.size() > 0) {
+			return saveAll(entity, relatedObjects);
+		} else {
+			return save(entity);
+		}
+	}
+
+	protected void setUnvoidProperties(OpenmrsData data) {
+		data.setVoided(false);
+		data.setVoidReason(null);
+		data.setVoidedBy(null);
 	}
 
 	/**

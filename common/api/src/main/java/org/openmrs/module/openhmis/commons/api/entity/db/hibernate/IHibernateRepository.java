@@ -45,6 +45,15 @@ public interface IHibernateRepository {
 	<E extends OpenmrsObject> E save(E entity) throws APIException;
 
 	/**
+	 * Saves an entity to the database along with the related entities.
+	 * @param entity The entity to save.
+	 * @param related The related entities.
+	 * @return The saved entity.
+	 * @throws APIException
+	 */
+	<E extends OpenmrsObject> E saveAll(E entity, List<? extends OpenmrsObject> related) throws APIException;
+
+	/**
 	 * Deletes an entity from the database.
 	 * @param entity The entity to delete.
 	 * @throws org.openmrs.api.APIException

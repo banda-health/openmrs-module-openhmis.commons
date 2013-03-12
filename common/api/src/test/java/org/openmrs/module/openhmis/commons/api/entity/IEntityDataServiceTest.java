@@ -162,4 +162,64 @@ public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E 
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(getTestEntityCount() - 1, entities.size());
 	}
+
+	/**
+	 * @verifies void any related entities
+	 * @see IEntityDataService#voidEntity(E, String)
+	 */
+	@Test
+	public void voidEntity_shouldVoidAnyRelatedEntities() throws Exception {
+		//TODO auto-generated
+		Assert.fail("Not yet implemented");
+	}
+
+	/**
+	 * @verifies ignore any non-data related objects
+	 * @see IEntityDataService#voidEntity(E, String)
+	 */
+	@Test
+	public void voidEntity_shouldIgnoreAnyNondataRelatedObjects() throws Exception {
+		//TODO auto-generated
+		Assert.fail("Not yet implemented");
+	}
+
+	/**
+	 * @verifies unvoid any related entities
+	 * @see IEntityDataService#unvoidEntity(E)
+	 */
+	@Test
+	public void unvoidEntity_shouldUnvoidAnyRelatedEntities() throws Exception {
+		//TODO auto-generated
+		Assert.fail("Not yet implemented");
+	}
+
+	/**
+	 * @verifies ignore any non-data related objects
+	 * @see IEntityDataService#unvoidEntity(E)
+	 */
+	@Test
+	public void unvoidEntity_shouldIgnoreAnyNondataRelatedObjects() throws Exception {
+		//TODO auto-generated
+		Assert.fail("Not yet implemented");
+	}
+
+	/**
+	 * @verifies return all voided entities when voided is set to true
+	 * @see IEntityDataService#getAll(boolean)
+	 */
+	@Test
+	public void getAll_shouldReturnAllVoidedEntitiesWhenVoidedIsSetToTrue() throws Exception {
+		//TODO auto-generated
+		Assert.fail("Not yet implemented");
+	}
+
+	/**
+	 * @verifies return all unvoided entities when voided is set to false
+	 * @see IEntityDataService#getAll(boolean)
+	 */
+	@Test
+	public void getAll_shouldReturnAllUnvoidedEntitiesWhenVoidedIsSetToFalse() throws Exception {
+		//TODO auto-generated
+		Assert.fail("Not yet implemented");
+	}
 }

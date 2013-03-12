@@ -18,13 +18,17 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.OpenmrsMetadata;
+import org.openmrs.OpenmrsObject;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
+import org.openmrs.module.openhmis.commons.api.Utility;
 import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
 import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthorizationPrivileges;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,8 +38,8 @@ import java.util.List;
  */
 @Transactional
 public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
-		extends BaseObjectDataServiceImpl<E, IMetadataAuthorizationPrivileges> implements IMetadataDataService<E> {
-
+		extends BaseObjectDataServiceImpl<E, IMetadataAuthorizationPrivileges>
+		implements IMetadataDataService<E> {
 	@Override
 	@Transactional
 	public E retire(E entity, String reason) throws APIException {
@@ -51,12 +55,42 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 			throw new IllegalArgumentException("The reason to retire must be defined.");
 		}
 
-		entity.setRetired(true);
-		entity.setRetireReason(reason);
-		entity.setRetiredBy(Context.getAuthenticatedUser());
-		entity.setDateRetired(new Date());
+		User user = Context.getAuthenticatedUser();
+		Date dateRetired = new Date();
+		setRetireProperties(entity, reason, user, dateRetired);
 
-		return save(entity);
+		List<OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
+		List<OpenmrsMetadata> updatedObjects = new ArrayList<OpenmrsMetadata>();
+		if (relatedObjects != null && relatedObjects.size() > 0) {
+			for (OpenmrsObject object : relatedObjects) {
+				OpenmrsMetadata metadata = Utility.as(OpenmrsMetadata.class, object);
+				if (metadata != null) {
+					setRetireProperties(metadata, reason, user, dateRetired);
+
+					updatedObjects.add(metadata);
+				}
+			}
+		}
+
+		if (updatedObjects.size() > 0) {
+			return saveAll(entity, relatedObjects);
+		} else {
+			return save(entity);
+		}
+	}
+
+	/**
+	 * Sets the properties to retire an {@link OpenmrsMetadata} model object.
+	 * @param metadata The object to retire.
+	 * @param reason The reason to retire the metadata.
+	 * @param user The user that is retiring the metadata.
+	 * @param dateRetired The date that the metadata was retired.
+	 */
+	protected void setRetireProperties(OpenmrsMetadata metadata, String reason, User user, Date dateRetired) {
+		metadata.setRetired(true);
+		metadata.setRetireReason(reason);
+		metadata.setRetiredBy(user);
+		metadata.setDateRetired(dateRetired);
 	}
 
 	@Override
@@ -71,11 +105,33 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 			throw new NullPointerException("The entity to unretire cannot be null.");
 		}
 
-		entity.setRetired(false);
-		entity.setRetireReason(null);
-		entity.setRetiredBy(null);
+		setUnretireProperties(entity);
 
-		return save(entity);
+		// Really miss an easy option for functional programming here, Action<T> sure would be nice...
+		List<OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
+		List<OpenmrsMetadata> updatedObjects = new ArrayList<OpenmrsMetadata>();
+		if (relatedObjects != null && relatedObjects.size() > 0) {
+			for (OpenmrsObject object : relatedObjects) {
+				OpenmrsMetadata metadata = Utility.as(OpenmrsMetadata.class, object);
+				if (metadata != null) {
+					setUnretireProperties(metadata);
+
+					updatedObjects.add(metadata);
+				}
+			}
+		}
+
+		if (updatedObjects.size() > 0) {
+			return saveAll(entity, relatedObjects);
+		} else {
+			return save(entity);
+		}
+	}
+
+	protected void setUnretireProperties(OpenmrsMetadata metadata) {
+		metadata.setRetired(false);
+		metadata.setRetireReason(null);
+		metadata.setRetiredBy(null);
 	}
 
 	/**

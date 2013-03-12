@@ -56,6 +56,15 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	protected abstract void validate(E object) throws APIException;
 
 	/**
+	 * Gets a list of all related objects for the specified entity.
+	 * @param entity The parent entity.
+	 * @return The list of the related objects or {@code null} if none.
+	 */
+	protected List<OpenmrsObject> getRelatedMetadata(E entity) {
+		return null;
+	}
+
+	/**
 	 * @param repository the repository to set
 	 */
 	public void setRepository(IHibernateRepository repository) {
@@ -84,6 +93,23 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 		validate(object);
 
 		return repository.save(object);
+	}
+
+	@Override
+	@Transactional
+	public E saveAll(E object, List<? extends OpenmrsObject> related) throws APIException {
+		P privileges = getPrivileges();
+		if (privileges != null && !StringUtils.isEmpty(privileges.getSavePrivilege())) {
+			Context.requirePrivilege(privileges.getSavePrivilege());
+		}
+
+		if (object == null) {
+			throw new NullPointerException("The object to save cannot be null.");
+		}
+
+		validate(object);
+
+		return repository.saveAll(object, related);
 	}
 
 	@Override

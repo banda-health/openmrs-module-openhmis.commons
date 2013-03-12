@@ -32,8 +32,10 @@ public interface IEntityDataService<E extends OpenmrsData> extends IObjectDataSe
 	 * @param entity The entity object to void.
 	 * @param reason The reason for voiding.
 	 * @should void the entity
+	 * @should void any related entities
 	 * @should throw IllegalArgumentException with null reason parameter
 	 * @should throw NullPointerException with null entity
+	 * @should ignore any non-data related objects
 	 */
 	public E voidEntity(E entity, String reason);
 
@@ -42,7 +44,9 @@ public interface IEntityDataService<E extends OpenmrsData> extends IObjectDataSe
 	 *
 	 * @param entity The entity to be revived.
 	 * @should unvoid the entity
+	 * @should unvoid any related entities
 	 * @should throw NullPointerException with null entity
+	 * @should ignore any non-data related objects
 	 */
 	public E unvoidEntity(E entity) throws APIException;
 

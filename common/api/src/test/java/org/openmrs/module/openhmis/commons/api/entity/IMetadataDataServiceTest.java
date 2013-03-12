@@ -43,11 +43,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies retire the entity successfully
+	 * @verifies retire the metadata successfully
 	 * @see IMetadataDataService#retire(org.openmrs.OpenmrsMetadata, String)
 	 */
 	@Test
-	public void retire_shouldRetireTheEntitySuccessfully() throws Exception {
+	public void retire_shouldRetireTheMetadataSuccessfully() throws Exception {
 		String reason = "test retire";
 		E entity = service.getById(0);
 
@@ -65,11 +65,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies throw NullPointerException when the entity is null
+	 * @verifies throw NullPointerException when the metadata is null
 	 * @see IMetadataDataService#retire(org.openmrs.OpenmrsMetadata, String)
 	 */
 	@Test(expected = NullPointerException.class)
-	public void retire_shouldThrowNullPointerExceptionWhenTheEntityIsNull() throws Exception {
+	public void retire_shouldThrowNullPointerExceptionWhenTheMetadataIsNull() throws Exception {
 		service.retire(null, "something");
 	}
 
@@ -85,20 +85,20 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies throw NullPointerException if the entity is null
+	 * @verifies throw NullPointerException if the metadata is null
 	 * @see IMetadataDataService#unretire(org.openmrs.OpenmrsMetadata)
 	 */
 	@Test(expected = NullPointerException.class)
-	public void unretire_shouldThrowNullPointerExceptionIfTheEntityIsNull() throws Exception {
+	public void unretire_shouldThrowNullPointerExceptionIfTheMetadataIsNull() throws Exception {
 		service.unretire(null);
 	}
 
 	/**
-	 * @verifies unretire the entity
+	 * @verifies unretire the metadata
 	 * @see IMetadataDataService#unretire(org.openmrs.OpenmrsMetadata)
 	 */
 	@Test
-	public void unretire_shouldUnretireTheEntity() throws Exception {
+	public void unretire_shouldUnretireTheMetadata() throws Exception {
 		String reason = "test retire";
 		E entity = service.getById(0);
 		service.retire(entity, reason);
@@ -120,11 +120,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies return all retired entities when retired is set to true
+	 * @verifies return all retired metadata when retired is set to true
 	 * @see IMetadataDataService#getAll(boolean)
 	 */
 	@Test
-	public void getAll_shouldReturnAllEntitiesWhenIncludeRetiredIsSetToTrue() throws Exception {
+	public void getAll_shouldReturnAllMetadataWhenIncludeRetiredIsSetToTrue() throws Exception {
 		String reason = "test retire";
 		E entity = service.getById(0);
 		service.retire(entity, reason);
@@ -137,11 +137,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies return all unretired entities when retired is set to false
+	 * @verifies return all unretired metadata when retired is set to false
 	 * @see IMetadataDataService#getAll(boolean)
 	 */
 	@Test
-	public void getAll_shouldReturnAllUnretiredEntitiesWhenRetiredIsSetToFalse() throws Exception {
+	public void getAll_shouldReturnAllUnretiredMetadataWhenRetiredIsSetToFalse() throws Exception {
 		String reason = "test retire";
 		E entity = service.getById(0);
 		service.retire(entity, reason);
@@ -154,11 +154,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies return all unretired entities when retired is not specified
+	 * @verifies return all unretired metadata when retired is not specified
 	 * @see IMetadataDataService#getAll(boolean)
 	 */
 	@Test
-	public void getAll_shouldReturnAllUnretiredEntitiesWhenRetiredIsNotSpecified() throws Exception {
+	public void getAll_shouldReturnAllUnretiredMetadataWhenRetiredIsNotSpecified() throws Exception {
 		String reason = "test retire";
 		E entity = service.getById(0);
 		service.retire(entity, reason);
@@ -198,11 +198,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies return an empty list if no entities are found
+	 * @verifies return an empty list if no metadata are found
 	 * @see IMetadataDataService#findByName(String, boolean)
 	 */
 	@Test
-	public void findByName_shouldReturnAnEmptyListIfNoEntitiesAreFound() throws Exception {
+	public void findByName_shouldReturnAnEmptyListIfNoMetadataAreFound() throws Exception {
 		List<E> entities = service.findByName("NotAValidName", true);
 
 		Assert.assertNotNull(entities);
@@ -210,11 +210,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies not return retired entities unless specified
+	 * @verifies not return retired metadata unless specified
 	 * @see IMetadataDataService#findByName(String, boolean)
 	 */
 	@Test
-	public void findByName_shouldNotReturnRetiredEntitiesUnlessSpecified() throws Exception {
+	public void findByName_shouldNotReturnRetiredMetadataUnlessSpecified() throws Exception {
 		E entity = service.getById(0);
 		service.retire(entity, "something");
 		Context.flushSession();
@@ -229,11 +229,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies return entities that start with the specified name
+	 * @verifies return metadata that start with the specified name
 	 * @see IMetadataDataService#findByName(String, boolean)
 	 */
 	@Test
-	public void findByName_shouldReturnEntitiesThatStartWithTheSpecifiedName() throws Exception {
+	public void findByName_shouldReturnMetadataThatStartWithTheSpecifiedName() throws Exception {
 		E entity = service.getById(0);
 
 		// Search using the first four characters in the name
@@ -253,11 +253,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies return all specified entity records if paging is null
+	 * @verifies return all specified metadata records if paging is null
 	 * @see IMetadataDataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void findByName_shouldReturnAllSpecifiedEntityRecordsIfPagingIsNull() throws Exception {
+	public void findByName_shouldReturnAllSpecifiedMetadataRecordsIfPagingIsNull() throws Exception {
 		E entity = service.getById(0);
 
 		// This assumes that the entity name is unique
@@ -269,11 +269,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies return all specified entity records if paging page or size is less than one
+	 * @verifies return all specified metadata records if paging page or size is less than one
 	 * @see IMetadataDataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void findByName_shouldReturnAllSpecifiedEntityRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
+	public void findByName_shouldReturnAllSpecifiedMetadataRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
 		E entity = service.getById(0);
 
 		PagingInfo paging = new PagingInfo(0, 1);
@@ -293,11 +293,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies set the paging total records to the total number of entity records
+	 * @verifies set the paging total records to the total number of metadata records
 	 * @see IMetadataDataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void findByName_shouldSetThePagingTotalRecordsToTheTotalNumberOfEntityRecords() throws Exception {
+	public void findByName_shouldSetThePagingTotalRecordsToTheTotalNumberOfMetadataRecords() throws Exception {
 		PagingInfo paging = new PagingInfo(1, 1);
 		List<E> entities = service.findByName("T", false, paging);
 
@@ -341,11 +341,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies return paged entity records if paging is specified
+	 * @verifies return paged metadata records if paging is specified
 	 * @see IMetadataDataService#findByName(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void findByName_shouldReturnPagedEntityRecordsIfPagingIsSpecified() throws Exception {
+	public void findByName_shouldReturnPagedMetadataRecordsIfPagingIsSpecified() throws Exception {
 		PagingInfo paging = new PagingInfo(1, 1);
 		List<E> entities;
 
@@ -361,11 +361,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies return all specified entity records if paging is null
+	 * @verifies return all specified metadata records if paging is null
 	 * @see IMetadataDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void getAll_shouldReturnAllSpecifiedEntityRecordsIfPagingIsNull() throws Exception {
+	public void getAll_shouldReturnAllSpecifiedMetadataRecordsIfPagingIsNull() throws Exception {
 		String reason = "test retire";
 		E entity = service.getById(0);
 		service.retire(entity, reason);
@@ -379,11 +379,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies return all specified entity records if paging page or size is less than one
+	 * @verifies return all specified metadata records if paging page or size is less than one
 	 * @see IMetadataDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void getAll_shouldReturnAllSpecifiedEntityRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
+	public void getAll_shouldReturnAllSpecifiedMetadataRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
 		String reason = "test retire";
 		E entity = service.getById(0);
 		service.retire(entity, reason);
@@ -404,11 +404,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies set the paging total records to the total number of entity records
+	 * @verifies set the paging total records to the total number of metadata records
 	 * @see IMetadataDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void getAll_shouldSetThePagingTotalRecordsToTheTotalNumberOfEntityRecords() throws Exception {
+	public void getAll_shouldSetThePagingTotalRecordsToTheTotalNumberOfMetadataRecords() throws Exception {
 		PagingInfo paging = new PagingInfo(1, 1);
 		List<E> entities = service.getAll(false, paging);
 
@@ -419,7 +419,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 
 	/**
 	 * @verifies not get the total paging record count if it is more than zero
-	 * @see IMetadataDataService#getAll(boolean, org.openmrs.module.openhmis.cashier.api.util.PagingInfo)
+	 * @see IMetadataDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getAll_shouldNotGetTheTotalPagingRecordCountIfItIsMoreThanZero() throws Exception {
@@ -451,11 +451,11 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	}
 
 	/**
-	 * @verifies return paged entity records if paging is specified
+	 * @verifies return paged metadata records if paging is specified
 	 * @see IMetadataDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void getAll_shouldReturnPagedEntityRecordsIfPagingIsSpecified() throws Exception {
+	public void getAll_shouldReturnPagedMetadataRecordsIfPagingIsSpecified() throws Exception {
 		PagingInfo paging = new PagingInfo(1, 1);
 		List<E> entities;
 
@@ -467,6 +467,46 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 			Assert.assertEquals(1, entities.size());
 			assertEntity(service.getById(i), entities.get(0));
 		}
+	}
+
+	/**
+	 * @verifies retire any related metadata.
+	 * @see IMetadataDataService#retire(org.openmrs.OpenmrsMetadata, String)
+	 */
+	@Test
+	public void retire_shouldRetireAnyRelatedMetadata() throws Exception {
+		//TODO auto-generated
+		Assert.fail("Not yet implemented");
+	}
+
+	/**
+	 * @verifies ignore any non-metadata related objects
+	 * @see IMetadataDataService#retire(org.openmrs.OpenmrsMetadata, String)
+	 */
+	@Test
+	public void retire_shouldIgnoreAnyNonmetadataRelatedObjects() throws Exception {
+		//TODO auto-generated
+		Assert.fail("Not yet implemented");
+	}
+
+	/**
+	 * @verifies unretire any related metadata
+	 * @see IMetadataDataService#unretire(org.openmrs.OpenmrsMetadata)
+	 */
+	@Test
+	public void unretire_shouldUnretireAnyRelatedMetadata() throws Exception {
+		//TODO auto-generated
+		Assert.fail("Not yet implemented");
+	}
+
+	/**
+	 * @verifies ignore any non-metadata related objects
+	 * @see IMetadataDataService#unretire(org.openmrs.OpenmrsMetadata)
+	 */
+	@Test
+	public void unretire_shouldIgnoreAnyNonmetadataRelatedObjects() throws Exception {
+		//TODO auto-generated
+		Assert.fail("Not yet implemented");
 	}
 }
 

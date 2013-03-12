@@ -50,6 +50,17 @@ public interface IObjectDataService<E extends OpenmrsObject> extends OpenmrsServ
 	E save(E object) throws APIException;
 
 	/**
+	 * Saves an object to the database along with the specified related {@link OpenmrsObject}'s within a single
+	 * transaction.
+	 *
+	 * @param object The object to be saved to the database
+	 * @param related The related objects to be saved to the database
+	 * @return The saved object.
+	 * @throws APIException
+	 */
+	E saveAll(E object, List<? extends OpenmrsObject> related) throws APIException;
+
+	/**
 	 * Completely remove an object from the database (not reversible).
 	 *
 	 * @param object the object to remove from the database.
