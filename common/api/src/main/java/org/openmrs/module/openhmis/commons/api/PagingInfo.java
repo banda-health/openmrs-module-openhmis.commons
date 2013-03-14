@@ -13,6 +13,10 @@
  */
 package org.openmrs.module.openhmis.commons.api;
 
+/**
+ * This class contains the paging information used by the entity services to paginate results.  Both page and pageSize
+ * are 1-based, defining either as 0 will cause paging to be ignored.
+ */
 public class PagingInfo {
 	private int page;
 	private int pageSize;
@@ -22,6 +26,11 @@ public class PagingInfo {
 	public PagingInfo() {
 	}
 
+	/**
+	 * Creates a new {@link PagingInfo} instance.
+	 * @param page The 1-based number of the page being requested.
+	 * @param pageSize The number of records to include on each page.
+	 */
 	public PagingInfo(int page, int pageSize) {
 		this.page = page;
 		this.pageSize = pageSize;

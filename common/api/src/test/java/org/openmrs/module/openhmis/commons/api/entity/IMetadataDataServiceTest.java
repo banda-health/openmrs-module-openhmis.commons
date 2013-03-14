@@ -468,45 +468,5 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 			assertEntity(service.getById(i), entities.get(0));
 		}
 	}
-
-	/**
-	 * @verifies retire any related metadata.
-	 * @see IMetadataDataService#retire(org.openmrs.OpenmrsMetadata, String)
-	 */
-	@Test
-	public void retire_shouldRetireAnyRelatedMetadata() throws Exception {
-		//TODO auto-generated
-		Assert.fail("Not yet implemented");
-	}
-
-	/**
-	 * @verifies ignore any non-metadata related objects
-	 * @see IMetadataDataService#retire(org.openmrs.OpenmrsMetadata, String)
-	 */
-	@Test
-	public void retire_shouldIgnoreAnyNonmetadataRelatedObjects() throws Exception {
-		//TODO auto-generated
-		Assert.fail("Not yet implemented");
-	}
-
-	/**
-	 * @verifies unretire any related metadata
-	 * @see IMetadataDataService#unretire(org.openmrs.OpenmrsMetadata)
-	 */
-	@Test
-	public void unretire_shouldUnretireAnyRelatedMetadata() throws Exception {
-		//TODO auto-generated
-		Assert.fail("Not yet implemented");
-	}
-
-	/**
-	 * @verifies ignore any non-metadata related objects
-	 * @see IMetadataDataService#unretire(org.openmrs.OpenmrsMetadata)
-	 */
-	@Test
-	public void unretire_shouldIgnoreAnyNonmetadataRelatedObjects() throws Exception {
-		//TODO auto-generated
-		Assert.fail("Not yet implemented");
-	}
 }
 

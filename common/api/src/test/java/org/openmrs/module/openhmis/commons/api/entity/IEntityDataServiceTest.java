@@ -17,6 +17,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.openhmis.commons.api.PagingInfo;
 
 import java.util.Date;
 import java.util.List;
@@ -164,62 +165,147 @@ public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E 
 	}
 
 	/**
-	 * @verifies void any related entities
-	 * @see IEntityDataService#voidEntity(E, String)
+	 * @verifies return an empty list if no entities are found
+	 * @see IEntityDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void voidEntity_shouldVoidAnyRelatedEntities() throws Exception {
-		//TODO auto-generated
-		Assert.fail("Not yet implemented");
+	public void getAll_shouldReturnAnEmptyListIfNoEntitiesAreFound() throws Exception {
+		// Delete all defined entities
+		List<E> entities = service.getAll(true);
+		for (E entity : entities) {
+			service.purge(entity);
+		}
+
+		// Test that empty result is as expected
+		entities = service.getAll();
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(0, entities.size());
+
+		entities = service.getAll(true);
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(0, entities.size());
+
+		entities = service.getAll(false);
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(0, entities.size());
+
+		entities = service.getAll(true, new PagingInfo(1, 1));
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(0, entities.size());
 	}
 
 	/**
-	 * @verifies ignore any non-data related objects
-	 * @see IEntityDataService#voidEntity(E, String)
+	 * @verifies not return voided entities unless specified
+	 * @see IEntityDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void voidEntity_shouldIgnoreAnyNondataRelatedObjects() throws Exception {
-		//TODO auto-generated
-		Assert.fail("Not yet implemented");
+	public void getAll_shouldNotReturnVoidedEntitiesUnlessSpecified() throws Exception {
+		E entity = service.getById(0);
+		service.voidEntity(entity, "something");
+		Context.flushSession();
+
+		List<E> entities = service.getAll(false);
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(getTestEntityCount() - 1, entities.size());
+
+		entities = service.getAll(true);
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(getTestEntityCount(), entities.size());
 	}
 
 	/**
-	 * @verifies unvoid any related entities
-	 * @see IEntityDataService#unvoidEntity(E)
+	 * @verifies return all specified metadata records if paging is null
+	 * @see IEntityDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void unvoidEntity_shouldUnvoidAnyRelatedEntities() throws Exception {
-		//TODO auto-generated
-		Assert.fail("Not yet implemented");
+	public void getAll_shouldReturnAllSpecifiedMetadataRecordsIfPagingIsNull() throws Exception {
+		List<E> entities = service.getAll(true, null);
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(getTestEntityCount(), entities.size());
 	}
 
 	/**
-	 * @verifies ignore any non-data related objects
-	 * @see IEntityDataService#unvoidEntity(E)
+	 * @verifies return all specified entity records if paging page or size is less than one
+	 * @see IEntityDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void unvoidEntity_shouldIgnoreAnyNondataRelatedObjects() throws Exception {
-		//TODO auto-generated
-		Assert.fail("Not yet implemented");
+	public void getAll_shouldReturnAllSpecifiedEntityRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
+		List<E> entities = service.getAll(true, new PagingInfo(0, 1));
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(getTestEntityCount(), entities.size());
+
+		entities = service.getAll(true, new PagingInfo(1, 0));
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(getTestEntityCount(), entities.size());
+
+		entities = service.getAll(true, new PagingInfo(0, 0));
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(getTestEntityCount(), entities.size());
 	}
 
 	/**
-	 * @verifies return all voided entities when voided is set to true
-	 * @see IEntityDataService#getAll(boolean)
+	 * @verifies set the paging total records to the total number of entity records
+	 * @see IEntityDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void getAll_shouldReturnAllVoidedEntitiesWhenVoidedIsSetToTrue() throws Exception {
-		//TODO auto-generated
-		Assert.fail("Not yet implemented");
+	public void getAll_shouldSetThePagingTotalRecordsToTheTotalNumberOfEntityRecords() throws Exception {
+		PagingInfo paging = new PagingInfo(1, 1);
+		List<E> entities = service.getAll(false, paging);
+
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(1, entities.size());
+		Assert.assertEquals(Long.valueOf(getTestEntityCount()), paging.getTotalRecordCount());
 	}
 
 	/**
-	 * @verifies return all unvoided entities when voided is set to false
-	 * @see IEntityDataService#getAll(boolean)
+	 * @verifies not get the total paging record count if it is more than zero
+	 * @see IEntityDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void getAll_shouldReturnAllUnvoidedEntitiesWhenVoidedIsSetToFalse() throws Exception {
-		//TODO auto-generated
-		Assert.fail("Not yet implemented");
+	public void getAll_shouldNotGetTheTotalPagingRecordCountIfItIsMoreThanZero() throws Exception {
+		PagingInfo paging = new PagingInfo(1, 1);
+
+		// First check that the full total is set
+		List<E> entities = service.getAll(false, paging);
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(1, entities.size());
+		Assert.assertEquals(Long.valueOf(getTestEntityCount()), paging.getTotalRecordCount());
+
+		// Now manually set the total and check that it is not reset
+		paging = new PagingInfo(1, 1);
+		paging.setTotalRecordCount(10L);
+
+		entities = service.getAll(false, paging);
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(1, entities.size());
+		Assert.assertEquals((Long)10L, paging.getTotalRecordCount());
+
+		// Finally, explicitly set the paging to not load the total and make sure it is not counted
+		paging = new PagingInfo(1, 1);
+		paging.setLoadRecordCount(false);
+
+		entities = service.getAll(false, paging);
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(1, entities.size());
+		Assert.assertNull(paging.getTotalRecordCount());
+	}
+
+	/**
+	 * @verifies return paged entity records if paging is specified
+	 * @see IEntityDataService#getAll(boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 */
+	@Test
+	public void getAll_shouldReturnPagedEntityRecordsIfPagingIsSpecified() throws Exception {
+		PagingInfo paging = new PagingInfo(1, 1);
+		List<E> entities;
+
+		for (int i = 0; i < getTestEntityCount(); i++) {
+			paging.setPage(i + 1);
+			entities = service.getAll(paging);
+
+			Assert.assertNotNull(entities);
+			Assert.assertEquals(1, entities.size());
+			assertEntity(service.getById(i), entities.get(0));
+		}
 	}
 }

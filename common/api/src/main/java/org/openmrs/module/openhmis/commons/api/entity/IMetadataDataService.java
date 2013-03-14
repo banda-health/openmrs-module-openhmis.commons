@@ -33,10 +33,8 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @param reason the reason why the metadata is being retired.
 	 * @return the newly retired metadata.
 	 * @should retire the metadata successfully
-	 * @should retire any related metadata.
 	 * @should throw NullPointerException when the metadata is null
 	 * @should throw IllegalArgumentException when no reason is given
-	 * @should ignore any non-metadata related objects
 	 */
 	E retire(E metadata, String reason) throws APIException;
 
@@ -48,8 +46,6 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @throws org.openmrs.api.APIException
 	 * @should throw NullPointerException if the metadata is null
 	 * @should unretire the metadata
-	 * @should unretire any related metadata
-	 * @should ignore any non-metadata related objects
 	 */
 	E unretire(E metadata) throws APIException;
 
