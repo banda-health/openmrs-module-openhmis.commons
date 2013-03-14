@@ -60,7 +60,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	 * @param entity The parent entity.
 	 * @return The list of the related objects or {@code null} if none.
 	 */
-	protected List<OpenmrsObject> getRelatedMetadata(E entity) {
+	protected List<? extends OpenmrsObject> getRelatedMetadata(E entity) {
 		return null;
 	}
 

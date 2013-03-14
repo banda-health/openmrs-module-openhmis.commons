@@ -58,7 +58,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 		Date dateVoided = new Date();
 		setVoidProperties(entity, reason, user, dateVoided);
 
-		List<OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
+		List<? extends OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
 		List<OpenmrsData> updatedObjects = new ArrayList<OpenmrsData>();
 		if (relatedObjects != null && relatedObjects.size() > 0) {
 			for (OpenmrsObject object : relatedObjects) {
@@ -99,7 +99,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 
 		setUnvoidProperties(entity);
 
-		List<OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
+		List<? extends OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
 		List<OpenmrsData> updatedObjects = new ArrayList<OpenmrsData>();
 		if (relatedObjects != null && relatedObjects.size() > 0) {
 			for (OpenmrsObject object : relatedObjects) {

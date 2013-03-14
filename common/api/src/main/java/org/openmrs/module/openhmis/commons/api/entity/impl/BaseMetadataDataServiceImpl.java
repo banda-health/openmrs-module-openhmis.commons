@@ -59,7 +59,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 		Date dateRetired = new Date();
 		setRetireProperties(entity, reason, user, dateRetired);
 
-		List<OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
+		List<? extends OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
 		List<OpenmrsMetadata> updatedObjects = new ArrayList<OpenmrsMetadata>();
 		if (relatedObjects != null && relatedObjects.size() > 0) {
 			for (OpenmrsObject object : relatedObjects) {
@@ -108,7 +108,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 		setUnretireProperties(entity);
 
 		// Really miss an easy option for functional programming here, Action<T> sure would be nice...
-		List<OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
+		List<? extends OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
 		List<OpenmrsMetadata> updatedObjects = new ArrayList<OpenmrsMetadata>();
 		if (relatedObjects != null && relatedObjects.size() > 0) {
 			for (OpenmrsObject object : relatedObjects) {
