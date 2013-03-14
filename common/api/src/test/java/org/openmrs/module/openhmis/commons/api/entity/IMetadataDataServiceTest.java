@@ -346,6 +346,8 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	 */
 	@Test
 	public void findByName_shouldReturnPagedMetadataRecordsIfPagingIsSpecified() throws Exception {
+		List<E> allEntities = service.findByName("T", false);
+
 		PagingInfo paging = new PagingInfo(1, 1);
 		List<E> entities;
 
@@ -356,7 +358,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 			Assert.assertNotNull(entities);
 			Assert.assertEquals(1, entities.size());
 			Assert.assertEquals(Long.valueOf(getTestEntityCount()), paging.getTotalRecordCount());
-			assertEntity(service.getById(i), entities.get(0));
+			assertEntity(allEntities.get(i), entities.get(0));
 		}
 	}
 
@@ -456,6 +458,8 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	 */
 	@Test
 	public void getAll_shouldReturnPagedMetadataRecordsIfPagingIsSpecified() throws Exception {
+		List<E> allEntities = service.getAll();
+
 		PagingInfo paging = new PagingInfo(1, 1);
 		List<E> entities;
 
@@ -465,7 +469,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 
 			Assert.assertNotNull(entities);
 			Assert.assertEquals(1, entities.size());
-			assertEntity(service.getById(i), entities.get(0));
+			assertEntity(allEntities.get(i), entities.get(0));
 		}
 	}
 }

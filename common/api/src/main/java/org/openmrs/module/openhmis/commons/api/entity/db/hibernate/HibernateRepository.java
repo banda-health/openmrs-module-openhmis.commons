@@ -16,9 +16,9 @@ package org.openmrs.module.openhmis.commons.api.entity.db.hibernate;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.api.APIException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -50,9 +50,9 @@ public class HibernateRepository implements IHibernateRepository {
 	}
 
 	@Override
+	@Transactional
 	public <E extends OpenmrsObject> E saveAll(E entity, List<? extends OpenmrsObject> related) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
 			session.saveOrUpdate(entity);
 
@@ -61,11 +61,7 @@ public class HibernateRepository implements IHibernateRepository {
 					session.saveOrUpdate(obj);
 				}
 			}
-
-			tx.commit();
 		} catch (Exception ex) {
-			tx.rollback();
-
 			throw new APIException("An exception occurred while attempting to add a " + entity.getClass().getSimpleName() + " entity.", ex);
 		}
 

@@ -302,8 +302,9 @@ public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E 
 	 */
 	@Test
 	public void getAll_shouldReturnPagedObjectRecordsIfPagingIsSpecified() throws Exception {
-		PagingInfo paging = new PagingInfo(1, 1);
+		List<E> allEntities = service.getAll();
 
+		PagingInfo paging = new PagingInfo(1, 1);
 		List<E> entities;
 		for (int i = 0; i < getTestEntityCount(); i++) {
 			paging.setPage(i + 1);
@@ -311,7 +312,7 @@ public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E 
 
 			Assert.assertNotNull(entities);
 			Assert.assertEquals(1, entities.size());
-			Assert.assertEquals(i, (int)entities.get(0).getId());
+			Assert.assertEquals(allEntities.get(i), entities.get(0));
 		}
 	}
 
