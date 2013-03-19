@@ -20,6 +20,7 @@ import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.db.hibernate.IHibernateRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ public interface IObjectDataService<E extends OpenmrsObject> extends OpenmrsServ
 	 * @return The saved object.
 	 * @throws APIException
 	 */
-	E saveAll(E object, List<? extends OpenmrsObject> related) throws APIException;
+	E saveAll(E object, Collection<? extends OpenmrsObject> related) throws APIException;
 
 	/**
 	 * Completely remove an object from the database (not reversible).

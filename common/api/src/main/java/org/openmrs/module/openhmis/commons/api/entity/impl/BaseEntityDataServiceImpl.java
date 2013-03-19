@@ -28,6 +28,7 @@ import org.openmrs.module.openhmis.commons.api.entity.security.IEntityAuthorizat
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 		Date dateVoided = new Date();
 		setVoidProperties(entity, reason, user, dateVoided);
 
-		List<? extends OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
+		Collection<? extends OpenmrsObject> relatedObjects = getRelatedObjects(entity);
 		List<OpenmrsData> updatedObjects = new ArrayList<OpenmrsData>();
 		if (relatedObjects != null && relatedObjects.size() > 0) {
 			for (OpenmrsObject object : relatedObjects) {
@@ -99,7 +100,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 
 		setUnvoidProperties(entity);
 
-		List<? extends OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
+		Collection<? extends OpenmrsObject> relatedObjects = getRelatedObjects(entity);
 		List<OpenmrsData> updatedObjects = new ArrayList<OpenmrsData>();
 		if (relatedObjects != null && relatedObjects.size() > 0) {
 			for (OpenmrsObject object : relatedObjects) {

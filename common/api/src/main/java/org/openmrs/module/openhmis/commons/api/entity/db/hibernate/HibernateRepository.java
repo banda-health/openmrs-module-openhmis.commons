@@ -21,6 +21,7 @@ import org.openmrs.api.APIException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 public class HibernateRepository implements IHibernateRepository {
@@ -51,7 +52,7 @@ public class HibernateRepository implements IHibernateRepository {
 
 	@Override
 	@Transactional
-	public <E extends OpenmrsObject> E saveAll(E entity, List<? extends OpenmrsObject> related) {
+	public <E extends OpenmrsObject> E saveAll(E entity, Collection<? extends OpenmrsObject> related) {
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			session.saveOrUpdate(entity);

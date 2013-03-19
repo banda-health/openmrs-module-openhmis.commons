@@ -28,6 +28,7 @@ import org.openmrs.module.openhmis.commons.api.entity.security.IObjectAuthorizat
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -60,7 +61,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	 * @param entity The parent entity.
 	 * @return The list of the related objects or {@code null} if none.
 	 */
-	protected List<? extends OpenmrsObject> getRelatedMetadata(E entity) {
+	protected Collection<? extends OpenmrsObject> getRelatedObjects(E entity) {
 		return null;
 	}
 
@@ -97,7 +98,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 
 	@Override
 	@Transactional
-	public E saveAll(E object, List<? extends OpenmrsObject> related) throws APIException {
+	public E saveAll(E object, Collection<? extends OpenmrsObject> related) throws APIException {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getSavePrivilege())) {
 			Context.requirePrivilege(privileges.getSavePrivilege());

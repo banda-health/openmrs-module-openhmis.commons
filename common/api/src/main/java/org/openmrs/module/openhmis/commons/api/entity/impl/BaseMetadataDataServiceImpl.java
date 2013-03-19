@@ -29,6 +29,7 @@ import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthoriz
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 		Date dateRetired = new Date();
 		setRetireProperties(entity, reason, user, dateRetired);
 
-		List<? extends OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
+		Collection<? extends OpenmrsObject> relatedObjects = getRelatedObjects(entity);
 		List<OpenmrsMetadata> updatedObjects = new ArrayList<OpenmrsMetadata>();
 		if (relatedObjects != null && relatedObjects.size() > 0) {
 			for (OpenmrsObject object : relatedObjects) {
@@ -108,7 +109,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 		setUnretireProperties(entity);
 
 		// Really miss an easy option for functional programming here, Action<T> sure would be nice...
-		List<? extends OpenmrsObject> relatedObjects = getRelatedMetadata(entity);
+		Collection<? extends OpenmrsObject> relatedObjects = getRelatedObjects(entity);
 		List<OpenmrsMetadata> updatedObjects = new ArrayList<OpenmrsMetadata>();
 		if (relatedObjects != null && relatedObjects.size() > 0) {
 			for (OpenmrsObject object : relatedObjects) {
@@ -202,3 +203,4 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 		return repository.select(getEntityClass(), createPagingCriteria(pagingInfo, criteria));
 	}
 }
+

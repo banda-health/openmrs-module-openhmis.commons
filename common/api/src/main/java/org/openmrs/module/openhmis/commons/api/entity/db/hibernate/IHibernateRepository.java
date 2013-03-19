@@ -18,6 +18,7 @@ import org.openmrs.OpenmrsObject;
 import org.openmrs.api.APIException;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -51,7 +52,7 @@ public interface IHibernateRepository {
 	 * @return The saved entity.
 	 * @throws APIException
 	 */
-	<E extends OpenmrsObject> E saveAll(E entity, List<? extends OpenmrsObject> related) throws APIException;
+	<E extends OpenmrsObject> E saveAll(E entity, Collection<? extends OpenmrsObject> related) throws APIException;
 
 	/**
 	 * Deletes an entity from the database.
