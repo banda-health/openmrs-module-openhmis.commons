@@ -3,11 +3,11 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 import org.openmrs.BaseOpenmrsMetadata;
 import org.openmrs.OpenmrsObject;
 
-public abstract class BaseInstanceAttributeType<TParent extends OpenmrsObject>
+public abstract class BaseInstanceAttributeType<TOwner extends OpenmrsObject>
 		extends BaseOpenmrsMetadata
-		implements InstanceAttributeType<TParent> {
+		implements InstanceAttributeType<TOwner> {
 	private Integer attributeTypeId;
-	private TParent parent;
+	private TOwner owner;
 	private Integer attributeOrder;
 
 	private String format;
@@ -26,12 +26,12 @@ public abstract class BaseInstanceAttributeType<TParent extends OpenmrsObject>
 		attributeTypeId = id;
 	}
 
-	public TParent getOwner() {
-		return parent;
+	public TOwner getOwner() {
+		return owner;
 	}
 
-	public void setOwner(TParent parent) {
-		this.parent = parent;
+	public void setOwner(TOwner parent) {
+		this.owner = parent;
 	}
 
 	public Integer getAttributeOrder() {
