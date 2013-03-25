@@ -16,6 +16,7 @@ package org.openmrs.module.openhmis.commons.api.entity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.BaseOpenmrsData;
+import org.openmrs.OpenmrsData;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 
@@ -23,18 +24,22 @@ import java.util.Date;
 import java.util.List;
 
 public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E extends BaseOpenmrsData> extends IObjectDataServiceTest<S, E> {
-	@Override
-	protected void assertEntity(E expected, E actual) {
-		super.assertEntity(expected, actual);
+	public static void assertOpenmrsData(OpenmrsData expected, OpenmrsData actual) {
+		IObjectDataServiceTest.assertOpenmrsObject(expected, actual);
 
 		Assert.assertEquals(expected.getChangedBy(), actual.getChangedBy());
 		Assert.assertEquals(expected.getCreator(), actual.getCreator());
 		Assert.assertEquals(expected.getDateChanged(), actual.getDateChanged());
 		Assert.assertEquals(expected.getDateCreated(), actual.getDateCreated());
-		Assert.assertEquals(expected.getVoided(), actual.getVoided());
+		Assert.assertEquals(expected.isVoided(), actual.isVoided());
 		Assert.assertEquals(expected.getVoidedBy(), actual.getVoidedBy());
 		Assert.assertEquals(expected.getVoidReason(), actual.getVoidReason());
 		Assert.assertEquals(expected.getDateVoided(), actual.getDateVoided());
+	}
+
+	@Override
+	protected void assertEntity(E expected, E actual) {
+		assertOpenmrsData(expected, actual);
 	}
 
 	/**

@@ -17,28 +17,53 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.BaseOpenmrsObject;
+import org.openmrs.OpenmrsObject;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
+import org.openmrs.module.openhmis.commons.api.f.Action2;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
 import java.util.List;
 
 public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E extends BaseOpenmrsObject>
 		extends BaseModuleContextSensitiveTest {
 	protected S service;
 
-	protected abstract E createEntity(boolean valid);
-	protected abstract int getTestEntityCount();
-	protected abstract void updateEntityFields(E entity);
-
-	protected void assertEntity(E expected, E actual) {
+	/**
+	 * Tests that the specified object are not null and that the {@link OpenmrsObject} properties are equal.
+	 * @param expected The expected object properties
+	 * @param actual The actual object properties
+	 */
+	public static void assertOpenmrsObject(OpenmrsObject expected, OpenmrsObject actual) {
 		Assert.assertNotNull(expected);
 		Assert.assertNotNull(actual);
 
 		Assert.assertEquals(expected.getId(), actual.getId());
 		Assert.assertEquals(expected.getUuid(), actual.getUuid());
+	}
+
+	protected <T> void assertCollection(Collection<T> expected, Collection<T> actual, Action2<T, T> test) {
+		Assert.assertEquals(expected.size(), actual.size());
+
+		T[] expectedArray = (T[])new Object[expected.size()];
+		expected.toArray(expectedArray);
+		T[] actualArray = (T[])new Object[actual.size()];
+		actual.toArray(actualArray);
+
+		for (int i = 0; i < expected.size(); i++) {
+			test.apply(expectedArray[i], actualArray[i]);
+		}
+	}
+
+	protected abstract E createEntity(boolean valid);
+	protected abstract int getTestEntityCount();
+	protected abstract void updateEntityFields(E entity);
+
+	protected void assertEntity(E expected, E actual) {
+		assertOpenmrsObject(expected, actual);
 	}
 
 	protected S createService() {
@@ -320,6 +345,6 @@ public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E 
 	protected Class<S> getServiceClass() {
 		ParameterizedType parameterizedType = (ParameterizedType)getClass().getGenericSuperclass();
 
-		return (Class) parameterizedType.getActualTypeArguments()[0];
+		return (Class<S>) parameterizedType.getActualTypeArguments()[0];
 	}
 }

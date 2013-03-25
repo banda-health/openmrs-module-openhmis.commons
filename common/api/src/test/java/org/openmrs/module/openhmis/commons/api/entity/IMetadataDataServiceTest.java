@@ -17,6 +17,7 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.BaseOpenmrsMetadata;
+import org.openmrs.OpenmrsMetadata;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 
@@ -26,9 +27,8 @@ import java.util.List;
 public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>, E extends BaseOpenmrsMetadata>
 		extends IObjectDataServiceTest<S, E> {
 
-	@Override
-	protected void assertEntity(E expected, E actual) {
-		super.assertEntity(expected, actual);
+	public static void assertOpenmrsMetadata(OpenmrsMetadata expected, OpenmrsMetadata actual) {
+		IObjectDataServiceTest.assertOpenmrsObject(expected, actual);
 
 		Assert.assertEquals(expected.getChangedBy(), actual.getChangedBy());
 		Assert.assertEquals(expected.getCreator(), actual.getCreator());
@@ -37,9 +37,14 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 		Assert.assertEquals(expected.getDateRetired(), actual.getDateRetired());
 		Assert.assertEquals(expected.getDescription(), actual.getDescription());
 		Assert.assertEquals(expected.getName(), actual.getName());
-		Assert.assertEquals(expected.getRetired(), actual.getRetired());
+		Assert.assertEquals(expected.isRetired(), actual.isRetired());
 		Assert.assertEquals(expected.getRetiredBy(), actual.getRetiredBy());
 		Assert.assertEquals(expected.getRetireReason(), actual.getRetireReason());
+	}
+
+	@Override
+	protected void assertEntity(E expected, E actual) {
+		assertOpenmrsMetadata(expected, actual);
 	}
 
 	/**
