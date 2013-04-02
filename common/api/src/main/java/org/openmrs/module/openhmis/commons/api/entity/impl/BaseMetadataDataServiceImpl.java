@@ -26,6 +26,7 @@ import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.Utility;
 import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
 import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthorizationPrivileges;
+import org.openmrs.module.openhmis.commons.api.f.Action1;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -156,19 +157,20 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> getAll(boolean includeRetired, PagingInfo pagingInfo) throws APIException {
+	public List<E> getAll(final boolean includeRetired, PagingInfo pagingInfo) throws APIException {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
 			Context.requirePrivilege(privileges.getGetPrivilege());
 		}
 
-		Criteria criteria = repository.createCriteria(getEntityClass());
-		if (!includeRetired) {
-			criteria.add(Restrictions.eq("retired", false));
-		}
-
-		loadPagingTotal(pagingInfo, criteria);
-		return repository.select(getEntityClass(), createPagingCriteria(pagingInfo, criteria));
+		return executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {
+			@Override
+			public void apply(Criteria criteria) {
+				if (!includeRetired) {
+					criteria.add(Restrictions.eq("retired", false));
+				}
+			}
+		});
 	}
 
 	@Override
@@ -179,7 +181,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> findByName(String nameFragment, boolean includeRetired, PagingInfo pagingInfo) throws APIException {
+	public List<E> findByName(final String nameFragment, final boolean includeRetired, PagingInfo pagingInfo) throws APIException {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
 			Context.requirePrivilege(privileges.getGetPrivilege());
@@ -192,15 +194,16 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 			throw new IllegalArgumentException("the name fragment must be less than 256 characters long.");
 		}
 
-		Criteria criteria = repository.createCriteria(getEntityClass());
-		criteria.add(Restrictions.ilike("name", nameFragment, MatchMode.START));
+		return executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {
+			@Override
+			public void apply(Criteria criteria) {
+				criteria.add(Restrictions.ilike("name", nameFragment, MatchMode.START));
 
-		if (!includeRetired) {
-			criteria.add(Restrictions.eq("retired", false));
-		}
-
-		loadPagingTotal(pagingInfo, criteria);
-		return repository.select(getEntityClass(), createPagingCriteria(pagingInfo, criteria));
+				if (!includeRetired) {
+					criteria.add(Restrictions.eq("retired", false));
+				}
+			}
+		});
 	}
 }
 

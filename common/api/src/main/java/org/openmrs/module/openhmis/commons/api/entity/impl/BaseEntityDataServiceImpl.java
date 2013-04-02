@@ -25,6 +25,7 @@ import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.Utility;
 import org.openmrs.module.openhmis.commons.api.entity.IEntityDataService;
 import org.openmrs.module.openhmis.commons.api.entity.security.IEntityAuthorizationPrivileges;
+import org.openmrs.module.openhmis.commons.api.f.Action1;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -127,7 +128,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 	}
 
 	/**
-	 * Gets all unvoided entites.
+	 * Gets all unvoided entities.
 	 * @param pagingInfo
 	 * @return Returns all unvoided entities
 	 * @throws APIException
@@ -147,18 +148,19 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> getAll(boolean includeVoided, PagingInfo pagingInfo) throws APIException {
+	public List<E> getAll(final boolean includeVoided, PagingInfo pagingInfo) throws APIException {
 		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
 			Context.requirePrivilege(privileges.getGetPrivilege());
 		}
 
-		Criteria criteria = repository.createCriteria(getEntityClass());
-		if (!includeVoided) {
-			criteria.add(Restrictions.eq("voided", false));
-		}
-
-		loadPagingTotal(pagingInfo, criteria);
-		return repository.select(getEntityClass(), createPagingCriteria(pagingInfo, criteria));
+		return executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {
+			@Override
+			public void apply(Criteria criteria) {
+				if (!includeVoided) {
+					criteria.add(Restrictions.eq("voided", false));
+				}
+			}
+		});
 	}
 }

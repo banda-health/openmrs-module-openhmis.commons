@@ -25,6 +25,7 @@ import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.IObjectDataService;
 import org.openmrs.module.openhmis.commons.api.entity.db.hibernate.IHibernateRepository;
 import org.openmrs.module.openhmis.commons.api.entity.security.IObjectAuthorizationPrivileges;
+import org.openmrs.module.openhmis.commons.api.f.Action1;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.ParameterizedType;
@@ -176,6 +177,10 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 		return repository.selectSingle(getEntityClass(), criteria);
 	}
 
+	/**
+	 * Gets a usable instance of the actual class of the generic type E defined by the implementing sub-class.
+	 * @return The class object for the entity.
+	 */
 	@SuppressWarnings("unchecked")
 	protected Class<E> getEntityClass() {
 		if (entityClass == null) {
@@ -185,6 +190,29 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 		}
 
 		return entityClass;
+	}
+
+	/**
+	 * Functional method to create, prepare, and execute a query with {@link Criteria}.
+	 * @param action The {@link Action1} to prepare the {@link Criteria} predicates.
+	 * @return The result of the query.
+	 */
+	protected <T extends OpenmrsObject> List<T> executeCriteria(Class<T> clazz, Action1<Criteria> action) {
+		return executeCriteria(null, action);
+	}
+
+	/**
+	 * Functional method to create, prepare, and execute a paged query with {@link Criteria}.
+	 * @param pagingInfo The paging information.
+	 * @param action The {@link Action1} to prepare the {@link Criteria} predicates.
+	 * @return
+	 */
+	protected <T extends OpenmrsObject> List<T> executeCriteria(Class<T> clazz, PagingInfo pagingInfo, Action1<Criteria> action) {
+		Criteria criteria = repository.createCriteria(clazz);
+		action.apply(criteria);
+
+		loadPagingTotal(pagingInfo, criteria);
+		return repository.select(clazz, createPagingCriteria(pagingInfo, criteria));
 	}
 
 	/**
