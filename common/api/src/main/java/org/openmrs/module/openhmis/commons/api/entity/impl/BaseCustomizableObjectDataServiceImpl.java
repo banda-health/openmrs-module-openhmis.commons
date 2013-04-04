@@ -1,13 +1,14 @@
 package org.openmrs.module.openhmis.commons.api.entity.impl;
 
 import org.openmrs.OpenmrsObject;
-import org.openmrs.module.openhmis.commons.api.entity.model.BaseCustomizableInstanceData;
+import org.openmrs.module.openhmis.commons.api.entity.model.BaseCustomizableInstanceObject;
+import org.openmrs.module.openhmis.commons.api.entity.security.IObjectAuthorizationPrivileges;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public abstract class BaseCustomizableEntityDataServiceImpl<E extends BaseCustomizableInstanceData>
-		extends BaseEntityDataServiceImpl<E> {
+public abstract class BaseCustomizableObjectDataServiceImpl<E extends BaseCustomizableInstanceObject, P extends IObjectAuthorizationPrivileges>
+		extends BaseObjectDataServiceImpl<E, P> {
 	@Override
 	@SuppressWarnings("unchecked")
 	protected Collection<? extends OpenmrsObject> getRelatedObjects(E entity) {
@@ -25,4 +26,3 @@ public abstract class BaseCustomizableEntityDataServiceImpl<E extends BaseCustom
 		return result;
 	}
 }
-

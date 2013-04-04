@@ -6,7 +6,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public abstract class BaseCustomizableInstanceData<TAttribute extends InstanceAttribute>
-		extends BaseOpenmrsData {
+		extends BaseOpenmrsData
+		implements ICustomizableInstance<TAttribute> {
 	private Set<TAttribute> attributes;
 
 	public Set<TAttribute> getAttributes() {
@@ -40,3 +41,4 @@ public abstract class BaseCustomizableInstanceData<TAttribute extends InstanceAt
 		attributes.remove(attribute);
 	}
 }
+

@@ -1,13 +1,12 @@
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import org.openmrs.BaseOpenmrsMetadata;
 import org.openmrs.BaseOpenmrsObject;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public abstract class BaseCustomizableInstanceMetadata<TAttribute extends InstanceAttribute>
-	extends BaseOpenmrsMetadata
+public abstract class BaseCustomizableInstanceObject<TAttribute extends InstanceAttribute>
+	extends BaseOpenmrsObject
 	implements ICustomizableInstance<TAttribute> {
 	private Set<TAttribute> attributes;
 
@@ -42,4 +41,3 @@ public abstract class BaseCustomizableInstanceMetadata<TAttribute extends Instan
 		attributes.remove(attribute);
 	}
 }
-

@@ -2,7 +2,7 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.OpenmrsObject;
 
-public interface InstanceAttribute<TOwner extends OpenmrsObject, TAttributeType extends InstanceAttributeType>
+public interface InstanceAttribute<TOwner extends ICustomizableInstance, TAttributeType extends InstanceAttributeType>
 	extends OpenmrsObject {
 
 	TOwner getOwner();
