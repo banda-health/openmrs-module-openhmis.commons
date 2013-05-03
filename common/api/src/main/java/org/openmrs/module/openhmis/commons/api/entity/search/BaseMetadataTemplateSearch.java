@@ -64,11 +64,11 @@ public class BaseMetadataTemplateSearch<T extends OpenmrsMetadata> extends BaseA
 		this.dateRetiredComparisonType = dateRetiredComparisonType;
 	}
 
-	public boolean getIncludeRetired() {
+	public Boolean getIncludeRetired() {
 		return includeRetired;
 	}
 
-	public void setIncludeRetired(boolean includeRetired) {
+	public void setIncludeRetired(Boolean includeRetired) {
 		this.includeRetired = includeRetired;
 	}
 
