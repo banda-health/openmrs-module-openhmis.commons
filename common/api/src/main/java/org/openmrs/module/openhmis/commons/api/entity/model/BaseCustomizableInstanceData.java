@@ -1,8 +1,8 @@
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.BaseOpenmrsData;
+import org.openmrs.customdatatype.CustomValueDescriptor;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 public abstract class BaseCustomizableInstanceData<TAttribute extends InstanceAttribute>
@@ -13,32 +13,30 @@ public abstract class BaseCustomizableInstanceData<TAttribute extends InstanceAt
 	public Set<TAttribute> getAttributes() {
 		return attributes;
 	}
+	
+	@Override
+	public Set<TAttribute> getActiveAttributes() {
+		return BaseCustomizableInstanceObject.getActiveAttributes(this);
+	}
+	
+	@Override
+	public Set<TAttribute> getActiveAttributes(CustomValueDescriptor ofType) {
+		return BaseCustomizableInstanceObject.getActiveAttributes(this, ofType);
+	}
 
+	@Override
 	public void setAttributes(Set<TAttribute> attributes) {
 		this.attributes = attributes;
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
 	public void addAttribute(TAttribute attribute) {
-		if (attribute == null) {
-			throw new NullPointerException("The attribute to add must be defined.");
-		}
-
-		if (attributes == null) {
-			// Using LinkedHashSet because it is ordered by entry versus HashSet which is not.
-			attributes = new LinkedHashSet<TAttribute>();
-		}
-
-		attribute.setOwner(this);
-		attributes.add(attribute);
+		BaseCustomizableInstanceObject.addAttribute(this, attribute);
 	}
 
+	@Override
 	public void removeAttribute(TAttribute attribute) {
-		if (attributes == null || attribute == null) {
-			return;
-		}
-
-		attributes.remove(attribute);
+		BaseCustomizableInstanceObject.removeAttribute(this, attribute);
 	}
 }
 
