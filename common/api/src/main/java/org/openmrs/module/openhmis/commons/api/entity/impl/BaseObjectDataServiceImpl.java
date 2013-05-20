@@ -241,7 +241,8 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 				try {
 				criteria.setProjection(Projections.rowCount());
 
-				pagingInfo.setTotalRecordCount(repository.<Long>selectValue(criteria));
+				Long count = repository.<Long>selectValue(criteria);
+				pagingInfo.setTotalRecordCount(count == null ? 0 : count);
 				pagingInfo.setLoadRecordCount(false);
 				} finally {
 					// Reset the criteria to return the result rather than the row count
