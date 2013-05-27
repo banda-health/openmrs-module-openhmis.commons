@@ -1,8 +1,9 @@
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.OpenmrsMetadata;
+import org.openmrs.OpenmrsObject;
 
-public interface InstanceAttributeType<TOwner extends InstanceType<TOwner>>
+public interface InstanceAttributeType<TOwner extends OpenmrsObject>
 		extends  OpenmrsMetadata {
 	TOwner getOwner();
 	void setOwner(TOwner owner);

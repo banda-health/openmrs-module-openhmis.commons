@@ -1,8 +1,9 @@
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.OpenmrsMetadata;
+import org.openmrs.OpenmrsObject;
 
-public interface InstanceType<TInstanceType extends InstanceType<TInstanceType>>
+public interface InstanceType<TInstanceType extends OpenmrsObject, AT extends InstanceAttributeType<TInstanceType>>
 		extends OpenmrsMetadata {
-	public InstanceAttributeType<TInstanceType> getAttributeTypeInstance();
+	public AT getAttributeTypeInstance();
 }

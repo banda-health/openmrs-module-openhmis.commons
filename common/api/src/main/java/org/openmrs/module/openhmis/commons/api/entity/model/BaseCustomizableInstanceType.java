@@ -4,15 +4,17 @@ import java.util.List;
 import java.util.Vector;
 
 import org.openmrs.BaseOpenmrsMetadata;
+import org.openmrs.OpenmrsObject;
+import org.openmrs.api.APIException;
 
-public abstract class BaseCustomizableInstanceType<TInstanceType extends BaseCustomizableInstanceType<TInstanceType>>
+public abstract class BaseCustomizableInstanceType<TInstanceType extends BaseCustomizableInstanceType<TInstanceType, AT>, AT extends InstanceAttributeType<TInstanceType>>
 		extends BaseOpenmrsMetadata
-		implements InstanceType<TInstanceType> {
+		implements InstanceType<TInstanceType, AT> {
 	private Integer customizableInstanceTypeId;
-	private List<InstanceAttributeType<TInstanceType>> attributeTypes;
+	private List<AT> attributeTypes;
 	
-	public InstanceAttributeType<TInstanceType> addAttributeType(String name, String format, Integer foreignKey, String regExp, boolean required) {
-		InstanceAttributeType<TInstanceType> attributeType = getAttributeTypeInstance();
+	public AT addAttributeType(String name, String format, Integer foreignKey, String regExp, boolean required, Integer attributeOrder) {
+		AT attributeType = getAttributeTypeInstance();
 
 		attributeType.setOwner((TInstanceType) this);
 
@@ -20,13 +22,17 @@ public abstract class BaseCustomizableInstanceType<TInstanceType extends BaseCus
 		attributeType.setFormat(format);
 		attributeType.setForeignKey(foreignKey);
 		attributeType.setRequired(required);
-
-		addAttributeType(attributeType);
+		
+		addAttributeType(null, attributeType);
 
 		return attributeType;
 	}
 
-	public void addAttributeType(InstanceAttributeType<TInstanceType> attributeType) {
+	public void addAttributeType(AT attributeType) {
+		addAttributeType(null, attributeType);
+	}
+
+	public void addAttributeType(Integer index, AT attributeType) {
 		if (attributeType == null) {
 			throw new NullPointerException("The payment mode attribute type to add must be defined.");
 		}
@@ -36,9 +42,19 @@ public abstract class BaseCustomizableInstanceType<TInstanceType extends BaseCus
 		}
 
 		if (this.attributeTypes == null) {
-			this.attributeTypes = new Vector<InstanceAttributeType<TInstanceType>>();
+			this.attributeTypes = new Vector<AT>();
 		}
-
+		
+		if (index == null) {
+			attributeType.setAttributeOrder(getAttributeTypes().size());
+			getAttributeTypes().add(attributeType);
+		}
+		else {
+			if (index > getAttributeTypes().size())
+				throw new APIException("Invalid attribute order. Should not leave space in the list (list length: " + getAttributeTypes().size() + ", index given: " + index + ")." );
+			getAttributeTypes().add(index, attributeType);
+		}
+		
 		this.attributeTypes.add(attributeType);
 	}
 
@@ -59,11 +75,11 @@ public abstract class BaseCustomizableInstanceType<TInstanceType extends BaseCus
 		customizableInstanceTypeId = id;
 	}
 
-	public List<InstanceAttributeType<TInstanceType>> getAttributeTypes() {
+	public List<AT> getAttributeTypes() {
 		return attributeTypes;
 	}
 
-	public void setAttributeTypes(List<InstanceAttributeType<TInstanceType>> attributeTypes) {
+	public void setAttributeTypes(List<AT> attributeTypes) {
 		this.attributeTypes = attributeTypes;
 	}
 }
