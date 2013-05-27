@@ -44,7 +44,7 @@ public abstract class BaseCustomizableInstanceObject<TAttribute extends Instance
 	}
 	
 	@SuppressWarnings({ "unchecked" })
-	public static <TA extends InstanceAttribute, I extends ICustomizableInstance<TA>>
+	static <TA extends InstanceAttribute, I extends ICustomizableInstance<TA>>
 		void addAttribute(I instance, TA attribute) {
 		if (attribute == null) {
 			throw new NullPointerException("The attribute to add must be defined.");
@@ -60,7 +60,7 @@ public abstract class BaseCustomizableInstanceObject<TAttribute extends Instance
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	public static <TA extends InstanceAttribute, I extends ICustomizableInstance<TA>>
+	static <TA extends InstanceAttribute, I extends ICustomizableInstance<TA>>
 			void removeAttribute(I instance, TA attribute) {
 		if (instance.getAttributes() == null || attribute == null) {
 			return;
