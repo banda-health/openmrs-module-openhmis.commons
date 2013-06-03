@@ -3,7 +3,7 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 import org.openmrs.BaseOpenmrsMetadata;
 import org.openmrs.OpenmrsObject;
 
-public abstract class BaseInstanceAttributeType<TOwner extends OpenmrsObject>
+public  class BaseInstanceAttributeType<TOwner extends OpenmrsObject>
 		extends BaseOpenmrsMetadata
 		implements InstanceAttributeType<TOwner> {
 	private Integer attributeTypeId;
@@ -72,6 +72,28 @@ public abstract class BaseInstanceAttributeType<TOwner extends OpenmrsObject>
 
 	public void setRequired(Boolean required) {
 		this.required = required;
+	}
+
+	@Override
+	public String getDatatypeClassname() {
+		return getFormat();
+	}
+
+	@Override
+	public String getDatatypeConfig() {
+		return getForeignKey().toString();
+	}
+
+	@Override
+	public String getPreferredHandlerClassname() {
+		// Default to null to simplify concrete classes
+		return null;
+	}
+
+	@Override
+	public String getHandlerConfig() {
+		// Default to null to simplify concrete classes		
+		return null;
 	}
 }
 

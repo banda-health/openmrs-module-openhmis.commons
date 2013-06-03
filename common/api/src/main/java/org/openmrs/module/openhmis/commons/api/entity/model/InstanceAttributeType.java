@@ -2,9 +2,10 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.OpenmrsMetadata;
 import org.openmrs.OpenmrsObject;
+import org.openmrs.customdatatype.CustomValueDescriptor;
 
 public interface InstanceAttributeType<TOwner extends OpenmrsObject>
-		extends  OpenmrsMetadata {
+		extends  OpenmrsMetadata, CustomValueDescriptor {
 	TOwner getOwner();
 	void setOwner(TOwner owner);
 
