@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Vector;
 
 import org.openmrs.BaseOpenmrsMetadata;
-import org.openmrs.OpenmrsObject;
 import org.openmrs.api.APIException;
 
 public abstract class BaseCustomizableInstanceType<TInstanceType extends BaseCustomizableInstanceType<TInstanceType, AT>, AT extends InstanceAttributeType<TInstanceType>>
@@ -23,7 +22,7 @@ public abstract class BaseCustomizableInstanceType<TInstanceType extends BaseCus
 		attributeType.setForeignKey(foreignKey);
 		attributeType.setRequired(required);
 		
-		addAttributeType(null, attributeType);
+		addAttributeType(attributeOrder, attributeType);
 
 		return attributeType;
 	}
@@ -52,6 +51,7 @@ public abstract class BaseCustomizableInstanceType<TInstanceType extends BaseCus
 		else {
 			if (index > getAttributeTypes().size())
 				throw new APIException("Invalid attribute order. Should not leave space in the list (list length: " + getAttributeTypes().size() + ", index given: " + index + ")." );
+			attributeType.setAttributeOrder(index);
 			getAttributeTypes().add(index, attributeType);
 		}
 		
