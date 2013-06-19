@@ -15,6 +15,7 @@ package org.openmrs.module.openhmis.commons.api.entity.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.OpenmrsObject;
@@ -198,7 +199,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	 * @return The result of the query.
 	 */
 	protected <T extends OpenmrsObject> List<T> executeCriteria(Class<T> clazz, Action1<Criteria> action) {
-		return executeCriteria(null, action);
+		return executeCriteria(clazz, null, action, null);
 	}
 
 	/**
@@ -208,10 +209,22 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	 * @return
 	 */
 	protected <T extends OpenmrsObject> List<T> executeCriteria(Class<T> clazz, PagingInfo pagingInfo, Action1<Criteria> action) {
+		return executeCriteria(clazz, pagingInfo, action, null);
+	}
+
+	protected <T extends OpenmrsObject> List<T> executeCriteria(Class<T> clazz, PagingInfo pagingInfo,
+	                                                            Action1<Criteria> action, Order ... orderBy) {
 		Criteria criteria = repository.createCriteria(clazz);
 		action.apply(criteria);
 
 		loadPagingTotal(pagingInfo, criteria);
+
+		if (orderBy != null && orderBy.length > 0) {
+			for (Order order : orderBy) {
+				criteria.addOrder(order);
+			}
+		}
+
 		return repository.select(clazz, createPagingCriteria(pagingInfo, criteria));
 	}
 
