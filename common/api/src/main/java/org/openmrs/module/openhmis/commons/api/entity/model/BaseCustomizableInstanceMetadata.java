@@ -1,12 +1,11 @@
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import org.openmrs.BaseOpenmrsMetadata;
 import org.openmrs.customdatatype.CustomValueDescriptor;
 
 import java.util.Set;
 
 public abstract class BaseCustomizableInstanceMetadata<TAttribute extends InstanceAttribute>
-	extends BaseOpenmrsMetadata
+	extends BaseSerializableOpenmrsMetadata
 	implements ICustomizableInstance<TAttribute> {
 	private Set<TAttribute> attributes;
 
