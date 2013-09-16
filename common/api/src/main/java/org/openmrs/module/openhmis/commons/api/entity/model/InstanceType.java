@@ -14,9 +14,44 @@
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.OpenmrsMetadata;
-import org.openmrs.OpenmrsObject;
 
-public interface InstanceType<TInstanceType extends OpenmrsObject, AT extends InstanceAttributeType<TInstanceType>>
+import java.util.List;
+
+/**
+ * Represents a class that defines the type of an {@link ICustomizableInstance}.  Each {@link InstanceType} has attributes
+ * that are only used by instances of that type and not shared with other instance types.
+ * @param <AT>
+ */
+public interface InstanceType<AT extends InstanceAttributeType>
 		extends OpenmrsMetadata {
-	public AT getAttributeTypeInstance();
+	/**
+	 * Gets the {@link AT}'s for this {@link InstanceType}.
+	 * @return The attribute types.
+	 */
+	List<AT> getAttributeTypes();
+
+	/**
+	 * Sets the {@link AT}'s for this {@link InstanceType}.
+	 * @param attributeTypes The attribute types.
+	 */
+	void setAttributeTypes(List<AT> attributeTypes);
+
+	/**
+	 * Adds the specified {@link AT}.
+	 * @param attributeType The attribute type to add.
+	 */
+	void addAttributeType(AT attributeType);
+
+	/**
+	 * Adds the specified {@link AT} at the specified index.
+	 * @param index The index where the attribute type will be inserted or {@code null} to insert at the end.
+	 * @param attributeType The attribute type to add.
+	 */
+	void addAttributeType(Integer index, AT attributeType);
+
+	/**
+	 * Removes the specified {@link AT}.
+	 * @param attributeType The attribute type to remove.
+	 */
+	void removeAttributeType(AT attributeType);
 }

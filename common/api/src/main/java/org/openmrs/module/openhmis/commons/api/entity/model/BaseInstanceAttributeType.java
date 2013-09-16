@@ -14,9 +14,8 @@
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.BaseOpenmrsMetadata;
-import org.openmrs.OpenmrsObject;
 
-public  class BaseInstanceAttributeType<TOwner extends OpenmrsObject>
+public  class BaseInstanceAttributeType<TOwner extends InstanceType>
 		extends BaseOpenmrsMetadata
 		implements InstanceAttributeType<TOwner> {
 	private Integer attributeTypeId;

@@ -363,6 +363,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 			Assert.assertNotNull(entities);
 			Assert.assertEquals(1, entities.size());
 			Assert.assertEquals(Long.valueOf(getTestEntityCount()), paging.getTotalRecordCount());
+
 			assertEntity(allEntities.get(i), entities.get(0));
 		}
 	}

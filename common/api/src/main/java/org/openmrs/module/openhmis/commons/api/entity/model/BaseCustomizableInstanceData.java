@@ -18,10 +18,11 @@ import org.openmrs.customdatatype.CustomValueDescriptor;
 
 import java.util.Set;
 
-public abstract class BaseCustomizableInstanceData<TAttribute extends InstanceAttribute>
+public abstract class BaseCustomizableInstanceData<TInstanceType extends InstanceType, TAttribute extends InstanceAttribute>
 		extends BaseOpenmrsData
-		implements ICustomizableInstance<TAttribute> {
+		implements ICustomizableInstance<TInstanceType, TAttribute> {
 	private Set<TAttribute> attributes;
+	private TInstanceType instanceType;
 
 	public Set<TAttribute> getAttributes() {
 		return attributes;
@@ -50,6 +51,16 @@ public abstract class BaseCustomizableInstanceData<TAttribute extends InstanceAt
 	@Override
 	public void removeAttribute(TAttribute attribute) {
 		BaseCustomizableInstanceObject.removeAttribute(this, attribute);
+	}
+
+	@Override
+	public TInstanceType getInstanceType() {
+		return instanceType;
+	}
+
+	@Override
+	public void setInstanceType(TInstanceType instanceType) {
+		this.instanceType = instanceType;
 	}
 }
 

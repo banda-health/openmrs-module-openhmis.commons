@@ -13,44 +13,34 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
+import org.openmrs.api.APIException;
+
 import java.util.List;
 import java.util.Vector;
 
-import org.openmrs.BaseOpenmrsMetadata;
-import org.openmrs.api.APIException;
-
-public abstract class BaseCustomizableInstanceType<TInstanceType extends BaseCustomizableInstanceType<TInstanceType, AT>, AT extends InstanceAttributeType<TInstanceType>>
-		extends BaseOpenmrsMetadata
-		implements InstanceType<TInstanceType, AT> {
+@SuppressWarnings("unchecked")
+public abstract class BaseCustomizableInstanceType<AT extends InstanceAttributeType>
+		extends BaseSerializableOpenmrsMetadata
+		implements InstanceType<AT> {
 	private Integer customizableInstanceTypeId;
 	private List<AT> attributeTypes;
-	
-	public AT addAttributeType(String name, String format, Integer foreignKey, String regExp, boolean required, Integer attributeOrder) {
-		AT attributeType = getAttributeTypeInstance();
 
-		attributeType.setOwner((TInstanceType) this);
-
-		attributeType.setName(name);
-		attributeType.setFormat(format);
-		attributeType.setForeignKey(foreignKey);
-		attributeType.setRequired(required);
-		
-		addAttributeType(attributeOrder, attributeType);
-
-		return attributeType;
-	}
-
+	@Override
 	public void addAttributeType(AT attributeType) {
 		addAttributeType(null, attributeType);
 	}
 
+	@Override
 	public void addAttributeType(Integer index, AT attributeType) {
 		if (attributeType == null) {
 			throw new NullPointerException("The payment mode attribute type to add must be defined.");
 		}
 
 		if (attributeType.getOwner() != this) {
-			attributeType.setOwner((TInstanceType) this);
+			// Note that this may cause issues if the attribute type class does not have this class as the owner class.
+			//  I'm not sure how to make generics check this at compile-time, I tried with self-bounded generic parameters
+			//  but could never get it working.  Such is life.
+			attributeType.setOwner(this);
 		}
 
 		if (this.attributeTypes == null) {
@@ -60,10 +50,11 @@ public abstract class BaseCustomizableInstanceType<TInstanceType extends BaseCus
 		if (index == null) {
 			attributeType.setAttributeOrder(getAttributeTypes().size());
 			getAttributeTypes().add(attributeType);
-		}
-		else {
-			if (index > getAttributeTypes().size())
+		} else {
+			if (index > getAttributeTypes().size()) {
 				throw new APIException("Invalid attribute order. Should not leave space in the list (list length: " + getAttributeTypes().size() + ", index given: " + index + ")." );
+			}
+
 			attributeType.setAttributeOrder(index);
 			getAttributeTypes().add(index, attributeType);
 		}
@@ -71,13 +62,13 @@ public abstract class BaseCustomizableInstanceType<TInstanceType extends BaseCus
 		this.attributeTypes.add(attributeType);
 	}
 
-	public void removeAttributeType(InstanceAttributeType<TInstanceType> attributeType) {
+	@Override
+	public void removeAttributeType(AT attributeType) {
 		if (attributeType != null && this.attributeTypes != null) {
 			this.attributeTypes.remove(attributeType);
 		}
 	}
 
-	// Getters & setters
 	@Override
 	public Integer getId() {
 		return customizableInstanceTypeId;
@@ -88,10 +79,12 @@ public abstract class BaseCustomizableInstanceType<TInstanceType extends BaseCus
 		customizableInstanceTypeId = id;
 	}
 
+	@Override
 	public List<AT> getAttributeTypes() {
 		return attributeTypes;
 	}
 
+	@Override
 	public void setAttributeTypes(List<AT> attributeTypes) {
 		this.attributeTypes = attributeTypes;
 	}

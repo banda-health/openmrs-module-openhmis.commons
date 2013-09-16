@@ -14,10 +14,13 @@
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.OpenmrsMetadata;
-import org.openmrs.OpenmrsObject;
 import org.openmrs.customdatatype.CustomValueDescriptor;
 
-public interface InstanceAttributeType<TOwner extends OpenmrsObject>
+/**
+ * Represents classes that define the attribute type information.
+ * @param <TOwner> The parent {@link InstanceType} class.
+ */
+public interface InstanceAttributeType<TOwner extends InstanceType>
 		extends  OpenmrsMetadata, CustomValueDescriptor {
 	TOwner getOwner();
 	void setOwner(TOwner owner);
