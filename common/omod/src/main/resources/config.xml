@@ -24,6 +24,7 @@
 
 	<!-- Maps hibernate files, if present -->
 	<mappingFiles>
+		LazyRole.hbm.xml
 	</mappingFiles>
 
 	<!-- Internationalization -->

@@ -12,6 +12,6 @@
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
 
-	  <!--<mapping resource="Item.hbm.xml" />-->
+	  <mapping resource="LazyRole.hbm.xml" />
   </session-factory>
 </hibernate-configuration>
