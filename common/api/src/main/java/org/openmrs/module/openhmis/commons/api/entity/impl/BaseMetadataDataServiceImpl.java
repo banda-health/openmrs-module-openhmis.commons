@@ -163,7 +163,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 			Context.requirePrivilege(privileges.getGetPrivilege());
 		}
 
-		return executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {
+		List<E> results = executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {
 			@Override
 			public void apply(Criteria criteria) {
 				if (!includeRetired) {
@@ -171,6 +171,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 				}
 			}
 		});
+		return sort(results);
 	}
 
 	@Override
@@ -194,7 +195,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 			throw new IllegalArgumentException("the name fragment must be less than 256 characters long.");
 		}
 
-		return executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {
+		List<E> results = executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {
 			@Override
 			public void apply(Criteria criteria) {
 				criteria.add(Restrictions.ilike("name", nameFragment, MatchMode.START));
@@ -204,6 +205,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 				}
 			}
 		});
+		return sort(results);
 	}
 }
 

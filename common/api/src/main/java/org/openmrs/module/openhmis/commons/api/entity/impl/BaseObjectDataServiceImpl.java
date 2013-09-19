@@ -68,6 +68,16 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	}
 
 	/**
+	 * Sorts the specified list of objects. Subclasses should override this method when there is a default sorting that
+	 * should be used for all methods which return a list of objects.
+	 * @param results The objects to sort.
+	 * @return The sorted list.
+	 */
+	protected List<E> sort(List<E> results) {
+		return results;
+	}
+
+	/**
 	 * @param repository the repository to set
 	 */
 	public void setRepository(IHibernateRepository repository) {
@@ -146,7 +156,8 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 
 		loadPagingTotal(pagingInfo);
 
-		return repository.select(getEntityClass(), createPagingCriteria(pagingInfo));
+		List<E> results = repository.select(getEntityClass(), createPagingCriteria(pagingInfo));
+		return sort(results);
 	}
 
 	@Override
@@ -199,7 +210,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	 * @return The result of the query.
 	 */
 	protected <T extends OpenmrsObject> List<T> executeCriteria(Class<T> clazz, Action1<Criteria> action) {
-		return executeCriteria(clazz, null, action, null);
+		return executeCriteria(clazz, null, action, (Order[])null);
 	}
 
 	/**
@@ -209,7 +220,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	 * @return
 	 */
 	protected <T extends OpenmrsObject> List<T> executeCriteria(Class<T> clazz, PagingInfo pagingInfo, Action1<Criteria> action) {
-		return executeCriteria(clazz, pagingInfo, action, null);
+		return executeCriteria(clazz, pagingInfo, action, (Order[])null);
 	}
 
 	protected <T extends OpenmrsObject> List<T> executeCriteria(Class<T> clazz, PagingInfo pagingInfo,
