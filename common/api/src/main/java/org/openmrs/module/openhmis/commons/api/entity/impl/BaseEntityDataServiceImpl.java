@@ -154,14 +154,13 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 			Context.requirePrivilege(privileges.getGetPrivilege());
 		}
 
-		List<E> results = executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {
+		return executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {
 			@Override
 			public void apply(Criteria criteria) {
 				if (!includeVoided) {
 					criteria.add(Restrictions.eq("voided", false));
 				}
 			}
-		});
-		return sort(results);
+		}, getDefaultSort());
 	}
 }

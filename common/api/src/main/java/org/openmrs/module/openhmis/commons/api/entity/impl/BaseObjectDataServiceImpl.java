@@ -67,14 +67,8 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 		return null;
 	}
 
-	/**
-	 * Sorts the specified list of objects. Subclasses should override this method when there is a default sorting that
-	 * should be used for all methods which return a list of objects.
-	 * @param results The objects to sort.
-	 * @return The sorted list.
-	 */
-	protected List<E> sort(List<E> results) {
-		return results;
+	protected Order[] getDefaultSort() {
+		return null;
 	}
 
 	/**
@@ -156,8 +150,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 
 		loadPagingTotal(pagingInfo);
 
-		List<E> results = repository.select(getEntityClass(), createPagingCriteria(pagingInfo));
-		return sort(results);
+		return executeCriteria(getEntityClass(), pagingInfo, null, getDefaultSort());
 	}
 
 	@Override
@@ -226,7 +219,10 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	protected <T extends OpenmrsObject> List<T> executeCriteria(Class<T> clazz, PagingInfo pagingInfo,
 	                                                            Action1<Criteria> action, Order ... orderBy) {
 		Criteria criteria = repository.createCriteria(clazz);
-		action.apply(criteria);
+
+		if (action != null) {
+			action.apply(criteria);
+		}
 
 		loadPagingTotal(pagingInfo, criteria);
 

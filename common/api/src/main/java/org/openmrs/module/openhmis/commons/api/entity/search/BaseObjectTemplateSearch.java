@@ -24,15 +24,15 @@ public class BaseObjectTemplateSearch<T extends OpenmrsObject> {
 	public static final long serialVersionUID = 0L;
 
 	public enum ComparisonType {
-		EQUAL, IS_NULL, IS_NOT_NULL
+		EQUAL, NOT_EQUAL, IS_NULL, IS_NOT_NULL
 	}
 
 	public enum StringComparisonType {
-		EQUAL, IS_NULL, IS_NOT_NULL, IS_EMPTY, IS_NOT_EMPTY, LIKE
+		EQUAL, NOT_EQUAL, IS_NULL, IS_NOT_NULL, IS_EMPTY, IS_NOT_EMPTY, LIKE
 	}
 
 	public enum DateComparisonType {
-		EQUAL, IS_NULL, IS_NOT_NULL, GREATER_THAN, GREATER_THAN_EQUAL, LESS_THAN, LESS_THAN_EQUAL,
+		EQUAL, NOT_EQUAL, IS_NULL, IS_NOT_NULL, GREATER_THAN, GREATER_THAN_EQUAL, LESS_THAN, LESS_THAN_EQUAL,
 	}
 
 	public BaseObjectTemplateSearch(T template) {
@@ -60,6 +60,9 @@ public class BaseObjectTemplateSearch<T extends OpenmrsObject> {
 			case EQUAL:
 				result = Restrictions.eq(field, value);
 				break;
+			case NOT_EQUAL:
+				result = Restrictions.ne(field, value);
+				break;
 			case IS_NULL:
 				result = Restrictions.isNull(field);
 				break;
@@ -80,6 +83,9 @@ public class BaseObjectTemplateSearch<T extends OpenmrsObject> {
 		switch (comparisonType) {
 			case EQUAL:
 				result = Restrictions.eq(field, value);
+				break;
+			case NOT_EQUAL:
+				result = Restrictions.ne(field, value);
 				break;
 			case IS_NULL:
 				result = Restrictions.isNull(field);
@@ -110,6 +116,9 @@ public class BaseObjectTemplateSearch<T extends OpenmrsObject> {
 		switch (comparisonType) {
 			case EQUAL:
 				result = Restrictions.eq(field, value);
+				break;
+			case NOT_EQUAL:
+				result = Restrictions.ne(field, value);
 				break;
 			case IS_NULL:
 				result = Restrictions.isNull(field);
