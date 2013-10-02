@@ -158,14 +158,19 @@ public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E 
 	 */
 	@Test
 	public void purge_shouldDeleteTheSpecifiedObject() throws Exception {
-		E entity = service.getById(0);
-		Assert.assertNotNull(entity);
+		E entity = createEntity(true);
+
+		service.save(entity);
+		Context.flushSession();
+
+		E result = service.getById(entity.getId());
+		Assert.assertNotNull(result);
 
 		service.purge(entity);
 		Context.flushSession();
 
-		entity = service.getById(0);
-		Assert.assertNull(entity);
+		result = service.getById(entity.getId());
+		Assert.assertNull(result);
 	}
 
 	/**

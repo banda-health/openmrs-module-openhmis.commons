@@ -175,6 +175,21 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 		Assert.assertEquals(getTestEntityCount() - 1, entities.size());
 	}
 
+	@Test
+	@Override
+	public void getAll_shouldReturnAnEmptyListIfThereAreNoObjects() throws Exception {
+		List<E> entities = service.getAll();
+		for (E entity : entities) {
+			service.retire(entity, "test");
+		}
+
+		Context.flushSession();
+
+		entities = service.getAll(false);
+		Assert.assertNotNull(entities);
+		Assert.assertEquals(0, entities.size());
+	}
+
 	/**
 	 * @verifies throw IllegalArgumentException if the name is null
 	 * @see IMetadataDataService#findByName(String, boolean)
