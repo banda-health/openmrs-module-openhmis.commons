@@ -15,7 +15,6 @@ package org.openmrs.module.openhmis.commons.api.entity;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openmrs.BaseOpenmrsData;
 import org.openmrs.OpenmrsData;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
@@ -23,7 +22,7 @@ import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import java.util.Date;
 import java.util.List;
 
-public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E extends BaseOpenmrsData> extends IObjectDataServiceTest<S, E> {
+public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E extends OpenmrsData> extends IObjectDataServiceTest<S, E> {
 	public static void assertOpenmrsData(OpenmrsData expected, OpenmrsData actual) {
 		IObjectDataServiceTest.assertOpenmrsObject(expected, actual);
 
@@ -55,7 +54,7 @@ public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E 
 		Context.flushSession();
 
 		entity = service.getById(0);
-		Assert.assertTrue(entity.getVoided());
+		Assert.assertTrue(entity.isVoided());
 		Assert.assertEquals(Context.getAuthenticatedUser(), entity.getVoidedBy());
 		Assert.assertEquals(reason, entity.getVoidReason());
 		Date now = new Date();
@@ -95,7 +94,7 @@ public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E 
 		Context.flushSession();
 
 		entity = service.getById(0);
-		Assert.assertTrue(entity.getVoided());
+		Assert.assertTrue(entity.isVoided());
 
 		service.unvoidEntity(entity);
 
@@ -103,7 +102,7 @@ public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E 
 
 		entity = service.getById(0);
 
-		Assert.assertFalse(entity.getVoided());
+		Assert.assertFalse(entity.isVoided());
 		Assert.assertNull(entity.getVoidedBy());
 		Assert.assertNull(entity.getVoidReason());
 		Assert.assertNotNull(entity.getDateVoided());

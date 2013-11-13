@@ -16,7 +16,6 @@ package org.openmrs.module.openhmis.commons.api.entity;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
@@ -28,7 +27,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E extends BaseOpenmrsObject>
+public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E extends OpenmrsObject>
 		extends BaseModuleContextSensitiveTest {
 	protected S service;
 

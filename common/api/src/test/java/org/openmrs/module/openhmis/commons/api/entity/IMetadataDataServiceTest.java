@@ -16,7 +16,6 @@ package org.openmrs.module.openhmis.commons.api.entity;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
-import org.openmrs.BaseOpenmrsMetadata;
 import org.openmrs.OpenmrsMetadata;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
@@ -24,7 +23,7 @@ import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import java.util.Date;
 import java.util.List;
 
-public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>, E extends BaseOpenmrsMetadata>
+public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>, E extends OpenmrsMetadata>
 		extends IObjectDataServiceTest<S, E> {
 
 	public static void assertOpenmrsMetadata(OpenmrsMetadata expected, OpenmrsMetadata actual) {
@@ -62,7 +61,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 
 		entity = service.getById(entity.getId());
 
-		Assert.assertTrue(entity.getRetired());
+		Assert.assertTrue(entity.isRetired());
 		Assert.assertEquals(Context.getAuthenticatedUser(), entity.getRetiredBy());
 		Assert.assertEquals(reason, entity.getRetireReason());
 		Date now = new Date();
@@ -112,13 +111,13 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 
 		entity = service.getById(entity.getId());
 		Date dateRetired = entity.getDateRetired();
-		Assert.assertTrue(entity.getRetired());
+		Assert.assertTrue(entity.isRetired());
 		service.unretire(entity);
 
 		Context.flushSession();
 
 		entity = service.getById(entity.getId());
-		Assert.assertFalse(entity.getRetired());
+		Assert.assertFalse(entity.isRetired());
 		Assert.assertNull(entity.getRetiredBy());
 		Assert.assertNull(entity.getRetireReason());
 		Assert.assertEquals(dateRetired, entity.getDateRetired());
