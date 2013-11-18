@@ -18,20 +18,20 @@ import org.openmrs.OpenmrsMetadata;
 import java.util.List;
 
 /**
- * Represents a class that defines the type of an {@link ICustomizableInstance}.  Each {@link InstanceType} has attributes
+ * Represents a class that defines the type of an {@link ICustomizableInstance}.  Each {@link IInstanceType} has attributes
  * that are only used by instances of that type and not shared with other instance types.
  * @param <AT>
  */
-public interface InstanceType<AT extends InstanceAttributeType>
+public interface IInstanceType<AT extends IInstanceAttributeType>
 		extends OpenmrsMetadata {
 	/**
-	 * Gets the {@link AT}'s for this {@link InstanceType}.
+	 * Gets the {@link AT}'s for this {@link IInstanceType}.
 	 * @return The attribute types.
 	 */
 	List<AT> getAttributeTypes();
 
 	/**
-	 * Sets the {@link AT}'s for this {@link InstanceType}.
+	 * Sets the {@link AT}'s for this {@link IInstanceType}.
 	 * @param attributeTypes The attribute types.
 	 */
 	void setAttributeTypes(List<AT> attributeTypes);

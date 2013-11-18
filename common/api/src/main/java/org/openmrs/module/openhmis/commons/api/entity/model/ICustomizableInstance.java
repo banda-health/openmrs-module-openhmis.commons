@@ -18,10 +18,10 @@ import org.openmrs.customdatatype.CustomValueDescriptor;
 import java.util.Set;
 
 /**
- * Represents a class that can be customized with attributes based on the specific {@link InstanceType}.
+ * Represents a class that can be customized with attributes based on the specific {@link IInstanceType}.
  * @param <TAttribute>
  */
-public interface ICustomizableInstance<TInstanceType extends InstanceType, TAttribute extends InstanceAttribute> {
+public interface ICustomizableInstance<TInstanceType extends IInstanceType, TAttribute extends IInstanceAttribute> {
 	/**
 	 * Gets the {@link TAttribute}'s added to this instance.
 	 * @return The attributes for this instance.

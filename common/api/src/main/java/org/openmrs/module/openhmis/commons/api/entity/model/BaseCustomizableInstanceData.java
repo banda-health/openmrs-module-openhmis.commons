@@ -18,7 +18,7 @@ import org.openmrs.customdatatype.CustomValueDescriptor;
 
 import java.util.Set;
 
-public abstract class BaseCustomizableInstanceData<TInstanceType extends InstanceType, TAttribute extends InstanceAttribute>
+public abstract class BaseCustomizableInstanceData<TInstanceType extends IInstanceType, TAttribute extends IInstanceAttribute>
 		extends BaseOpenmrsData
 		implements ICustomizableInstance<TInstanceType, TAttribute> {
 	private Set<TAttribute> attributes;

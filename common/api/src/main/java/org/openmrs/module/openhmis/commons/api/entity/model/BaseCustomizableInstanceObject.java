@@ -21,7 +21,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @SuppressWarnings("rawtypes")
-public abstract class BaseCustomizableInstanceObject<TInstanceType extends InstanceType, TAttribute extends InstanceAttribute>
+public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInstanceType, TAttribute extends IInstanceAttribute>
 	extends BaseOpenmrsObject
 	implements ICustomizableInstance<TInstanceType, TAttribute> {
 	private Set<TAttribute> attributes;
@@ -68,7 +68,7 @@ public abstract class BaseCustomizableInstanceObject<TInstanceType extends Insta
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	static <TA extends InstanceAttribute, I extends ICustomizableInstance>
+	static <TA extends IInstanceAttribute, I extends ICustomizableInstance>
 		void addAttribute(I instance, TA attribute) {
 		if (attribute == null) {
 			throw new NullPointerException("The attribute to add must be defined.");
@@ -84,7 +84,7 @@ public abstract class BaseCustomizableInstanceObject<TInstanceType extends Insta
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	static <TA extends InstanceAttribute, I extends ICustomizableInstance<?, TA>>
+	static <TA extends IInstanceAttribute, I extends ICustomizableInstance<?, TA>>
 			void removeAttribute(I instance, TA attribute) {
 		if (instance.getAttributes() == null || attribute == null) {
 			return;
@@ -93,7 +93,7 @@ public abstract class BaseCustomizableInstanceObject<TInstanceType extends Insta
 		instance.getAttributes().remove(attribute);
 	}
 	
-	public static <TA extends InstanceAttribute, I extends ICustomizableInstance<?, TA>>
+	public static <TA extends IInstanceAttribute, I extends ICustomizableInstance<?, TA>>
 			Set<TA> getActiveAttributes(I instance) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null)
@@ -103,7 +103,7 @@ public abstract class BaseCustomizableInstanceObject<TInstanceType extends Insta
 		return ret;
 	}
 	
-	public static <TA extends InstanceAttribute, I extends ICustomizableInstance<?, TA>>
+	public static <TA extends IInstanceAttribute, I extends ICustomizableInstance<?, TA>>
 			Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null)

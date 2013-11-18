@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Vector;
 
 @SuppressWarnings("unchecked")
-public abstract class BaseCustomizableInstanceType<AT extends InstanceAttributeType>
+public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttributeType>
 		extends BaseSerializableOpenmrsMetadata
-		implements InstanceType<AT> {
+		implements IInstanceType<AT> {
 	private Integer customizableInstanceTypeId;
 	private List<AT> attributeTypes;
 

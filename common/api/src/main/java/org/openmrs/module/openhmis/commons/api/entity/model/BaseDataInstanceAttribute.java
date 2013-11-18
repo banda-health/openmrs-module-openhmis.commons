@@ -15,9 +15,9 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.BaseOpenmrsData;
 
-public abstract class BaseDataInstanceAttribute<TOwner extends ICustomizableInstance, TAttributeType extends InstanceAttributeType>
+public abstract class BaseDataInstanceAttribute<TOwner extends ICustomizableInstance, TAttributeType extends IInstanceAttributeType>
 		extends BaseOpenmrsData
-		implements InstanceAttribute<TOwner, TAttributeType> {
+		implements IInstanceAttribute<TOwner, TAttributeType> {
 
 	private Integer attributeId;
 	private TOwner owner;
