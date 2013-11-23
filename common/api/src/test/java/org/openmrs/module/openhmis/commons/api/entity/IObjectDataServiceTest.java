@@ -44,16 +44,20 @@ public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E 
 		Assert.assertEquals(expected.getUuid(), actual.getUuid());
 	}
 
-	protected <T> void assertCollection(Collection<T> expected, Collection<T> actual, Action2<T, T> test) {
-		Assert.assertEquals(expected.size(), actual.size());
+	public static <T> void assertCollection(Collection<T> expected, Collection<T> actual, Action2<T, T> test) {
+		if (expected == null) {
+			Assert.assertNull(actual);
+		} else {
+			Assert.assertEquals(expected.size(), actual.size());
 
-		T[] expectedArray = (T[])new Object[expected.size()];
-		expected.toArray(expectedArray);
-		T[] actualArray = (T[])new Object[actual.size()];
-		actual.toArray(actualArray);
+			T[] expectedArray = (T[])new Object[expected.size()];
+			expected.toArray(expectedArray);
+			T[] actualArray = (T[])new Object[actual.size()];
+			actual.toArray(actualArray);
 
-		for (int i = 0; i < expected.size(); i++) {
-			test.apply(expectedArray[i], actualArray[i]);
+			for (int i = 0; i < expected.size(); i++) {
+				test.apply(expectedArray[i], actualArray[i]);
+			}
 		}
 	}
 
