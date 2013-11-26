@@ -93,6 +93,20 @@
 				<version>1.4.10</version>
 				<scope>test</scope>
 			</dependency>
+
+			<dependency>
+				<groupId>org.reflections</groupId>
+				<artifactId>reflections</artifactId>
+				<type>jar</type>
+				<scope>compile</scope>
+				<version>0.9.8</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javassist</groupId>
+						<artifactId>javassist</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

@@ -52,6 +52,12 @@
 			<artifactId>powermock-module-junit4-rule-agent</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<type>jar</type>
+		</dependency>
 	</dependencies>
 
 	<build>
