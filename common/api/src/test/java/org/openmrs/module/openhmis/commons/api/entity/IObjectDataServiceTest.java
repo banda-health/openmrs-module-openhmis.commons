@@ -61,7 +61,7 @@ public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E 
 		}
 	}
 
-	protected abstract E createEntity(boolean valid);
+	public abstract E createEntity(boolean valid);
 	protected abstract int getTestEntityCount();
 	protected abstract void updateEntityFields(E entity);
 
