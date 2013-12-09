@@ -20,7 +20,7 @@ import org.openmrs.customdatatype.NotYetPersistedException;
 import org.openmrs.util.OpenmrsClassLoader;
 
 public class AttributeUtil {
-	private static final Log log = LogFactory.getLog(AttributeUtil.class);
+	private static final Log LOG = LogFactory.getLog(AttributeUtil.class);
 
 	public static Object tryToHydrateObject(String className, String key) {
 		try {
@@ -34,7 +34,7 @@ public class AttributeUtil {
 			}
 			catch (InstantiationException e) {
 				// try to hydrate the object with the String constructor
-				log.trace("Unable to call no-arg constructor for class: " + c.getName());
+				LOG.trace("Unable to call no-arg constructor for class: " + c.getName());
 				Object o = c.getConstructor(String.class).newInstance(key);
 				return o;
 			}
@@ -43,10 +43,10 @@ public class AttributeUtil {
 			return null;
 		}
 		catch (Throwable t) {
-			log.warn("Unable to hydrate value: " + key + " for type: " + className, t);
+			LOG.warn("Unable to hydrate value: " + key + " for type: " + className, t);
 		}
 		
-		log.debug("Returning value: '" + key + "'");
+		LOG.debug("Returning value: '" + key + "'");
 		return key;
 	}
 }
