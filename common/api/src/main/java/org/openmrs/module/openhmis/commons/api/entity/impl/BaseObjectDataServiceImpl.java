@@ -148,8 +148,6 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 			Context.requirePrivilege(privileges.getGetPrivilege());
 		}
 
-		loadPagingTotal(pagingInfo);
-
 		return executeCriteria(getEntityClass(), pagingInfo, null, getDefaultSort());
 	}
 
