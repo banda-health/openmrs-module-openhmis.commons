@@ -21,14 +21,14 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.f.Action2;
-import org.openmrs.web.test.BaseModuleWebContextSensitiveTest;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
 
 public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E extends OpenmrsObject>
-		extends BaseModuleWebContextSensitiveTest {
+		extends BaseModuleContextSensitiveTest {
 	protected S service;
 
 	/**
