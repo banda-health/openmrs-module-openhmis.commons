@@ -24,6 +24,7 @@ import java.util.Set;
 public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInstanceType, TAttribute extends IInstanceAttribute>
 	extends BaseOpenmrsObject
 	implements ICustomizableInstance<TInstanceType, TAttribute> {
+	
 	private Set<TAttribute> attributes;
 	private TInstanceType instanceType;
 
@@ -96,20 +97,26 @@ public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInst
 	public static <TA extends IInstanceAttribute, I extends ICustomizableInstance<?, TA>>
 			Set<TA> getActiveAttributes(I instance) {
 		Set<TA> ret = new HashSet<TA>();
-		if (instance.getAttributes() != null)
-			for (TA attr : instance.getAttributes())
-				if (!attr.getAttributeType().isRetired())
+		if (instance.getAttributes() != null) {
+			for (TA attr : instance.getAttributes()) {
+				if (!attr.getAttributeType().isRetired()) {
 					ret.add(attr);
+				}
+			}
+		}	
 		return ret;
 	}
 	
 	public static <TA extends IInstanceAttribute, I extends ICustomizableInstance<?, TA>>
 			Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
 		Set<TA> ret = new HashSet<TA>();
-		if (instance.getAttributes() != null)
-			for (TA attr : instance.getAttributes())
-				if (attr.getAttributeType().equals(ofType) && !attr.getAttributeType().isRetired())
+		if (instance.getAttributes() != null) {
+			for (TA attr : instance.getAttributes()) {
+				if (attr.getAttributeType().equals(ofType) && !attr.getAttributeType().isRetired()) {
 					ret.add(attr);
+				}
+			}
+		}
 		return ret;
 	}
 }

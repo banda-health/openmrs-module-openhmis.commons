@@ -40,6 +40,7 @@ import java.util.List;
 @Transactional
 public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P extends IObjectAuthorizationPrivileges>
 		extends BaseOpenmrsService implements IObjectDataService<E> {
+	
 	protected IHibernateRepository repository;
 	private Class entityClass = null;
 
