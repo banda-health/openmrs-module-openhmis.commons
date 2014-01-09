@@ -21,6 +21,8 @@ import java.util.Set;
 public abstract class BaseCustomizableInstanceData<TInstanceType extends IInstanceType, TAttribute extends IInstanceAttribute>
 		extends BaseOpenmrsData
 		implements ICustomizableInstance<TInstanceType, TAttribute> {
+	public static final long serialVersionUID = 0L;
+
 	private Set<TAttribute> attributes;
 	private TInstanceType instanceType;
 

@@ -13,11 +13,12 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import org.openmrs.BaseOpenmrsData;
+import org.openmrs.module.openhmis.commons.attribute.AttributeUtil;
 
 public abstract class BaseInstanceAttributeData<TOwner extends ICustomizableInstance, TAttributeType extends IInstanceAttributeType>
-		extends BaseOpenmrsData
+		extends BaseSerializableOpenmrsData
 		implements IInstanceAttribute<TOwner, TAttributeType> {
+	public static final long serialVersionUID = 0L;
 
 	private Integer attributeId;
 	private TOwner owner;
@@ -56,5 +57,9 @@ public abstract class BaseInstanceAttributeData<TOwner extends ICustomizableInst
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public Object getHydratedValue() {
+		return AttributeUtil.tryToHydrateObject(getAttributeType().getFormat(), value);
 	}
 }

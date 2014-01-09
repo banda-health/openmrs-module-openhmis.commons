@@ -18,6 +18,8 @@ import org.openmrs.BaseOpenmrsMetadata;
 public  class BaseInstanceAttributeType<TOwner extends IInstanceType>
 		extends BaseOpenmrsMetadata
 		implements IInstanceAttributeType<TOwner> {
+	public static final long serialVersionUID = 0L;
+
 	private Integer attributeTypeId;
 	private TOwner owner;
 	private Integer attributeOrder;

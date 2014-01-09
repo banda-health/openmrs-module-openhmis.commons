@@ -30,4 +30,6 @@ public interface IInstanceAttribute<TOwner extends ICustomizableInstance, TAttri
 
 	String getValue();
 	void setValue(String value);
+
+	public Object getHydratedValue();
 }

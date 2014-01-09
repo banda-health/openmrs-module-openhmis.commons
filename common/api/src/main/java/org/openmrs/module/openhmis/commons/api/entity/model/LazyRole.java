@@ -16,6 +16,8 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 import org.openmrs.Role;
 
 public class LazyRole extends Role {
+	public static final long serialVersionUID = 0L;
+
 	public LazyRole() {
 		super();
 	}

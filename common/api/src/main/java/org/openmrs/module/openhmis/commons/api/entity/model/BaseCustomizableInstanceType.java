@@ -15,13 +15,15 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.api.APIException;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 @SuppressWarnings("unchecked")
 public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttributeType>
 		extends BaseSerializableOpenmrsMetadata
 		implements IInstanceType<AT> {
+	public static final long serialVersionUID = 0L;
+
 	private Integer customizableInstanceTypeId;
 	private List<AT> attributeTypes;
 
@@ -44,7 +46,7 @@ public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttribute
 		}
 
 		if (this.attributeTypes == null) {
-			this.attributeTypes = new Vector<AT>();
+			this.attributeTypes = new ArrayList<AT>();
 		}
 		
 		if (index == null) {
