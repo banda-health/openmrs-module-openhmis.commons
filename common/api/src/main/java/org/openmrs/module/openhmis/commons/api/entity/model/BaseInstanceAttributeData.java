@@ -15,7 +15,7 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.module.openhmis.commons.attribute.AttributeUtil;
 
-public abstract class BaseInstanceAttributeData<TOwner extends ICustomizableInstance, TAttributeType extends IInstanceAttributeType>
+public abstract class BaseInstanceAttributeData<TOwner extends ICustomizableInstance<?,?>, TAttributeType extends IInstanceAttributeType<?>>
 		extends BaseSerializableOpenmrsData
 		implements IInstanceAttribute<TOwner, TAttributeType> {
 	public static final long serialVersionUID = 0L;

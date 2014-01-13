@@ -15,7 +15,7 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.BaseOpenmrsMetadata;
 
-public  class BaseInstanceAttributeType<TOwner extends IInstanceType>
+public  class BaseInstanceAttributeType<TOwner extends IInstanceType<?>>
 		extends BaseOpenmrsMetadata
 		implements IInstanceAttributeType<TOwner> {
 	public static final long serialVersionUID = 0L;

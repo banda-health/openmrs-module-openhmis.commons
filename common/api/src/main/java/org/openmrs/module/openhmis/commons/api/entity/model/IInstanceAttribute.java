@@ -20,7 +20,7 @@ import org.openmrs.OpenmrsObject;
  * @param <TOwner> The parent {@link ICustomizableInstance} class.
  * @param <TAttributeType> The {@link IInstanceAttributeType} class.
  */
-public interface IInstanceAttribute<TOwner extends ICustomizableInstance, TAttributeType extends IInstanceAttributeType>
+public interface IInstanceAttribute<TOwner extends ICustomizableInstance<?,?>, TAttributeType extends IInstanceAttributeType<?>>
 	extends OpenmrsObject {
 	TOwner getOwner();
 	void setOwner(TOwner owner);

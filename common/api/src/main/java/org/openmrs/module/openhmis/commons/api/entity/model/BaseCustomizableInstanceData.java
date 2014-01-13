@@ -18,7 +18,7 @@ import org.openmrs.customdatatype.CustomValueDescriptor;
 
 import java.util.Set;
 
-public abstract class BaseCustomizableInstanceData<TInstanceType extends IInstanceType, TAttribute extends IInstanceAttribute>
+public abstract class BaseCustomizableInstanceData<TInstanceType extends IInstanceType<?>, TAttribute extends IInstanceAttribute<?, ?>>
 		extends BaseOpenmrsData
 		implements ICustomizableInstance<TInstanceType, TAttribute> {
 	public static final long serialVersionUID = 0L;

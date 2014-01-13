@@ -22,7 +22,7 @@ import java.util.List;
  * that are only used by instances of that type and not shared with other instance types.
  * @param <AT>
  */
-public interface IInstanceType<AT extends IInstanceAttributeType>
+public interface IInstanceType<AT extends IInstanceAttributeType<?>>
 		extends OpenmrsMetadata {
 	/**
 	 * Gets the {@link AT}'s for this {@link IInstanceType}.

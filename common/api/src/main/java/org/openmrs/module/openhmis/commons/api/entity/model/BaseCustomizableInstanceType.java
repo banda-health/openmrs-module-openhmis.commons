@@ -18,8 +18,7 @@ import org.openmrs.api.APIException;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unchecked")
-public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttributeType>
+public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttributeType<?>>
 		extends BaseSerializableOpenmrsMetadata
 		implements IInstanceType<AT> {
 	public static final long serialVersionUID = 0L;
@@ -33,16 +32,19 @@ public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttribute
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void addAttributeType(Integer index, AT attributeType) {
 		if (attributeType == null) {
 			throw new NullPointerException("The payment mode attribute type to add must be defined.");
 		}
 
+
 		if (attributeType.getOwner() != this) {
 			// Note that this may cause issues if the attribute type class does not have this class as the owner class.
 			//  I'm not sure how to make generics check this at compile-time, I tried with self-bounded generic parameters
 			//  but could never get it working.  Such is life.
-			attributeType.setOwner(this);
+			IInstanceAttributeType temp = attributeType;
+			temp.setOwner(this);
 		}
 
 		if (this.attributeTypes == null) {

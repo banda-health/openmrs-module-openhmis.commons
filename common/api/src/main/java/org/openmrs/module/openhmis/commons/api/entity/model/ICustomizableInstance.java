@@ -22,7 +22,7 @@ import java.util.Set;
  * what {@link IInstanceAttributeType} are allowed.
  * @param <TAttribute>
  */
-public interface ICustomizableInstance<TInstanceType extends IInstanceType, TAttribute extends IInstanceAttribute> {
+public interface ICustomizableInstance<TInstanceType extends IInstanceType<?>, TAttribute extends IInstanceAttribute<?,?>> {
 	/**
 	 * Gets the {@link TAttribute}'s added to this instance.
 	 * @return The attributes for this instance.
