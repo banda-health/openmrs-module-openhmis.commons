@@ -16,13 +16,17 @@ package org.openmrs.module.openhmis.commons.api.entity.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.impl.CriteriaImpl;
+import org.hibernate.transform.ResultTransformer;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
+import org.openmrs.module.openhmis.commons.api.Utility;
 import org.openmrs.module.openhmis.commons.api.entity.IObjectDataService;
 import org.openmrs.module.openhmis.commons.api.entity.db.hibernate.IHibernateRepository;
 import org.openmrs.module.openhmis.commons.api.entity.security.IObjectAuthorizationPrivileges;
@@ -257,17 +261,27 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 			}
 
 			if (pagingInfo.shouldLoadRecordCount()) {
-				try {
-				criteria.setProjection(Projections.rowCount());
+				// Copy the current projection and transformer which requires getting access to the underlying criteria implementation
+				Projection projection = null;
+				ResultTransformer transformer = null;
 
-				Long count = repository.<Long>selectValue(criteria);
-				pagingInfo.setTotalRecordCount(count == null ? 0 : count);
-				pagingInfo.setLoadRecordCount(false);
-				} finally {
-					// Reset the criteria to return the result rather than the row count
-					criteria.setProjection(null);
+				CriteriaImpl impl = Utility.as(CriteriaImpl.class, criteria);
+				if (impl != null) {
+					projection = impl.getProjection();
+					transformer = impl.getResultTransformer();
 				}
 
+				try {
+					criteria.setProjection(Projections.rowCount());
+
+					Long count = repository.<Long>selectValue(criteria);
+					pagingInfo.setTotalRecordCount(count == null ? 0 : count);
+					pagingInfo.setLoadRecordCount(false);
+				} finally {
+					// Reset the criteria projection and transformer to return the result rather than the row count
+					criteria.setProjection(projection);
+					criteria.setResultTransformer(transformer);
+				}
 			}
 		}
 	}
