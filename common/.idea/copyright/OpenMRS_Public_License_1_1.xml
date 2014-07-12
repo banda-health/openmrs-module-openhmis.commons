@@ -1,9 +1,0 @@
-<component name="CopyrightManager">
-  <copyright>
-    <option name="notice" value="The contents of this file are subject to the OpenMRS Public License&#10;Version 1.1 (the &quot;License&quot;); you may not use this file except in&#10;compliance with the License. You may obtain a copy of the License at&#10;http://license.openmrs.org&#10;&#10;Software distributed under the License is distributed on an &quot;AS IS&quot;&#10;basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the&#10;License for the specific language governing rights and limitations&#10;under the License.&#10;&#10;Copyright (C) OpenMRS, LLC.  All Rights Reserved." />
-    <option name="keyword" value="Copyright" />
-    <option name="allowReplaceKeyword" value="" />
-    <option name="myName" value="OpenMRS Public License 1.1" />
-    <option name="myLocal" value="true" />
-  </copyright>
-</component>
