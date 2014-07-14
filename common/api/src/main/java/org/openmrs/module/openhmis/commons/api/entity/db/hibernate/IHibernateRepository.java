@@ -13,18 +13,27 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.db.hibernate;
 
-import org.hibernate.Criteria;
-import org.openmrs.OpenmrsObject;
-import org.openmrs.api.APIException;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.openmrs.OpenmrsObject;
+import org.openmrs.api.APIException;
 
 /**
  * Represents types that can provide access to a data source through hibernate.
  */
 public interface IHibernateRepository {
+
+	/**
+	 *
+	 * @param query The query
+	 * @return a new Query Object
+	 */
+	Query createQuery(String query);
+
 	/**
 	 * Creates a new {@link org.hibernate.Criteria}.
 	 * @param cls The entity class.

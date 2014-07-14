@@ -14,6 +14,7 @@
 package org.openmrs.module.openhmis.commons.api.entity.db.hibernate;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.openmrs.OpenmrsObject;
@@ -29,6 +30,12 @@ public class HibernateRepository implements IHibernateRepository {
 
 	public HibernateRepository(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	@Override
+	public Query createQuery(String query) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.createQuery(query);
 	}
 
 	@Override
@@ -153,5 +160,6 @@ public class HibernateRepository implements IHibernateRepository {
 
 		return results;
 	}
+
 }
 
