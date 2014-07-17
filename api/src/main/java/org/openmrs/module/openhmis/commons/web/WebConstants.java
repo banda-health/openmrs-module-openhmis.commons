@@ -14,8 +14,8 @@
 package org.openmrs.module.openhmis.commons.web;
 
 public class WebConstants {
-	public static final String MODULE_BASE = "/module/openhmis/";
-	public static final String MODULE_RESOURCE_BASE = "/moduleResources/openhmis/";
+	protected static final String MODULE_BASE = "/module/openhmis/";
+	protected static final String MODULE_RESOURCE_BASE = "/moduleResources/openhmis/";
 
 	/**
 	 * Adds the '.form' ending to the specified page, if it does not already exist.
