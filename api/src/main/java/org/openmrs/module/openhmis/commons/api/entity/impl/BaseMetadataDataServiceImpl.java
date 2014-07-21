@@ -16,6 +16,7 @@ package org.openmrs.module.openhmis.commons.api.entity.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.OpenmrsMetadata;
 import org.openmrs.OpenmrsObject;
@@ -42,6 +43,12 @@ import java.util.List;
 public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 		extends BaseObjectDataServiceImpl<E, IMetadataAuthorizationPrivileges>
 		implements IMetadataDataService<E> {
+	@Override
+	protected Order[] getDefaultSort() {
+		// By default, use the name as the sorting column for metadata
+		return new Order[] { Order.asc("name") };
+	}
+
 	@Override
 	@Transactional
 	public E retire(E entity, String reason) throws APIException {
