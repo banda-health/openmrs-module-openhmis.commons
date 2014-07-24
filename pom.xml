@@ -29,6 +29,7 @@
 		<url>http://openhmis.github.com/OpenHMIS/</url>
 	</organization>
 	<modules>
+		<module>tools</module>
 		<module>api</module>
 		<module>omod</module>
 	</modules>
@@ -43,10 +44,28 @@
 	<properties>
 		<openMRSVersion>1.9.4</openMRSVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<javaCompilerVersion>1.6</javaCompilerVersion>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>openhmis.commons-tools</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>openhmis.commons-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>openhmis.commons-omod</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 
 			<!-- Begin OpenMRS core -->
 
@@ -136,7 +155,6 @@
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 
@@ -185,13 +203,47 @@
 							</manifestEntries>
 						</archive>
 					</configuration>
-					<executions>
-						<execution>
-							<goals>
-								<goal>test-jar</goal>
-							</goals>
-						</execution>
-					</executions>
+				</plugin>
+				<plugin>
+					<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+					<artifactId>maven-java-formatter-plugin</artifactId>
+					<version>0.4</version>
+					<configuration>
+						<compilerSource>${javaCompilerVersion}</compilerSource>
+						<compilerCompliance>${javaCompilerVersion}</compilerCompliance>
+						<compilerTargetPlatform>${javaCompilerVersion}</compilerTargetPlatform>
+						<configFile>format/OpenHMIS Eclipse Format.xml</configFile>
+						<overrideConfigCompilerVersion>true</overrideConfigCompilerVersion>
+						<lineEnding>CRLF</lineEnding>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.openmrs.module</groupId>
+							<artifactId>openhmis.commons-tools</artifactId>
+							<version>${project.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>2.9.1</version>
+					<configuration>
+						<configLocation>checkstyle/openhmis-checkstyle.xml</configLocation>
+						<propertiesLocation>checkstyle/openhmis-checkstyle.properties</propertiesLocation>
+						<!--<headerLocation>checkstyle/license-header.txt</headerLocation>-->
+						<suppressionsLocation>checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+						<encoding>UTF-8</encoding>
+						<consoleOutput>true</consoleOutput>
+						<failsOnError>true</failsOnError>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.openmrs.module</groupId>
+							<artifactId>openhmis.commons-tools</artifactId>
+							<version>${project.version}</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 			</plugins>
 		</pluginManagement>
