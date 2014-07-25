@@ -58,8 +58,8 @@ public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttribute
 			getAttributeTypes().add(attributeType);
 		} else {
 			if (index > getAttributeTypes().size()) {
-				throw new APIException("Invalid attribute order. Should not leave space in the list (list length: " +
-				        getAttributeTypes().size() + ", index given: " + index + ").");
+				throw new APIException("Invalid attribute order. Should not leave space in the list (list length: "
+				        + getAttributeTypes().size() + ", index given: " + index + ").");
 			}
 			
 			attributeType.setAttributeOrder(index);

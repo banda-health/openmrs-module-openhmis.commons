@@ -54,8 +54,8 @@ public class HibernateRepository implements IHibernateRepository {
 		try {
 			session.saveOrUpdate(entity);
 		} catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to add a " + entity.getClass().getSimpleName() +
-			        " entity.", ex);
+			throw new APIException("An exception occurred while attempting to add a " + entity.getClass().getSimpleName()
+			        + " entity.", ex);
 		}
 		
 		return entity;
@@ -74,8 +74,8 @@ public class HibernateRepository implements IHibernateRepository {
 				}
 			}
 		} catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to add a " + entity.getClass().getSimpleName() +
-			        " entity.", ex);
+			throw new APIException("An exception occurred while attempting to add a " + entity.getClass().getSimpleName()
+			        + " entity.", ex);
 		}
 		
 		return entity;
@@ -87,8 +87,8 @@ public class HibernateRepository implements IHibernateRepository {
 		try {
 			session.delete(entity);
 		} catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to delete a " +
-			        entity.getClass().getSimpleName() + " entity.", ex);
+			throw new APIException("An exception occurred while attempting to delete a " + entity.getClass().getSimpleName()
+			        + " entity.", ex);
 		}
 	}
 	
@@ -110,8 +110,8 @@ public class HibernateRepository implements IHibernateRepository {
 		try {
 			return (E) session.get(cls, id);
 		} catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to select a single " + cls.getSimpleName() +
-			        " entity with ID" + " " + id.toString() + ".", ex);
+			throw new APIException("An exception occurred while attempting to select a single " + cls.getSimpleName()
+			        + " entity with ID" + " " + id.toString() + ".", ex);
 		}
 	}
 	
@@ -126,8 +126,8 @@ public class HibernateRepository implements IHibernateRepository {
 				result = results.get(0);
 			}
 		} catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to select a single " + cls.getSimpleName() +
-			        " entity.", ex);
+			throw new APIException("An exception occurred while attempting to select a single " + cls.getSimpleName()
+			        + " entity.", ex);
 		}
 		return result;
 	}

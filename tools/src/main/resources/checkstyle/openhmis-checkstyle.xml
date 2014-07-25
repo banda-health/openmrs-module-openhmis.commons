@@ -369,11 +369,9 @@
 		<module name="GenericWhitespace"/>
 
 		<!--
-			Check that lines wrapped on an operator place the operator at the end of the line.
+			Check that lines wrapped on an operator place the operator at the next line.
 		-->
-		<module name="OperatorWrap">
-			<property name="option" value="eol"/>
-		</module>
+		<module name="OperatorWrap" />
 
 		<!--
 			Checks whether a space is after a left parenthesis and before a right
