@@ -75,7 +75,7 @@ public abstract class BaseRestObjectResource<E extends OpenmrsObject> extends De
 	public E getByUniqueId(String uniqueId) {
 		Class<? extends IObjectDataService<E>> clazz = getServiceClass();
 		if (clazz == null) {
-			throw new IllegalStateException("This resource has not be defined to allow searching.  "
+			throw new IllegalStateException("This resource has not be defined to allow searching. "
 			        + "To search, implement the resource getServiceClass method.");
 		}
 		
@@ -92,7 +92,7 @@ public abstract class BaseRestObjectResource<E extends OpenmrsObject> extends De
 	public void purge(E delegate, RequestContext context) throws ResponseException {
 		Class<? extends IObjectDataService<E>> clazz = getServiceClass();
 		if (clazz == null) {
-			throw new IllegalStateException("This resource has not be defined to allow purging.  "
+			throw new IllegalStateException("This resource has not be defined to allow purging. "
 			        + "To purge, implement the resource getServiceClass method.");
 		}
 		
@@ -104,7 +104,7 @@ public abstract class BaseRestObjectResource<E extends OpenmrsObject> extends De
 	protected PageableResult doGetAll(RequestContext context) throws ResponseException {
 		Class<? extends IObjectDataService<E>> clazz = getServiceClass();
 		if (clazz == null) {
-			throw new IllegalStateException("This resource has not be defined to allow searching.  "
+			throw new IllegalStateException("This resource has not be defined to allow searching. "
 			        + "To search, implement the resource getServiceClass method.");
 		}
 		
