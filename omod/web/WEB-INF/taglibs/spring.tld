@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+		"http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
 
 <taglib>
 	<tlib-version>1.1.2</tlib-version>
@@ -21,7 +22,8 @@
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Set the default value for HTML escaping, to be put
-				into the current PageContext.</description>
+				into the current PageContext.
+			</description>
 		</attribute>
 	</tag>
 
@@ -39,14 +41,16 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Set HTML escaping for this tag, as boolean value. Overrides the
-			default HTML escaping setting for the current page.</description>
+				default HTML escaping setting for the current page.
+			</description>
 		</attribute>
 		<attribute>
 			<name>javaScriptEscape</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Set JavaScript escaping for this tag, as boolean value.
-			Default is false.</description>
+				Default is false.
+			</description>
 		</attribute>
 	</tag>
 
@@ -73,7 +77,8 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The code (key) to use when looking up the message.
-			If code is not provided, the text attribute will be used.</description>
+				If code is not provided, the text attribute will be used.
+			</description>
 		</attribute>
 
 		<attribute>
@@ -81,9 +86,10 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Set optional message arguments for this tag, as a
-			(comma-)delimited String (each String argument can contain JSP EL),
-			an Object array (used as argument array), or a single Object (used
-			as single argument).</description>
+				(comma-)delimited String (each String argument can contain JSP EL),
+				an Object array (used as argument array), or a single Object (used
+				as single argument).
+			</description>
 		</attribute>
 
 		<attribute>
@@ -91,7 +97,8 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The separator character to be used for splitting the
-			arguments string value; defaults to a 'comma' (',').</description>
+				arguments string value; defaults to a 'comma' (',').
+			</description>
 		</attribute>
 
 		<attribute>
@@ -99,8 +106,9 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Default text to output when a message for the given code
-			could not be found. If both text and code are not set, the tag will
-			output null.</description>
+				could not be found. If both text and code are not set, the tag will
+				output null.
+			</description>
 		</attribute>
 
 		<attribute>
@@ -108,8 +116,9 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The string to use when binding the result to the page,
-			request, session or application scope. If not specified, the result
-			gets outputted to the writer (i.e. typically directly to the JSP).</description>
+				request, session or application scope. If not specified, the result
+				gets outputted to the writer (i.e. typically directly to the JSP).
+			</description>
 		</attribute>
 
 		<attribute>
@@ -117,8 +126,9 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The scope to use when exporting the result to a variable.
-			This attribute is only used when var is also set. Possible values are
-			page, request, session and application.</description>
+				This attribute is only used when var is also set. Possible values are
+				page, request, session and application.
+			</description>
 		</attribute>
 
 		<attribute>
@@ -126,7 +136,8 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Set HTML escaping for this tag, as boolean value.
-			Overrides the default HTML escaping setting for the current page.</description>
+				Overrides the default HTML escaping setting for the current page.
+			</description>
 		</attribute>
 
 		<attribute>
@@ -161,7 +172,8 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The code (key) to use when looking up the message.
-			If code is not provided, the text attribute will be used.</description>
+				If code is not provided, the text attribute will be used.
+			</description>
 		</attribute>
 
 		<attribute>
@@ -169,9 +181,10 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Set optional message arguments for this tag, as a
-			(comma-)delimited String (each String argument can contain JSP EL),
-			an Object array (used as argument array), or a single Object (used
-			as single argument).</description>
+				(comma-)delimited String (each String argument can contain JSP EL),
+				an Object array (used as argument array), or a single Object (used
+				as single argument).
+			</description>
 		</attribute>
 
 		<attribute>
@@ -179,7 +192,8 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The separator character to be used for splitting the
-			arguments string value; defaults to a 'comma' (',').</description>
+				arguments string value; defaults to a 'comma' (',').
+			</description>
 		</attribute>
 
 		<attribute>
@@ -187,8 +201,9 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Default text to output when a message for the given code
-			could not be found. If both text and code are not set, the tag will
-			output null.</description>
+				could not be found. If both text and code are not set, the tag will
+				output null.
+			</description>
 		</attribute>
 
 		<attribute>
@@ -196,8 +211,9 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The string to use when binding the result to the page,
-			request, session or application scope. If not specified, the result
-			gets outputted to the writer (i.e. typically directly to the JSP).</description>
+				request, session or application scope. If not specified, the result
+				gets outputted to the writer (i.e. typically directly to the JSP).
+			</description>
 		</attribute>
 
 		<attribute>
@@ -205,8 +221,9 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The scope to use when exporting the result to a variable.
-			This attribute is only used when var is also set. Possible values are
-			page, request, session and application.</description>
+				This attribute is only used when var is also set. Possible values are
+				page, request, session and application.
+			</description>
 		</attribute>
 
 		<attribute>
@@ -214,7 +231,8 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Set HTML escaping for this tag, as boolean value.
-			Overrides the default HTML escaping setting for the current page.</description>
+				Overrides the default HTML escaping setting for the current page.
+			</description>
 		</attribute>
 
 		<attribute>
@@ -244,15 +262,17 @@
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The name of the bean in the request, that needs to be
-			inspected for errors. If errors are available for this bean, they
-			will be bound under the 'errors' key.</description>
+				inspected for errors. If errors are available for this bean, they
+				will be bound under the 'errors' key.
+			</description>
 		</attribute>
 		<attribute>
 			<name>htmlEscape</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Set HTML escaping for this tag, as boolean value.
-			Overrides the default HTML escaping setting for the current page.</description>
+				Overrides the default HTML escaping setting for the current page.
+			</description>
 		</attribute>
 	</tag>
 
@@ -272,8 +292,9 @@
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Set the path that this tag should apply. E.g. 'customer'
-			to allow bind paths like 'address.street' rather than
-			'customer.address.street'.</description>
+				to allow bind paths like 'address.street' rather than
+				'customer.address.street'.
+			</description>
 		</attribute>
 	</tag>
 
@@ -295,9 +316,10 @@
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The path to the bean or bean property to bind status
-			information for. For instance account.name, company.address.zipCode
-			or just employee. The status object will exported to the page scope,
-			specifically for this bean or bean property</description>
+				information for. For instance account.name, company.address.zipCode
+				or just employee. The status object will exported to the page scope,
+				specifically for this bean or bean property
+			</description>
 		</attribute>
 		<attribute>
 			<name>ignoreNestedPath</name>
@@ -310,7 +332,8 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Set HTML escaping for this tag, as boolean value. Overrides
-			the default HTML escaping setting for the current page.</description>
+				the default HTML escaping setting for the current page.
+			</description>
 		</attribute>
 	</tag>
 
@@ -331,8 +354,9 @@
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The value to transform. This is the actual object you want
-			to have transformed (for instance a Date). Using the PropertyEditor that
-			is currently in use by the 'spring:bind' tag.</description>
+				to have transformed (for instance a Date). Using the PropertyEditor that
+				is currently in use by the 'spring:bind' tag.
+			</description>
 		</attribute>
 
 		<attribute>
@@ -340,8 +364,9 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The string to use when binding the result to the page,
-			request, session or application scope. If not specified, the result gets
-			outputted to the writer (i.e. typically directly to the JSP).</description>
+				request, session or application scope. If not specified, the result gets
+				outputted to the writer (i.e. typically directly to the JSP).
+			</description>
 		</attribute>
 
 		<attribute>
@@ -349,8 +374,9 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>The scope to use when exported the result to a variable.
-			This attribute is only used when var is also set. Possible values are
-			page, request, session and application.</description>
+				This attribute is only used when var is also set. Possible values are
+				page, request, session and application.
+			</description>
 		</attribute>
 
 		<attribute>
@@ -358,7 +384,8 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>Set HTML escaping for this tag, as boolean value. Overrides
-			the default HTML escaping setting for the current page.</description>
+				the default HTML escaping setting for the current page.
+			</description>
 		</attribute>
 
 	</tag>

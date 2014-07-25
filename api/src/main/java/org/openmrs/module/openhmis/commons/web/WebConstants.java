@@ -13,10 +13,13 @@
  */
 package org.openmrs.module.openhmis.commons.web;
 
+/**
+ * Base constants used to store module web resources and urls.
+ */
 public class WebConstants {
 	protected static final String MODULE_BASE = "/module/openhmis/";
 	protected static final String MODULE_RESOURCE_BASE = "/moduleResources/openhmis/";
-
+	
 	/**
 	 * Adds the '.form' ending to the specified page, if it does not already exist.
 	 * @param page The page to add the form ending to.
@@ -25,7 +28,7 @@ public class WebConstants {
 	public static String formUrl(String page) {
 		return page.endsWith(".form") ? page : page + ".form";
 	}
-
+	
 	/**
 	 * Creates the redirect url for the specified page.
 	 * @param page The page to redirect to.

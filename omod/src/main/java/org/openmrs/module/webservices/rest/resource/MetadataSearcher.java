@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.webservices.rest.resource;
 
+import java.util.List;
+
 import org.openmrs.OpenmrsMetadata;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
@@ -20,15 +22,17 @@ import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.resource.impl.AlreadyPaged;
 
-import java.util.List;
-
+/**
+ * REST search helper for {@link org.openmrs.OpenmrsMetadata}
+ * @param <E> The model class
+ */
 public class MetadataSearcher<E extends OpenmrsMetadata> {
 	protected IMetadataDataService<E> service;
 	
 	public MetadataSearcher(Class<? extends IMetadataDataService<E>> serviceClass) {
 		this.service = Context.getService(serviceClass);
 	}
-
+	
 	/**
 	 * Searches for entities using the specified name fragment.
 	 * @param nameFragment The name search fragment
@@ -37,11 +41,11 @@ public class MetadataSearcher<E extends OpenmrsMetadata> {
 	 */
 	public AlreadyPaged<E> searchByName(String nameFragment, RequestContext context) {
 		PagingInfo pagingInfo = PagingUtil.getPagingInfoFromContext(context);
-
+		
 		List<E> results = service.findByName(nameFragment, context.getIncludeAll(), pagingInfo);
-
+		
 		Boolean hasMoreResults = (pagingInfo.getPage() * pagingInfo.getPageSize()) < pagingInfo.getTotalRecordCount();
 		return new AlreadyPagedWithLength<E>(context, results, hasMoreResults, pagingInfo.getTotalRecordCount());
 	}
-
+	
 }

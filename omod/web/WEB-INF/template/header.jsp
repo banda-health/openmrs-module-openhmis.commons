@@ -1,5 +1,4 @@
 <%@ page errorPage="/errorhandler.jsp" %>
-<%@ page import="org.openmrs.web.WebConstants" %>
 <%--
   ~ The contents of this file are subject to the OpenMRS Public License
   ~ Version 2.0 (the "License"); you may not use this file except in
@@ -15,9 +14,9 @@
   --%>
 <%
 	String useMinimalHeader = (String)session.getAttribute(WebConstants.OPENMRS_HEADER_USE_MINIMAL);
-	if ("true".equals(useMinimalHeader)){
-	   pageContext.setAttribute("useMinimalHeader", new Boolean(true));
-	   session.removeAttribute(WebConstants.OPENMRS_HEADER_USE_MINIMAL);
+	if ("true".equals(useMinimalHeader)) {
+		pageContext.setAttribute("useMinimalHeader", new Boolean(true));
+		session.removeAttribute(WebConstants.OPENMRS_HEADER_USE_MINIMAL);
 	}
 %>
 

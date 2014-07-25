@@ -21,11 +21,10 @@ import org.openmrs.BaseOpenmrsMetadata;
  */
 public abstract class BaseSerializableOpenmrsMetadata extends BaseOpenmrsMetadata {
 	public static final long serialVersionUID = 0L;
-
+	
 	@Override
 	@JsonIgnore
 	public Boolean getRetired() {
 		return isRetired();
 	}
 }
-

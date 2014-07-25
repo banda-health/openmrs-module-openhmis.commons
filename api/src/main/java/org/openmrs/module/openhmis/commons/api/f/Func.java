@@ -14,10 +14,9 @@
 package org.openmrs.module.openhmis.commons.api.f;
 
 /**
- * Represents a function that can be executed, returning an object.
+ * Represents a function with no parameters and a return value.
  * @param <TResult> The class of the return object.
  */
 public interface Func<TResult> {
 	TResult apply();
 }
-

@@ -7,12 +7,12 @@
 		<cache usage="read-write"/>
 
 		<id name="role" type="java.lang.String" column="role">
-			<generator class="assigned" />
+			<generator class="assigned"/>
 		</id>
-		<discriminator column="role" insert="false" />
+		<discriminator column="role" insert="false"/>
 
-		<property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" />
-		<property name="description" type="java.lang.String" column="description" not-null="true" length="255" />
+		<property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true"/>
+		<property name="description" type="java.lang.String" column="description" not-null="true" length="255"/>
 
 		<!-- Associations -->
 
@@ -20,27 +20,27 @@
 		<set name="inheritedRoles" cascade="none" table="role_role">
 			<cache usage="read-write"/>
 			<key>
-				<column name="child_role" />
+				<column name="child_role"/>
 			</key>
-			<many-to-many class="LazyRole" column="parent_role" />
+			<many-to-many class="LazyRole" column="parent_role"/>
 		</set>
 
 		<!-- bi-directional many-to-many association to Role to create childRoles-->
 		<set name="childRoles" cascade="none" table="role_role">
 			<cache usage="read-write"/>
 			<key>
-				<column name="parent_role" />
+				<column name="parent_role"/>
 			</key>
-			<many-to-many class="LazyRole" column="child_role" />
+			<many-to-many class="LazyRole" column="child_role"/>
 		</set>
 
 		<!-- bi-directional many-to-many association to Privilege -->
 		<set name="privileges" cascade="" table="role_privilege">
 			<cache usage="read-write"/>
 			<key>
-				<column name="role" />
+				<column name="role"/>
 			</key>
-			<many-to-many class="org.openmrs.Privilege" column="privilege" />
+			<many-to-many class="org.openmrs.Privilege" column="privilege"/>
 		</set>
 	</class>
 </hibernate-mapping>

@@ -13,23 +13,34 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import org.openmrs.customdatatype.CustomValueDescriptor;
-
 import java.util.Set;
 
-public abstract class BaseCustomizableInstanceMetadata<TInstanceType extends IInstanceType<?>, TAttribute extends IInstanceAttribute<?,?>>
-	extends BaseSerializableOpenmrsMetadata
-	implements ICustomizableInstance<TInstanceType, TAttribute> {
-	public static final long serialVersionUID = 0L;
+import org.openmrs.customdatatype.CustomValueDescriptor;
 
+/**
+ * Base class for {@link org.openmrs.OpenmrsMetadata} models that can be customized based on an
+ * {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceType}
+ * @param <TInstanceType> The model instance type class.
+ * @param <TAttribute> The model attribute class.
+ */
+public abstract class BaseCustomizableInstanceMetadata<TInstanceType extends IInstanceType<?>, //
+TAttribute extends IInstanceAttribute<?, ?>> //
+        extends BaseSerializableOpenmrsMetadata implements ICustomizableInstance<TInstanceType, TAttribute> {
+	public static final long serialVersionUID = 0L;
+	
 	private Set<TAttribute> attributes;
 	private TInstanceType instanceType;
-
+	
 	@Override
 	public Set<TAttribute> getAttributes() {
 		return attributes;
 	}
-
+	
+	@Override
+	public void setAttributes(Set<TAttribute> attributes) {
+		this.attributes = attributes;
+	}
+	
 	@Override
 	public Set<TAttribute> getActiveAttributes() {
 		return BaseCustomizableInstanceObject.getActiveAttributes(this);
@@ -39,30 +50,24 @@ public abstract class BaseCustomizableInstanceMetadata<TInstanceType extends IIn
 	public Set<TAttribute> getActiveAttributes(CustomValueDescriptor ofType) {
 		return BaseCustomizableInstanceObject.getActiveAttributes(this, ofType);
 	}
-
-	@Override
-	public void setAttributes(Set<TAttribute> attributes) {
-		this.attributes = attributes;
-	}
-
+	
 	@Override
 	public void addAttribute(TAttribute attribute) {
 		BaseCustomizableInstanceObject.addAttribute(this, attribute);
 	}
-
+	
 	@Override
 	public void removeAttribute(TAttribute attribute) {
 		BaseCustomizableInstanceObject.removeAttribute(this, attribute);
 	}
-
+	
 	@Override
 	public TInstanceType getInstanceType() {
 		return instanceType;
 	}
-
+	
 	@Override
 	public void setInstanceType(TInstanceType instanceType) {
 		this.instanceType = instanceType;
 	}
 }
-

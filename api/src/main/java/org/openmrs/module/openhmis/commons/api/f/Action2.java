@@ -13,6 +13,16 @@
  */
 package org.openmrs.module.openhmis.commons.api.f;
 
+/**
+ * Represents a function with two parameters and no return value.
+ * @param <TParm1> The first parameter class.
+ * @param <TParm2> The second parameter class
+ */
 public interface Action2<TParm1, TParm2> {
+	/**
+	 * Executes the action.
+	 * @param parameter1 The first parameter.
+	 * @param parameter2 The second parameter.
+	 */
 	void apply(TParm1 parameter1, TParm2 parameter2);
 }

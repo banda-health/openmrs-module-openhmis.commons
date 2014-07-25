@@ -8,10 +8,10 @@
 <%@ attribute name="labelIfNone" required="false" type="java.lang.String" %>
 <%@ attribute name="showEditLink" required="false" type="java.lang.Boolean" %>
 
-<c:set var="mostRecentObs_foundAny" value="false" />
+<c:set var="mostRecentObs_foundAny" value="false"/>
 <c:forEach items="${openmrs:sort(openmrs:filterObsByConcept(observations, concept), 'obsDatetime', true)}" var="o" end="0">
 	<c:if test="${label != null}">
-		<span class="obsLabel"><openmrs:message code="${label}" />:</span>
+		<span class="obsLabel"><openmrs:message code="${label}"/>:</span>
 	</c:if>
 	<span class="obsValue">
 		<c:if test="${showEditLink}">
@@ -25,12 +25,13 @@
 	<c:if test="${showUnits}">
 		<openmrs:concept conceptId="${o.concept.conceptId}" var="c" numericVar="nv">
 			<c:if test="${nv != null}">
-				<span class="obsUnits"><openmrs:message code="Units.${nv.units}" /></span>
+				<span class="obsUnits"><openmrs:message code="Units.${nv.units}"/></span>
 			</c:if>
 		</openmrs:concept>
 	</c:if>
-	<span class="obsDate"><c:if test="${showDate}">(<openmrs:formatDate date="${o.obsDatetime}" type="medium" />)</c:if></span>
-	<c:set var="mostRecentObs_foundAny" value="true" />
+	<span class="obsDate"><c:if test="${showDate}">(<openmrs:formatDate date="${o.obsDatetime}"
+	                                                                    type="medium"/>)</c:if></span>
+	<c:set var="mostRecentObs_foundAny" value="true"/>
 </c:forEach>
 
 <c:if test="${labelIfNone != null && mostRecentObs_foundAny == 'false'}">

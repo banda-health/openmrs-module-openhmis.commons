@@ -13,7 +13,12 @@
  */
 package org.openmrs.module.openhmis.commons.api.f;
 
+/**
+ * Represents a function with two parameters and a return value.
+ * @param <TParm1> The first parameter class.
+ * @param <TParm2> The second parameter class.
+ * @param <TResult> The return value class.
+ */
 public interface Func2<TParm1, TParm2, TResult> {
 	TResult apply(TParm1 parameter1, TParm2 parameter2);
 }
-

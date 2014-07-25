@@ -15,13 +15,16 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 
 import org.openmrs.Role;
 
+/**
+ * An {@link org.openmrs.Role} which can be configured to be lazy-loaded from the database.
+ */
 public class LazyRole extends Role {
 	public static final long serialVersionUID = 0L;
-
+	
 	public LazyRole() {
 		super();
 	}
-
+	
 	public LazyRole(Role role) {
 		setName(role.getName());
 		setChangedBy(role.getChangedBy());

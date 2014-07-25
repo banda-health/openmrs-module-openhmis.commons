@@ -11,7 +11,8 @@
   ~
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   --%>
-<ul class="navList">	<li id="homeNavLink" class="firstChild">
+<ul class="navList">
+	<li id="homeNavLink" class="firstChild">
 		<a href="${pageContext.request.contextPath}/"><openmrs:message code="Navigation.home"/></a>
 	</li>
 
@@ -25,18 +26,19 @@
 			</openmrs:hasPrivilege>
 		</a>
 	</li>
-	
+
 	<openmrs:hasPrivilege privilege="View Concepts">
 		<li id="dictionaryNavLink">
 			<a href="${pageContext.request.contextPath}/dictionary"><openmrs:message code="Navigation.dictionary"/></a>
 		</li>
 	</openmrs:hasPrivilege>
-	
-	<openmrs:extensionPoint pointId="org.openmrs.gutter.tools" type="html" 
-		requiredClass="org.openmrs.module.web.extension.LinkExt">
+
+	<openmrs:extensionPoint pointId="org.openmrs.gutter.tools" type="html"
+	                        requiredClass="org.openmrs.module.web.extension.LinkExt">
 		<openmrs:hasPrivilege privilege="${extension.requiredPrivilege}">
 			<li>
-			<a href="${pageContext.request.contextPath}/${extension.url}"><openmrs:message code="${extension.label}"/></a>
+				<a href="${pageContext.request.contextPath}/${extension.url}"><openmrs:message
+						code="${extension.label}"/></a>
 			</li>
 		</openmrs:hasPrivilege>
 	</openmrs:extensionPoint>
@@ -46,6 +48,6 @@
 			<a href="${pageContext.request.contextPath}/admin"><openmrs:message code="Navigation.administration"/></a>
 		</li>
 	</openmrs:hasPrivilege>
-	
-	
+
+
 </ul>

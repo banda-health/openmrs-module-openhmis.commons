@@ -13,22 +13,38 @@
  */
 package org.openmrs.module.openhmis.commons.web;
 
+import java.beans.PropertyEditorSupport;
+import java.lang.reflect.ParameterizedType;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.entity.IObjectDataService;
 
-import java.beans.PropertyEditorSupport;
-import java.lang.reflect.ParameterizedType;
-
+/**
+ * Support class to build property editors for entities.
+ * @param <E> The model class
+ */
 public class EntityPropertyEditor<E extends OpenmrsObject> extends PropertyEditorSupport {
 	private IObjectDataService<E> service;
-
+	
 	public EntityPropertyEditor(Class<? extends IObjectDataService<E>> service) {
 		this.service = Context.getService(service);
 	}
-
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public String getAsText() {
+		E entity = (E) getValue();
+		
+		if (entity == null) {
+			return "";
+		} else {
+			return entity.getId().toString();
+		}
+	}
+	
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
 		if (StringUtils.isEmpty(text)) {
@@ -40,30 +56,18 @@ public class EntityPropertyEditor<E extends OpenmrsObject> extends PropertyEdito
 			} else {
 				entity = service.getByUuid(text);
 			}
-
+			
 			setValue(entity);
 			if (entity == null) {
 				throw new IllegalArgumentException("Entity ('" + getEntityClass().getName() + "') not found: " + text);
 			}
 		}
 	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public String getAsText() {
-		E entity = (E)getValue();
-
-		if (entity == null) {
-			return "";
-		} else {
-			return entity.getId().toString();
-		}
-	}
-
+	
 	@SuppressWarnings("unchecked")
 	protected Class<E> getEntityClass() {
-		ParameterizedType parameterizedType = (ParameterizedType)getClass().getGenericSuperclass();
-
+		ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
+		
 		return (Class) parameterizedType.getActualTypeArguments()[0];
 	}
 }

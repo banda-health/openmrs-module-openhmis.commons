@@ -13,81 +13,46 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import org.openmrs.BaseOpenmrsObject;
-import org.openmrs.customdatatype.CustomValueDescriptor;
-
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@SuppressWarnings("rawtypes")
-public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInstanceType<?>, TAttribute extends IInstanceAttribute<?, ?>>
-	extends BaseOpenmrsObject
-	implements ICustomizableInstance<TInstanceType, TAttribute> {
-	public static final long serialVersionUID = 0L;
+import org.openmrs.BaseOpenmrsObject;
+import org.openmrs.customdatatype.CustomValueDescriptor;
 
+/**
+ * Base class for {@link org.openmrs.OpenmrsObject} models that can be customized based on an
+ * {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceType}
+ * @param <TInstanceType> The model instance type class.
+ * @param <TAttribute> The model attribute class.
+ */
+@SuppressWarnings("rawtypes")
+public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInstanceType<?>, //
+TAttribute extends IInstanceAttribute<?, ?>> //
+        extends BaseOpenmrsObject implements ICustomizableInstance<TInstanceType, TAttribute> {
+	public static final long serialVersionUID = 0L;
+	
 	private Set<TAttribute> attributes;
 	private TInstanceType instanceType;
-
-	@Override
-	public Set<TAttribute> getAttributes() {
-		return attributes;
-	}
-
-	@Override
-	public Set<TAttribute> getActiveAttributes() {
-		return getActiveAttributes(this);
-	}
 	
-	@Override
-	public Set<TAttribute> getActiveAttributes(CustomValueDescriptor ofType) {
-		return getActiveAttributes(this, ofType);
-	}
-
-	@Override
-	public void setAttributes(Set<TAttribute> attributes) {
-		this.attributes = attributes;
-	}
-
-	@Override
-	public void addAttribute(TAttribute attribute) {
-		addAttribute(this, attribute);
-	}
-
-	@Override
-	public void removeAttribute(TAttribute attribute) {
-		removeAttribute(this, attribute);
-	}
-
-	@Override
-	public TInstanceType getInstanceType() {
-		return instanceType;
-	}
-
-	@Override
-	public void setInstanceType(TInstanceType instanceType) {
-		this.instanceType = instanceType;
-	}
-
 	@SuppressWarnings({ "unchecked" })
-	static <TA extends IInstanceAttribute, I extends ICustomizableInstance>
-		void addAttribute(I instance, TA attribute) {
+	static <TA extends IInstanceAttribute, I extends ICustomizableInstance> void addAttribute(I instance, TA attribute) {
 		if (attribute == null) {
 			throw new NullPointerException("The attribute to add must be defined.");
 		}
-
+		
 		if (instance.getAttributes() == null) {
 			// Using LinkedHashSet because it is ordered by entry versus HashSet which is not.
 			instance.setAttributes(new LinkedHashSet<TA>());
 		}
-
+		
 		attribute.setOwner(instance);
-		instance.getAttributes().add(attribute);		
+		instance.getAttributes().add(attribute);
 	}
-
+	
 	@SuppressWarnings({ "unchecked" })
-	static <TA extends IInstanceAttribute<?,?>, I extends ICustomizableInstance<?, ? extends TA>>
-			void removeAttribute(I instance, TA attribute) {
+	static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> void removeAttribute(
+	        I instance, TA attribute) {
 		if (instance.getAttributes() == null || attribute == null) {
 			return;
 		}
@@ -95,8 +60,8 @@ public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInst
 		instance.getAttributes().remove(attribute);
 	}
 	
-	public static <TA extends IInstanceAttribute<?,?>, I extends ICustomizableInstance<?, ? extends TA>>
-			Set<TA> getActiveAttributes(I instance) {
+	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
+	Set<TA> getActiveAttributes(I instance) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
 			for (TA attr : instance.getAttributes()) {
@@ -104,12 +69,12 @@ public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInst
 					ret.add(attr);
 				}
 			}
-		}	
+		}
 		return ret;
 	}
 	
-	public static <TA extends IInstanceAttribute<?,?>, I extends ICustomizableInstance<?, ? extends TA>>
-			Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
+	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
+	Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
 			for (TA attr : instance.getAttributes()) {
@@ -119,5 +84,45 @@ public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInst
 			}
 		}
 		return ret;
+	}
+	
+	@Override
+	public Set<TAttribute> getAttributes() {
+		return attributes;
+	}
+	
+	@Override
+	public void setAttributes(Set<TAttribute> attributes) {
+		this.attributes = attributes;
+	}
+	
+	@Override
+	public Set<TAttribute> getActiveAttributes() {
+		return getActiveAttributes(this);
+	}
+	
+	@Override
+	public Set<TAttribute> getActiveAttributes(CustomValueDescriptor ofType) {
+		return getActiveAttributes(this, ofType);
+	}
+	
+	@Override
+	public void addAttribute(TAttribute attribute) {
+		addAttribute(this, attribute);
+	}
+	
+	@Override
+	public void removeAttribute(TAttribute attribute) {
+		removeAttribute(this, attribute);
+	}
+	
+	@Override
+	public TInstanceType getInstanceType() {
+		return instanceType;
+	}
+	
+	@Override
+	public void setInstanceType(TInstanceType instanceType) {
+		this.instanceType = instanceType;
 	}
 }

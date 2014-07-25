@@ -23,47 +23,46 @@ import org.openmrs.module.ModuleActivator;
 public class CommonsModuleActivator implements ModuleActivator {
 	
 	private static final Log LOG = LogFactory.getLog(CommonsModuleActivator.class);
-		
+	
 	/**
 	 * @see org.openmrs.module.ModuleActivator#willRefreshContext()
 	 */
 	public void willRefreshContext() {
 		LOG.info("Refreshing OpenHMIS Commons Module");
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.ModuleActivator#contextRefreshed()
 	 */
 	public void contextRefreshed() {
 		LOG.info("OpenHMIS Commons Module refreshed");
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.ModuleActivator#willStart()
 	 */
 	public void willStart() {
 		LOG.info("Starting OpenHMIS Commons Module");
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.ModuleActivator#started()
 	 */
 	public void started() {
 		LOG.info("OpenHMIS Commons Module started");
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.ModuleActivator#willStop()
 	 */
 	public void willStop() {
 		LOG.info("Stopping OpenHMIS Commons Module");
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.ModuleActivator#stopped()
 	 */
 	public void stopped() {
 		LOG.info("OpenHMIS Commons Module stopped");
 	}
-		
 }

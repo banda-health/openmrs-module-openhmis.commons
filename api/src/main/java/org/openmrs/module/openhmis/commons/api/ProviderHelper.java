@@ -13,12 +13,15 @@
  */
 package org.openmrs.module.openhmis.commons.api;
 
+import java.util.Collection;
+
 import org.openmrs.Provider;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
 
-import java.util.Collection;
-
+/**
+ * Utility class for {@link org.openmrs.Provider}s.
+ */
 public class ProviderHelper {
 	public static Provider getCurrentProvider() {
 		return getCurrentProvider(Context.getProviderService());
@@ -26,10 +29,10 @@ public class ProviderHelper {
 	
 	public static Provider getCurrentProvider(ProviderService providerService) {
 		Collection<Provider> providers = providerService.getProvidersByPerson(Context.getAuthenticatedUser().getPerson());
-			if (providers.size() > 0) {
-				return providers.iterator().next();
-			}
-
-			return null;
+		if (providers.size() > 0) {
+			return providers.iterator().next();
 		}
+		
+		return null;
+	}
 }

@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 	<changeSet id="openhmis-commons-2.0.0" author="ibewes">
 		<preConditions onFail="MARK_RAN">
 			<not>
-				<tableExists tableName="commons_ints" />
+				<tableExists tableName="commons_ints"/>
 			</not>
 		</preConditions>
 
 		<comment>
 			The commons_ints table is used by reports/queries that need to generate all dates between two dates.
 			Usage:
-				-- Only works for 100 days, add more ints joins for more
-				SELECT cal.date, tbl.data
-				FROM (
-					SELECT '2009-06-25' + INTERVAL a.i * 10 + b.i DAY as date
-					FROM ints a JOIN ints b
-					ORDER BY a.i * 10 + b.i
-				) cal LEFT JOIN tbl ON cal.date = tbl.date
-				WHERE cal.date BETWEEN '2009-06-25' AND '2009-07-01';
+			-- Only works for 100 days, add more ints joins for more
+			SELECT cal.date, tbl.data
+			FROM (
+			SELECT '2009-06-25' + INTERVAL a.i * 10 + b.i DAY as date
+			FROM ints a JOIN ints b
+			ORDER BY a.i * 10 + b.i
+			) cal LEFT JOIN tbl ON cal.date = tbl.date
+			WHERE cal.date BETWEEN '2009-06-25' AND '2009-07-01';
 
 			See: http://stackoverflow.com/a/1080334/1314
 		</comment>
 		<createTable tableName="commons_ints">
-			<column name="i" type="int"><constraints nullable="false" /></column>
+			<column name="i" type="int">
+				<constraints nullable="false"/>
+			</column>
 		</createTable>
 
 		<insert tableName="commons_ints">

@@ -13,6 +13,18 @@
  */
 package org.openmrs.module.openhmis.commons.api.f;
 
+/**
+ * Represents a function with three parameters and no return value.
+ * @param <TParm1> The first parameter class.
+ * @param <TParm2> The second parameter class.
+ * @param <TParm3> The third parameter class.
+ */
 public interface Action3<TParm1, TParm2, TParm3> {
+	/**
+	 * Executes the action.
+	 * @param parameter1 The first parameter.
+	 * @param parameter2 The second parameter.
+	 * @param parameter3 The third parameter.
+	 */
 	void apply(TParm1 parameter1, TParm2 parameter2, TParm3 parameter3);
 }

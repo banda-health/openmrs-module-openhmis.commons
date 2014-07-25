@@ -14,9 +14,11 @@
 package org.openmrs.module.openhmis.commons.api.f;
 
 /**
- * Represents an action (that is, a function that returns nothing) that can be executed.
+ * Represents a function with no parameters and no return value.
  */
 public interface Action {
+	/**
+	 * Executes the action.
+	 */
 	void apply();
 }
-

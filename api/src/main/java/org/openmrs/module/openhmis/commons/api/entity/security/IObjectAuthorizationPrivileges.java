@@ -15,7 +15,8 @@
 package org.openmrs.module.openhmis.commons.api.entity.security;
 
 /**
- * Represents types that define the privileges for core {@link org.openmrs.module.openhmis.commons.api.entity.IObjectDataService} operations.
+ * Represents types that define the privileges for core
+ * {@link org.openmrs.module.openhmis.commons.api.entity .IObjectDataService} operations.
  */
 public interface IObjectAuthorizationPrivileges {
 	/**
@@ -23,17 +24,16 @@ public interface IObjectAuthorizationPrivileges {
 	 * @return The privilege name.
 	 */
 	String getSavePrivilege();
-
+	
 	/**
 	 * The privilege required to purge an entity or {@code null} for no authorization.
 	 * @return The privilege name.
 	 */
 	String getPurgePrivilege();
-
+	
 	/**
 	 * The privilege required to get an entity or {@code null} for no authorization.
 	 * @return The privilege name.
 	 */
 	String getGetPrivilege();
 }
-

@@ -14,13 +14,13 @@
 	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern"
-			       value="%p - %C{1}.%M(%L) |%d{ISO8601}| %m%n" />
+				   value="%p - %C{1}.%M(%L) |%d{ISO8601}| %m%n"/>
 		</layout>
 	</appender>
 
 	<!-- Hide unnecessary errors logged by Hibernate during unit testing -->
 	<logger name="org.hibernate.tool.hbm2ddl.SchemaExport">
-		<level value="FATAL" />
+		<level value="FATAL"/>
 	</logger>
 
 	<!-- Uncomment for hibernate debugging
@@ -39,24 +39,24 @@
 		DEBUG == log all setters & getters &  execution time
 	-->
 	<logger name="org.openmrs.module.openhmis">
-		<level value="DEBUG" />
+		<level value="DEBUG"/>
 	</logger>
 
 	<logger name="org.openmrs.api">
-		<level value="WARN" />
+		<level value="WARN"/>
 	</logger>
 
 	<logger name="org.openmrs.test">
-		<level value="INFO" />
+		<level value="INFO"/>
 	</logger>
 
 	<logger name="org.hibernate.SQL">
-		<level value="WARN" />
+		<level value="WARN"/>
 	</logger>
 
 	<root>
-		<level value="ERROR" />
-		<appender-ref ref="CONSOLE" />
+		<level value="ERROR"/>
+		<appender-ref ref="CONSOLE"/>
 	</root>
 
 </log4j:configuration>

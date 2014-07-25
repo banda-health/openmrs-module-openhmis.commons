@@ -13,19 +13,33 @@
  */
 package org.openmrs.module.openhmis.commons.web;
 
+import java.beans.PropertyEditorSupport;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.openmrs.Provider;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
 
-import java.beans.PropertyEditorSupport;
-
+/**
+ * Property editor for {@link org.openmrs.Provider}s
+ */
 public class ProviderPropertyEditor extends PropertyEditorSupport {
+	@Override
+	public String getAsText() {
+		Provider provider = (Provider) getValue();
+		
+		if (provider == null) {
+			return "";
+		} else {
+			return provider.getId().toString();
+		}
+	}
+	
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
 		ProviderService service = Context.getProviderService();
-
+		
 		if (StringUtils.isEmpty(text)) {
 			setValue(null);
 		} else {
@@ -35,22 +49,11 @@ public class ProviderPropertyEditor extends PropertyEditorSupport {
 			} else {
 				provider = service.getProviderByUuid(text);
 			}
-
+			
 			setValue(provider);
-			if (provider== null) {
+			if (provider == null) {
 				throw new IllegalArgumentException("Provider not found: " + text);
 			}
-		}
-	}
-
-	@Override
-	public String getAsText() {
-		Provider provider = (Provider)getValue();
-
-		if (provider == null) {
-			return "";
-		} else {
-			return provider.getId().toString();
 		}
 	}
 }

@@ -13,32 +13,34 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import org.openmrs.api.APIException;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttributeType<?>>
-		extends BaseSerializableOpenmrsMetadata
-		implements IInstanceType<AT> {
-	public static final long serialVersionUID = 0L;
+import org.openmrs.api.APIException;
 
+/**
+ * Base class for instance type models.
+ * @param <AT> The attribute type class.
+ */
+public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttributeType<?>>
+        extends BaseSerializableOpenmrsMetadata implements IInstanceType<AT> {
+	public static final long serialVersionUID = 0L;
+	
 	private Integer customizableInstanceTypeId;
 	private List<AT> attributeTypes;
-
+	
 	@Override
 	public void addAttributeType(AT attributeType) {
 		addAttributeType(null, attributeType);
 	}
-
+	
 	@Override
 	@SuppressWarnings("unchecked")
 	public void addAttributeType(Integer index, AT attributeType) {
 		if (attributeType == null) {
 			throw new NullPointerException("The payment mode attribute type to add must be defined.");
 		}
-
-
+		
 		if (attributeType.getOwner() != this) {
 			// Note that this may cause issues if the attribute type class does not have this class as the owner class.
 			//  I'm not sure how to make generics check this at compile-time, I tried with self-bounded generic parameters
@@ -46,7 +48,7 @@ public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttribute
 			IInstanceAttributeType temp = attributeType;
 			temp.setOwner(this);
 		}
-
+		
 		if (this.attributeTypes == null) {
 			this.attributeTypes = new ArrayList<AT>();
 		}
@@ -56,38 +58,39 @@ public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttribute
 			getAttributeTypes().add(attributeType);
 		} else {
 			if (index > getAttributeTypes().size()) {
-				throw new APIException("Invalid attribute order. Should not leave space in the list (list length: " + getAttributeTypes().size() + ", index given: " + index + ")." );
+				throw new APIException("Invalid attribute order. Should not leave space in the list (list length: " +
+				        getAttributeTypes().size() + ", index given: " + index + ").");
 			}
-
+			
 			attributeType.setAttributeOrder(index);
 			getAttributeTypes().add(index, attributeType);
 		}
 		
 		this.attributeTypes.add(attributeType);
 	}
-
+	
 	@Override
 	public void removeAttributeType(AT attributeType) {
 		if (attributeType != null && this.attributeTypes != null) {
 			this.attributeTypes.remove(attributeType);
 		}
 	}
-
+	
 	@Override
 	public Integer getId() {
 		return customizableInstanceTypeId;
 	}
-
+	
 	@Override
 	public void setId(Integer id) {
 		customizableInstanceTypeId = id;
 	}
-
+	
 	@Override
 	public List<AT> getAttributeTypes() {
 		return attributeTypes;
 	}
-
+	
 	@Override
 	public void setAttributeTypes(List<AT> attributeTypes) {
 		this.attributeTypes = attributeTypes;

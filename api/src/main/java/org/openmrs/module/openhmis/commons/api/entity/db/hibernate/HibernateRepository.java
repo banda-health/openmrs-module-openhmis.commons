@@ -13,6 +13,10 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.db.hibernate;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -21,126 +25,128 @@ import org.openmrs.OpenmrsObject;
 import org.openmrs.api.APIException;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-
+/**
+ * Provides access to a data source through hibernate.
+ */
 public class HibernateRepository implements IHibernateRepository {
 	SessionFactory sessionFactory;
-
+	
 	public HibernateRepository(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
+	
 	@Override
 	public Query createQuery(String query) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createQuery(query);
 	}
-
+	
 	@Override
 	public <E extends OpenmrsObject> Criteria createCriteria(Class<E> cls) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.createCriteria(cls);
 	}
-
+	
 	@Override
 	public <E extends OpenmrsObject> E save(E entity) throws APIException {
 		Session session = sessionFactory.getCurrentSession();
-
+		
 		try {
 			session.saveOrUpdate(entity);
 		} catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to add a " + entity.getClass().getSimpleName() + " entity.", ex);
+			throw new APIException("An exception occurred while attempting to add a " + entity.getClass().getSimpleName() +
+			        " entity.", ex);
 		}
-
+		
 		return entity;
 	}
-
+	
 	@Override
 	@Transactional
 	public <E extends OpenmrsObject> E saveAll(E entity, Collection<? extends OpenmrsObject> related) {
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			session.saveOrUpdate(entity);
-
+			
 			if (related != null && related.size() > 0) {
 				for (OpenmrsObject obj : related) {
 					session.saveOrUpdate(obj);
 				}
 			}
 		} catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to add a " + entity.getClass().getSimpleName() + " entity.", ex);
+			throw new APIException("An exception occurred while attempting to add a " + entity.getClass().getSimpleName() +
+			        " entity.", ex);
 		}
-
+		
 		return entity;
 	}
-
+	
 	@Override
 	public <E extends OpenmrsObject> void delete(E entity) throws APIException {
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			session.delete(entity);
 		} catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to delete a " + entity.getClass().getSimpleName() + " entity.", ex);
+			throw new APIException("An exception occurred while attempting to delete a " +
+			        entity.getClass().getSimpleName() + " entity.", ex);
 		}
 	}
-
+	
 	@Override
 	@SuppressWarnings("unchecked")
 	public <T> T selectValue(Criteria criteria) {
 		try {
-			return (T)criteria.uniqueResult();
-		}
-		catch (Exception ex) {
+			return (T) criteria.uniqueResult();
+		} catch (Exception ex) {
 			throw new APIException("An exception occurred while attempting to selecting a value.", ex);
 		}
 	}
-
+	
 	@Override
 	@SuppressWarnings("unchecked")
 	public <E extends OpenmrsObject> E selectSingle(Class<E> cls, Serializable id) throws APIException {
 		Session session = sessionFactory.getCurrentSession();
-
+		
 		try {
-			return (E)session.get(cls, id);
-		}
-		catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to select a single " + cls.getSimpleName() + " entity with ID " + id.toString() + ".", ex);
+			return (E) session.get(cls, id);
+		} catch (Exception ex) {
+			throw new APIException("An exception occurred while attempting to select a single " + cls.getSimpleName() +
+			        " entity with ID" + " " + id.toString() + ".", ex);
 		}
 	}
-
+	
 	@Override
 	@SuppressWarnings("unchecked")
 	public <E extends OpenmrsObject> E selectSingle(Class<E> cls, Criteria criteria) throws APIException {
 		E result = null;
 		try {
 			List<E> results = criteria.list();
-
+			
 			if (results.size() > 0) {
 				result = results.get(0);
 			}
-		}
-		catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to select a single " + cls.getSimpleName() + " entity.", ex);
+		} catch (Exception ex) {
+			throw new APIException("An exception occurred while attempting to select a single " + cls.getSimpleName() +
+			        " entity.", ex);
 		}
 		return result;
 	}
-
+	
 	@Override
 	@SuppressWarnings("unchecked")
 	public <E extends OpenmrsObject> List<E> select(Class<E> cls) throws APIException {
 		Session session = sessionFactory.getCurrentSession();
-
+		
 		try {
 			Criteria search = session.createCriteria(cls);
-
+			
 			return search.list();
 		} catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to get " + cls.getSimpleName() + " entities.", ex);
+			throw new APIException("An exception occurred while attempting to get " + cls.getSimpleName() + " entities.", //
+			        ex);
 		}
 	}
-
+	
 	@Override
 	@SuppressWarnings("unchecked")
 	public <E extends OpenmrsObject> List<E> select(Class<E> cls, Criteria criteria) throws APIException {
@@ -148,18 +154,16 @@ public class HibernateRepository implements IHibernateRepository {
 		if (criteria == null) {
 			return select(cls);
 		}
-
+		
 		List<E> results;
-
+		
 		try {
 			results = criteria.list();
+		} catch (Exception ex) {
+			throw new APIException("An exception occurred while attempting to select " + cls.getSimpleName() + " entities.",
+			        ex);
 		}
-		catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to select " + cls.getSimpleName() + " entities.", ex);
-		}
-
+		
 		return results;
 	}
-
 }
-

@@ -20,24 +20,28 @@ import org.openmrs.customdatatype.CustomValueDescriptor;
  * Represents classes that define the attribute type information.
  * @param <TOwner> The parent {@link IInstanceType} class.
  */
-public interface IInstanceAttributeType<TOwner extends IInstanceType<?>>
-		extends  OpenmrsMetadata, CustomValueDescriptor {
+public interface IInstanceAttributeType<TOwner extends IInstanceType<?>> extends OpenmrsMetadata, CustomValueDescriptor {
 	TOwner getOwner();
+	
 	void setOwner(TOwner owner);
-
+	
 	Integer getAttributeOrder();
+	
 	void setAttributeOrder(Integer attributeOrder);
-
+	
 	String getFormat();
+	
 	void setFormat(String format);
-
+	
 	Integer getForeignKey();
+	
 	void setForeignKey(Integer foreignKey);
-
+	
 	String getRegExp();
+	
 	void setRegExp(String regExp);
-
+	
 	Boolean getRequired();
+	
 	void setRequired(Boolean required);
 }
-

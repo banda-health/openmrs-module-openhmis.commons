@@ -7,17 +7,18 @@
 <%@ attribute name="onChange" required="false" %>
 
 <select name="${formFieldName}" id="${formFieldName}"<c:if test="${not empty onChange}"> onChange=${onChange}</c:if>>
-	<c:if test="${optionHeader != ''}">
-		<c:if test="${optionHeader == '[blank]'}">
-			<option value=""></option>
-		</c:if>
-		<c:if test="${optionHeader != '[blank]'}">
-			<option value="">${optionHeader}</option>
-		</c:if>
+<c:if test="${optionHeader != ''}">
+	<c:if test="${optionHeader == '[blank]'}">
+		<option value=""></option>
 	</c:if>
-	<c:forEach items="${concept.answers}" var="a" varStatus="s">
-		<option value="${a.answerConcept.conceptId}" <c:if test="${a.answerConcept.conceptId == initialValue}">selected</c:if>>
-			${a.answerConcept.name.name}
-		</option>
-	</c:forEach>
+	<c:if test="${optionHeader != '[blank]'}">
+		<option value="">${optionHeader}</option>
+	</c:if>
+</c:if>
+<c:forEach items="${concept.answers}" var="a" varStatus="s">
+	<option value="${a.answerConcept.conceptId}"
+	<c:if test="${a.answerConcept.conceptId == initialValue}">selected</c:if>>
+	${a.answerConcept.name.name}
+	</option>
+</c:forEach>
 </select>

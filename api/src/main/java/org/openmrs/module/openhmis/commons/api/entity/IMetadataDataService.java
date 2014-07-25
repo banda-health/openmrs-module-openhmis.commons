@@ -13,22 +13,22 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity;
 
+import java.util.List;
+
 import org.openmrs.OpenmrsMetadata;
 import org.openmrs.api.APIException;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
- * Represents classes that provide data access services to model types that inherit from {@link org.openmrs.OpenmrsMetadata}.
+ * Represents classes that provide data access services to model types that inherit from
+ * {@link org.openmrs.OpenmrsMetadata}.
  * @param <E> The {@link org.openmrs.OpenmrsMetadata} model class.
  */
 @Transactional
 public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObjectDataService<E> {
 	/**
 	 * Retires the specified metadata. This effectively removes the entity from circulation or use.
-	 *
 	 * @param metadata metadata to be retired.
 	 * @param reason the reason why the metadata is being retired.
 	 * @return the newly retired metadata.
@@ -37,10 +37,10 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @should throw IllegalArgumentException when no reason is given
 	 */
 	E retire(E metadata, String reason) throws APIException;
-
+	
 	/**
-	 * Unretire the specified metadata. This restores a previously retired metadata back into circulation and use.
-	 *
+	 * Unretire the specified metadata. This restores a previously retired metadata back into
+	 * circulation and use.
 	 * @param metadata The metadata to unretire.
 	 * @return the newly unretired metadata.
 	 * @throws org.openmrs.api.APIException
@@ -48,7 +48,7 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @should unretire the metadata
 	 */
 	E unretire(E metadata) throws APIException;
-
+	
 	/**
 	 * Returns all metadata records that have the specified retirement status.
 	 * @param includeRetired {@code true} to include retired metadata.
@@ -58,7 +58,7 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @should return all unretired metadata when retired is set to false
 	 */
 	List<E> getAll(boolean includeRetired) throws APIException;
-
+	
 	/**
 	 * Returns all metadata records that have the specified retirement status and paging.
 	 * @param includeRetired {@code true} to include retired metadata.
@@ -74,7 +74,7 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @should return paged metadata records if paging is specified
 	 */
 	List<E> getAll(boolean includeRetired, PagingInfo paging) throws APIException;
-
+	
 	/**
 	 * Finds all the metadata that start with the specified name.
 	 * @param nameFragment The name fragment.
@@ -89,7 +89,7 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @should return metadata that start with the specified name
 	 */
 	List<E> findByName(String nameFragment, boolean includeRetired) throws APIException;
-
+	
 	/**
 	 * Finds all the metadata that start with the specified name and paging.
 	 * @param nameFragment The name fragment.

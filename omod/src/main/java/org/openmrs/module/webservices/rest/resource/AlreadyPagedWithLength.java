@@ -20,9 +20,13 @@ import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.resource.impl.AlreadyPaged;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
+/**
+ * Represents paged results that include a total length.
+ * @param <T> The model class.
+ */
 public class AlreadyPagedWithLength<T> extends AlreadyPaged<T> {
 	private long length = 0;
-
+	
 	public AlreadyPagedWithLength(RequestContext context, List<T> results, boolean hasMoreResults, long length) {
 		super(context, results, hasMoreResults);
 		this.length = length;
@@ -34,5 +38,5 @@ public class AlreadyPagedWithLength<T> extends AlreadyPaged<T> {
 		obj.add("length", this.length);
 		return obj;
 	}
-
+	
 }

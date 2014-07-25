@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE module PUBLIC
-	  "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
-	  "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+		"-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+		"http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 
 <module name="Checker">
 
@@ -20,7 +20,7 @@
 		Limit checks by their severity (e.g., error or warning) 
 	-->
 	<module name="SeverityMatchFilter">
-		<property name="severity" value="error" default="error" />
+		<property name="severity" value="error" default="error"/>
 	</module>
 
 	<!--
@@ -54,34 +54,34 @@
 		Define a maximum number of lines in a java file.
 	-->
 	<module name="FileLength">
-		<property name="fileExtensions" value="java" />
-		<property name="max" value="2500" />
+		<property name="fileExtensions" value="java"/>
+		<property name="max" value="2500"/>
 	</module>
 
 	<!--
 		Check for use of System.out.println()
 	-->
 	<module name="RegexpSingleline">
-		<property name="format" value="System\.out\.println\(\)" />
+		<property name="format" value="System\.out\.println\(\)"/>
 		<property name="message"
-			value="System.out.println() should not be used. Use logging convention instead." />
+				  value="System.out.println() should not be used. Use logging convention instead."/>
 	</module>
 
 	<!--
 		Check for use of ex.printStackTrace()
 	-->
 	<module name="RegexpSingleline">
-		<property name="id" value="IllegalPrintStackTrace" />
-		<property name="format" value="\.printStackTrace\(\)" />
+		<property name="id" value="IllegalPrintStackTrace"/>
+		<property name="format" value="\.printStackTrace\(\)"/>
 		<property name="message"
-			value="ex.PrintStackTrace() should not be used. Use logging convention instead." />
+				  value="ex.PrintStackTrace() should not be used. Use logging convention instead."/>
 	</module>
 
 	<!--
 		Check for use of 'new Date().getTime()'.
 	-->
 	<module name="RegexpSingleline">
-		<property name="id" value="InefficientCurrentTime" />
+		<property name="id" value="InefficientCurrentTime"/>
 		<property name="format" value="new Date\(\)\.getTime\(\)"/>
 		<property name="message" value="Use System.currentTimeMillis() instead of new Date().getTime()."/>
 	</module>
@@ -95,12 +95,13 @@
 		value="${checkstyle.fileTabCharacter.eachLine}"/> </module>
 	-->
 
+	<!-- This conflicts with indenting empty lines and is thus turned off -->
 	<!-- Find lines with trailing spaces -->
-	<module name="RegexpSingleline">
+	<!--<module name="RegexpSingleline">
 		<property name="format" value="\s+$"/>
 		<property name="minimum" value="0"/>
 		<property name="maximum" value="0"/>
-	</module>
+	</module>-->
 
 	<!--                                                -->
 	<!--        PACKAGE DOCUMENTATION CHECKS            -->
@@ -117,7 +118,7 @@
 
 	<!-- Ensure translation files contain the same keys -->
 	<module name="Translation">
-		<property name="severity" value="warning" default="error" />
+		<property name="severity" value="warning" default="error"/>
 	</module>
 
 	<!--                                                -->
@@ -127,64 +128,64 @@
 	<!-- TreeWalker is used to process individual Java files -->
 	<module name="TreeWalker">
 		<!-- Defines expected tab width for checks that require a tab width -->
-		<property name="tabWidth" value="4" />
+		<property name="tabWidth" value="4"/>
 
 		<!--                                                -->
 		<!--              CODING STYLE CHECKS               -->
 		<!--                                                -->
 
 		<!-- Do not use "import com.example.*"" -->
-		<module name="AvoidStarImport" />
+		<module name="AvoidStarImport"/>
 
 		<!--
 			Check for package names that do not follow convention. 
 		-->
-		<module name="PackageName" />
+		<module name="PackageName"/>
 
 		<!--
 			Check that class and interface names follow convention.
 		-->
 		<module name="TypeName">
-			<property name="format" value="^[A-Z][a-zA-Z0-9]*$" />
+			<property name="format" value="^[A-Z][a-zA-Z0-9]*$"/>
 		</module>
 
 		<!-- 
 			Check for one outer class per file
 		-->
-		<module name="OuterTypeNumber" />
+		<module name="OuterTypeNumber"/>
 
 		<!-- 
 			Check for method names that do not follow convention.
 		-->
-		<module name="MethodName" />
+		<module name="MethodName"/>
 
 		<!--
 			Check for overly long methods (too many lines).
 		-->
 		<module name="MethodLength">
-			<property name="max" value="400" />
+			<property name="max" value="400"/>
 		</module>
 
 		<!--
 			Check for parameter names that do not follow convention
 		-->
 		<module name="ParameterName">
-			<property name="format" value="^[a-z]+[a-zA-Z0-9]*$" />
+			<property name="format" value="^[a-z]+[a-zA-Z0-9]*$"/>
 		</module>
 
 		<module name="ParameterNumber">
-			<property name="max" value="20" />
+			<property name="max" value="20"/>
 		</module>
 
 		<!--
 			Check for duplicate imports.
 		-->
-		<module name="RedundantImport" />
+		<module name="RedundantImport"/>
 
 		<!--
 			Check for illegal imports. By default this is only sun.* packages
 		-->
-		<module name="IllegalImport" />
+		<module name="IllegalImport"/>
 
 		<!--
 			Check for catch statements that catch Exception, Throwable, or
@@ -199,7 +200,7 @@
 			Prevent specific types from being thrown. Defaults to
 			java.lang.Throwable, java.lang.Error, and java.lang.RuntimeException.
 		-->
-		<module name="IllegalThrows" />
+		<module name="IllegalThrows"/>
 
 		<!--
 			Check for instantiation of specific classes. For example, check for
@@ -209,7 +210,7 @@
 			factory method.
 		-->
 		<module name="IllegalInstantiation">
-			<property name="classes" value="java.lang.Boolean" />
+			<property name="classes" value="java.lang.Boolean"/>
 		</module>
 
 		<!--
@@ -217,58 +218,58 @@
 			readability of code or represent an assignment where a comparison was
 			intended.
 		-->
-		<module name="InnerAssignment" />
+		<module name="InnerAssignment"/>
 
 		<!--
 			Check for long lines
 		-->
 		<module name="LineLength">
-			<property name="max" value="125" />
-			<property name="ignorePattern" value="^ *\* *[^ ]+$" />
+			<property name="max" value="125"/>
+			<property name="ignorePattern" value="^ *\* *[^ ]+$"/>
 		</module>
 
 		<!-- 
 			Check for switch statements without a "default" case
 		 -->
-		<module name="MissingSwitchDefault" />
+		<module name="MissingSwitchDefault"/>
 
 		<!--
 			Check for switch statement cases with java code, but without a break,
 			return, or throw.
 		-->
-		<module name="FallThrough" />
+		<module name="FallThrough"/>
 
 		<!--
 			Check that there are no "magic numbers", where a magic number is a
 			numeric literal that is not defined as a constant. By default, -1, 0,
 			1, and 2 are not considered to be magic numbers.
 		-->
-		<module name="MagicNumber" />
+		<module name="MagicNumber"/>
 
 		<!--
 			Check that literal Longs use a capital "L" to avoid confusion with
 			the number one (1).
 		-->
-		<module name="UpperEll" />
+		<module name="UpperEll"/>
 
 		<!--
 			Check for classes that override equals() without overriding
 			hashCode().
 		-->
-		<module name="EqualsHashCode" />
+		<module name="EqualsHashCode"/>
 
 		<!--
 			Check for too many nested if statements.
 		-->
 		<module name="NestedIfDepth">
-			<property name="max" value="8" />
+			<property name="max" value="8"/>
 		</module>
 
 		<!--
 			Check for too many nested try/catch blocks.
 		-->
 		<module name="NestedTryDepth">
-			<property name="max" value="3" />
+			<property name="max" value="3"/>
 		</module>
 
 		<!--
@@ -276,18 +277,18 @@
 			{@inheritDoc} javadoc tag is present.
 		-->
 		<module name="MissingOverride">
-			<property name="javaFiveCompatibility" value="false" />
+			<property name="javaFiveCompatibility" value="false"/>
 		</module>
 
 		<!--
 			Check that string literals are not used with == or !=. 
 		-->
-		<module name="StringLiteralEquality" />
+		<module name="StringLiteralEquality"/>
 
 		<!--
 			Check to see if classes override Object's clone() method.
 		-->
-		<module name="NoClone" />
+		<module name="NoClone"/>
 
 		<!--
 			Checks that the order of modifiers conforms to the suggestions in the
@@ -295,18 +296,18 @@
 			correct order is: public, protected, private, abstract, static,
 			final, transient, volatile, synchronized, native, strictfp.
 		-->
-		<module name="ModifierOrder" />
+		<module name="ModifierOrder"/>
 
 		<!--
 			Check for overly complicated boolean return statements.
 		-->
-		<module name="SimplifyBooleanReturn" />
+		<module name="SimplifyBooleanReturn"/>
 
 		<!--
 			Check for (expression == true) or (expression == false), which can be
 			simpllified as (expression) and (!expression), respectively.
 		-->
-		<module name="SimplifyBooleanExpression" />
+		<module name="SimplifyBooleanExpression"/>
 
 		<!--
 			Check for redundant modifiers. Since interface methods are implicitly
@@ -314,7 +315,7 @@
 			methods within interfaces as public is redundant.
 			http://java.sun.com/docs/books/jls/third_edition/html/names.html#104285
 		-->
-		<module name="RedundantModifier" />
+		<module name="RedundantModifier"/>
 
 		<!--
 			Check for empty blocks
@@ -325,13 +326,13 @@
 			one statement
 		-->
 		<module name="EmptyBlock">
-			<property name="option" value="text" />
+			<property name="option" value="text"/>
 		</module>
 
 		<!-- Check names of constants -->
 		<!-- Allow for "log" constant name for logging -->
 		<module name="ConstantName">
-			<property name="format" value="^([A-Z][A-Z0-9]*(_[A-Z0-9]+)*)$" />
+			<property name="format" value="^([A-Z][A-Z0-9]*(_[A-Z0-9]+)*)$"/>
 		</module>
 
 		<!--
@@ -349,23 +350,23 @@
 		<!--                                                -->
 
 		<module name="LeftCurly">
-			<property name="option" value="eol" />
+			<property name="option" value="eol"/>
 		</module>
 
 		<!-- 
 			Check for space between method name and opening parens
 		-->
-		<module name="MethodParamPad" />
+		<module name="MethodParamPad"/>
 
 		<!--
 			Check for whitespace before and after certain tokens
 		-->
-		<module name="NoWhitespaceBefore" />
+		<module name="NoWhitespaceBefore"/>
 		<module name="NoWhitespaceAfter">
 			<property name="tokens"
-				value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS" />
+					  value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS"/>
 		</module>
-		<module name="GenericWhitespace" />
+		<module name="GenericWhitespace"/>
 
 		<!--
 			Check that lines wrapped on an operator place the operator at the end of the line.
@@ -378,7 +379,7 @@
 			Checks whether a space is after a left parenthesis and before a right
 			parenthesis, or such spaces are forbidden.
 		-->
-		<module name="TypecastParenPad" />
+		<module name="TypecastParenPad"/>
 
 		<!--                                                -->
 		<!--              DOCUMENTATION CHECKS              -->
@@ -386,8 +387,8 @@
 
 		<!-- Public classes and interfaces should have a Javadoc comment -->
 		<module name="JavadocType">
-			<property name="scope" value="public" />
-			<property name="allowMissingParamTags" value="true" />
+			<property name="scope" value="public"/>
+			<property name="allowMissingParamTags" value="true"/>
 			<!-- allowUnknownTags is not available until CheckStyle 5.1 -->
 			<!--
 			<property name="allowUnknownTags" value="true" />

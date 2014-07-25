@@ -24,7 +24,13 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceD
 import org.openmrs.module.webservices.rest.web.resource.impl.MetadataDelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
-@Resource(name = RestConstants.VERSION_2 + "/openhmis/attributetype", supportedClass = IInstanceAttributeType.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*"})
+/**
+ * Resolves type names for
+ * {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttributeType}s
+ * @param <T> The instance attribute type class
+ */
+@Resource(name = RestConstants.VERSION_2 + "/openhmis/attributetype", supportedClass = IInstanceAttributeType.class,
+        supportedOpenmrsVersions = { "1.8.*", "1.9.*" })
 public class InstanceAttributeTypeConverter<T extends IInstanceAttributeType<?>> extends MetadataDelegatingCrudResource<T> {
 	private static final String NEED_SUBCLASS_HANDLER = "This operation should be handled by a subclass handler.";
 	
@@ -47,25 +53,25 @@ public class InstanceAttributeTypeConverter<T extends IInstanceAttributeType<?>>
 	public T newDelegate() {
 		throw new NotImplementedException(NEED_SUBCLASS_HANDLER);
 	}
-
+	
 	@Override
 	public T save(T delegate) {
 		throw new NotImplementedException(NEED_SUBCLASS_HANDLER);
 	}
-
+	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		throw new NotImplementedException(NEED_SUBCLASS_HANDLER);
 	}
-
+	
 	@Override
 	public T getByUniqueId(String uniqueId) {
 		throw new NotImplementedException(NEED_SUBCLASS_HANDLER);
 	}
-
+	
 	@Override
 	public void purge(T delegate, RequestContext context) throws ResponseException {
 		throw new NotImplementedException(NEED_SUBCLASS_HANDLER);
 	}
-
+	
 }
