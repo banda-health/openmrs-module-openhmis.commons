@@ -76,14 +76,12 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 				OpenmrsMetadata metadata = Utility.as(OpenmrsMetadata.class, object);
 				if (metadata != null) {
 					setRetireProperties(metadata, reason, user, dateRetired);
-					
 					updatedObjects.add(metadata);
 				}
 			}
 		}
-		
 		if (updatedObjects.size() > 0) {
-			return saveAll(entity, relatedObjects);
+			return saveAll(entity, updatedObjects);
 		} else {
 			return save(entity);
 		}

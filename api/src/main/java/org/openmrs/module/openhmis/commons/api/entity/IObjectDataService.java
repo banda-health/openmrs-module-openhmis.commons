@@ -60,6 +60,13 @@ public interface IObjectDataService<E extends OpenmrsObject> extends OpenmrsServ
 	E saveAll(E object, Collection<? extends OpenmrsObject> related) throws APIException;
 	
 	/**
+	 * Saves a collection of objects to the database
+	 * @param related The related objects to be saved to the database
+	 * @throws APIException
+	 */
+	void saveAll(Collection<? extends OpenmrsObject> collection) throws APIException;
+	
+	/**
 	 * Completely remove an object from the database (not reversible).
 	 * @param object the object to remove from the database.
 	 * @should throw NullPointerException if the object is null

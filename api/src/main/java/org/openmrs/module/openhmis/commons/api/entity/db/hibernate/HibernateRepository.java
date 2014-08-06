@@ -63,22 +63,18 @@ public class HibernateRepository implements IHibernateRepository {
 	
 	@Override
 	@Transactional
-	public <E extends OpenmrsObject> E saveAll(E entity, Collection<? extends OpenmrsObject> related) {
+	public void saveAll(Collection<? extends OpenmrsObject> collection) {
 		Session session = sessionFactory.getCurrentSession();
 		try {
-			session.saveOrUpdate(entity);
 			
-			if (related != null && related.size() > 0) {
-				for (OpenmrsObject obj : related) {
+			if (collection != null && collection.size() > 0) {
+				for (OpenmrsObject obj : collection) {
 					session.saveOrUpdate(obj);
 				}
 			}
 		} catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to add a " + entity.getClass().getSimpleName()
-			        + " entity.", ex);
+			throw new APIException("An exception occurred while attempting to add a entity.", ex);
 		}
-		
-		return entity;
 	}
 	
 	@Override

@@ -73,7 +73,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 		}
 		
 		if (updatedObjects.size() > 0) {
-			return saveAll(entity, relatedObjects);
+			return saveAll(entity, updatedObjects);
 		} else {
 			return save(entity);
 		}

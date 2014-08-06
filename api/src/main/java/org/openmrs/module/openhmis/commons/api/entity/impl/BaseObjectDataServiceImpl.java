@@ -14,6 +14,7 @@
 package org.openmrs.module.openhmis.commons.api.entity.impl;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -128,7 +129,25 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 		
 		validate(object);
 		
-		return repository.saveAll(object, related);
+		Collection<OpenmrsObject> saveAll = new ArrayList<OpenmrsObject>();
+		saveAll.add(object);
+		saveAll(related);
+		
+		repository.saveAll(saveAll);
+		
+		return object;
+	}
+	
+	@Override
+	@Transactional
+	public void saveAll(Collection<? extends OpenmrsObject> collection) throws APIException {
+		P privileges = getPrivileges();
+		if (privileges != null && !StringUtils.isEmpty(privileges.getSavePrivilege())) {
+			Context.requirePrivilege(privileges.getSavePrivilege());
+		}
+		
+		repository.saveAll(collection);
+		
 	}
 	
 	@Override
@@ -202,7 +221,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 		if (entityClass == null) {
 			ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
 			
-			entityClass = (Class) parameterizedType.getActualTypeArguments()[0];
+			entityClass = (Class<E>) parameterizedType.getActualTypeArguments()[0];
 		}
 		
 		return entityClass;
