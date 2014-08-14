@@ -42,7 +42,7 @@ public class MetadataSearcher<E extends OpenmrsMetadata> {
 	public AlreadyPaged<E> searchByName(String nameFragment, RequestContext context) {
 		PagingInfo pagingInfo = PagingUtil.getPagingInfoFromContext(context);
 		
-		List<E> results = service.findByName(nameFragment, context.getIncludeAll(), pagingInfo);
+		List<E> results = service.getByNameFragment(nameFragment, context.getIncludeAll(), pagingInfo);
 		
 		Boolean hasMoreResults = (pagingInfo.getPage() * pagingInfo.getPageSize()) < pagingInfo.getTotalRecordCount();
 		return new AlreadyPagedWithLength<E>(context, results, hasMoreResults, pagingInfo.getTotalRecordCount());

@@ -191,38 +191,38 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	
 	/**
 	 * @verifies throw IllegalArgumentException if the name is null
-	 * @see IMetadataDataService#findByName(String, boolean)
+	 * @see IMetadataDataService#getByNameFragment(String, boolean)
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void findByName_shouldThrowIllegalArgumentExceptionIfTheNameIsNull() throws Exception {
-		service.findByName(null, true);
+	public void getByNameFragment_shouldThrowIllegalArgumentExceptionIfTheNameIsNull() throws Exception {
+		service.getByNameFragment(null, true);
 	}
 	
 	/**
 	 * @verifies throw IllegalArgumentException if the name is empty
-	 * @see IMetadataDataService#findByName(String, boolean)
+	 * @see IMetadataDataService#getByNameFragment(String, boolean)
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void findByName_shouldThrowIllegalArgumentExceptionIfTheNameIsEmpty() throws Exception {
-		service.findByName("", true);
+	public void getByNameFragment_shouldThrowIllegalArgumentExceptionIfTheNameIsEmpty() throws Exception {
+		service.getByNameFragment("", true);
 	}
 	
 	/**
 	 * @verifies throw IllegalArgumentException if the name is longer than 255 characters
-	 * @see IMetadataDataService#findByName(String, boolean)
+	 * @see IMetadataDataService#getByNameFragment(String, boolean)
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void findByName_shouldThrowIllegalArgumentExceptionIfTheNameIsLongerThan255Characters() throws Exception {
-		service.findByName(StringUtils.repeat("A", 256), true);
+	public void getByNameFragment_shouldThrowIllegalArgumentExceptionIfTheNameIsLongerThan255Characters() throws Exception {
+		service.getByNameFragment(StringUtils.repeat("A", 256), true);
 	}
 	
 	/**
 	 * @verifies return an empty list if no metadata are found
-	 * @see IMetadataDataService#findByName(String, boolean)
+	 * @see IMetadataDataService#getByNameFragment(String, boolean)
 	 */
 	@Test
-	public void findByName_shouldReturnAnEmptyListIfNoMetadataAreFound() throws Exception {
-		List<E> entities = service.findByName("NotAValidName", true);
+	public void getByNameFragment_shouldReturnAnEmptyListIfNoMetadataAreFound() throws Exception {
+		List<E> entities = service.getByNameFragment("NotAValidName", true);
 		
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(0, entities.size());
@@ -230,33 +230,33 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	
 	/**
 	 * @verifies not return retired metadata unless specified
-	 * @see IMetadataDataService#findByName(String, boolean)
+	 * @see IMetadataDataService#getByNameFragment(String, boolean)
 	 */
 	@Test
-	public void findByName_shouldNotReturnRetiredMetadataUnlessSpecified() throws Exception {
+	public void getByNameFragment_shouldNotReturnRetiredMetadataUnlessSpecified() throws Exception {
 		E entity = service.getById(0);
 		service.retire(entity, "something");
 		Context.flushSession();
 		
-		List<E> entities = service.findByName("t", false);
+		List<E> entities = service.getByNameFragment("t", false);
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(getTestEntityCount() - 1, entities.size());
 		
-		entities = service.findByName("t", true);
+		entities = service.getByNameFragment("t", true);
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(getTestEntityCount(), entities.size());
 	}
 	
 	/**
 	 * @verifies return metadata that start with the specified name
-	 * @see IMetadataDataService#findByName(String, boolean)
+	 * @see IMetadataDataService#getByNameFragment(String, boolean)
 	 */
 	@Test
-	public void findByName_shouldReturnMetadataThatStartWithTheSpecifiedName() throws Exception {
+	public void getByNameFragment_shouldReturnMetadataThatStartWithTheSpecifiedName() throws Exception {
 		E entity = service.getById(0);
 		
 		// Search using the first four characters in the name
-		List<E> entities = service.findByName(entity.getName(), false);
+		List<E> entities = service.getByNameFragment(entity.getName(), false);
 		Assert.assertTrue(entities.size() > 0);
 		
 		// Make sure the entity is in the results
@@ -273,15 +273,15 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	
 	/**
 	 * @verifies return all specified metadata records if paging is null
-	 * @see IMetadataDataService#findByName(String, boolean,
+	 * @see IMetadataDataService#getByNameFragment(String, boolean,
 	 *      org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void findByName_shouldReturnAllSpecifiedMetadataRecordsIfPagingIsNull() throws Exception {
+	public void getByNameFragment_shouldReturnAllSpecifiedMetadataRecordsIfPagingIsNull() throws Exception {
 		E entity = service.getById(0);
 		
 		// This assumes that the entity name is unique
-		List<E> entities = service.findByName(entity.getName(), false, null);
+		List<E> entities = service.getByNameFragment(entity.getName(), false, null);
 		
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
@@ -290,23 +290,23 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	
 	/**
 	 * @verifies return all specified metadata records if paging page or size is less than one
-	 * @see IMetadataDataService#findByName(String, boolean,
+	 * @see IMetadataDataService#getByNameFragment(String, boolean,
 	 *      org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void findByName_shouldReturnAllSpecifiedMetadataRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
+	public void getByNameFragment_shouldReturnAllSpecifiedMetadataRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
 		E entity = service.getById(0);
 		
 		PagingInfo paging = new PagingInfo(0, 1);
 		// This assumes that the entity name is unique
-		List<E> entities = service.findByName(entity.getName(), false, paging);
+		List<E> entities = service.getByNameFragment(entity.getName(), false, paging);
 		
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
 		assertEntity(entity, entities.get(0));
 		
 		paging = new PagingInfo(1, 0);
-		entities = service.findByName(entity.getName(), false, paging);
+		entities = service.getByNameFragment(entity.getName(), false, paging);
 		
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
@@ -315,13 +315,13 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	
 	/**
 	 * @verifies set the paging total records to the total number of metadata records
-	 * @see IMetadataDataService#findByName(String, boolean,
+	 * @see IMetadataDataService#getByNameFragment(String, boolean,
 	 *      org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void findByName_shouldSetThePagingTotalRecordsToTheTotalNumberOfMetadataRecords() throws Exception {
+	public void getByNameFragment_shouldSetThePagingTotalRecordsToTheTotalNumberOfMetadataRecords() throws Exception {
 		PagingInfo paging = new PagingInfo(1, 1);
-		List<E> entities = service.findByName("T", false, paging);
+		List<E> entities = service.getByNameFragment("T", false, paging);
 		
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
@@ -330,16 +330,16 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	
 	/**
 	 * @verifies not get the total paging record count if it is more than zero
-	 * @see IMetadataDataService#findByName(String, boolean,
+	 * @see IMetadataDataService#getByNameFragment(String, boolean,
 	 *      org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void findByName_shouldNotGetTheTotalPagingRecordCountIfItIsMoreThanZero() throws Exception {
+	public void getByNameFragment_shouldNotGetTheTotalPagingRecordCountIfItIsMoreThanZero() throws Exception {
 		E entity = service.getById(0);
 		PagingInfo paging = new PagingInfo(1, 1);
 		
 		// First check that the full total is set
-		List<E> entities = service.findByName(entity.getName(), false, paging);
+		List<E> entities = service.getByNameFragment(entity.getName(), false, paging);
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
 		Assert.assertEquals((Long) 1L, paging.getTotalRecordCount());
@@ -348,7 +348,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 		paging = new PagingInfo(1, 1);
 		paging.setTotalRecordCount(10L);
 		
-		entities = service.findByName(entity.getName(), false, paging);
+		entities = service.getByNameFragment(entity.getName(), false, paging);
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
 		Assert.assertEquals((Long) 10L, paging.getTotalRecordCount());
@@ -357,7 +357,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 		paging = new PagingInfo(1, 1);
 		paging.setLoadRecordCount(false);
 		
-		entities = service.findByName(entity.getName(), false, paging);
+		entities = service.getByNameFragment(entity.getName(), false, paging);
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
 		Assert.assertNull(paging.getTotalRecordCount());
@@ -365,19 +365,19 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	
 	/**
 	 * @verifies return paged metadata records if paging is specified
-	 * @see IMetadataDataService#findByName(String, boolean,
+	 * @see IMetadataDataService#getByNameFragment(String, boolean,
 	 *      org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
-	public void findByName_shouldReturnPagedMetadataRecordsIfPagingIsSpecified() throws Exception {
-		List<E> allEntities = service.findByName("T", false);
+	public void getByNameFragment_shouldReturnPagedMetadataRecordsIfPagingIsSpecified() throws Exception {
+		List<E> allEntities = service.getByNameFragment("T", false);
 		
 		PagingInfo paging = new PagingInfo(1, 1);
 		List<E> entities;
 		
 		for (int i = 0; i < getTestEntityCount(); i++) {
 			paging.setPage(i + 1);
-			entities = service.findByName("T", false, paging);
+			entities = service.getByNameFragment("T", false, paging);
 			
 			Assert.assertNotNull(entities);
 			Assert.assertEquals(1, entities.size());

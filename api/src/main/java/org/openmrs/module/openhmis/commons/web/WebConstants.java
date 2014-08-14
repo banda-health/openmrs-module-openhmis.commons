@@ -19,4 +19,5 @@ package org.openmrs.module.openhmis.commons.web;
 public class WebConstants {
 	protected static final String MODULE_BASE = "/module/openhmis/";
 	protected static final String MODULE_RESOURCE_BASE = "/moduleResources/openhmis/";
+	
 }

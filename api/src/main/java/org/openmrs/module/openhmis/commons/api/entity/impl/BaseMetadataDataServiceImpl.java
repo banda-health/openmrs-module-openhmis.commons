@@ -181,13 +181,13 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> findByName(String nameFragment, boolean includeRetired) throws APIException {
-		return findByName(nameFragment, includeRetired, null);
+	public List<E> getByNameFragment(String nameFragment, boolean includeRetired) throws APIException {
+		return getByNameFragment(nameFragment, includeRetired, null);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> findByName(final String nameFragment, final boolean includeRetired, PagingInfo pagingInfo)
+	public List<E> getByNameFragment(final String nameFragment, final boolean includeRetired, PagingInfo pagingInfo)
 	        throws APIException {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {

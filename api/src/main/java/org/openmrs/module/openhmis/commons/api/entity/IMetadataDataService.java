@@ -76,7 +76,7 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	List<E> getAll(boolean includeRetired, PagingInfo paging) throws APIException;
 	
 	/**
-	 * Finds all the metadata that start with the specified name.
+	 * Gets all the metadata that start with the specified name.
 	 * @param nameFragment The name fragment.
 	 * @param includeRetired Whether retired items should be included in the results.
 	 * @return All metadata that starts with the specified name.
@@ -88,10 +88,10 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @should not return retired metadata unless specified
 	 * @should return metadata that start with the specified name
 	 */
-	List<E> findByName(String nameFragment, boolean includeRetired) throws APIException;
+	List<E> getByNameFragment(String nameFragment, boolean includeRetired) throws APIException;
 	
 	/**
-	 * Finds all the metadata that start with the specified name and paging.
+	 * Gets all the metadata that start with the specified name and paging.
 	 * @param nameFragment The name fragment.
 	 * @param includeRetired Whether retired metadata should be included in the results.
 	 * @param paging The paging information.
@@ -109,5 +109,5 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @should not get the total paging record count if it is more than zero
 	 * @should return paged metadata records if paging is specified
 	 */
-	List<E> findByName(String nameFragment, boolean includeRetired, PagingInfo paging) throws APIException;
+	List<E> getByNameFragment(String nameFragment, boolean includeRetired, PagingInfo paging) throws APIException;
 }
