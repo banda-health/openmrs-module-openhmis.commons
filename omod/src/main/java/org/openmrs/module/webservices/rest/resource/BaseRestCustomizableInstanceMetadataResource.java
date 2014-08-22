@@ -30,9 +30,11 @@ TAttribute extends IInstanceAttribute<E, TAttributeType>> //
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		DelegatingResourceDescription description = super.getRepresentationDescription(rep);
-		description.addProperty("instanceType", Representation.REF);
 		
-		if (!(rep instanceof RefRepresentation)) {
+		if (rep instanceof RefRepresentation) {
+			description.addProperty("instanceType", Representation.REF);
+		} else {
+			description.addProperty("instanceType");
 			description.addProperty("attributes");
 			
 			if (rep instanceof FullRepresentation) {

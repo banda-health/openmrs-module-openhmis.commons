@@ -14,12 +14,20 @@
 package org.openmrs.module.openhmis.commons.api;
 
 /**
- * Utility methods type.
+ * General utility methods.
  */
 public class Utility {
-	// Do not allow this type to be instantiated.
+	// Do not allow this class to be instantiated.
 	private Utility() {}
 	
+	/**
+	 * Returns the specified object as the specified class or returns null if the cast is not
+	 * supported.
+	 * @param cls The generic class to cast the object to.
+	 * @param o The object to cast.
+	 * @param <T> The generic class to cast the object to.
+	 * @return The object cast to the specified class or {@code null} if the cast is not supported.
+	 */
 	public static <T> T as(Class<T> cls, Object o) {
 		if (cls.isInstance(o)) {
 			return cls.cast(o);

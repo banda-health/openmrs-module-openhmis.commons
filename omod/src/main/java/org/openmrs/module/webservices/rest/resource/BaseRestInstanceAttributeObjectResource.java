@@ -1,5 +1,8 @@
 package org.openmrs.module.webservices.rest.resource;
 
+import org.openmrs.Concept;
+import org.openmrs.api.ConceptService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.entity.model.BaseInstanceAttributeObject;
 import org.openmrs.module.openhmis.commons.api.entity.model.ICustomizableInstance;
 import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttributeType;
@@ -37,8 +40,15 @@ TAttributeType extends IInstanceAttributeType<TInstanceType>> //
 	}
 	
 	@PropertyGetter("value")
-	public Object getPropertyValue(E instance) {
-		return instance.getHydratedValue();
+	public Object getValue(E instance) {
+		if (instance.getAttributeType().getFormat().contains("Concept")) {
+			ConceptService service = Context.getService(ConceptService.class);
+			Concept concept = service.getConcept(instance.getValue());
+			
+			return concept == null ? "" : concept.getDisplayString();
+		} else {
+			return instance.getValue();
+		}
 	}
 	
 	public Integer getAttributeOrder(E instance) {
