@@ -36,10 +36,6 @@ TAttribute extends IInstanceAttribute<E, TAttributeType>> //
 		} else {
 			description.addProperty("instanceType");
 			description.addProperty("attributes");
-			
-			if (rep instanceof FullRepresentation) {
-				description.addProperty("auditInfo", findMethod("getAuditInfo"));
-			}
 		}
 		
 		return description;
