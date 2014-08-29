@@ -92,7 +92,7 @@ public class HibernateRepository implements IHibernateRepository {
 	@SuppressWarnings("unchecked")
 	public <T> T selectValue(Criteria criteria) {
 		try {
-			return (T) criteria.uniqueResult();
+			return (T)criteria.uniqueResult();
 		} catch (Exception ex) {
 			throw new APIException("An exception occurred while attempting to selecting a value.", ex);
 		}
@@ -104,7 +104,7 @@ public class HibernateRepository implements IHibernateRepository {
 		Session session = sessionFactory.getCurrentSession();
 		
 		try {
-			return (E) session.get(cls, id);
+			return (E)session.get(cls, id);
 		} catch (Exception ex) {
 			throw new APIException("An exception occurred while attempting to select a single " + cls.getSimpleName()
 			        + " entity with ID" + " " + id.toString() + ".", ex);

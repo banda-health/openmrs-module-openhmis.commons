@@ -342,7 +342,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 		List<E> entities = service.getByNameFragment(entity.getName(), false, paging);
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
-		Assert.assertEquals((Long) 1L, paging.getTotalRecordCount());
+		Assert.assertEquals((Long)1L, paging.getTotalRecordCount());
 		
 		// Now manually set the total and check that it is not reset
 		paging = new PagingInfo(1, 1);
@@ -351,7 +351,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 		entities = service.getByNameFragment(entity.getName(), false, paging);
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
-		Assert.assertEquals((Long) 10L, paging.getTotalRecordCount());
+		Assert.assertEquals((Long)10L, paging.getTotalRecordCount());
 		
 		// Finally, explicitly set the paging to not load the total and make sure it is not counted
 		paging = new PagingInfo(1, 1);
@@ -465,7 +465,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 		entities = service.getAll(false, paging);
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
-		Assert.assertEquals((Long) 10L, paging.getTotalRecordCount());
+		Assert.assertEquals((Long)10L, paging.getTotalRecordCount());
 		
 		// Finally, explicitly set the paging to not load the total and make sure it is not counted
 		paging = new PagingInfo(1, 1);

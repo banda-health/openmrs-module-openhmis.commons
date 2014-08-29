@@ -43,10 +43,10 @@ public class InstanceAttributeTypeConverter<T extends IInstanceAttributeType<?>>
 	@SuppressWarnings("unchecked")
 	@Override
 	protected String getTypeName(T delegate) {
-		Class<? extends T> unproxiedClass = (Class<? extends T>) delegate.getClass();
+		Class<? extends T> unproxiedClass = (Class<? extends T>)delegate.getClass();
 		if (HibernateProxy.class.isAssignableFrom(unproxiedClass))
-			unproxiedClass = (Class<? extends T>) unproxiedClass.getSuperclass();
-		return getTypeName((Class<? extends T>) unproxiedClass);
+			unproxiedClass = (Class<? extends T>)unproxiedClass.getSuperclass();
+		return getTypeName((Class<? extends T>)unproxiedClass);
 	}
 	
 	@Override

@@ -219,9 +219,9 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	@SuppressWarnings("unchecked")
 	protected Class<E> getEntityClass() {
 		if (entityClass == null) {
-			ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
+			ParameterizedType parameterizedType = (ParameterizedType)getClass().getGenericSuperclass();
 			
-			entityClass = (Class<E>) parameterizedType.getActualTypeArguments()[0];
+			entityClass = (Class<E>)parameterizedType.getActualTypeArguments()[0];
 		}
 		
 		return entityClass;
@@ -233,7 +233,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	 * @return The result of the query.
 	 */
 	protected <T extends OpenmrsObject> List<T> executeCriteria(Class<T> clazz, Action1<Criteria> action) {
-		return executeCriteria(clazz, null, action, (Order[]) null);
+		return executeCriteria(clazz, null, action, (Order[])null);
 	}
 	
 	/**
@@ -244,7 +244,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	 */
 	protected <T extends OpenmrsObject> List<T> executeCriteria(Class<T> clazz, PagingInfo pagingInfo,
 	        Action1<Criteria> action) {
-		return executeCriteria(clazz, pagingInfo, action, (Order[]) null);
+		return executeCriteria(clazz, pagingInfo, action, (Order[])null);
 	}
 	
 	protected <T extends OpenmrsObject> List<T> executeCriteria(Class<T> clazz, PagingInfo pagingInfo,

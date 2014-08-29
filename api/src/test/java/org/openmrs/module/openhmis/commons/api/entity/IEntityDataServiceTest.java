@@ -283,7 +283,7 @@ public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E 
 		entities = service.getAll(false, paging);
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
-		Assert.assertEquals((Long) 10L, paging.getTotalRecordCount());
+		Assert.assertEquals((Long)10L, paging.getTotalRecordCount());
 		
 		// Finally, explicitly set the paging to not load the total and make sure it is not counted
 		paging = new PagingInfo(1, 1);

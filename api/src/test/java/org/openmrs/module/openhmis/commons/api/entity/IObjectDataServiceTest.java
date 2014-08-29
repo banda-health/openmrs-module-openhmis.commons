@@ -51,9 +51,9 @@ public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E 
 		} else {
 			Assert.assertEquals(expected.size(), actual.size());
 			
-			T[] expectedArray = (T[]) new Object[expected.size()];
+			T[] expectedArray = (T[])new Object[expected.size()];
 			expected.toArray(expectedArray);
-			T[] actualArray = (T[]) new Object[actual.size()];
+			T[] actualArray = (T[])new Object[actual.size()];
 			actual.toArray(actualArray);
 			
 			for (int i = 0; i < expected.size(); i++) {
@@ -217,7 +217,7 @@ public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E 
 	public void getById_shouldReturnTheObjectWithTheSpecifiedId() throws Exception {
 		E entity = service.getById(0);
 		
-		Assert.assertEquals((Integer) 0, entity.getId());
+		Assert.assertEquals((Integer)0, entity.getId());
 	}
 	
 	/**
@@ -354,8 +354,8 @@ public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E 
 	
 	@SuppressWarnings("unchecked")
 	protected Class<S> getServiceClass() {
-		ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
+		ParameterizedType parameterizedType = (ParameterizedType)getClass().getGenericSuperclass();
 		
-		return (Class<S>) parameterizedType.getActualTypeArguments()[0];
+		return (Class<S>)parameterizedType.getActualTypeArguments()[0];
 	}
 }

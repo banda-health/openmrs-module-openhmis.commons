@@ -36,7 +36,7 @@ public class EntityPropertyEditor<E extends OpenmrsObject> extends PropertyEdito
 	@Override
 	@SuppressWarnings("unchecked")
 	public String getAsText() {
-		E entity = (E) getValue();
+		E entity = (E)getValue();
 		
 		if (entity == null) {
 			return "";
@@ -66,8 +66,8 @@ public class EntityPropertyEditor<E extends OpenmrsObject> extends PropertyEdito
 	
 	@SuppressWarnings("unchecked")
 	protected Class<E> getEntityClass() {
-		ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
+		ParameterizedType parameterizedType = (ParameterizedType)getClass().getGenericSuperclass();
 		
-		return (Class) parameterizedType.getActualTypeArguments()[0];
+		return (Class)parameterizedType.getActualTypeArguments()[0];
 	}
 }

@@ -27,7 +27,7 @@ import org.openmrs.api.context.Context;
 public class ProviderPropertyEditor extends PropertyEditorSupport {
 	@Override
 	public String getAsText() {
-		Provider provider = (Provider) getValue();
+		Provider provider = (Provider)getValue();
 		
 		if (provider == null) {
 			return "";

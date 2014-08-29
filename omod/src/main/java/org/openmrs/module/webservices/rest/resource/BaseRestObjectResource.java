@@ -126,9 +126,9 @@ public abstract class BaseRestObjectResource<E extends OpenmrsObject> extends De
 	@SuppressWarnings("unchecked")
 	public Class<E> getEntityClass() {
 		if (entityClass == null) {
-			ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
+			ParameterizedType parameterizedType = (ParameterizedType)getClass().getGenericSuperclass();
 			
-			entityClass = (Class) parameterizedType.getActualTypeArguments()[0];
+			entityClass = (Class)parameterizedType.getActualTypeArguments()[0];
 		}
 		
 		return entityClass;

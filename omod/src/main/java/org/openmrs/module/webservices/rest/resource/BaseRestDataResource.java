@@ -184,9 +184,9 @@ public abstract class BaseRestDataResource<E extends OpenmrsData> extends DataDe
 	@SuppressWarnings("unchecked")
 	public Class<E> getEntityClass() {
 		if (entityClass == null) {
-			ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
+			ParameterizedType parameterizedType = (ParameterizedType)getClass().getGenericSuperclass();
 			
-			entityClass = (Class) parameterizedType.getActualTypeArguments()[0];
+			entityClass = (Class)parameterizedType.getActualTypeArguments()[0];
 		}
 		
 		return entityClass;
