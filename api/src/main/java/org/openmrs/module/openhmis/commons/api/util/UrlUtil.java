@@ -1,7 +1,7 @@
 package org.openmrs.module.openhmis.commons.api.util;
 
 /**
- * Util class for URLs
+ * Utility class for URLs
  */
 public class UrlUtil {
 	
@@ -22,4 +22,6 @@ public class UrlUtil {
 	public static String redirectUrl(String page) {
 		return "redirect:" + formUrl(page);
 	}
+	
+	protected UrlUtil() {}
 }

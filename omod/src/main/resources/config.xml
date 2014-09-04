@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<module configVersion="1.2">
-
+<module configVersion="1.4">
 	<!-- Module Properties -->
 	<id>${project.parent.artifactId}</id>
 	<name>${project.parent.name}</name>
@@ -14,6 +13,10 @@
 	<updateURL>https://modules.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
 	<require_version>${openMRSVersion}</require_version>
 	<!-- / Module Properties -->
+
+	<aware_of_modules>
+		<aware_of_module version="2.0">org.openmrs.module.idgen</aware_of_module>
+	</aware_of_modules>
 
 	<require_modules>
 		<require_module version="2.0.0">org.openmrs.module.webservices.rest</require_module>
