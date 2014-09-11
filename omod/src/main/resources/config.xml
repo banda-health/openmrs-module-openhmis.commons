@@ -26,6 +26,10 @@
 	<activator>org.openmrs.module.openhmis.commons.CommonsModuleActivator</activator>
 
 	<!-- Extensions -->
+	<extension>
+		<point>org.openmrs.headerFullIncludeExt</point>
+		<class>org.openmrs.module.openhmis.commons.extension.html.UserBarFixExt</class>
+	</extension>
 
 	<!-- Privileges -->
 
