@@ -25,7 +25,6 @@ import org.openmrs.module.openhmis.commons.api.entity.model.BaseCustomizableInst
  */
 public abstract class BaseCustomizableEntityDataServiceImpl<E extends BaseCustomizableInstanceData>
         extends BaseEntityDataServiceImpl<E> {
-	
 	@Override
 	@SuppressWarnings("unchecked")
 	protected Collection<? extends OpenmrsObject> getRelatedObjects(E entity) {

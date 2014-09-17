@@ -26,6 +26,7 @@ import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.IEntityDataService;
 import org.openmrs.module.openhmis.commons.api.entity.security.IEntityAuthorizationPrivileges;
 import org.openmrs.module.openhmis.commons.api.f.Action1;
+import org.openmrs.module.openhmis.commons.api.util.PrivilegeUtil;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -40,7 +41,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 	public E voidEntity(E entity, final String reason) {
 		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getVoidPrivilege())) {
-			Context.requirePrivilege(privileges.getVoidPrivilege());
+			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getVoidPrivilege());
 		}
 		
 		if (entity == null) {
@@ -80,7 +81,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 	public E unvoidEntity(E entity) {
 		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getVoidPrivilege())) {
-			Context.requirePrivilege(privileges.getVoidPrivilege());
+			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getVoidPrivilege());
 		}
 		
 		if (entity == null) {
@@ -132,7 +133,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 	public List<E> getAll(final boolean includeVoided, PagingInfo pagingInfo) {
 		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
-			Context.requirePrivilege(privileges.getGetPrivilege());
+			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
 		}
 		
 		return executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {

@@ -23,12 +23,12 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.OpenmrsMetadata;
 import org.openmrs.User;
-import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
 import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthorizationPrivileges;
 import org.openmrs.module.openhmis.commons.api.f.Action1;
+import org.openmrs.module.openhmis.commons.api.util.PrivilegeUtil;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -51,7 +51,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	public E retire(E entity, final String reason) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getRetirePrivilege())) {
-			Context.requirePrivilege(privileges.getRetirePrivilege());
+			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getRetirePrivilege());
 		}
 		
 		if (entity == null) {
@@ -98,7 +98,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	public E unretire(E entity) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getRetirePrivilege())) {
-			Context.requirePrivilege(privileges.getRetirePrivilege());
+			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getRetirePrivilege());
 		}
 		
 		if (entity == null) {
@@ -131,7 +131,6 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	 * Gets all unretired entites.
 	 * @param pagingInfo
 	 * @return Returns all unretired entities
-	 * @throws APIException
 	 * @should return all unretired entities when retired is not specified
 	 */
 	@Override
@@ -151,7 +150,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	public List<E> getAll(final boolean includeRetired, PagingInfo pagingInfo) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
-			Context.requirePrivilege(privileges.getGetPrivilege());
+			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
 		}
 		
 		return executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {
@@ -176,7 +175,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	{
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
-			Context.requirePrivilege(privileges.getGetPrivilege());
+			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
 		}
 		
 		if (StringUtils.isEmpty(nameFragment)) {

@@ -29,7 +29,6 @@ import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.api.PageableResult;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.resource.impl.MetadataDelegatingCrudResource;
-import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 /**
  * REST resource for {@link org.openmrs.OpenmrsMetadata} entities.
@@ -114,7 +113,6 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	 * Purges the entity from the database.
 	 * @param entity The entity to purge
 	 * @param context The request context
-	 * @throws ResponseException
 	 */
 	@Override
 	public void purge(E entity, RequestContext context) {
@@ -125,7 +123,6 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	 * Gets all entities from the database using paging if specified in the context.
 	 * @param context The request context
 	 * @return A paged list of the entities
-	 * @throws ResponseException
 	 */
 	@Override
 	protected PageableResult doGetAll(RequestContext context) {
