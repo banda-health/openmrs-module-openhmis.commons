@@ -14,9 +14,10 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 public class IdgenUtil {
 	private static final Log LOG = LogFactory.getLog(IdgenUtil.class);
 	
+	protected IdgenUtil() {}
+	
 	/**
-	 * Gets the {@link org.openmrs.module.idgen.IdentifierSource} with the id in the specified
-	 * global property.
+	 * Gets the {@link org.openmrs.module.idgen.IdentifierSource} with the id in the specified global property.
 	 * @param propertyName The global property name.
 	 * @return The IdentifierSource object.
 	 */
@@ -43,8 +44,8 @@ public class IdgenUtil {
 	}
 	
 	/**
-	 * Generates a new identifier for the {@link org.openmrs.module.idgen.IdentifierSource} defined
-	 * in the specified global property name.
+	 * Generates a new identifier for the {@link org.openmrs.module.idgen.IdentifierSource} defined in the specified global
+	 * property name.
 	 * @param generatorSourcePropertyName The global property name.
 	 * @return The new identifier.
 	 */
@@ -55,8 +56,7 @@ public class IdgenUtil {
 	}
 	
 	/**
-	 * Generates a new identifier for the specified
-	 * {@link org.openmrs.module.idgen.IdentifierSource}.
+	 * Generates a new identifier for the specified {@link org.openmrs.module.idgen.IdentifierSource}.
 	 * @param source The IdentifierSource object.
 	 * @return The new identifier.
 	 */
@@ -68,6 +68,4 @@ public class IdgenUtil {
 		IdentifierSourceService service = Context.getService(IdentifierSourceService.class);
 		return service.generateIdentifier(source, "Generating stock operation number.");
 	}
-	
-	protected IdgenUtil() {}
 }

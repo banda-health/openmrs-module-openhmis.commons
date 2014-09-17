@@ -61,7 +61,7 @@ TAttribute extends IInstanceAttribute<?, ?>> //
 	}
 	
 	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
-	Set<TA> getActiveAttributes(I instance) {
+	        Set<TA> getActiveAttributes(I instance) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
 			for (TA attr : instance.getAttributes()) {
@@ -74,7 +74,7 @@ TAttribute extends IInstanceAttribute<?, ?>> //
 	}
 	
 	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
-	Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
+	        Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
 			for (TA attr : instance.getAttributes()) {

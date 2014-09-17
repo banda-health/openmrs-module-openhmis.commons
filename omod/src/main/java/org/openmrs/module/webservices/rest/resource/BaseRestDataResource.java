@@ -36,8 +36,6 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DataDelegatingCrudR
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
 import org.openmrs.module.webservices.rest.web.resource.impl.ServiceSearcher;
-import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
-import org.openmrs.module.webservices.rest.web.response.ResponseException;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -51,8 +49,8 @@ public abstract class BaseRestDataResource<E extends OpenmrsData> extends DataDe
 	private Class<E> entityClass = null;
 	
 	/**
-	 * Syncs the base collection with the items in the sync collection. This will add any missing
-	 * items, updating existing items, and delete any items not found in the sync collection.
+	 * Syncs the base collection with the items in the sync collection. This will add any missing items, updating existing
+	 * items, and delete any items not found in the sync collection.
 	 * @param base The collection to update.
 	 * @param sync The collection used to update the base.
 	 * @param <E> The {@link OpenmrsObject} stored in the collection.
@@ -133,7 +131,7 @@ public abstract class BaseRestDataResource<E extends OpenmrsData> extends DataDe
 	}
 	
 	@Override
-	public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
+	public DelegatingResourceDescription getCreatableProperties() {
 		DelegatingResourceDescription description = getRepresentationDescription(new DefaultRepresentation());
 		description.removeProperty("uuid");
 		description.removeProperty("voidReason");
@@ -155,17 +153,17 @@ public abstract class BaseRestDataResource<E extends OpenmrsData> extends DataDe
 	}
 	
 	@Override
-	protected void delete(E delegate, String reason, RequestContext context) throws ResponseException {
+	protected void delete(E delegate, String reason, RequestContext context) {
 		getService().voidEntity(delegate, reason);
 	}
 	
 	@Override
-	public void purge(E delegate, RequestContext context) throws ResponseException {
+	public void purge(E delegate, RequestContext context) {
 		getService().purge(delegate);
 	}
 	
 	@Override
-	protected NeedsPaging<E> doGetAll(RequestContext context) throws ResponseException {
+	protected NeedsPaging<E> doGetAll(RequestContext context) {
 		return new NeedsPaging<E>(getService().getAll(), context);
 	}
 	
@@ -177,8 +175,7 @@ public abstract class BaseRestDataResource<E extends OpenmrsData> extends DataDe
 	}
 	
 	/**
-	 * Gets a usable instance of the actual class of the generic type E defined by the implementing
-	 * sub-class.
+	 * Gets a usable instance of the actual class of the generic type E defined by the implementing sub-class.
 	 * @return The class object for the entity.
 	 */
 	@SuppressWarnings("unchecked")

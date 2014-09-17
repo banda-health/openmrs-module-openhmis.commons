@@ -18,9 +18,8 @@ import java.util.List;
 import org.openmrs.OpenmrsMetadata;
 
 /**
- * Represents a class that defines the type of an {@link ICustomizableInstance}. Each
- * {@link IInstanceType} has attributes that are only used by instances of that type and not shared
- * with other instance types.
+ * Represents a class that defines the type of an {@link ICustomizableInstance}. Each {@link IInstanceType} has attributes
+ * that are only used by instances of that type and not shared with other instance types.
  * @param <AT>
  */
 public interface IInstanceType<AT extends IInstanceAttributeType<?>> extends OpenmrsMetadata {
@@ -44,8 +43,7 @@ public interface IInstanceType<AT extends IInstanceAttributeType<?>> extends Ope
 	
 	/**
 	 * Adds the specified {@link AT} at the specified index.
-	 * @param index The index where the attribute type will be inserted or {@code null} to insert at
-	 *            the end.
+	 * @param index The index where the attribute type will be inserted or {@code null} to insert at the end.
 	 * @param attributeType The attribute type to add.
 	 */
 	void addAttributeType(Integer index, AT attributeType);

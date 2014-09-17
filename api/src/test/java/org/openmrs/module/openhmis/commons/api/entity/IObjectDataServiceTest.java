@@ -32,8 +32,7 @@ public abstract class IObjectDataServiceTest<S extends IObjectDataService<E>, E 
 	protected S service;
 	
 	/**
-	 * Tests that the specified object are not null and that the {@link OpenmrsObject} properties
-	 * are equal.
+	 * Tests that the specified object are not null and that the {@link OpenmrsObject} properties are equal.
 	 * @param expected The expected object properties
 	 * @param actual The actual object properties
 	 */

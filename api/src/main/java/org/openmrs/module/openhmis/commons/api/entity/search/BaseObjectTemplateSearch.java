@@ -43,10 +43,10 @@ public class BaseObjectTemplateSearch<T extends OpenmrsObject> {
 	public void updateCriteria(Criteria criteria) {}
 	
 	protected Criterion createCriterion(String field, Object value, ComparisonType comparisonType) {
-		comparisonType = comparisonType == null ? ComparisonType.EQUAL : comparisonType;
+		ComparisonType comparison = comparisonType == null ? ComparisonType.EQUAL : comparisonType;
 		
 		Criterion result;
-		switch (comparisonType) {
+		switch (comparison) {
 			case EQUAL:
 				result = Restrictions.eq(field, value);
 				break;
@@ -67,10 +67,10 @@ public class BaseObjectTemplateSearch<T extends OpenmrsObject> {
 	}
 	
 	protected Criterion createCriterion(String field, String value, StringComparisonType comparisonType) {
-		comparisonType = comparisonType == null ? StringComparisonType.EQUAL : comparisonType;
+		StringComparisonType comparison = comparisonType == null ? StringComparisonType.EQUAL : comparisonType;
 		
 		Criterion result;
-		switch (comparisonType) {
+		switch (comparison) {
 			case EQUAL:
 				result = Restrictions.eq(field, value);
 				break;
@@ -100,10 +100,10 @@ public class BaseObjectTemplateSearch<T extends OpenmrsObject> {
 	}
 	
 	protected Criterion createCriterion(String field, Date value, DateComparisonType comparisonType) {
-		comparisonType = comparisonType == null ? DateComparisonType.EQUAL : comparisonType;
+		DateComparisonType comparison = comparisonType == null ? DateComparisonType.EQUAL : comparisonType;
 		
 		Criterion result;
-		switch (comparisonType) {
+		switch (comparison) {
 			case EQUAL:
 				result = Restrictions.eq(field, value);
 				break;

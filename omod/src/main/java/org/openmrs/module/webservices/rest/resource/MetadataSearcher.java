@@ -27,10 +27,18 @@ import org.openmrs.module.webservices.rest.web.resource.impl.AlreadyPaged;
  * @param <E> The model class
  */
 public class MetadataSearcher<E extends OpenmrsMetadata> {
-	protected IMetadataDataService<E> service;
+	private IMetadataDataService<E> service;
 	
 	public MetadataSearcher(Class<? extends IMetadataDataService<E>> serviceClass) {
 		this.service = Context.getService(serviceClass);
+	}
+	
+	public IMetadataDataService<E> getService() {
+		return this.service;
+	}
+	
+	public void setService(IMetadataDataService<E> service) {
+		this.service = service;
 	}
 	
 	/**

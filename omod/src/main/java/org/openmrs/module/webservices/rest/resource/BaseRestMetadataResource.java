@@ -117,7 +117,7 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	 * @throws ResponseException
 	 */
 	@Override
-	public void purge(E entity, RequestContext context) throws ResponseException {
+	public void purge(E entity, RequestContext context) {
 		getService().purge(entity);
 	}
 	
@@ -128,7 +128,7 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	 * @throws ResponseException
 	 */
 	@Override
-	protected PageableResult doGetAll(RequestContext context) throws ResponseException {
+	protected PageableResult doGetAll(RequestContext context) {
 		PagingInfo pagingInfo = PagingUtil.getPagingInfoFromContext(context);
 		
 		return new AlreadyPagedWithLength<E>(context, getService().getAll(context.getIncludeAll(), pagingInfo),
@@ -167,8 +167,7 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	}
 	
 	/**
-	 * Gets a usable instance of the actual class of the generic type E defined by the implementing
-	 * sub-class.
+	 * Gets a usable instance of the actual class of the generic type E defined by the implementing sub-class.
 	 * @return The class object for the entity.
 	 */
 	@SuppressWarnings("unchecked")

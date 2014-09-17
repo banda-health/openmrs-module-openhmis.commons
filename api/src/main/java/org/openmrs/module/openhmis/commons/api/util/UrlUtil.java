@@ -5,6 +5,8 @@ package org.openmrs.module.openhmis.commons.api.util;
  */
 public class UrlUtil {
 	
+	protected UrlUtil() {}
+	
 	/**
 	 * Adds the '.form' ending to the specified page, if it does not already exist.
 	 * @param page The page to add the form ending to.
@@ -22,6 +24,4 @@ public class UrlUtil {
 	public static String redirectUrl(String page) {
 		return "redirect:" + formUrl(page);
 	}
-	
-	protected UrlUtil() {}
 }

@@ -17,8 +17,7 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingSubclassH
 import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 
 /**
- * REST resource for
- * {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttributeType}s
+ * REST resource for {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttributeType}s
  * @param <E> The instance attribute type class
  * @param <TOwner> The owning model class
  * @param <TInstanceType> The instance type class
@@ -46,7 +45,7 @@ TAttribute extends IInstanceAttribute<TOwner, E>> //
 	}
 	
 	@Override
-	public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
+	public DelegatingResourceDescription getCreatableProperties() {
 		DelegatingResourceDescription description = super.getCreatableProperties();
 		
 		return description;
@@ -58,7 +57,7 @@ TAttribute extends IInstanceAttribute<TOwner, E>> //
 	}
 	
 	@Override
-	public PageableResult getAllByType(RequestContext context) throws ResourceDoesNotSupportOperationException {
+	public PageableResult getAllByType(RequestContext context) {
 		PagingInfo info = PagingUtil.getPagingInfoFromContext(context);
 		
 		return new AlreadyPaged<E>(context, getService().getAll(info), info.hasMoreResults());

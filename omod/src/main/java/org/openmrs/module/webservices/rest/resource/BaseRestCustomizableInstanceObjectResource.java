@@ -8,7 +8,6 @@ import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttribute;
 import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttributeType;
 import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceType;
 import org.openmrs.module.webservices.rest.web.annotation.PropertySetter;
-import org.openmrs.module.webservices.rest.web.representation.FullRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.RefRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;

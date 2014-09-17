@@ -22,11 +22,9 @@ import org.openmrs.module.webservices.rest.web.annotation.Resource;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.resource.impl.MetadataDelegatingCrudResource;
-import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 /**
- * Resolves type names for
- * {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttributeType}s
+ * Resolves type names for {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttributeType}s
  * @param <T> The instance attribute type class
  */
 @Resource(name = RestConstants.VERSION_2 + "/openhmis/attributetype", supportedClass = IInstanceAttributeType.class,
@@ -44,8 +42,10 @@ public class InstanceAttributeTypeConverter<T extends IInstanceAttributeType<?>>
 	@Override
 	protected String getTypeName(T delegate) {
 		Class<? extends T> unproxiedClass = (Class<? extends T>)delegate.getClass();
-		if (HibernateProxy.class.isAssignableFrom(unproxiedClass))
+		if (HibernateProxy.class.isAssignableFrom(unproxiedClass)) {
 			unproxiedClass = (Class<? extends T>)unproxiedClass.getSuperclass();
+		}
+		
 		return getTypeName((Class<? extends T>)unproxiedClass);
 	}
 	
@@ -70,7 +70,7 @@ public class InstanceAttributeTypeConverter<T extends IInstanceAttributeType<?>>
 	}
 	
 	@Override
-	public void purge(T delegate, RequestContext context) throws ResponseException {
+	public void purge(T delegate, RequestContext context) {
 		throw new NotImplementedException(NEED_SUBCLASS_HANDLER);
 	}
 	

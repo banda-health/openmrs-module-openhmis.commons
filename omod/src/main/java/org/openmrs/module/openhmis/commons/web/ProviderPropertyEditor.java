@@ -37,7 +37,7 @@ public class ProviderPropertyEditor extends PropertyEditorSupport {
 	}
 	
 	@Override
-	public void setAsText(String text) throws IllegalArgumentException {
+	public void setAsText(String text) {
 		ProviderService service = Context.getProviderService();
 		
 		if (StringUtils.isEmpty(text)) {

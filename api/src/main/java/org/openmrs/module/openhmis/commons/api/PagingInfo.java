@@ -14,8 +14,8 @@
 package org.openmrs.module.openhmis.commons.api;
 
 /**
- * This class contains the paging information used by the entity services to paginate results. Both
- * page and pageSize are 1-based, defining either as 0 will cause paging to be ignored.
+ * This class contains the paging information used by the entity services to paginate results. Both page and pageSize are
+ * 1-based, defining either as 0 will cause paging to be ignored.
  */
 public class PagingInfo {
 	private int page;

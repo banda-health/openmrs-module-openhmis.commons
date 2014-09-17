@@ -17,12 +17,10 @@ package org.openmrs.module.openhmis.commons.api;
  * General utility methods.
  */
 public class Utility {
-	// Do not allow this class to be instantiated.
-	private Utility() {}
+	protected Utility() {}
 	
 	/**
-	 * Returns the specified object as the specified class or returns null if the cast is not
-	 * supported.
+	 * Returns the specified object as the specified class or returns null if the cast is not supported.
 	 * @param cls The generic class to cast the object to.
 	 * @param o The object to cast.
 	 * @param <T> The generic class to cast the object to.

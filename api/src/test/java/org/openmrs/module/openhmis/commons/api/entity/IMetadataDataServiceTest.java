@@ -273,8 +273,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	
 	/**
 	 * @verifies return all specified metadata records if paging is null
-	 * @see IMetadataDataService#getByNameFragment(String, boolean,
-	 *      org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#getByNameFragment(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getByNameFragment_shouldReturnAllSpecifiedMetadataRecordsIfPagingIsNull() throws Exception {
@@ -290,8 +289,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	
 	/**
 	 * @verifies return all specified metadata records if paging page or size is less than one
-	 * @see IMetadataDataService#getByNameFragment(String, boolean,
-	 *      org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#getByNameFragment(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getByNameFragment_shouldReturnAllSpecifiedMetadataRecordsIfPagingPageOrSizeIsLessThanOne() throws Exception {
@@ -315,8 +313,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	
 	/**
 	 * @verifies set the paging total records to the total number of metadata records
-	 * @see IMetadataDataService#getByNameFragment(String, boolean,
-	 *      org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#getByNameFragment(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getByNameFragment_shouldSetThePagingTotalRecordsToTheTotalNumberOfMetadataRecords() throws Exception {
@@ -330,8 +327,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	
 	/**
 	 * @verifies not get the total paging record count if it is more than zero
-	 * @see IMetadataDataService#getByNameFragment(String, boolean,
-	 *      org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#getByNameFragment(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getByNameFragment_shouldNotGetTheTotalPagingRecordCountIfItIsMoreThanZero() throws Exception {
@@ -365,8 +361,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 	
 	/**
 	 * @verifies return paged metadata records if paging is specified
-	 * @see IMetadataDataService#getByNameFragment(String, boolean,
-	 *      org.openmrs.module.openhmis.commons.api.PagingInfo)
+	 * @see IMetadataDataService#getByNameFragment(String, boolean, org.openmrs.module.openhmis.commons.api.PagingInfo)
 	 */
 	@Test
 	public void getByNameFragment_shouldReturnPagedMetadataRecordsIfPagingIsSpecified() throws Exception {

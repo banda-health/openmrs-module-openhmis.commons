@@ -13,8 +13,6 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -22,12 +20,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.OpenmrsData;
-import org.openmrs.OpenmrsObject;
 import org.openmrs.User;
-import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
-import org.openmrs.module.openhmis.commons.api.Utility;
 import org.openmrs.module.openhmis.commons.api.entity.IEntityDataService;
 import org.openmrs.module.openhmis.commons.api.entity.security.IEntityAuthorizationPrivileges;
 import org.openmrs.module.openhmis.commons.api.f.Action1;
@@ -42,7 +37,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
         extends BaseObjectDataServiceImpl<E, IEntityAuthorizationPrivileges> implements IEntityDataService<E> {
 	@Override
 	@Transactional
-	public E voidEntity(E entity, String reason) {
+	public E voidEntity(E entity, final String reason) {
 		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getVoidPrivilege())) {
 			Context.requirePrivilege(privileges.getVoidPrivilege());
@@ -55,22 +50,16 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 			throw new IllegalArgumentException("The reason to void must be defined.");
 		}
 		
-		User user = Context.getAuthenticatedUser();
-		Date dateVoided = new Date();
+		final User user = Context.getAuthenticatedUser();
+		final Date dateVoided = new Date();
 		setVoidProperties(entity, reason, user, dateVoided);
 		
-		Collection<? extends OpenmrsObject> relatedObjects = getRelatedObjects(entity);
-		List<OpenmrsData> updatedObjects = new ArrayList<OpenmrsData>();
-		if (relatedObjects != null && relatedObjects.size() > 0) {
-			for (OpenmrsObject object : relatedObjects) {
-				OpenmrsData data = Utility.as(OpenmrsData.class, object);
-				if (data != null) {
-					setVoidProperties(data, reason, user, dateVoided);
-					
-					updatedObjects.add(data);
-				}
+		List<OpenmrsData> updatedObjects = executeOnRelatedObjects(OpenmrsData.class, entity, new Action1<OpenmrsData>() {
+			@Override
+			public void apply(OpenmrsData data) {
+				setVoidProperties(data, reason, user, dateVoided);
 			}
-		}
+		});
 		
 		if (updatedObjects.size() > 0) {
 			return saveAll(entity, updatedObjects);
@@ -88,7 +77,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 	
 	@Override
 	@Transactional
-	public E unvoidEntity(E entity) throws APIException {
+	public E unvoidEntity(E entity) {
 		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getVoidPrivilege())) {
 			Context.requirePrivilege(privileges.getVoidPrivilege());
@@ -100,21 +89,15 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 		
 		setUnvoidProperties(entity);
 		
-		Collection<? extends OpenmrsObject> relatedObjects = getRelatedObjects(entity);
-		List<OpenmrsData> updatedObjects = new ArrayList<OpenmrsData>();
-		if (relatedObjects != null && relatedObjects.size() > 0) {
-			for (OpenmrsObject object : relatedObjects) {
-				OpenmrsData data = Utility.as(OpenmrsData.class, object);
-				if (data != null) {
-					setUnvoidProperties(data);
-					
-					updatedObjects.add(data);
-				}
+		List<OpenmrsData> updatedObjects = executeOnRelatedObjects(OpenmrsData.class, entity, new Action1<OpenmrsData>() {
+			@Override
+			public void apply(OpenmrsData data) {
+				setUnvoidProperties(data);
 			}
-		}
+		});
 		
 		if (updatedObjects.size() > 0) {
-			return saveAll(entity, relatedObjects);
+			return saveAll(entity, updatedObjects);
 		} else {
 			return save(entity);
 		}
@@ -130,24 +113,23 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 	 * Gets all unvoided entities.
 	 * @param pagingInfo
 	 * @return Returns all unvoided entities
-	 * @throws APIException
 	 * @should return all unvoided entities when voided is not specified
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> getAll(PagingInfo pagingInfo) throws APIException {
+	public List<E> getAll(PagingInfo pagingInfo) {
 		return getAll(false, pagingInfo);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> getAll(boolean includeVoided) throws APIException {
+	public List<E> getAll(boolean includeVoided) {
 		return getAll(includeVoided, null);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> getAll(final boolean includeVoided, PagingInfo pagingInfo) throws APIException {
+	public List<E> getAll(final boolean includeVoided, PagingInfo pagingInfo) {
 		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
 			Context.requirePrivilege(privileges.getGetPrivilege());

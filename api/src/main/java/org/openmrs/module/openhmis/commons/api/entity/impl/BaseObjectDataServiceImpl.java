@@ -27,7 +27,6 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.impl.CriteriaImpl;
 import org.hibernate.transform.ResultTransformer;
 import org.openmrs.OpenmrsObject;
-import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
@@ -39,15 +38,15 @@ import org.openmrs.module.openhmis.commons.api.f.Action1;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * The base type for object services. Provides the core implementation for the common
- * {@link org.openmrs.OpenmrsObject} operations.
+ * The base type for object services. Provides the core implementation for the common {@link org.openmrs.OpenmrsObject}
+ * operations.
  * @param <E> The {@link org.openmrs.OpenmrsObject} model type.
  */
 @Transactional
 public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P extends IObjectAuthorizationPrivileges>
         extends BaseOpenmrsService implements IObjectDataService<E> {
 	
-	protected IHibernateRepository repository;
+	private IHibernateRepository repository;
 	private Class entityClass = null;
 	
 	/**
@@ -63,7 +62,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	 * @should throw IllegalArgumentException with a null object
 	 * @should throw an exception for invalid objects
 	 */
-	protected abstract void validate(E object) throws APIException;
+	protected abstract void validate(E object);
 	
 	/**
 	 * Gets a list of all related objects for the specified entity.
@@ -79,19 +78,17 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	}
 	
 	/**
-	 * Gets the
-	 * {@link org.openmrs.module.openhmis.commons.api.entity.db.hibernate.IHibernateRepository} for
-	 * this data service.
+	 * Gets the {@link org.openmrs.module.openhmis.commons.api.entity.db.hibernate.IHibernateRepository} for this data
+	 * service.
 	 * @return The repository.
 	 */
 	public IHibernateRepository getRepository() {
-		return repository;
+		return this.repository;
 	}
 	
 	/**
-	 * Sets the
-	 * {@link org.openmrs.module.openhmis.commons.api.entity.db.hibernate.IHibernateRepository} for
-	 * this data service.
+	 * Sets the {@link org.openmrs.module.openhmis.commons.api.entity.db.hibernate.IHibernateRepository} for this data
+	 * service.
 	 * @param repository The data repository object that the service will use.
 	 */
 	public void setRepository(IHibernateRepository repository) {
@@ -100,7 +97,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	
 	@Override
 	@Transactional
-	public E save(E object) throws APIException {
+	public E save(E object) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getSavePrivilege())) {
 			Context.requirePrivilege(privileges.getSavePrivilege());
@@ -117,7 +114,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	
 	@Override
 	@Transactional
-	public E saveAll(E object, Collection<? extends OpenmrsObject> related) throws APIException {
+	public E saveAll(E object, Collection<? extends OpenmrsObject> related) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getSavePrivilege())) {
 			Context.requirePrivilege(privileges.getSavePrivilege());
@@ -140,7 +137,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	
 	@Override
 	@Transactional
-	public void saveAll(Collection<? extends OpenmrsObject> collection) throws APIException {
+	public void saveAll(Collection<? extends OpenmrsObject> collection) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getSavePrivilege())) {
 			Context.requirePrivilege(privileges.getSavePrivilege());
@@ -152,7 +149,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	
 	@Override
 	@Transactional
-	public void purge(E object) throws APIException {
+	public void purge(E object) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getPurgePrivilege())) {
 			Context.requirePrivilege(privileges.getPurgePrivilege());
@@ -167,7 +164,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> getAll() throws APIException {
+	public List<E> getAll() {
 		return getAll(null);
 	}
 	
@@ -184,7 +181,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	
 	@Override
 	@Transactional(readOnly = true)
-	public E getById(int entityId) throws APIException {
+	public E getById(int entityId) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
 			Context.requirePrivilege(privileges.getGetPrivilege());
@@ -195,7 +192,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	
 	@Override
 	@Transactional(readOnly = true)
-	public E getByUuid(String uuid) throws APIException {
+	public E getByUuid(String uuid) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
 			Context.requirePrivilege(privileges.getGetPrivilege());
@@ -212,8 +209,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	}
 	
 	/**
-	 * Gets a usable instance of the actual class of the generic type E defined by the implementing
-	 * sub-class.
+	 * Gets a usable instance of the actual class of the generic type E defined by the implementing sub-class.
 	 * @return The class object for the entity.
 	 */
 	@SuppressWarnings("unchecked")
@@ -267,8 +263,34 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	}
 	
 	/**
-	 * Loads the total number of records for the specified object type into the specified paging
-	 * object.
+	 * Functional method to apply an action to the related objects, returning the updated objects.
+	 * @param clazz The class of related objects to perform the action on.
+	 * @param entity The parent entity.
+	 * @param action The {@link Action1} to apply.
+	 * @param <T> The class of the related objects.
+	 * @return A list containing the updated (applied) related objects.
+	 */
+	protected <T extends OpenmrsObject> List<T> executeOnRelatedObjects(Class<T> clazz, E entity,
+	        Action1<T> action) {
+		List<T> updatedObjects = new ArrayList<T>();
+		
+		Collection<? extends OpenmrsObject> relatedObjects = getRelatedObjects(entity);
+		if (relatedObjects != null && relatedObjects.size() > 0) {
+			for (OpenmrsObject object : relatedObjects) {
+				T data = Utility.as(clazz, object);
+				if (data != null) {
+					action.apply(data);
+					
+					updatedObjects.add(data);
+				}
+			}
+		}
+		
+		return updatedObjects;
+	}
+	
+	/**
+	 * Loads the total number of records for the specified object type into the specified paging object.
 	 * @param pagingInfo The {@link PagingInfo} object to load with the record count.
 	 */
 	protected void loadPagingTotal(PagingInfo pagingInfo) {
@@ -278,8 +300,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	/**
 	 * Loads the record count for the specified criteria into the specified paging object.
 	 * @param pagingInfo The {@link PagingInfo} object to load with the record count.
-	 * @param criteria The {@link Criteria} to execute against the hibernate data source or
-	 *            {@code null} to create a new one.
+	 * @param criteria The {@link Criteria} to execute against the hibernate data source or {@code null} to create a new one.
 	 */
 	protected void loadPagingTotal(PagingInfo pagingInfo, Criteria criteria) {
 		if (pagingInfo != null && pagingInfo.getPage() > 0 && pagingInfo.getPageSize() > 0) {
@@ -315,10 +336,8 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	}
 	
 	/**
-	 * Creates a new {@link Criteria} to retrieve the data specified by the {@link PagingInfo}
-	 * object.
-	 * @param pagingInfo The {@link PagingInfo} object that specifies which data should be
-	 *            retrieved.
+	 * Creates a new {@link Criteria} to retrieve the data specified by the {@link PagingInfo} object.
+	 * @param pagingInfo The {@link PagingInfo} object that specifies which data should be retrieved.
 	 * @return A new {@link Criteria} with the paging settings.
 	 */
 	protected Criteria createPagingCriteria(PagingInfo pagingInfo) {
@@ -326,12 +345,9 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	}
 	
 	/**
-	 * Updates the specified {@link Criteria} object to retrieve the data specified by the
-	 * {@link PagingInfo} object.
-	 * @param pagingInfo The {@link PagingInfo} object that specifies which data should be
-	 *            retrieved.
-	 * @param criteria The {@link Criteria} to add the paging settings to, or {@code null} to create
-	 *            a new one.
+	 * Updates the specified {@link Criteria} object to retrieve the data specified by the {@link PagingInfo} object.
+	 * @param pagingInfo The {@link PagingInfo} object that specifies which data should be retrieved.
+	 * @param criteria The {@link Criteria} to add the paging settings to, or {@code null} to create a new one.
 	 * @return The {@link Criteria} object with the paging settings applied.
 	 */
 	protected Criteria createPagingCriteria(PagingInfo pagingInfo, Criteria criteria) {

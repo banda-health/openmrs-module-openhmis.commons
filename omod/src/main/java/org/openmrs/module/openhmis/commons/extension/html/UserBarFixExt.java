@@ -1,10 +1,10 @@
 package org.openmrs.module.openhmis.commons.extension.html;
 
-import org.openmrs.module.openhmis.commons.web.ModuleWebConstants;
-import org.openmrs.module.web.extension.HeaderIncludeExt;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.openmrs.module.openhmis.commons.web.ModuleWebConstants;
+import org.openmrs.module.web.extension.HeaderIncludeExt;
 
 /**
  * Header extension to add css file that resolves user bar display issue.

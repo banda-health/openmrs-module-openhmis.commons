@@ -16,13 +16,11 @@ package org.openmrs.module.openhmis.commons.api.entity;
 import java.util.List;
 
 import org.openmrs.OpenmrsData;
-import org.openmrs.api.APIException;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Represents classes that provide data access services to model types that implement
- * {@link org.openmrs.OpenmrsData}.
+ * Represents classes that provide data access services to model types that implement {@link org.openmrs.OpenmrsData}.
  * @param <E> The {@link org.openmrs.OpenmrsData} model class.
  */
 @Transactional
@@ -43,24 +41,22 @@ public interface IEntityDataService<E extends OpenmrsData> extends IObjectDataSe
 	 * @should unvoid the entity
 	 * @should throw NullPointerException with null entity
 	 */
-	E unvoidEntity(E entity) throws APIException;
+	E unvoidEntity(E entity);
 	
 	/**
 	 * Returns all entity records that have the specified voided status.
 	 * @param includeVoided {@code true} to include voided entities.
 	 * @return All the entity records that have the specified voided status.
-	 * @throws org.openmrs.api.APIException
 	 * @should return all entities when includeVoided is set to true
 	 * @should return all unvoided entities when includeVoided is set to false
 	 */
-	List<E> getAll(boolean includeVoided) throws APIException;
+	List<E> getAll(boolean includeVoided);
 	
 	/**
 	 * Returns all entity records that have the specified voided status and paging.
 	 * @param includeVoided {@code true} to include voided entities.
 	 * @param paging The paging information.
 	 * @return All the entity records that have the specified voided status.
-	 * @throws org.openmrs.api.APIException
 	 * @should return an empty list if no entities are found
 	 * @should not return voided entities unless specified
 	 * @should return all specified metadata records if paging is null
@@ -69,5 +65,5 @@ public interface IEntityDataService<E extends OpenmrsData> extends IObjectDataSe
 	 * @should not get the total paging record count if it is more than zero
 	 * @should return paged entity records if paging is specified
 	 */
-	List<E> getAll(boolean includeVoided, PagingInfo paging) throws APIException;
+	List<E> getAll(boolean includeVoided, PagingInfo paging);
 }

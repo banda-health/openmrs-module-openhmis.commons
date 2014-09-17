@@ -22,7 +22,9 @@ import org.openmrs.api.context.Context;
 /**
  * Utility class for {@link org.openmrs.Provider}s.
  */
-public class ProviderHelper {
+public class ProviderUtil {
+	protected ProviderUtil() {}
+	
 	public static Provider getCurrentProvider() {
 		return getCurrentProvider(Context.getProviderService());
 	}

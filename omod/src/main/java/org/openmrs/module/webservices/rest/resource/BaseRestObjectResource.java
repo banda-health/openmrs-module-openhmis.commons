@@ -25,7 +25,6 @@ import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.api.PageableResult;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
-import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 /**
  * REST resource for {@link org.openmrs.OpenmrsObject} entities.
@@ -89,7 +88,7 @@ public abstract class BaseRestObjectResource<E extends OpenmrsObject> extends De
 	}
 	
 	@Override
-	public void purge(E delegate, RequestContext context) throws ResponseException {
+	public void purge(E delegate, RequestContext context) {
 		Class<? extends IObjectDataService<E>> clazz = getServiceClass();
 		if (clazz == null) {
 			throw new IllegalStateException("This resource has not be defined to allow purging. "
@@ -101,7 +100,7 @@ public abstract class BaseRestObjectResource<E extends OpenmrsObject> extends De
 	}
 	
 	@Override
-	protected PageableResult doGetAll(RequestContext context) throws ResponseException {
+	protected PageableResult doGetAll(RequestContext context) {
 		Class<? extends IObjectDataService<E>> clazz = getServiceClass();
 		if (clazz == null) {
 			throw new IllegalStateException("This resource has not be defined to allow searching. "
@@ -119,8 +118,7 @@ public abstract class BaseRestObjectResource<E extends OpenmrsObject> extends De
 	}
 	
 	/**
-	 * Gets a usable instance of the actual class of the generic type E defined by the implementing
-	 * sub-class.
+	 * Gets a usable instance of the actual class of the generic type E defined by the implementing sub-class.
 	 * @return The class object for the entity.
 	 */
 	@SuppressWarnings("unchecked")

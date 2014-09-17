@@ -26,9 +26,11 @@ import org.openmrs.util.OpenmrsClassLoader;
 public class AttributeUtil {
 	private static final Log LOG = LogFactory.getLog(AttributeUtil.class);
 	
+	protected AttributeUtil() {}
+	
 	/**
-	 * Attempts to create a new instance of the specified class and hydrate (deserialize) it using
-	 * the specified string value.
+	 * Attempts to create a new instance of the specified class and hydrate (deserialize) it using the specified string
+	 * value.
 	 * @param className The class name for the expected instance
 	 * @param value The serialized object data
 	 * @return A new hydrated instance or {@code null} if the instance could not be loaded.

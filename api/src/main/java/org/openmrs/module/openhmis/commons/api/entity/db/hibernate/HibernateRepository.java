@@ -29,9 +29,17 @@ import org.springframework.transaction.annotation.Transactional;
  * Provides access to a data source through hibernate.
  */
 public class HibernateRepository implements IHibernateRepository {
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	public HibernateRepository(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 	
@@ -48,7 +56,7 @@ public class HibernateRepository implements IHibernateRepository {
 	}
 	
 	@Override
-	public <E extends OpenmrsObject> E save(E entity) throws APIException {
+	public <E extends OpenmrsObject> E save(E entity) {
 		Session session = sessionFactory.getCurrentSession();
 		
 		try {
@@ -78,7 +86,7 @@ public class HibernateRepository implements IHibernateRepository {
 	}
 	
 	@Override
-	public <E extends OpenmrsObject> void delete(E entity) throws APIException {
+	public <E extends OpenmrsObject> void delete(E entity) {
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			session.delete(entity);
@@ -100,7 +108,7 @@ public class HibernateRepository implements IHibernateRepository {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public <E extends OpenmrsObject> E selectSingle(Class<E> cls, Serializable id) throws APIException {
+	public <E extends OpenmrsObject> E selectSingle(Class<E> cls, Serializable id) {
 		Session session = sessionFactory.getCurrentSession();
 		
 		try {
@@ -113,7 +121,7 @@ public class HibernateRepository implements IHibernateRepository {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public <E extends OpenmrsObject> E selectSingle(Class<E> cls, Criteria criteria) throws APIException {
+	public <E extends OpenmrsObject> E selectSingle(Class<E> cls, Criteria criteria) {
 		E result = null;
 		try {
 			List<E> results = criteria.list();
@@ -130,7 +138,7 @@ public class HibernateRepository implements IHibernateRepository {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public <E extends OpenmrsObject> List<E> select(Class<E> cls) throws APIException {
+	public <E extends OpenmrsObject> List<E> select(Class<E> cls) {
 		Session session = sessionFactory.getCurrentSession();
 		
 		try {
@@ -145,7 +153,7 @@ public class HibernateRepository implements IHibernateRepository {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public <E extends OpenmrsObject> List<E> select(Class<E> cls, Criteria criteria) throws APIException {
+	public <E extends OpenmrsObject> List<E> select(Class<E> cls, Criteria criteria) {
 		// If the criteria is not defined just use the default select method
 		if (criteria == null) {
 			return select(cls);

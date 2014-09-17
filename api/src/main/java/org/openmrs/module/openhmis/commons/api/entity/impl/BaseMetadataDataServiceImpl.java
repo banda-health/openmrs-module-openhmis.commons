@@ -13,8 +13,6 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -24,12 +22,10 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.OpenmrsMetadata;
-import org.openmrs.OpenmrsObject;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
-import org.openmrs.module.openhmis.commons.api.Utility;
 import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
 import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthorizationPrivileges;
 import org.openmrs.module.openhmis.commons.api.f.Action1;
@@ -52,7 +48,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	
 	@Override
 	@Transactional
-	public E retire(E entity, String reason) throws APIException {
+	public E retire(E entity, final String reason) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getRetirePrivilege())) {
 			Context.requirePrivilege(privileges.getRetirePrivilege());
@@ -65,21 +61,17 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 			throw new IllegalArgumentException("The reason to retire must be defined.");
 		}
 		
-		User user = Context.getAuthenticatedUser();
-		Date dateRetired = new Date();
+		final User user = Context.getAuthenticatedUser();
+		final Date dateRetired = new Date();
 		setRetireProperties(entity, reason, user, dateRetired);
 		
-		Collection<? extends OpenmrsObject> relatedObjects = getRelatedObjects(entity);
-		List<OpenmrsMetadata> updatedObjects = new ArrayList<OpenmrsMetadata>();
-		if (relatedObjects != null && relatedObjects.size() > 0) {
-			for (OpenmrsObject object : relatedObjects) {
-				OpenmrsMetadata metadata = Utility.as(OpenmrsMetadata.class, object);
-				if (metadata != null) {
-					setRetireProperties(metadata, reason, user, dateRetired);
-					updatedObjects.add(metadata);
-				}
-			}
-		}
+		List<OpenmrsMetadata> updatedObjects = executeOnRelatedObjects(OpenmrsMetadata.class, entity,
+		    new Action1<OpenmrsMetadata>() {
+			    @Override
+			    public void apply(OpenmrsMetadata metadata) {
+				    setRetireProperties(metadata, reason, user, dateRetired);
+			    }
+		    });
 		if (updatedObjects.size() > 0) {
 			return saveAll(entity, updatedObjects);
 		} else {
@@ -103,7 +95,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	
 	@Override
 	@Transactional
-	public E unretire(E entity) throws APIException {
+	public E unretire(E entity) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getRetirePrivilege())) {
 			Context.requirePrivilege(privileges.getRetirePrivilege());
@@ -115,22 +107,15 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 		
 		setUnretireProperties(entity);
 		
-		// Really miss an easy option for functional programming here, Action<T> sure would be nice...
-		Collection<? extends OpenmrsObject> relatedObjects = getRelatedObjects(entity);
-		List<OpenmrsMetadata> updatedObjects = new ArrayList<OpenmrsMetadata>();
-		if (relatedObjects != null && relatedObjects.size() > 0) {
-			for (OpenmrsObject object : relatedObjects) {
-				OpenmrsMetadata metadata = Utility.as(OpenmrsMetadata.class, object);
-				if (metadata != null) {
-					setUnretireProperties(metadata);
-					
-					updatedObjects.add(metadata);
-				}
-			}
-		}
-		
+		List<OpenmrsMetadata> updatedObjects = executeOnRelatedObjects(OpenmrsMetadata.class, entity,
+		    new Action1<OpenmrsMetadata>() {
+			    @Override
+			    public void apply(OpenmrsMetadata metadata) {
+				    setUnretireProperties(metadata);
+			    }
+		    });
 		if (updatedObjects.size() > 0) {
-			return saveAll(entity, relatedObjects);
+			return saveAll(entity, updatedObjects);
 		} else {
 			return save(entity);
 		}
@@ -151,19 +136,19 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> getAll(PagingInfo pagingInfo) throws APIException {
+	public List<E> getAll(PagingInfo pagingInfo) {
 		return getAll(false, pagingInfo);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> getAll(boolean includeRetired) throws APIException {
+	public List<E> getAll(boolean includeRetired) {
 		return getAll(includeRetired, null);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> getAll(final boolean includeRetired, PagingInfo pagingInfo) throws APIException {
+	public List<E> getAll(final boolean includeRetired, PagingInfo pagingInfo) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
 			Context.requirePrivilege(privileges.getGetPrivilege());
@@ -181,14 +166,14 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> getByNameFragment(String nameFragment, boolean includeRetired) throws APIException {
+	public List<E> getByNameFragment(String nameFragment, boolean includeRetired) {
 		return getByNameFragment(nameFragment, includeRetired, null);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	public List<E> getByNameFragment(final String nameFragment, final boolean includeRetired, PagingInfo pagingInfo)
-	        throws APIException {
+	{
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
 			Context.requirePrivilege(privileges.getGetPrivilege());

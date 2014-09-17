@@ -46,7 +46,7 @@ public class EntityPropertyEditor<E extends OpenmrsObject> extends PropertyEdito
 	}
 	
 	@Override
-	public void setAsText(String text) throws IllegalArgumentException {
+	public void setAsText(String text) {
 		if (StringUtils.isEmpty(text)) {
 			setValue(null);
 		} else {

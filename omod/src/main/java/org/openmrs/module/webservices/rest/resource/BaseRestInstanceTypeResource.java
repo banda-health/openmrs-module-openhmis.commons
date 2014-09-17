@@ -13,8 +13,7 @@ import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 
 /**
- * REST resource for
- * {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttributeType}s.
+ * REST resource for {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttributeType}s.
  * @param <E> The customizable instance attribute class
  * @param <TOwner> The owning model class
  * @param <TAttributeType> The attribute type class

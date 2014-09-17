@@ -20,4 +20,5 @@ public class WebConstants {
 	protected static final String MODULE_BASE = "/module/openhmis/";
 	protected static final String MODULE_RESOURCE_BASE = "/moduleResources/openhmis/";
 	
+	protected WebConstants() {}
 }

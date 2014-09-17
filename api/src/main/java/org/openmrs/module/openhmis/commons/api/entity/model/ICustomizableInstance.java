@@ -18,8 +18,8 @@ import java.util.Set;
 import org.openmrs.customdatatype.CustomValueDescriptor;
 
 /**
- * Represents a class that can be customized with attributes based on a specific
- * {@link IInstanceType} that defines what {@link IInstanceAttributeType} are allowed.
+ * Represents a class that can be customized with attributes based on a specific {@link IInstanceType} that defines what
+ * {@link IInstanceAttributeType} are allowed.
  * @param <TAttribute>
  */
 public interface ICustomizableInstance<TInstanceType extends IInstanceType<?>, TAttribute extends IInstanceAttribute<?, ?>> {
@@ -54,8 +54,7 @@ public interface ICustomizableInstance<TInstanceType extends IInstanceType<?>, T
 	Set<TAttribute> getActiveAttributes();
 	
 	/**
-	 * Gets the active (that is, not retired) {@link TAttribute}'s of the specified type for this
-	 * instance.
+	 * Gets the active (that is, not retired) {@link TAttribute}'s of the specified type for this instance.
 	 * @param ofType The attribute type.
 	 * @return The active attributes.
 	 */
