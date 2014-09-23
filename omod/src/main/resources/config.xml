@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module configVersion="1.4">
+	<!-- Module Properties -->
+	<id>${project.parent.artifactId}</id>
+	<name>${project.parent.name}</name>
+	<version>${project.parent.version}</version>
+	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
+	<author>OpenHMIS</author>
+	<description>
+		${project.parent.description}
+	</description>
+	<updateURL>https://modules.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
+	<require_version>${openMRSVersion}</require_version>
+	<!-- / Module Properties -->
+
+	<aware_of_modules>
+		<aware_of_module version="2.0">org.openmrs.module.idgen</aware_of_module>
+	</aware_of_modules>
+
+	<require_modules>
+		<require_module version="2.0.0">org.openmrs.module.webservices.rest</require_module>
+	</require_modules>
+
+	<!-- Module Activator -->
+	<activator>org.openmrs.module.openhmis.commons.CommonsModuleActivator</activator>
+
+	<!-- Extensions -->
+	<extension>
+		<point>org.openmrs.headerFullIncludeExt</point>
+		<class>org.openmrs.module.openhmis.commons.extension.html.UserBarFixExt</class>
+	</extension>
+
+	<!-- Privileges -->
+
+	<!-- Maps hibernate files, if present -->
+	<mappingFiles>
+		LazyRole.hbm.xml
+	</mappingFiles>
+
+	<!-- Internationalization -->
+	<!-- All message codes should start with ${project.parent.artifactId}. -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
+	<messages>
+		<lang>es</lang>
+		<file>messages_es.properties</file>
+	</messages>
+	<!-- /Internationalization -->
+
+</module>
+
