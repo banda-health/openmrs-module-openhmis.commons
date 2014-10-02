@@ -17,7 +17,9 @@ import java.util.List;
 
 import org.openmrs.module.webservices.rest.SimpleObject;
 import org.openmrs.module.webservices.rest.web.RequestContext;
+import org.openmrs.module.webservices.rest.web.resource.api.Converter;
 import org.openmrs.module.webservices.rest.web.resource.impl.AlreadyPaged;
+import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 /**
  * Represents paged results that include a total length.
@@ -32,10 +34,9 @@ public class AlreadyPagedWithLength<T> extends AlreadyPaged<T> {
 	}
 	
 	@Override
-	public SimpleObject toSimpleObject() {
-		SimpleObject obj = super.toSimpleObject();
+	public SimpleObject toSimpleObject(Converter converter) throws ResponseException {
+		SimpleObject obj = super.toSimpleObject(converter);
 		obj.add("length", this.length);
 		return obj;
 	}
-	
 }
