@@ -19,9 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.OpenmrsMetadata;
-import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
-import org.openmrs.api.context.ContextAuthenticationException;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
 import org.openmrs.module.openhmis.commons.api.exception.PrivilegeException;
@@ -63,7 +61,12 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	 */
 	@Override
 	public E save(E entity) {
-		return getService().save(entity);
+		try {
+			return getService().save(entity);
+		} catch (PrivilegeException p) {
+			LOG.error("Exception occured when trying to save entity <" + entity.getName() + "> as privilege is missing", p);
+			throw new PrivilegeException("Can't save entity with name <" + entity.getName() + "> as privilege is missing");
+		}
 	}
 	
 	/**
@@ -113,8 +116,12 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 		if (StringUtils.isEmpty(uniqueId)) {
 			return null;
 		}
-		
-		return getService().getByUuid(uniqueId);
+		try {
+			return getService().getByUuid(uniqueId);
+		} catch (PrivilegeException p) {
+			LOG.error("Exception occured when trying to get entity with ID <" + uniqueId + "> as privilege is missing", p);
+			throw new PrivilegeException("Can't get entity with ID <" + uniqueId + "> as privilege is missing");
+		}
 	}
 	
 	/**
