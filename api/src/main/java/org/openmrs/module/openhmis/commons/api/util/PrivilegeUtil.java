@@ -1,14 +1,21 @@
 package org.openmrs.module.openhmis.commons.api.util;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.context.ContextAuthenticationException;
+import org.openmrs.module.openhmis.commons.api.exception.PrivilegeException;
 import org.openmrs.module.openhmis.commons.api.f.Func1;
 
 /**
  * Helper class for working with {@link org.openmrs.Privilege}s.
  */
 public class PrivilegeUtil {
+	
+	private static final Log LOG = LogFactory.getLog(PrivilegeUtil.class);
+	
 	protected PrivilegeUtil() {}
 	
 	/**
@@ -71,4 +78,13 @@ public class PrivilegeUtil {
 		
 		return result;
 	}
+	
+	public static void requirePrivileges(User user, String privileges) throws ContextAuthenticationException {
+		boolean hasPrivileges = hasPrivileges(user, privileges);
+		if (!hasPrivileges) {
+			LOG.error("Privileges are missing. The required privilege is <" + privileges + ">");
+			throw new PrivilegeException();
+		}
+	}
+	
 }

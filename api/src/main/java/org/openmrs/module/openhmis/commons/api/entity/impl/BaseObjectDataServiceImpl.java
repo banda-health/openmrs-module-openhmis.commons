@@ -101,7 +101,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	public E save(E object) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getSavePrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getSavePrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getSavePrivilege());
 		}
 		
 		if (object == null) {
@@ -118,7 +118,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	public E saveAll(E object, Collection<? extends OpenmrsObject> related) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getSavePrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getSavePrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getSavePrivilege());
 		}
 		
 		if (object == null) {
@@ -141,7 +141,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	public void saveAll(Collection<? extends OpenmrsObject> collection) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getSavePrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getSavePrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getSavePrivilege());
 		}
 		
 		repository.saveAll(collection);
@@ -153,7 +153,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	public void purge(E object) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getPurgePrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getPurgePrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getPurgePrivilege());
 		}
 		
 		if (object == null) {
@@ -174,7 +174,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	public List<E> getAll(PagingInfo pagingInfo) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
 		}
 		
 		return executeCriteria(getEntityClass(), pagingInfo, null, getDefaultSort());
@@ -185,7 +185,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	public E getById(int entityId) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
 		}
 		
 		return repository.selectSingle(getEntityClass(), entityId);
@@ -196,7 +196,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	public E getByUuid(String uuid) {
 		P privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
 		}
 		
 		if (StringUtils.isEmpty(uuid)) {

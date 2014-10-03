@@ -51,7 +51,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	public E retire(E entity, final String reason) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getRetirePrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getRetirePrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getRetirePrivilege());
 		}
 		
 		if (entity == null) {
@@ -98,7 +98,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	public E unretire(E entity) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getRetirePrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getRetirePrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getRetirePrivilege());
 		}
 		
 		if (entity == null) {
@@ -150,7 +150,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	public List<E> getAll(final boolean includeRetired, PagingInfo pagingInfo) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
 		}
 		
 		return executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {
@@ -175,7 +175,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	{
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
 		}
 		
 		if (StringUtils.isEmpty(nameFragment)) {
