@@ -79,7 +79,7 @@ public class PrivilegeUtil {
 		return result;
 	}
 	
-	public static void requirePrivileges(User user, String privileges) throws ContextAuthenticationException {
+	public static void requirePrivileges(User user, String privileges) {
 		boolean hasPrivileges = hasPrivileges(user, privileges);
 		if (!hasPrivileges) {
 			LOG.error("Privileges are missing. The required privilege is <" + privileges + ">");

@@ -34,7 +34,7 @@ public class AlreadyPagedWithLength<T> extends AlreadyPaged<T> {
 	}
 	
 	@Override
-	public SimpleObject toSimpleObject(Converter converter) throws ResponseException {
+	public SimpleObject toSimpleObject(Converter converter) {
 		SimpleObject obj = super.toSimpleObject(converter);
 		obj.add("length", this.length);
 		return obj;
