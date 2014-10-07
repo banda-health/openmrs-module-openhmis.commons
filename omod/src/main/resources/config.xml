@@ -15,7 +15,7 @@
 	<!-- / Module Properties -->
 
 	<aware_of_modules>
-		<aware_of_module version="2.0">org.openmrs.module.idgen</aware_of_module>
+		<aware_of_module version="2.8">org.openmrs.module.idgen</aware_of_module>
 	</aware_of_modules>
 
 	<require_modules>

@@ -15,53 +15,41 @@ package org.openmrs.module.openhmis.commons;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.module.ModuleActivator;
+import org.openmrs.module.BaseModuleActivator;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
  */
-public class CommonsModuleActivator implements ModuleActivator {
-	
+public class CommonsModuleActivator extends BaseModuleActivator {
 	private static final Log LOG = LogFactory.getLog(CommonsModuleActivator.class);
 	
 	/**
-	 * @see org.openmrs.module.ModuleActivator#willRefreshContext()
+	 * @see BaseModuleActivator#willRefreshContext()
 	 */
 	public void willRefreshContext() {
 		LOG.info("Refreshing OpenHMIS Commons Module");
 	}
 	
 	/**
-	 * @see org.openmrs.module.ModuleActivator#contextRefreshed()
+	 * @see BaseModuleActivator#contextRefreshed()
 	 */
+	@Override
 	public void contextRefreshed() {
 		LOG.info("OpenHMIS Commons Module refreshed");
 	}
 	
 	/**
-	 * @see org.openmrs.module.ModuleActivator#willStart()
+	 * @see BaseModuleActivator#started()
 	 */
-	public void willStart() {
-		LOG.info("Starting OpenHMIS Commons Module");
-	}
-	
-	/**
-	 * @see org.openmrs.module.ModuleActivator#started()
-	 */
+	@Override
 	public void started() {
 		LOG.info("OpenHMIS Commons Module started");
 	}
 	
 	/**
-	 * @see org.openmrs.module.ModuleActivator#willStop()
+	 * @see BaseModuleActivator#stopped()
 	 */
-	public void willStop() {
-		LOG.info("Stopping OpenHMIS Commons Module");
-	}
-	
-	/**
-	 * @see org.openmrs.module.ModuleActivator#stopped()
-	 */
+	@Override
 	public void stopped() {
 		LOG.info("OpenHMIS Commons Module stopped");
 	}
