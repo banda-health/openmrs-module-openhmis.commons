@@ -32,6 +32,7 @@ import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.api.PageableResult;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.resource.impl.MetadataDelegatingCrudResource;
+import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  * REST resource for {@link org.openmrs.OpenmrsMetadata} entities.
@@ -136,6 +137,10 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 		} catch (PrivilegeException p) {
 			LOG.error("Exception occured when trying to purge entity <" + entity.getName() + "> as privilege is missing", p);
 			throw new PrivilegeException("Can't purge entity with name <" + entity.getName() + "> as privilege is missing");
+		} catch (DataIntegrityViolationException e) {
+			LOG.error("Exception occured when trying to purge entity <" + entity.getName() + ">", e);
+			throw new DataIntegrityViolationException("Can't purge entity with name <" + entity.getName()
+			        + "> as it is still in use");
 		}
 	}
 	
