@@ -16,10 +16,13 @@ package org.openmrs.module.webservices.rest.resource;
 import java.lang.reflect.ParameterizedType;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openmrs.OpenmrsMetadata;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
+import org.openmrs.module.openhmis.commons.api.exception.PrivilegeException;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.annotation.PropertyGetter;
 import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentation;
@@ -29,6 +32,7 @@ import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.api.PageableResult;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.resource.impl.MetadataDelegatingCrudResource;
+import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  * REST resource for {@link org.openmrs.OpenmrsMetadata} entities.
@@ -36,6 +40,9 @@ import org.openmrs.module.webservices.rest.web.resource.impl.MetadataDelegatingC
  */
 public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extends MetadataDelegatingCrudResource<E>
         implements IMetadataDataServiceResource<E> {
+	
+	private static final Log LOG = LogFactory.getLog(BaseRestMetadataResource.class);
+	
 	private Class<E> entityClass = null;
 	
 	/**
@@ -55,7 +62,12 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	 */
 	@Override
 	public E save(E entity) {
-		return getService().save(entity);
+		try {
+			return getService().save(entity);
+		} catch (PrivilegeException p) {
+			LOG.error("Exception occured when trying to save entity <" + entity.getName() + "> as privilege is missing", p);
+			throw new PrivilegeException("Can't save entity with name <" + entity.getName() + "> as privilege is missing");
+		}
 	}
 	
 	/**
@@ -105,8 +117,12 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 		if (StringUtils.isEmpty(uniqueId)) {
 			return null;
 		}
-		
-		return getService().getByUuid(uniqueId);
+		try {
+			return getService().getByUuid(uniqueId);
+		} catch (PrivilegeException p) {
+			LOG.error("Exception occured when trying to get entity with ID <" + uniqueId + "> as privilege is missing", p);
+			throw new PrivilegeException("Can't get entity with ID <" + uniqueId + "> as privilege is missing");
+		}
 	}
 	
 	/**
@@ -116,7 +132,16 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	 */
 	@Override
 	public void purge(E entity, RequestContext context) {
-		getService().purge(entity);
+		try {
+			getService().purge(entity);
+		} catch (PrivilegeException p) {
+			LOG.error("Exception occured when trying to purge entity <" + entity.getName() + "> as privilege is missing", p);
+			throw new PrivilegeException("Can't purge entity with name <" + entity.getName() + "> as privilege is missing");
+		} catch (DataIntegrityViolationException e) {
+			LOG.error("Exception occured when trying to purge entity <" + entity.getName() + ">", e);
+			throw new DataIntegrityViolationException("Can't purge entity with name <" + entity.getName()
+			        + "> as it is still in use");
+		}
 	}
 	
 	/**

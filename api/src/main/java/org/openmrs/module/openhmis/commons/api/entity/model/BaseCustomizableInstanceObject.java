@@ -20,6 +20,7 @@ import java.util.Set;
 import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.customdatatype.CustomValueDescriptor;
 
+// @formatter:off
 /**
  * Base class for {@link org.openmrs.OpenmrsObject} models that can be customized based on an
  * {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceType}
@@ -27,9 +28,11 @@ import org.openmrs.customdatatype.CustomValueDescriptor;
  * @param <TAttribute> The model attribute class.
  */
 @SuppressWarnings("rawtypes")
-public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInstanceType<?>, //
-TAttribute extends IInstanceAttribute<?, ?>> //
-        extends BaseOpenmrsObject implements ICustomizableInstance<TInstanceType, TAttribute> {
+public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInstanceType<?>,
+			TAttribute extends IInstanceAttribute<?, ?>>
+		extends BaseOpenmrsObject
+		implements ICustomizableInstance<TInstanceType, TAttribute> {
+// @formatter:on
 	public static final long serialVersionUID = 0L;
 	
 	private Set<TAttribute> attributes;
@@ -61,7 +64,7 @@ TAttribute extends IInstanceAttribute<?, ?>> //
 	}
 	
 	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
-	        Set<TA> getActiveAttributes(I instance) {
+	Set<TA> getActiveAttributes(I instance) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
 			for (TA attr : instance.getAttributes()) {
@@ -74,7 +77,7 @@ TAttribute extends IInstanceAttribute<?, ?>> //
 	}
 	
 	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
-	        Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
+	Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
 			for (TA attr : instance.getAttributes()) {

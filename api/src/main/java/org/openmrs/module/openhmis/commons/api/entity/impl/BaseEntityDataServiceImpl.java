@@ -41,7 +41,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 	public E voidEntity(E entity, final String reason) {
 		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getVoidPrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getVoidPrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getVoidPrivilege());
 		}
 		
 		if (entity == null) {
@@ -81,7 +81,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 	public E unvoidEntity(E entity) {
 		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getVoidPrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getVoidPrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getVoidPrivilege());
 		}
 		
 		if (entity == null) {
@@ -133,7 +133,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 	public List<E> getAll(final boolean includeVoided, PagingInfo pagingInfo) {
 		IEntityAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
 		}
 		
 		return executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {

@@ -51,7 +51,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	public E retire(E entity, final String reason) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getRetirePrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getRetirePrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getRetirePrivilege());
 		}
 		
 		if (entity == null) {
@@ -65,13 +65,13 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 		final Date dateRetired = new Date();
 		setRetireProperties(entity, reason, user, dateRetired);
 		
-		List<OpenmrsMetadata> updatedObjects = executeOnRelatedObjects(OpenmrsMetadata.class, entity,
-		    new Action1<OpenmrsMetadata>() {
-			    @Override
-			    public void apply(OpenmrsMetadata metadata) {
-				    setRetireProperties(metadata, reason, user, dateRetired);
-			    }
-		    });
+		List<OpenmrsMetadata> updatedObjects =
+		        executeOnRelatedObjects(OpenmrsMetadata.class, entity, new Action1<OpenmrsMetadata>() {
+			        @Override
+			        public void apply(OpenmrsMetadata metadata) {
+				        setRetireProperties(metadata, reason, user, dateRetired);
+			        }
+		        });
 		if (updatedObjects.size() > 0) {
 			return saveAll(entity, updatedObjects);
 		} else {
@@ -98,7 +98,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	public E unretire(E entity) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getRetirePrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getRetirePrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getRetirePrivilege());
 		}
 		
 		if (entity == null) {
@@ -107,13 +107,13 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 		
 		setUnretireProperties(entity);
 		
-		List<OpenmrsMetadata> updatedObjects = executeOnRelatedObjects(OpenmrsMetadata.class, entity,
-		    new Action1<OpenmrsMetadata>() {
-			    @Override
-			    public void apply(OpenmrsMetadata metadata) {
-				    setUnretireProperties(metadata);
-			    }
-		    });
+		List<OpenmrsMetadata> updatedObjects =
+		        executeOnRelatedObjects(OpenmrsMetadata.class, entity, new Action1<OpenmrsMetadata>() {
+			        @Override
+			        public void apply(OpenmrsMetadata metadata) {
+				        setUnretireProperties(metadata);
+			        }
+		        });
 		if (updatedObjects.size() > 0) {
 			return saveAll(entity, updatedObjects);
 		} else {
@@ -150,7 +150,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	public List<E> getAll(final boolean includeRetired, PagingInfo pagingInfo) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
 		}
 		
 		return executeCriteria(getEntityClass(), pagingInfo, new Action1<Criteria>() {
@@ -171,11 +171,10 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> getByNameFragment(final String nameFragment, final boolean includeRetired, PagingInfo pagingInfo)
-	{
+	public List<E> getByNameFragment(final String nameFragment, final boolean includeRetired, PagingInfo pagingInfo) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
-			PrivilegeUtil.hasPrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
+			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());
 		}
 		
 		if (StringUtils.isEmpty(nameFragment)) {

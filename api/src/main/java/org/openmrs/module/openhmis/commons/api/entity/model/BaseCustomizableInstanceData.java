@@ -18,15 +18,18 @@ import java.util.Set;
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.customdatatype.CustomValueDescriptor;
 
+// @formatter:off
 /**
  * Base class for {@link org.openmrs.OpenmrsData} models that can be customized based on an
  * {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceType}
  * @param <TInstanceType> The model instance type class.
  * @param <TAttribute> The model attribute class.
  */
-public abstract class BaseCustomizableInstanceData<TInstanceType extends IInstanceType<?>, //
-TAttribute extends IInstanceAttribute<?, ?>> //
-        extends BaseOpenmrsData implements ICustomizableInstance<TInstanceType, TAttribute> {
+public abstract class BaseCustomizableInstanceData<TInstanceType extends IInstanceType<?>,
+			TAttribute extends IInstanceAttribute<?, ?>>
+		extends BaseOpenmrsData
+		implements ICustomizableInstance<TInstanceType, TAttribute> {
+// @formatter:on
 	public static final long serialVersionUID = 0L;
 	
 	private Set<TAttribute> attributes;

@@ -46,3 +46,4 @@ pom.xml.releaseBackup
 *.DS_Store
 *.swp
 *.out
+.java-version
