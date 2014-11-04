@@ -271,8 +271,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 	 * @param <T> The class of the related objects.
 	 * @return A list containing the updated (applied) related objects.
 	 */
-	protected <T extends OpenmrsObject> List<T> executeOnRelatedObjects(Class<T> clazz, E entity,
-	        Action1<T> action) {
+	protected <T extends OpenmrsObject> List<T> executeOnRelatedObjects(Class<T> clazz, E entity, Action1<T> action) {
 		List<T> updatedObjects = new ArrayList<T>();
 		
 		Collection<? extends OpenmrsObject> relatedObjects = getRelatedObjects(entity);

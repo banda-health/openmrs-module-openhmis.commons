@@ -65,13 +65,13 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 		final Date dateRetired = new Date();
 		setRetireProperties(entity, reason, user, dateRetired);
 		
-		List<OpenmrsMetadata> updatedObjects = executeOnRelatedObjects(OpenmrsMetadata.class, entity,
-		    new Action1<OpenmrsMetadata>() {
-			    @Override
-			    public void apply(OpenmrsMetadata metadata) {
-				    setRetireProperties(metadata, reason, user, dateRetired);
-			    }
-		    });
+		List<OpenmrsMetadata> updatedObjects =
+		        executeOnRelatedObjects(OpenmrsMetadata.class, entity, new Action1<OpenmrsMetadata>() {
+			        @Override
+			        public void apply(OpenmrsMetadata metadata) {
+				        setRetireProperties(metadata, reason, user, dateRetired);
+			        }
+		        });
 		if (updatedObjects.size() > 0) {
 			return saveAll(entity, updatedObjects);
 		} else {
@@ -107,13 +107,13 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 		
 		setUnretireProperties(entity);
 		
-		List<OpenmrsMetadata> updatedObjects = executeOnRelatedObjects(OpenmrsMetadata.class, entity,
-		    new Action1<OpenmrsMetadata>() {
-			    @Override
-			    public void apply(OpenmrsMetadata metadata) {
-				    setUnretireProperties(metadata);
-			    }
-		    });
+		List<OpenmrsMetadata> updatedObjects =
+		        executeOnRelatedObjects(OpenmrsMetadata.class, entity, new Action1<OpenmrsMetadata>() {
+			        @Override
+			        public void apply(OpenmrsMetadata metadata) {
+				        setUnretireProperties(metadata);
+			        }
+		        });
 		if (updatedObjects.size() > 0) {
 			return saveAll(entity, updatedObjects);
 		} else {
@@ -171,8 +171,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<E> getByNameFragment(final String nameFragment, final boolean includeRetired, PagingInfo pagingInfo)
-	{
+	public List<E> getByNameFragment(final String nameFragment, final boolean includeRetired, PagingInfo pagingInfo) {
 		IMetadataAuthorizationPrivileges privileges = getPrivileges();
 		if (privileges != null && !StringUtils.isEmpty(privileges.getGetPrivilege())) {
 			PrivilegeUtil.requirePrivileges(Context.getAuthenticatedUser(), privileges.getGetPrivilege());

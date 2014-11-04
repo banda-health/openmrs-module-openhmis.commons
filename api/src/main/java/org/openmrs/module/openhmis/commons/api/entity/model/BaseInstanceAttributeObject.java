@@ -16,14 +16,17 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.module.openhmis.commons.attribute.AttributeUtil;
 
+// @formatter:off
 /**
  * Base class for {@link org.openmrs.OpenmrsObject} instance attribute models.
  * @param <TOwner> The class of the owning model.
  * @param <TAttributeType> The class of the attribute type.
  */
-public abstract class BaseInstanceAttributeObject<TOwner extends ICustomizableInstance<?, ?>, //
-TAttributeType extends IInstanceAttributeType<?>> //
-        extends BaseOpenmrsObject implements IInstanceAttribute<TOwner, TAttributeType> {
+public abstract class BaseInstanceAttributeObject<TOwner extends ICustomizableInstance<?, ?>,
+			TAttributeType extends IInstanceAttributeType<?>>
+		extends BaseOpenmrsObject
+		implements IInstanceAttribute<TOwner, TAttributeType> {
+// @formatter:on
 	public static final long serialVersionUID = 0L;
 	
 	private Integer attributeId;
