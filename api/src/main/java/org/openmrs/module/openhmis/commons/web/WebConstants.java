@@ -20,5 +20,7 @@ public class WebConstants {
 	protected static final String MODULE_BASE = "/module/openhmis/";
 	protected static final String MODULE_RESOURCE_BASE = "/moduleResources/openhmis/";
 	
+	public static final String REPORT_DOWNLOAD_URL = "/moduleServlet/jasperreport/jreportDownload";
+	
 	protected WebConstants() {}
 }
