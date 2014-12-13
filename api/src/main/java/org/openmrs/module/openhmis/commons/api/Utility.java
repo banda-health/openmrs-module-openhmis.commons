@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.openhmis.commons.api;
 
+import java.util.Calendar;
+
 /**
  * General utility methods.
  */
@@ -31,5 +33,21 @@ public class Utility {
 			return cls.cast(o);
 		}
 		return null;
+	}
+	
+	/**
+	 * Clears the time portion of the specified {@link Calendar}, setting the hour, minute, second, and millisecond parts to
+	 * 0.
+	 * @param cal The calendar object to clear the time portion from.
+	 */
+	public static void clearCalendarTime(Calendar cal) {
+		if (cal == null) {
+			throw new IllegalArgumentException("The calendar must be defined.");
+		}
+		
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
 	}
 }
