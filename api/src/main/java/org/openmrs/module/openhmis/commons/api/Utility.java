@@ -13,10 +13,22 @@
  */
 package org.openmrs.module.openhmis.commons.api;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * General utility methods.
  */
 public class Utility {
+	private static final Log LOG = LogFactory.getLog(Utility.class);
+	private static final int DATE_ONLY_TEXT_LENGTH = 10;
+	
 	protected Utility() {}
 	
 	/**
@@ -31,5 +43,47 @@ public class Utility {
 			return cls.cast(o);
 		}
 		return null;
+	}
+	
+	/**
+	 * Clears the time portion of the specified {@link Calendar}, setting the hour, minute, second, and millisecond parts to
+	 * 0.
+	 * @param cal The calendar object to clear the time portion from.
+	 */
+	public static void clearCalendarTime(Calendar cal) {
+		if (cal == null) {
+			throw new IllegalArgumentException("The calendar must be defined.");
+		}
+		
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+	}
+	
+	/**
+	 * Parses a standard OpenHMIS formatted (openhmis.dateFormat) date returning the {@link java.util.Date} object.
+	 * @param dateText The date text to parse
+	 * @return The date or null if the text cannot be parsed.
+	 */
+	public static Date parseOpenhmisDateString(String dateText) {
+		if (StringUtils.isEmpty(dateText)) {
+			return null;
+		}
+		
+		SimpleDateFormat dateFormat = null;
+		if (dateText.length() == DATE_ONLY_TEXT_LENGTH) {
+			dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		} else {
+			dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		}
+		
+		try {
+			return dateFormat.parse(dateText);
+		} catch (ParseException pex) {
+			LOG.warn("Could not parse the date string '" + dateText + "'.", pex);
+			
+			return null;
+		}
 	}
 }
