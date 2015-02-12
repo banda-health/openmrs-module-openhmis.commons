@@ -13,27 +13,19 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import org.openmrs.OpenmrsObject;
-
+// @formatter:off
 /**
  * Represents classes that define instance attribute data.
  * @param <TOwner> The parent {@link ICustomizableInstance} class.
  * @param <TAttributeType> The {@link IInstanceAttributeType} class.
  */
-public interface IInstanceAttribute<TOwner extends ICustomizableInstance<?, ?>, //
-TAttributeType extends IInstanceAttributeType<?>> //
-        extends OpenmrsObject {
+public interface IInstanceAttribute<
+			TOwner extends ICustomizableInstance<TInstanceType, ?>,
+			TInstanceType extends IInstanceType<TAttributeType>,
+			TAttributeType extends IInstanceAttributeType<TInstanceType>>
+		extends IAttribute<TOwner, TAttributeType> {
+// @formatter:on
 	TOwner getOwner();
 	
 	void setOwner(TOwner owner);
-	
-	TAttributeType getAttributeType();
-	
-	void setAttributeType(TAttributeType attributeType);
-	
-	String getValue();
-	
-	void setValue(String value);
-	
-	Object getHydratedValue();
 }

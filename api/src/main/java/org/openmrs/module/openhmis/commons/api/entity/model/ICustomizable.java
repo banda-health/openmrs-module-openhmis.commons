@@ -5,30 +5,23 @@
  * http://license.openmrs.org
  *
  * Software distributed under the License is distributed on an "AS IS"
- * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
- * License for the specific language governing rights and limitations
- * under the License.
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See
+ * the License for the specific language governing rights and
+ * limitations under the License.
  *
- * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ * Copyright (C) OpenHMIS.  All Rights Reserved.
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import java.util.Set;
-
 import org.openmrs.customdatatype.CustomValueDescriptor;
 
-// @formatter:off
+import java.util.Set;
+
 /**
- * Represents a class that can be customized with attributes based on a specific {@link IInstanceType} that defines what
- * {@link IInstanceAttributeType} are allowed.
- * @param <TInstanceType> The {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceType} class.
- * @param <TAttribute> The {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttribute} class.
+ * Represents a class that can be customized with attributes.
+ * @param <TAttribute> The {@link org.openmrs.module.openhmis.commons.api.entity.model.ISimpleAttribute} class.
  */
-public interface ICustomizableInstance<
-			TInstanceType extends IInstanceType<?>,
-			TAttribute extends IInstanceAttribute<?, ?, ?>>
-		extends ICustomizable<TAttribute> {
-// @formatter:on
+public interface ICustomizable<TAttribute extends IAttribute<?, ?>> {
 	/**
 	 * Gets the {@link TAttribute}'s added to this instance.
 	 * @return The attributes for this instance.
@@ -36,7 +29,7 @@ public interface ICustomizableInstance<
 	Set<TAttribute> getAttributes();
 	
 	/**
-	 * ISimpleCustomizable Sets the {@link TAttribute}'s for this instance.
+	 * Sets the {@link TAttribute}'s for this instance.
 	 * @param attributes The attributes for this instance.
 	 */
 	void setAttributes(Set<TAttribute> attributes);
@@ -65,16 +58,4 @@ public interface ICustomizableInstance<
 	 * @return The active attributes.
 	 */
 	Set<TAttribute> getActiveAttributes(CustomValueDescriptor ofType);
-	
-	/**
-	 * Gets the {@link TInstanceType} for this instance.
-	 * @return The instance type.
-	 */
-	TInstanceType getInstanceType();
-	
-	/**
-	 * Sets the {@link TInstanceType} for this instance.
-	 * @param type The instance type.
-	 */
-	void setInstanceType(TInstanceType type);
 }

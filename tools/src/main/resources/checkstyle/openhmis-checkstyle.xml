@@ -366,7 +366,10 @@
 			<property name="tokens"
 					  value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS"/>
 		</module>
-		<module name="GenericWhitespace"/>
+
+		<!-- Allow whitespace after '<' and '>' as this is sometimes needed. -->
+		<!-- <module name="GenericWhitespace"/> -->
+
 
 		<!--
 			Check that lines wrapped on an operator place the operator at the next line.

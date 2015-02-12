@@ -13,62 +13,18 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import org.openmrs.BaseOpenmrsObject;
-import org.openmrs.module.openhmis.commons.attribute.AttributeUtil;
-
 // @formatter:off
 /**
  * Base class for {@link org.openmrs.OpenmrsObject} instance attribute models.
  * @param <TOwner> The class of the owning model.
  * @param <TAttributeType> The class of the attribute type.
  */
-public abstract class BaseInstanceAttributeObject<TOwner extends ICustomizableInstance<?, ?>,
-			TAttributeType extends IInstanceAttributeType<?>>
-		extends BaseOpenmrsObject
-		implements IInstanceAttribute<TOwner, TAttributeType> {
+public abstract class BaseInstanceAttributeObject<
+			TOwner extends ICustomizableInstance<TInstanceType, ?>,
+			TInstanceType extends IInstanceType<TAttributeType>,
+			TAttributeType extends IInstanceAttributeType<TInstanceType>>
+		extends BaseAttributeObject<TOwner, TAttributeType>
+		implements IInstanceAttribute<TOwner, TInstanceType, TAttributeType> {
 // @formatter:on
-	public static final long serialVersionUID = 0L;
-	
-	private Integer attributeId;
-	private TOwner owner;
-	private TAttributeType attributeType;
-	private String value;
-	
-	@Override
-	public Integer getId() {
-		return attributeId;
-	}
-	
-	@Override
-	public void setId(Integer id) {
-		attributeId = id;
-	}
-	
-	public TOwner getOwner() {
-		return owner;
-	}
-	
-	public void setOwner(TOwner owner) {
-		this.owner = owner;
-	}
-	
-	public TAttributeType getAttributeType() {
-		return attributeType;
-	}
-	
-	public void setAttributeType(TAttributeType attributeType) {
-		this.attributeType = attributeType;
-	}
-	
-	public String getValue() {
-		return value;
-	}
-	
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
-	public Object getHydratedValue() {
-		return AttributeUtil.tryToHydrateObject(getAttributeType().getFormat(), value);
-	}
+	public static final long serialVersionUID = 1L;
 }

@@ -46,7 +46,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P extends IObjectAuthorizationPrivileges>
         extends BaseOpenmrsService implements IObjectDataService<E> {
-	
 	private IHibernateRepository repository;
 	private Class entityClass = null;
 	

@@ -20,37 +20,37 @@ import org.openmrs.OpenmrsMetadata;
 /**
  * Represents a class that defines the type of an {@link ICustomizableInstance}. Each {@link IInstanceType} has attributes
  * that are only used by instances of that type and not shared with other instance types.
- * @param <AT>
+ * @param <TAttributeType> The instance attribute type class.
  */
-public interface IInstanceType<AT extends IInstanceAttributeType<?>> extends OpenmrsMetadata {
+public interface IInstanceType<TAttributeType extends IInstanceAttributeType<?>> extends OpenmrsMetadata {
 	/**
-	 * Gets the {@link AT}'s for this {@link IInstanceType}.
+	 * Gets the {@link TAttributeType}'s for this {@link IInstanceType}.
 	 * @return The attribute types.
 	 */
-	List<AT> getAttributeTypes();
+	List<TAttributeType> getAttributeTypes();
 	
 	/**
-	 * Sets the {@link AT}'s for this {@link IInstanceType}.
+	 * Sets the {@link TAttributeType}'s for this {@link IInstanceType}.
 	 * @param attributeTypes The attribute types.
 	 */
-	void setAttributeTypes(List<AT> attributeTypes);
+	void setAttributeTypes(List<TAttributeType> attributeTypes);
 	
 	/**
-	 * Adds the specified {@link AT}.
+	 * Adds the specified {@link TAttributeType}.
 	 * @param attributeType The attribute type to add.
 	 */
-	void addAttributeType(AT attributeType);
+	void addAttributeType(TAttributeType attributeType);
 	
 	/**
-	 * Adds the specified {@link AT} at the specified index.
+	 * Adds the specified {@link TAttributeType} at the specified index.
 	 * @param index The index where the attribute type will be inserted or {@code null} to insert at the end.
 	 * @param attributeType The attribute type to add.
 	 */
-	void addAttributeType(Integer index, AT attributeType);
+	void addAttributeType(Integer index, TAttributeType attributeType);
 	
 	/**
-	 * Removes the specified {@link AT}.
+	 * Removes the specified {@link TAttributeType}.
 	 * @param attributeType The attribute type to remove.
 	 */
-	void removeAttributeType(AT attributeType);
+	void removeAttributeType(TAttributeType attributeType);
 }

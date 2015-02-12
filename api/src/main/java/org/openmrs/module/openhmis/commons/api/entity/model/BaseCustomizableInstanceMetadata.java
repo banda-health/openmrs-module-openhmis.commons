@@ -13,10 +13,6 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import java.util.Set;
-
-import org.openmrs.customdatatype.CustomValueDescriptor;
-
 // @formatter:off
 /**
  * Base class for {@link org.openmrs.OpenmrsMetadata} models that can be customized based on an
@@ -24,44 +20,29 @@ import org.openmrs.customdatatype.CustomValueDescriptor;
  * @param <TInstanceType> The model instance type class.
  * @param <TAttribute> The model attribute class.
  */
-public abstract class BaseCustomizableInstanceMetadata<TInstanceType extends IInstanceType<?>,
-			TAttribute extends IInstanceAttribute<?, ?>>
-		extends BaseSerializableOpenmrsMetadata
+public abstract class BaseCustomizableInstanceMetadata<
+			TInstanceType extends IInstanceType<?>,
+			TAttribute extends IInstanceAttribute<?, ?, ?>>
+		extends BaseCustomizableMetadata<TAttribute>
 		implements ICustomizableInstance<TInstanceType, TAttribute> {
 // @formatter:on
-	public static final long serialVersionUID = 0L;
+	public static final long serialVersionUID = 1L;
 	
-	private Set<TAttribute> attributes;
 	private TInstanceType instanceType;
 	
 	@Override
-	public Set<TAttribute> getAttributes() {
-		return attributes;
+	@SuppressWarnings("unchecked")
+	protected void onAddAttribute(TAttribute attribute) {
+		super.onAddAttribute(attribute);
+		
+		((IInstanceAttribute)attribute).setOwner(this);
 	}
 	
 	@Override
-	public void setAttributes(Set<TAttribute> attributes) {
-		this.attributes = attributes;
-	}
-	
-	@Override
-	public Set<TAttribute> getActiveAttributes() {
-		return BaseCustomizableInstanceObject.getActiveAttributes(this);
-	}
-	
-	@Override
-	public Set<TAttribute> getActiveAttributes(CustomValueDescriptor ofType) {
-		return BaseCustomizableInstanceObject.getActiveAttributes(this, ofType);
-	}
-	
-	@Override
-	public void addAttribute(TAttribute attribute) {
-		BaseCustomizableInstanceObject.addAttribute(this, attribute);
-	}
-	
-	@Override
-	public void removeAttribute(TAttribute attribute) {
-		BaseCustomizableInstanceObject.removeAttribute(this, attribute);
+	protected void onRemoveAttribute(TAttribute attribute) {
+		super.onRemoveAttribute(attribute);
+		
+		attribute.setOwner(null);
 	}
 	
 	@Override

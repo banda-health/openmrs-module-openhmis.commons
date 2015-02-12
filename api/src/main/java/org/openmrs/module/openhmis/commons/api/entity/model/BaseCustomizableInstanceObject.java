@@ -13,13 +13,6 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import org.openmrs.BaseOpenmrsObject;
-import org.openmrs.customdatatype.CustomValueDescriptor;
-
 // @formatter:off
 /**
  * Base class for {@link org.openmrs.OpenmrsObject} models that can be customized based on an
@@ -27,96 +20,29 @@ import org.openmrs.customdatatype.CustomValueDescriptor;
  * @param <TInstanceType> The model instance type class.
  * @param <TAttribute> The model attribute class.
  */
-@SuppressWarnings("rawtypes")
-public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInstanceType<?>,
-			TAttribute extends IInstanceAttribute<?, ?>>
-		extends BaseOpenmrsObject
+public abstract class BaseCustomizableInstanceObject<
+			TInstanceType extends IInstanceType<?>,
+			TAttribute extends IInstanceAttribute<?, ?, ?>>
+		extends BaseCustomizableObject<TAttribute>
 		implements ICustomizableInstance<TInstanceType, TAttribute> {
 // @formatter:on
-	public static final long serialVersionUID = 0L;
+	public static final long serialVersionUID = 1L;
 	
-	private Set<TAttribute> attributes;
 	private TInstanceType instanceType;
 	
-	@SuppressWarnings({ "unchecked" })
-	static <TA extends IInstanceAttribute, I extends ICustomizableInstance> void addAttribute(I instance, TA attribute) {
-		if (attribute == null) {
-			throw new NullPointerException("The attribute to add must be defined.");
-		}
+	@Override
+	@SuppressWarnings("unchecked")
+	protected void onAddAttribute(TAttribute attribute) {
+		super.onAddAttribute(attribute);
 		
-		if (instance.getAttributes() == null) {
-			// Using LinkedHashSet because it is ordered by entry versus HashSet which is not.
-			instance.setAttributes(new LinkedHashSet<TA>());
-		}
-		
-		attribute.setOwner(instance);
-		instance.getAttributes().add(attribute);
+		((IInstanceAttribute)attribute).setOwner(this);
 	}
 	
-	@SuppressWarnings({ "unchecked" })
-	static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> void removeAttribute(
-	        I instance, TA attribute) {
-		if (instance.getAttributes() == null || attribute == null) {
-			return;
-		}
+	@Override
+	protected void onRemoveAttribute(TAttribute attribute) {
+		super.onRemoveAttribute(attribute);
+		
 		attribute.setOwner(null);
-		instance.getAttributes().remove(attribute);
-	}
-	
-	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
-	Set<TA> getActiveAttributes(I instance) {
-		Set<TA> ret = new HashSet<TA>();
-		if (instance.getAttributes() != null) {
-			for (TA attr : instance.getAttributes()) {
-				if (!attr.getAttributeType().isRetired()) {
-					ret.add(attr);
-				}
-			}
-		}
-		return ret;
-	}
-	
-	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
-	Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
-		Set<TA> ret = new HashSet<TA>();
-		if (instance.getAttributes() != null) {
-			for (TA attr : instance.getAttributes()) {
-				if (attr.getAttributeType().equals(ofType) && !attr.getAttributeType().isRetired()) {
-					ret.add(attr);
-				}
-			}
-		}
-		return ret;
-	}
-	
-	@Override
-	public Set<TAttribute> getAttributes() {
-		return attributes;
-	}
-	
-	@Override
-	public void setAttributes(Set<TAttribute> attributes) {
-		this.attributes = attributes;
-	}
-	
-	@Override
-	public Set<TAttribute> getActiveAttributes() {
-		return getActiveAttributes(this);
-	}
-	
-	@Override
-	public Set<TAttribute> getActiveAttributes(CustomValueDescriptor ofType) {
-		return getActiveAttributes(this, ofType);
-	}
-	
-	@Override
-	public void addAttribute(TAttribute attribute) {
-		addAttribute(this, attribute);
-	}
-	
-	@Override
-	public void removeAttribute(TAttribute attribute) {
-		removeAttribute(this, attribute);
 	}
 	
 	@Override

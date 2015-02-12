@@ -18,25 +18,27 @@ import java.util.List;
 
 import org.openmrs.api.APIException;
 
+// @formatter:off
 /**
  * Base class for instance type models.
- * @param <AT> The attribute type class.
+ * @param <TAttributeType> The attribute type class.
  */
-public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttributeType<?>>
-        extends BaseSerializableOpenmrsMetadata implements IInstanceType<AT> {
+public abstract class BaseCustomizableInstanceType<TAttributeType extends IInstanceAttributeType<?>>
+        extends BaseSerializableOpenmrsMetadata implements IInstanceType<TAttributeType> {
+// @formatter:on
 	public static final long serialVersionUID = 0L;
 	
 	private Integer customizableInstanceTypeId;
-	private List<AT> attributeTypes;
+	private List<TAttributeType> attributeTypes;
 	
 	@Override
-	public void addAttributeType(AT attributeType) {
+	public void addAttributeType(TAttributeType attributeType) {
 		addAttributeType(null, attributeType);
 	}
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public void addAttributeType(Integer index, AT attributeType) {
+	public void addAttributeType(Integer index, TAttributeType attributeType) {
 		if (attributeType == null) {
 			throw new NullPointerException("The payment mode attribute type to add must be defined.");
 		}
@@ -45,12 +47,11 @@ public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttribute
 			// Note that this may cause issues if the attribute type class does not have this class as the owner class.
 			//  I'm not sure how to make generics check this at compile-time, I tried with self-bounded generic parameters
 			//  but could never get it working.  Such is life.
-			IInstanceAttributeType temp = attributeType;
-			temp.setOwner(this);
+			((IInstanceAttributeType)attributeType).setOwner(this);
 		}
 		
 		if (this.attributeTypes == null) {
-			this.attributeTypes = new ArrayList<AT>();
+			this.attributeTypes = new ArrayList<TAttributeType>();
 		}
 		
 		if (index == null) {
@@ -70,7 +71,7 @@ public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttribute
 	}
 	
 	@Override
-	public void removeAttributeType(AT attributeType) {
+	public void removeAttributeType(TAttributeType attributeType) {
 		if (attributeType != null && this.attributeTypes != null) {
 			this.attributeTypes.remove(attributeType);
 		}
@@ -87,12 +88,12 @@ public abstract class BaseCustomizableInstanceType<AT extends IInstanceAttribute
 	}
 	
 	@Override
-	public List<AT> getAttributeTypes() {
+	public List<TAttributeType> getAttributeTypes() {
 		return attributeTypes;
 	}
 	
 	@Override
-	public void setAttributeTypes(List<AT> attributeTypes) {
+	public void setAttributeTypes(List<TAttributeType> attributeTypes) {
 		this.attributeTypes = attributeTypes;
 	}
 }
