@@ -13,6 +13,12 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
+import org.openmrs.customdatatype.CustomValueDescriptor;
+
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 // @formatter:off
 /**
  * Base class for {@link org.openmrs.OpenmrsObject} models that can be customized based on an
@@ -46,7 +52,7 @@ public abstract class BaseCustomizableInstanceObject<
 	}
 	
 	@SuppressWarnings({ "unchecked" })
-	static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> void removeAttribute(
+	static <TA extends IInstanceAttribute<?, ?, ?>, I extends ICustomizableInstance<?, ? extends TA>> void removeAttribute(
 	        I instance, TA attribute) {
 		if (instance.getAttributes() == null || attribute == null) {
 			return;
@@ -55,7 +61,7 @@ public abstract class BaseCustomizableInstanceObject<
 		instance.getAttributes().remove(attribute);
 	}
 	
-	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
+	public static <TA extends IInstanceAttribute<?, ?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
 	Set<TA> getActiveAttributes(I instance) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
@@ -68,7 +74,7 @@ public abstract class BaseCustomizableInstanceObject<
 		return ret;
 	}
 	
-	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
+	public static <TA extends IInstanceAttribute<?, ?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
 	Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
