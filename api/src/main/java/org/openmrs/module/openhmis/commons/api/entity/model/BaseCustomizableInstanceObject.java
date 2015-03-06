@@ -30,6 +30,57 @@ public abstract class BaseCustomizableInstanceObject<
 	
 	private TInstanceType instanceType;
 	
+	@SuppressWarnings({ "unchecked" })
+	static <TA extends IInstanceAttribute, I extends ICustomizableInstance> void addAttribute(I instance, TA attribute) {
+		if (attribute == null) {
+			throw new NullPointerException("The attribute to add must be defined.");
+		}
+		
+		if (instance.getAttributes() == null) {
+			// Using LinkedHashSet because it is ordered by entry versus HashSet which is not.
+			instance.setAttributes(new LinkedHashSet<TA>());
+		}
+		
+		attribute.setOwner(instance);
+		instance.getAttributes().add(attribute);
+	}
+	
+	@SuppressWarnings({ "unchecked" })
+	static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> void removeAttribute(
+	        I instance, TA attribute) {
+		if (instance.getAttributes() == null || attribute == null) {
+			return;
+		}
+		attribute.setOwner(null);
+		instance.getAttributes().remove(attribute);
+	}
+	
+	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
+	Set<TA> getActiveAttributes(I instance) {
+		Set<TA> ret = new HashSet<TA>();
+		if (instance.getAttributes() != null) {
+			for (TA attr : instance.getAttributes()) {
+				if (!attr.getAttributeType().isRetired()) {
+					ret.add(attr);
+				}
+			}
+		}
+		return ret;
+	}
+	
+	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
+	Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
+		Set<TA> ret = new HashSet<TA>();
+		if (instance.getAttributes() != null) {
+			for (TA attr : instance.getAttributes()) {
+				if (attr.getAttributeType().equals(ofType) && !attr.getAttributeType().isRetired()) {
+					ret.add(attr);
+				}
+			}
+		}
+		return ret;
+	}
+	
 	@Override
 	@SuppressWarnings("unchecked")
 	protected void onAddAttribute(TAttribute attribute) {
