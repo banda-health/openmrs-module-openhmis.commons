@@ -23,7 +23,7 @@ import org.openmrs.api.APIException;
  * Base class for instance type models.
  * @param <TAttributeType> The attribute type class.
  */
-public abstract class BaseCustomizableInstanceType<TAttributeType extends IInstanceAttributeType<?>>
+public abstract class BaseInstanceCustomizableType<TAttributeType extends IInstanceAttributeType<?>>
         extends BaseSerializableOpenmrsMetadata implements IInstanceType<TAttributeType> {
 // @formatter:on
 	public static final long serialVersionUID = 0L;

@@ -1,7 +1,7 @@
 package org.openmrs.module.webservices.rest.resource;
 
-import org.openmrs.OpenmrsObject;
-import org.openmrs.module.openhmis.commons.api.entity.model.ICustomizableInstance;
+import org.openmrs.OpenmrsData;
+import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceCustomizable;
 import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttribute;
 import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceType;
 import org.openmrs.module.webservices.rest.web.annotation.PropertySetter;
@@ -11,16 +11,16 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceD
 
 // @formatter:off
 /**
- * REST resource for {@link org.openmrs.OpenmrsObject}
- * {@link org.openmrs.module.openhmis.commons.api.entity.model.ICustomizableInstance}s.
+ * REST resource for {@link org.openmrs.OpenmrsData}
+ * {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceCustomizable}s.
  * @param <E> The customizable instance model class
  * @param <TAttribute> The model attribute class
  */
-public abstract class BaseRestCustomizableInstanceObjectResource<
-			E extends ICustomizableInstance<TInstanceType, TAttribute> & OpenmrsObject,
+public abstract class BaseRestInstanceCustomizableDataResource<
+			E extends IInstanceCustomizable<TInstanceType, TAttribute> & OpenmrsData,
 			TInstanceType extends IInstanceType<?>,
 			TAttribute extends IInstanceAttribute<E, ?, ?>>
-        extends BaseRestCustomizableObjectResource<E, TAttribute> {
+        extends BaseRestCustomizableDataResource<E, TAttribute> {
 // @formatter:on
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {

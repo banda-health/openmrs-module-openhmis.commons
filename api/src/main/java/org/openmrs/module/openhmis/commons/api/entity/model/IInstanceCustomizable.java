@@ -24,7 +24,7 @@ import org.openmrs.customdatatype.CustomValueDescriptor;
  * @param <TInstanceType> The {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceType} class.
  * @param <TAttribute> The {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttribute} class.
  */
-public interface ICustomizableInstance<
+public interface IInstanceCustomizable<
 			TInstanceType extends IInstanceType<?>,
 			TAttribute extends IInstanceAttribute<?, ?, ?>>
 		extends ICustomizable<TAttribute> {

@@ -18,7 +18,7 @@ import java.util.List;
 import org.openmrs.OpenmrsMetadata;
 
 /**
- * Represents a class that defines the type of an {@link ICustomizableInstance}. Each {@link IInstanceType} has attributes
+ * Represents a class that defines the type of an {@link IInstanceCustomizable}. Each {@link IInstanceType} has attributes
  * that are only used by instances of that type and not shared with other instance types.
  * @param <TAttributeType> The instance attribute type class.
  */

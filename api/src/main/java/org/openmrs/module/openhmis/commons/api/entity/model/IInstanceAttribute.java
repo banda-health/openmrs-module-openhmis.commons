@@ -16,11 +16,11 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 // @formatter:off
 /**
  * Represents classes that define instance attribute data.
- * @param <TOwner> The parent {@link ICustomizableInstance} class.
+ * @param <TOwner> The parent {@link IInstanceCustomizable} class.
  * @param <TAttributeType> The {@link IInstanceAttributeType} class.
  */
 public interface IInstanceAttribute<
-			TOwner extends ICustomizableInstance<TInstanceType, ?>,
+			TOwner extends IInstanceCustomizable<TInstanceType, ?>,
 			TInstanceType extends IInstanceType<TAttributeType>,
 			TAttributeType extends IInstanceAttributeType<TInstanceType>>
 		extends IAttribute<TOwner, TAttributeType> {

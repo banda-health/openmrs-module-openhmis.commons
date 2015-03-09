@@ -20,7 +20,7 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
  * @param <TAttributeType> The class of the attribute type.
  */
 public abstract class BaseInstanceAttributeData<
-			TOwner extends ICustomizableInstance<TInstanceType, ?>,
+			TOwner extends IInstanceCustomizable<TInstanceType, ?>,
 			TInstanceType extends IInstanceType<TAttributeType>,
 			TAttributeType extends IInstanceAttributeType<TInstanceType>>
 		extends BaseAttributeData<TOwner, TAttributeType>
