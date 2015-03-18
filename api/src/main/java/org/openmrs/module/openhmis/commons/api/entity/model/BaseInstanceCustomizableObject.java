@@ -13,12 +13,11 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
+import org.openmrs.customdatatype.CustomValueDescriptor;
+
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import org.openmrs.BaseOpenmrsObject;
-import org.openmrs.customdatatype.CustomValueDescriptor;
 
 // @formatter:off
 /**
@@ -27,19 +26,18 @@ import org.openmrs.customdatatype.CustomValueDescriptor;
  * @param <TInstanceType> The model instance type class.
  * @param <TAttribute> The model attribute class.
  */
-@SuppressWarnings("rawtypes")
-public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInstanceType<?>,
-			TAttribute extends IInstanceAttribute<?, ?>>
-		extends BaseOpenmrsObject
-		implements ICustomizableInstance<TInstanceType, TAttribute> {
+public abstract class BaseInstanceCustomizableObject<
+			TInstanceType extends IInstanceType<?>,
+			TAttribute extends IInstanceAttribute<?, ?, ?>>
+		extends BaseCustomizableObject<TAttribute>
+		implements IInstanceCustomizable<TInstanceType, TAttribute> {
 // @formatter:on
-	public static final long serialVersionUID = 0L;
+	public static final long serialVersionUID = 1L;
 	
-	private Set<TAttribute> attributes;
 	private TInstanceType instanceType;
 	
 	@SuppressWarnings({ "unchecked" })
-	static <TA extends IInstanceAttribute, I extends ICustomizableInstance> void addAttribute(I instance, TA attribute) {
+	static <TA extends IInstanceAttribute, I extends IInstanceCustomizable> void addAttribute(I instance, TA attribute) {
 		if (attribute == null) {
 			throw new NullPointerException("The attribute to add must be defined.");
 		}
@@ -54,7 +52,7 @@ public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInst
 	}
 	
 	@SuppressWarnings({ "unchecked" })
-	static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> void removeAttribute(
+	static <TA extends IInstanceAttribute<?, ?, ?>, I extends IInstanceCustomizable<?, ? extends TA>> void removeAttribute(
 	        I instance, TA attribute) {
 		if (instance.getAttributes() == null || attribute == null) {
 			return;
@@ -63,7 +61,7 @@ public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInst
 		instance.getAttributes().remove(attribute);
 	}
 	
-	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
+	public static <TA extends IInstanceAttribute<?, ?, ?>, I extends IInstanceCustomizable<?, ? extends TA>> //
 	Set<TA> getActiveAttributes(I instance) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
@@ -76,7 +74,7 @@ public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInst
 		return ret;
 	}
 	
-	public static <TA extends IInstanceAttribute<?, ?>, I extends ICustomizableInstance<?, ? extends TA>> //
+	public static <TA extends IInstanceAttribute<?, ?, ?>, I extends IInstanceCustomizable<?, ? extends TA>> //
 	Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
@@ -90,33 +88,18 @@ public abstract class BaseCustomizableInstanceObject<TInstanceType extends IInst
 	}
 	
 	@Override
-	public Set<TAttribute> getAttributes() {
-		return attributes;
+	@SuppressWarnings("unchecked")
+	protected void onAddAttribute(TAttribute attribute) {
+		super.onAddAttribute(attribute);
+		
+		((IInstanceAttribute)attribute).setOwner(this);
 	}
 	
 	@Override
-	public void setAttributes(Set<TAttribute> attributes) {
-		this.attributes = attributes;
-	}
-	
-	@Override
-	public Set<TAttribute> getActiveAttributes() {
-		return getActiveAttributes(this);
-	}
-	
-	@Override
-	public Set<TAttribute> getActiveAttributes(CustomValueDescriptor ofType) {
-		return getActiveAttributes(this, ofType);
-	}
-	
-	@Override
-	public void addAttribute(TAttribute attribute) {
-		addAttribute(this, attribute);
-	}
-	
-	@Override
-	public void removeAttribute(TAttribute attribute) {
-		removeAttribute(this, attribute);
+	protected void onRemoveAttribute(TAttribute attribute) {
+		super.onRemoveAttribute(attribute);
+		
+		attribute.setOwner(null);
 	}
 	
 	@Override

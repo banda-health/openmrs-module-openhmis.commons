@@ -43,29 +43,36 @@ public class AttributeUtil {
 		//  not, it should use the general java serialization stuff unless the class is some type we know about and can
 		//  do some kind of special deserialization for.
 		
-		Object result = null;
+		Object result = value;
 		
 		try {
-			Class c = OpenmrsClassLoader.getInstance().loadClass(className);
-			
-			// Attempt to hydrate the attribute using Attributable.hydrate(String)
-			try {
-				Object instance = c.newInstance();
-				
-				Attributable attr = Utility.as(Attributable.class, instance);
-				if (attr != null) {
-					result = attr.hydrate(value);
+			Class cls = Class.forName(className);
+			if (Attributable.class.isAssignableFrom(cls)) {
+				try {
+					Class c = OpenmrsClassLoader.getInstance().loadClass(className);
+					
+					// Attempt to hydrate the attribute using Attributable.hydrate(String)
+					try {
+						Object instance = c.newInstance();
+						
+						Attributable attr = Utility.as(Attributable.class, instance);
+						if (attr != null) {
+							result = attr.hydrate(value);
+						}
+					} catch (InstantiationException e) {
+						// try to hydrate the object with the String constructor
+						LOG.trace("Unable to call no-arg constructor for class: " + c.getName());
+						
+						result = c.getConstructor(String.class).newInstance(value);
+					}
+				} catch (NotYetPersistedException e) {
+					result = null;
+				} catch (Exception ex) {
+					LOG.warn("Unable to hydrate value: " + value + " for type: " + className, ex);
 				}
-			} catch (InstantiationException e) {
-				// try to hydrate the object with the String constructor
-				LOG.trace("Unable to call no-arg constructor for class: " + c.getName());
-				
-				result = c.getConstructor(String.class).newInstance(value);
 			}
-		} catch (NotYetPersistedException e) {
-			result = null;
-		} catch (Exception ex) {
-			LOG.warn("Unable to hydrate value: " + value + " for type: " + className, ex);
+		} catch (ClassNotFoundException cnfe) {
+			LOG.warn("Unable to parse '" + className + "' to a known class.");
 		}
 		
 		return result;

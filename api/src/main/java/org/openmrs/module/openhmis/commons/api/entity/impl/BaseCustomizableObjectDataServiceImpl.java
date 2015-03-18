@@ -13,19 +13,19 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.impl;
 
+import org.openmrs.OpenmrsObject;
+import org.openmrs.module.openhmis.commons.api.entity.model.BaseCustomizableObject;
+import org.openmrs.module.openhmis.commons.api.entity.security.IObjectAuthorizationPrivileges;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.openmrs.OpenmrsObject;
-import org.openmrs.module.openhmis.commons.api.entity.model.BaseCustomizableInstanceObject;
-import org.openmrs.module.openhmis.commons.api.entity.security.IObjectAuthorizationPrivileges;
-
 // @formatter:off
 /**
- * Base data service for {@link BaseCustomizableInstanceObject} models.
+ * Base data service for {@link org.openmrs.module.openhmis.commons.api.entity.model.BaseCustomizableObject} models.
  * @param <E> The model class.
  */
-public abstract class BaseCustomizableObjectDataServiceImpl<E extends BaseCustomizableInstanceObject,
+public abstract class BaseCustomizableObjectDataServiceImpl<E extends BaseCustomizableObject<?>,
 			P extends IObjectAuthorizationPrivileges>
 		extends BaseObjectDataServiceImpl<E, P> {
 // @formatter:on

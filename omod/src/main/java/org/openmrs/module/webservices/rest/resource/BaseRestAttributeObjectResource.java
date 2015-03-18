@@ -1,32 +1,30 @@
 package org.openmrs.module.webservices.rest.resource;
 
 import org.openmrs.Concept;
+import org.openmrs.OpenmrsObject;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.openhmis.commons.api.entity.model.BaseInstanceAttributeObject;
-import org.openmrs.module.openhmis.commons.api.entity.model.ICustomizableInstance;
-import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttributeType;
-import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceType;
+import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
+import org.openmrs.module.openhmis.commons.api.entity.model.IAttribute;
+import org.openmrs.module.openhmis.commons.api.entity.model.IAttributeType;
 import org.openmrs.module.webservices.rest.web.annotation.PropertyGetter;
+import org.openmrs.module.webservices.rest.web.annotation.PropertySetter;
 import org.openmrs.module.webservices.rest.web.representation.RefRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
+import org.openmrs.module.webservices.rest.web.response.ObjectNotFoundException;
 
+// @formatter:off
 /**
  * REST resource for {@link org.openmrs.OpenmrsObject}
- * {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttribute}s.
+ * {@link org.openmrs.module.openhmis.commons.api.entity.model.IAttribute}s.
  * @param <E> The customizable instance attribute class
- * @param <TOwner> The owning model class
- * @param <TInstanceType> The instance type class
- * @param <TAttributeType> The attribute type class
  */
-public abstract class BaseRestInstanceAttributeObjectResource<//
-E extends BaseInstanceAttributeObject<TOwner, TAttributeType>, //
-TOwner extends ICustomizableInstance<TInstanceType, E>, //
-TInstanceType extends IInstanceType<TAttributeType>, //
-TAttributeType extends IInstanceAttributeType<TInstanceType>> //
+public abstract class BaseRestAttributeObjectResource<
+			E extends IAttribute<?, TAttributeType> & OpenmrsObject,
+			TAttributeType extends IAttributeType>
         extends BaseRestObjectResource<E> {
-	
+// @formatter:on
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		DelegatingResourceDescription description = super.getRepresentationDescription(rep);
@@ -47,8 +45,13 @@ TAttributeType extends IInstanceAttributeType<TInstanceType>> //
 			
 			return concept == null ? "" : concept.getDisplayString();
 		} else {
-			return instance.getValue();
+			return instance.getHydratedValue();
 		}
+	}
+	
+	@PropertySetter("attributeType")
+	public void setAttributeType(E instance, TAttributeType attributeType) {
+		instance.setAttributeType(attributeType);
 	}
 	
 	public Integer getAttributeOrder(E instance) {

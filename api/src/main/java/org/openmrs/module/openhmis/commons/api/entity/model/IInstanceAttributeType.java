@@ -13,35 +13,15 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import org.openmrs.OpenmrsMetadata;
-import org.openmrs.customdatatype.CustomValueDescriptor;
-
+// @formatter:off
 /**
- * Represents classes that define the attribute type information.
+ * Represents classes that define the attribute type information tied to a specific instance type.
  * @param <TOwner> The parent {@link IInstanceType} class.
  */
-public interface IInstanceAttributeType<TOwner extends IInstanceType<?>> extends OpenmrsMetadata, CustomValueDescriptor {
+public interface 	IInstanceAttributeType<TOwner extends IInstanceType<?>>
+		extends IAttributeType {
+// @formatter:on
 	TOwner getOwner();
 	
 	void setOwner(TOwner owner);
-	
-	Integer getAttributeOrder();
-	
-	void setAttributeOrder(Integer attributeOrder);
-	
-	String getFormat();
-	
-	void setFormat(String format);
-	
-	Integer getForeignKey();
-	
-	void setForeignKey(Integer foreignKey);
-	
-	String getRegExp();
-	
-	void setRegExp(String regExp);
-	
-	Boolean getRequired();
-	
-	void setRequired(Boolean required);
 }

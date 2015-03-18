@@ -17,12 +17,18 @@ import java.util.Set;
 
 import org.openmrs.customdatatype.CustomValueDescriptor;
 
+// @formatter:off
 /**
  * Represents a class that can be customized with attributes based on a specific {@link IInstanceType} that defines what
  * {@link IInstanceAttributeType} are allowed.
- * @param <TAttribute>
+ * @param <TInstanceType> The {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceType} class.
+ * @param <TAttribute> The {@link org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttribute} class.
  */
-public interface ICustomizableInstance<TInstanceType extends IInstanceType<?>, TAttribute extends IInstanceAttribute<?, ?>> {
+public interface IInstanceCustomizable<
+			TInstanceType extends IInstanceType<?>,
+			TAttribute extends IInstanceAttribute<?, ?, ?>>
+		extends ICustomizable<TAttribute> {
+// @formatter:on
 	/**
 	 * Gets the {@link TAttribute}'s added to this instance.
 	 * @return The attributes for this instance.
@@ -30,7 +36,7 @@ public interface ICustomizableInstance<TInstanceType extends IInstanceType<?>, T
 	Set<TAttribute> getAttributes();
 	
 	/**
-	 * Sets the {@link TAttribute}'s for this instance.
+	 * ISimpleCustomizable Sets the {@link TAttribute}'s for this instance.
 	 * @param attributes The attributes for this instance.
 	 */
 	void setAttributes(Set<TAttribute> attributes);

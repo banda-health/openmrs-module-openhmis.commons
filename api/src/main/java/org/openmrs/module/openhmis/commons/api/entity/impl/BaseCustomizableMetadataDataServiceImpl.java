@@ -13,17 +13,17 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.impl;
 
+import org.openmrs.OpenmrsObject;
+import org.openmrs.module.openhmis.commons.api.entity.model.BaseCustomizableMetadata;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.openmrs.OpenmrsObject;
-import org.openmrs.module.openhmis.commons.api.entity.model.BaseCustomizableInstanceMetadata;
-
 /**
- * Base data service for {@link BaseCustomizableInstanceMetadata} models.
+ * Base data service for {@link org.openmrs.module.openhmis.commons.api.entity.model.BaseCustomizableMetadata} models.
  * @param <E> The model class.
  */
-public abstract class BaseCustomizableMetadataDataServiceImpl<E extends BaseCustomizableInstanceMetadata>
+public abstract class BaseCustomizableMetadataDataServiceImpl<E extends BaseCustomizableMetadata<?>>
         extends BaseMetadataDataServiceImpl<E> {
 	@Override
 	@SuppressWarnings("unchecked")
