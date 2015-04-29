@@ -86,4 +86,26 @@ public class Utility {
 			return null;
 		}
 	}
+	
+	/**
+	 * Parses a standard OpenHMIS formatted (openhmis.dateFormat) date returning the {@link java.util.Date} object.
+	 * @param dateText The date text to parse
+	 * @return The date or null if the text cannot be parsed.
+	 */
+	public static Date parseOpenhmisDateStringWithSeconds(String dateText) {
+		if (StringUtils.isEmpty(dateText)) {
+			return null;
+		}
+		
+		SimpleDateFormat dateFormat = null;
+		dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		
+		try {
+			return dateFormat.parse(dateText);
+		} catch (ParseException pex) {
+			LOG.warn("Could not parse the date string '" + dateText + "'.", pex);
+			
+			return null;
+		}
+	}
 }
