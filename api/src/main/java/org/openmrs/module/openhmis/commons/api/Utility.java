@@ -28,6 +28,8 @@ import java.util.Date;
 public class Utility {
 	private static final Log LOG = LogFactory.getLog(Utility.class);
 	private static final int DATE_ONLY_TEXT_LENGTH = 10;
+	private static final int DATE_TIME_TEXT_LENGTH = 16;
+	private static final int DATE_TIME_SECOND_TEXT_LENGTH = 19;
 	
 	protected Utility() {}
 	
@@ -74,38 +76,23 @@ public class Utility {
 		SimpleDateFormat dateFormat = null;
 		if (dateText.length() == DATE_ONLY_TEXT_LENGTH) {
 			dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		} else {
+		} else if (dateText.length() == DATE_TIME_TEXT_LENGTH) {
 			dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		} else if (dateText.length() == DATE_TIME_SECOND_TEXT_LENGTH) {
+			dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		}
 		
-		try {
-			return dateFormat.parse(dateText);
-		} catch (ParseException pex) {
-			LOG.warn("Could not parse the date string '" + dateText + "'.", pex);
-			
-			return null;
-		}
-	}
-	
-	/**
-	 * Parses a standard OpenHMIS formatted (openhmis.dateFormat) date returning the {@link java.util.Date} object.
-	 * @param dateText The date text to parse
-	 * @return The date or null if the text cannot be parsed.
-	 */
-	public static Date parseOpenhmisDateStringWithSeconds(String dateText) {
-		if (StringUtils.isEmpty(dateText)) {
-			return null;
+		Date result = null;
+		if (dateFormat == null) {
+			LOG.warn("Could not parse the date string '" + dateText + "'.");
+		} else {
+			try {
+				result = dateFormat.parse(dateText);
+			} catch (ParseException pex) {
+				LOG.warn("Could not parse the date string '" + dateText + "'.", pex);
+			}
 		}
 		
-		SimpleDateFormat dateFormat = null;
-		dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		
-		try {
-			return dateFormat.parse(dateText);
-		} catch (ParseException pex) {
-			LOG.warn("Could not parse the date string '" + dateText + "'.", pex);
-			
-			return null;
-		}
+		return result;
 	}
 }
