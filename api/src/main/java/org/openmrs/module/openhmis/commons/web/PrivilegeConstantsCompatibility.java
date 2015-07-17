@@ -1,3 +1,16 @@
+/*
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ *
+ * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ */
 package org.openmrs.module.openhmis.commons.web;
 
 import org.openmrs.Privilege;
@@ -64,118 +77,86 @@ public class PrivilegeConstantsCompatibility {
 	}
 	
 	public String getAddEncountersPrivilege() {
-		String currentPrivilegeName = ADD_ENCOUNTERS;
-		return checkPrivilege(currentPrivilegeName, null);
+		return checkPrivilege(ADD_ENCOUNTERS, null);
 	}
 	
 	public String getAddVisitsPrivilege() {
-		String currentPrivilegeName = ADD_VISITS;
-		return checkPrivilege(currentPrivilegeName, null);
+		return checkPrivilege(ADD_VISITS, null);
 	}
 	
 	public String getEditEncountersPrivilege() {
-		String currentPrivilegeName = EDIT_ENCOUNTERS;
-		return checkPrivilege(currentPrivilegeName, null);
+		return checkPrivilege(EDIT_ENCOUNTERS, null);
 	}
 	
 	public String getEditPatientsPrivilege() {
-		String currentPrivilegeName = EDIT_PATIENTS;
-		return checkPrivilege(currentPrivilegeName, null);
+		return checkPrivilege(EDIT_PATIENTS, null);
 	}
 	
 	public String getEditVisitsPrivilege() {
-		String currentPrivilegeName = EDIT_VISITS;
-		return checkPrivilege(currentPrivilegeName, null);
+		return checkPrivilege(EDIT_VISITS, null);
 	}
 	
 	public String getDashboardSummaryPrivilege() {
-		String currentPrivilegeName = DASHBOARD_SUMMARY;
-		return checkPrivilege(currentPrivilegeName, null);
+		return checkPrivilege(DASHBOARD_SUMMARY, null);
 	}
 	
 	public String getDashboardDemographicsPrivilege() {
-		String currentPrivilegeName = DASHBOARD_DEMOGRAPHICS;
-		return checkPrivilege(currentPrivilegeName, null);
+		return checkPrivilege(DASHBOARD_DEMOGRAPHICS, null);
 	}
 	
 	public String getDashboardOverviewPrivilege() {
-		String currentPrivilegeName = DASHBOARD_OVERVIEW;
-		return checkPrivilege(currentPrivilegeName, null);
+		return checkPrivilege(DASHBOARD_OVERVIEW, null);
 	}
 	
 	public String getDashboardVisitsPrivilege() {
-		String currentPrivilegeName = DASHBOARD_VISITS;
-		return checkPrivilege(currentPrivilegeName, null);
+		return checkPrivilege(DASHBOARD_VISITS, null);
 	}
 	
 	public String getViewAdminFunctionsPrivilege() {
-		String currentPrivilegeName = GET_ADMIN_FUNCTIONS;
-		String oldPrivilegeName = VIEW_ADMIN_FUNCTIONS;
-		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
+		return checkPrivilege(GET_ADMIN_FUNCTIONS, VIEW_ADMIN_FUNCTIONS);
 	}
 	
 	public String getViewEncountersPrivilege() {
-		String currentPrivilegeName = GET_ENCOUNTERS;
-		String oldPrivilegeName = VIEW_ENCOUNTERS;
-		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
+		return checkPrivilege(GET_ENCOUNTERS, VIEW_ENCOUNTERS);
 	}
 	
 	public String getViewNavigationMenuPrivilege() {
-		String currentPrivilegeName = GET_NAVIGATION_MENU;
-		String oldPrivilegeName = VIEW_NAVIGATION_MENU;
-		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
+		return checkPrivilege(GET_NAVIGATION_MENU, VIEW_NAVIGATION_MENU);
 	}
 	
 	public String getViewObsPrivilege() {
-		String currentPrivilegeName = GET_OBS;
-		String oldPrivilegeName = VIEW_OBS;
-		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
+		return checkPrivilege(GET_OBS, VIEW_OBS);
 	}
 	
 	public String getViewPatientsPrivilege() {
-		String currentPrivilegeName = GET_PATIENTS;
-		String oldPrivilegeName = VIEW_PATIENTS;
-		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
+		return checkPrivilege(GET_PATIENTS, VIEW_PATIENTS);
 	}
 	
 	public String getViewVisitPrivilege() {
-		String currentPrivilegeName = GET_VISITS;
-		String oldPrivilegeName = VIEW_VISITS;
-		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
+		return checkPrivilege(GET_VISITS, VIEW_VISITS);
 	}
 	
 	public String getViewProvidersPrivilege() {
-		String currentPrivilegeName = GET_PROVIDERS;
-		String oldPrivilegeName = VIEW_PROVIDERS;
-		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
+		return checkPrivilege(GET_PROVIDERS, VIEW_PROVIDERS);
 	}
 	
 	public String getViewRolesPrivilege() {
-		String currentPrivilegeName = GET_ROLES;
-		String oldPrivilegeName = VIEW_ROLES;
-		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
+		return checkPrivilege(GET_ROLES, VIEW_ROLES);
 	}
 	
 	public String getViewUsersPrivilege() {
-		String currentPrivilegeName = GET_USERS;
-		String oldPrivilegeName = VIEW_USERS;
-		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
+		return checkPrivilege(GET_USERS, VIEW_USERS);
 	}
 	
 	public String getViewConceptsPrivilege() {
-		String currentPrivilegeName = GET_CONCEPTS;
-		String oldPrivilegeName = VIEW_CONCEPTS;
-		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
+		return checkPrivilege(GET_CONCEPTS, VIEW_CONCEPTS);
 	}
 	
 	public String getViewLocationsPrivilege() {
-		String currentPrivilegeName = GET_LOCATIONS;
-		String oldPrivilegeName = VIEW_LOCATIONS;
-		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
+		return checkPrivilege(GET_LOCATIONS, VIEW_LOCATIONS);
 	}
 	
 	public String getEditPatientIdentifiersPrivilege() {
-		String currentPrivilegeName = EDIT_PATIENT_IDENTIFIERS;
-		return checkPrivilege(currentPrivilegeName, null);
+		return checkPrivilege(EDIT_PATIENT_IDENTIFIERS, null);
 	}
 }
