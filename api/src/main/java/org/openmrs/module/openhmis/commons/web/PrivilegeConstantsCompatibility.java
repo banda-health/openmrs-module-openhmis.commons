@@ -2,6 +2,7 @@ package org.openmrs.module.openhmis.commons.web;
 
 import org.openmrs.Privilege;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.openhmis.commons.api.exception.PrivilegeException;
 
 /**
  * Gets the correct default view visit privilege needed.
@@ -44,146 +45,137 @@ public class PrivilegeConstantsCompatibility {
 	public static final String VIEW_LOCATIONS = "View Locations";
 	public static final String EDIT_PATIENT_IDENTIFIERS = "Edit Patient Identifiers";
 	
-	public String checkPrivilege(String para1, String para2) {
-		String privilege1;
-		Privilege privilege = Context.getUserService().getPrivilege(para1);
+	private String checkPrivilege(String currentPrivilegeName, String oldPrivilegeName) {
+		String privilegeName;
+		Privilege privilege = Context.getUserService().getPrivilege(currentPrivilegeName);
 		
 		if (privilege != null) {
-			privilege1 = para1;
+			privilegeName = currentPrivilegeName;
 		} else {
-			if (para2 == null) {
-				throw new NullPointerException("The privilege you are referring to is missing");
+			if (oldPrivilegeName == null) {
+				throw new PrivilegeException("The privilege " + currentPrivilegeName + " was not found in the openmrs "
+				        + "privilege list.");
 			} else {
-				privilege1 = para2;
+				privilegeName = oldPrivilegeName;
 			}
 		}
 		
-		return privilege1;
+		return privilegeName;
 	}
 	
 	public String getAddEncountersPrivilege() {
-		String para1 = ADD_ENCOUNTERS;
-		String para2 = null;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = ADD_ENCOUNTERS;
+		return checkPrivilege(currentPrivilegeName, null);
 	}
 	
 	public String getAddVisitsPrivilege() {
-		String para1 = ADD_VISITS;
-		String para2 = null;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = ADD_VISITS;
+		return checkPrivilege(currentPrivilegeName, null);
 	}
 	
 	public String getEditEncountersPrivilege() {
-		String para1 = EDIT_ENCOUNTERS;
-		String para2 = null;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = EDIT_ENCOUNTERS;
+		return checkPrivilege(currentPrivilegeName, null);
 	}
 	
 	public String getEditPatientsPrivilege() {
-		String para1 = EDIT_PATIENTS;
-		String para2 = null;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = EDIT_PATIENTS;
+		return checkPrivilege(currentPrivilegeName, null);
 	}
 	
 	public String getEditVisitsPrivilege() {
-		String para1 = EDIT_VISITS;
-		String para2 = null;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = EDIT_VISITS;
+		return checkPrivilege(currentPrivilegeName, null);
 	}
 	
 	public String getDashboardSummaryPrivilege() {
-		String para1 = DASHBOARD_SUMMARY;
-		String para2 = null;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = DASHBOARD_SUMMARY;
+		return checkPrivilege(currentPrivilegeName, null);
 	}
 	
 	public String getDashboardDemographicsPrivilege() {
-		String para1 = DASHBOARD_DEMOGRAPHICS;
-		String para2 = null;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = DASHBOARD_DEMOGRAPHICS;
+		return checkPrivilege(currentPrivilegeName, null);
 	}
 	
 	public String getDashboardOverviewPrivilege() {
-		String para1 = DASHBOARD_OVERVIEW;
-		String para2 = null;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = DASHBOARD_OVERVIEW;
+		return checkPrivilege(currentPrivilegeName, null);
 	}
 	
 	public String getDashboardVisitsPrivilege() {
-		String para1 = DASHBOARD_VISITS;
-		String para2 = null;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = DASHBOARD_VISITS;
+		return checkPrivilege(currentPrivilegeName, null);
 	}
 	
 	public String getViewAdminFunctionsPrivilege() {
-		String para1 = GET_ADMIN_FUNCTIONS;
-		String para2 = VIEW_ADMIN_FUNCTIONS;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = GET_ADMIN_FUNCTIONS;
+		String oldPrivilegeName = VIEW_ADMIN_FUNCTIONS;
+		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
 	}
 	
 	public String getViewEncountersPrivilege() {
-		String para1 = GET_ENCOUNTERS;
-		String para2 = VIEW_ENCOUNTERS;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = GET_ENCOUNTERS;
+		String oldPrivilegeName = VIEW_ENCOUNTERS;
+		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
 	}
 	
 	public String getViewNavigationMenuPrivilege() {
-		String para1 = GET_NAVIGATION_MENU;
-		String para2 = VIEW_NAVIGATION_MENU;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = GET_NAVIGATION_MENU;
+		String oldPrivilegeName = VIEW_NAVIGATION_MENU;
+		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
 	}
 	
 	public String getViewObsPrivilege() {
-		String para1 = GET_OBS;
-		String para2 = VIEW_OBS;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = GET_OBS;
+		String oldPrivilegeName = VIEW_OBS;
+		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
 	}
 	
 	public String getViewPatientsPrivilege() {
-		String para1 = GET_PATIENTS;
-		String para2 = VIEW_PATIENTS;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = GET_PATIENTS;
+		String oldPrivilegeName = VIEW_PATIENTS;
+		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
 	}
 	
 	public String getViewVisitPrivilege() {
-		String para1 = GET_VISITS;
-		String para2 = VIEW_VISITS;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = GET_VISITS;
+		String oldPrivilegeName = VIEW_VISITS;
+		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
 	}
 	
 	public String getViewProvidersPrivilege() {
-		String para1 = GET_PROVIDERS;
-		String para2 = VIEW_PROVIDERS;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = GET_PROVIDERS;
+		String oldPrivilegeName = VIEW_PROVIDERS;
+		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
 	}
 	
 	public String getViewRolesPrivilege() {
-		String para1 = GET_ROLES;
-		String para2 = VIEW_ROLES;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = GET_ROLES;
+		String oldPrivilegeName = VIEW_ROLES;
+		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
 	}
 	
 	public String getViewUsersPrivilege() {
-		String para1 = GET_USERS;
-		String para2 = VIEW_USERS;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = GET_USERS;
+		String oldPrivilegeName = VIEW_USERS;
+		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
 	}
 	
 	public String getViewConceptsPrivilege() {
-		String para1 = GET_CONCEPTS;
-		String para2 = VIEW_CONCEPTS;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = GET_CONCEPTS;
+		String oldPrivilegeName = VIEW_CONCEPTS;
+		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
 	}
 	
 	public String getViewLocationsPrivilege() {
-		String para1 = GET_LOCATIONS;
-		String para2 = VIEW_LOCATIONS;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = GET_LOCATIONS;
+		String oldPrivilegeName = VIEW_LOCATIONS;
+		return checkPrivilege(currentPrivilegeName, oldPrivilegeName);
 	}
 	
 	public String getEditPatientIdentifiersPrivilege() {
-		String para1 = EDIT_PATIENT_IDENTIFIERS;
-		String para2 = null;
-		return checkPrivilege(para1, para2);
+		String currentPrivilegeName = EDIT_PATIENT_IDENTIFIERS;
+		return checkPrivilege(currentPrivilegeName, null);
 	}
 }
