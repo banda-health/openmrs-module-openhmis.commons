@@ -44,256 +44,146 @@ public class PrivilegeConstantsCompatibility {
 	public static final String VIEW_LOCATIONS = "View Locations";
 	public static final String EDIT_PATIENT_IDENTIFIERS = "Edit Patient Identifiers";
 	
-	public String getAddEncountersPrivilege() {
-		String ADD_ENCOUNTERS_PRIVILEGE = null;
-		Privilege privilege = Context.getUserService().getPrivilege(ADD_ENCOUNTERS);
+	public String checkPrivilege(String para1, String para2) {
+		String privilege1;
+		Privilege privilege = Context.getUserService().getPrivilege(para1);
 		
 		if (privilege != null) {
-			ADD_ENCOUNTERS_PRIVILEGE = ADD_ENCOUNTERS;
+			privilege1 = para1;
+		} else {
+			if (para2 == null) {
+				throw new NullPointerException("The privilege you are referring to is missing");
+			} else {
+				privilege1 = para2;
+			}
 		}
 		
-		return ADD_ENCOUNTERS_PRIVILEGE;
+		return privilege1;
+	}
+	
+	public String getAddEncountersPrivilege() {
+		String para1 = ADD_ENCOUNTERS;
+		String para2 = null;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getAddVisitsPrivilege() {
-		String ADD_VISITS_PRIVILEGE = null;
-		Privilege privilege = Context.getUserService().getPrivilege(ADD_VISITS);
-		
-		if (privilege != null) {
-			ADD_VISITS_PRIVILEGE = ADD_VISITS;
-		}
-		
-		return ADD_VISITS_PRIVILEGE;
+		String para1 = ADD_VISITS;
+		String para2 = null;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getEditEncountersPrivilege() {
-		String EDIT_ENCOUNTERS_PRIVILEGE = null;
-		Privilege privilege = Context.getUserService().getPrivilege(EDIT_ENCOUNTERS);
-		
-		if (privilege != null) {
-			EDIT_ENCOUNTERS_PRIVILEGE = EDIT_ENCOUNTERS;
-		}
-		
-		return EDIT_ENCOUNTERS_PRIVILEGE;
+		String para1 = EDIT_ENCOUNTERS;
+		String para2 = null;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getEditPatientsPrivilege() {
-		String EDIT_PATIENTS_PRIVILEGE = null;
-		Privilege privilege = Context.getUserService().getPrivilege(EDIT_PATIENTS);
-		
-		if (privilege != null) {
-			EDIT_PATIENTS_PRIVILEGE = EDIT_PATIENTS;
-		}
-		
-		return EDIT_PATIENTS_PRIVILEGE;
+		String para1 = EDIT_PATIENTS;
+		String para2 = null;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getEditVisitsPrivilege() {
-		String EDIT_VISITS_PRIVILEGE = null;
-		Privilege privilege = Context.getUserService().getPrivilege(EDIT_VISITS);
-		
-		if (privilege != null) {
-			EDIT_VISITS_PRIVILEGE = EDIT_VISITS;
-		}
-		
-		return EDIT_VISITS_PRIVILEGE;
+		String para1 = EDIT_VISITS;
+		String para2 = null;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getDashboardSummaryPrivilege() {
-		String GET_DASHBOARD_SUMMARY_PRIVILEGE = null;
-		Privilege privilege = Context.getUserService().getPrivilege(DASHBOARD_SUMMARY);
-		
-		if (privilege != null) {
-			GET_DASHBOARD_SUMMARY_PRIVILEGE = DASHBOARD_SUMMARY;
-		}
-		
-		return GET_DASHBOARD_SUMMARY_PRIVILEGE;
+		String para1 = DASHBOARD_SUMMARY;
+		String para2 = null;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getDashboardDemographicsPrivilege() {
-		String GET_DASHBOARD_DEMOGRAPHICS_PRIVILEGE = null;
-		Privilege privilege = Context.getUserService().getPrivilege(DASHBOARD_DEMOGRAPHICS);
-		
-		if (privilege != null) {
-			GET_DASHBOARD_DEMOGRAPHICS_PRIVILEGE = DASHBOARD_DEMOGRAPHICS;
-		}
-		
-		return GET_DASHBOARD_DEMOGRAPHICS_PRIVILEGE;
+		String para1 = DASHBOARD_DEMOGRAPHICS;
+		String para2 = null;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getDashboardOverviewPrivilege() {
-		String GET_DASHBOARD_OVERVIEW_PRIVILEGE = null;
-		Privilege privilege = Context.getUserService().getPrivilege(DASHBOARD_OVERVIEW);
-		
-		if (privilege != null) {
-			GET_DASHBOARD_OVERVIEW_PRIVILEGE = DASHBOARD_OVERVIEW;
-		}
-		
-		return GET_DASHBOARD_OVERVIEW_PRIVILEGE;
+		String para1 = DASHBOARD_OVERVIEW;
+		String para2 = null;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getDashboardVisitsPrivilege() {
-		String GET_DASHBOARD_VISITS_PRIVILEGE = null;
-		Privilege privilege = Context.getUserService().getPrivilege(DASHBOARD_VISITS);
-		
-		if (privilege != null) {
-			GET_DASHBOARD_VISITS_PRIVILEGE = DASHBOARD_VISITS;
-		}
-		
-		return GET_DASHBOARD_VISITS_PRIVILEGE;
+		String para1 = DASHBOARD_VISITS;
+		String para2 = null;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getViewAdminFunctionsPrivilege() {
-		String GET_VIEW_ADMIN_FUNCTION_PRIVILEGE;
-		Privilege privilege = Context.getUserService().getPrivilege(GET_ADMIN_FUNCTIONS);
-		
-		if (privilege != null) {
-			GET_VIEW_ADMIN_FUNCTION_PRIVILEGE = GET_ADMIN_FUNCTIONS;
-		} else {
-			GET_VIEW_ADMIN_FUNCTION_PRIVILEGE = VIEW_ADMIN_FUNCTIONS;
-		}
-		
-		return GET_VIEW_ADMIN_FUNCTION_PRIVILEGE;
+		String para1 = GET_ADMIN_FUNCTIONS;
+		String para2 = VIEW_ADMIN_FUNCTIONS;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getViewEncountersPrivilege() {
-		String GET_VIEW_ENCOUNTERS_PRIVILEGE;
-		Privilege privilege = Context.getUserService().getPrivilege(GET_ENCOUNTERS);
-		
-		if (privilege != null) {
-			GET_VIEW_ENCOUNTERS_PRIVILEGE = GET_ENCOUNTERS;
-		} else {
-			GET_VIEW_ENCOUNTERS_PRIVILEGE = VIEW_ENCOUNTERS;
-		}
-		
-		return GET_VIEW_ENCOUNTERS_PRIVILEGE;
+		String para1 = GET_ENCOUNTERS;
+		String para2 = VIEW_ENCOUNTERS;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getViewNavigationMenuPrivilege() {
-		String GET_VIEW_NAVIGATION_MENU_PRIVILEGE;
-		Privilege privilege = Context.getUserService().getPrivilege(GET_NAVIGATION_MENU);
-		
-		if (privilege != null) {
-			GET_VIEW_NAVIGATION_MENU_PRIVILEGE = GET_NAVIGATION_MENU;
-		} else {
-			GET_VIEW_NAVIGATION_MENU_PRIVILEGE = VIEW_NAVIGATION_MENU;
-		}
-		
-		return GET_VIEW_NAVIGATION_MENU_PRIVILEGE;
+		String para1 = GET_NAVIGATION_MENU;
+		String para2 = VIEW_NAVIGATION_MENU;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getViewObsPrivilege() {
-		String GET_VIEW_OBS_PRIVILEGE;
-		Privilege privilege = Context.getUserService().getPrivilege(GET_OBS);
-		
-		if (privilege != null) {
-			GET_VIEW_OBS_PRIVILEGE = GET_OBS;
-		} else {
-			GET_VIEW_OBS_PRIVILEGE = VIEW_OBS;
-		}
-		
-		return GET_VIEW_OBS_PRIVILEGE;
+		String para1 = GET_OBS;
+		String para2 = VIEW_OBS;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getViewPatientsPrivilege() {
-		String GET_VIEW_PATIENTS_PRIVILEGE;
-		Privilege privilege = Context.getUserService().getPrivilege(GET_PATIENTS);
-		
-		if (privilege != null) {
-			GET_VIEW_PATIENTS_PRIVILEGE = GET_PATIENTS;
-		} else {
-			GET_VIEW_PATIENTS_PRIVILEGE = VIEW_PATIENTS;
-		}
-		
-		return GET_VIEW_PATIENTS_PRIVILEGE;
+		String para1 = GET_PATIENTS;
+		String para2 = VIEW_PATIENTS;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getViewVisitPrivilege() {
-		String GET_VISIT_PRIVILEGE;
-		Privilege privilege = Context.getUserService().getPrivilege(GET_VISITS);
-		
-		if (privilege != null) {
-			GET_VISIT_PRIVILEGE = GET_VISITS;
-		} else {
-			GET_VISIT_PRIVILEGE = VIEW_VISITS;
-		}
-		
-		return GET_VISIT_PRIVILEGE;
+		String para1 = GET_VISITS;
+		String para2 = VIEW_VISITS;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getViewProvidersPrivilege() {
-		String GET_PROVIDERS_PRIVILEGE;
-		Privilege privilege = Context.getUserService().getPrivilege(GET_PROVIDERS);
-		
-		if (privilege != null) {
-			GET_PROVIDERS_PRIVILEGE = GET_PROVIDERS;
-		} else {
-			GET_PROVIDERS_PRIVILEGE = VIEW_PROVIDERS;
-		}
-		
-		return GET_PROVIDERS_PRIVILEGE;
+		String para1 = GET_PROVIDERS;
+		String para2 = VIEW_PROVIDERS;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getViewRolesPrivilege() {
-		String GET_ROLES_PRIVILEGE;
-		Privilege privilege = Context.getUserService().getPrivilege(GET_ROLES);
-		
-		if (privilege != null) {
-			GET_ROLES_PRIVILEGE = GET_ROLES;
-		} else {
-			GET_ROLES_PRIVILEGE = VIEW_ROLES;
-		}
-		
-		return GET_ROLES_PRIVILEGE;
+		String para1 = GET_ROLES;
+		String para2 = VIEW_ROLES;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getViewUsersPrivilege() {
-		String GET_USERS_PRIVILEGE;
-		Privilege privilege = Context.getUserService().getPrivilege(GET_USERS);
-		
-		if (privilege != null) {
-			GET_USERS_PRIVILEGE = GET_USERS;
-		} else {
-			GET_USERS_PRIVILEGE = VIEW_USERS;
-		}
-		
-		return GET_USERS_PRIVILEGE;
+		String para1 = GET_USERS;
+		String para2 = VIEW_USERS;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getViewConceptsPrivilege() {
-		String GET_CONCEPTS_PRIVILEGE;
-		Privilege privilege = Context.getUserService().getPrivilege(GET_CONCEPTS);
-		
-		if (privilege != null) {
-			GET_CONCEPTS_PRIVILEGE = GET_CONCEPTS;
-		} else {
-			GET_CONCEPTS_PRIVILEGE = VIEW_CONCEPTS;
-		}
-		
-		return GET_CONCEPTS_PRIVILEGE;
+		String para1 = GET_CONCEPTS;
+		String para2 = VIEW_CONCEPTS;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getViewLocationsPrivilege() {
-		String GET_LOCATIONS_PRIVILEGE;
-		Privilege privilege = Context.getUserService().getPrivilege(GET_LOCATIONS);
-		
-		if (privilege != null) {
-			GET_LOCATIONS_PRIVILEGE = GET_LOCATIONS;
-		} else {
-			GET_LOCATIONS_PRIVILEGE = VIEW_LOCATIONS;
-		}
-		
-		return GET_LOCATIONS_PRIVILEGE;
+		String para1 = GET_LOCATIONS;
+		String para2 = VIEW_LOCATIONS;
+		return checkPrivilege(para1, para2);
 	}
 	
 	public String getEditPatientIdentifiersPrivilege() {
-		String GET_EDIT_PARTIENT_IDENTIFIERS_PRIVILEGE = null;
-		Privilege privilege = Context.getUserService().getPrivilege(EDIT_PATIENT_IDENTIFIERS);
-		
-		if (privilege != null) {
-			GET_EDIT_PARTIENT_IDENTIFIERS_PRIVILEGE = EDIT_PATIENT_IDENTIFIERS;
-		}
-		
-		return GET_EDIT_PARTIENT_IDENTIFIERS_PRIVILEGE;
+		String para1 = EDIT_PATIENT_IDENTIFIERS;
+		String para2 = null;
+		return checkPrivilege(para1, para2);
 	}
 }
