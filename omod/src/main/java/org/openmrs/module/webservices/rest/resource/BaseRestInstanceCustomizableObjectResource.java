@@ -22,10 +22,4 @@ public abstract class BaseRestInstanceCustomizableObjectResource<
 			TAttribute extends IInstanceAttribute<E, ?, ?>>
         extends BaseRestCustomizableObjectResource<E, TAttribute> {
 // @formatter:on
-	/**
-	 * Setter for the instance type. Implementers must add a @PropertySetter("instanceType") annotation.
-	 * @param instance The instance to set the type of.
-	 * @param instanceType The instance type to set.
-	 */
-	public abstract void setInstanceType(E instance, TInstanceType instanceType);
 }
