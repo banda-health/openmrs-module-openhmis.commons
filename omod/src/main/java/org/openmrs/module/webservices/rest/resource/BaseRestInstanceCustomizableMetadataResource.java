@@ -22,20 +22,10 @@ public abstract class BaseRestInstanceCustomizableMetadataResource<
 			TAttribute extends IInstanceAttribute<E, ?, ?>>
         extends BaseRestCustomizableMetadataResource<E, TAttribute> {
 // @formatter:on
-	@Override
-	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
-		DelegatingResourceDescription description = super.getRepresentationDescription(rep);
-		if (rep instanceof RefRepresentation) {
-			description.addProperty("instanceType", Representation.REF);
-		} else {
-			description.addProperty("instanceType");
-		}
-		
-		return description;
-	}
-	
-	@PropertySetter("instanceType")
-	public void setInstanceType(E instance, TInstanceType instanceType) {
-		instance.setInstanceType(instanceType);
-	}
+	/**
+	 * Setter for the instance type. Implementers must add a @PropertySetter("instanceType") annotation.
+	 * @param instance The instance to set the type of.
+	 * @param instanceType The instance type to set.
+	 */
+	public abstract void setInstanceType(E instance, TInstanceType instanceType);
 }
