@@ -37,7 +37,7 @@ dist
 test-output
 build.log
 .externalToolBuilders
-# release.properties
+release.properties
 pom.xml.releaseBackup
 
 ## generic files to ignore
