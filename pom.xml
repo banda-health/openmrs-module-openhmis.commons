@@ -16,6 +16,11 @@
 			<name>Modules</name>
 			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>
 		</repository>
+		<snapshotRepository>
+    		<id>openhmis-repo</id>
+			<name>Snapshots</name>
+    		<url>http://mavenrepo.openhmisafrica.org/content/repositories/snapshots</url>
+  		</snapshotRepository>
 	</distributionManagement>
 
 	<developers>
