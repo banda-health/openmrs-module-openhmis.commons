@@ -91,8 +91,8 @@ public class HibernateRepository implements IHibernateRepository {
 		try {
 			session.delete(entity);
 		} catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to delete a " + entity.getClass().getSimpleName()
-			        + " entity.", ex);
+			throw new APIException("An exception occurred while attempting to delete a "
+			        + entity.getClass().getSimpleName() + " entity.", ex);
 		}
 	}
 	
@@ -164,8 +164,8 @@ public class HibernateRepository implements IHibernateRepository {
 		try {
 			results = criteria.list();
 		} catch (Exception ex) {
-			throw new APIException("An exception occurred while attempting to select " + cls.getSimpleName() + " entities.",
-			        ex);
+			throw new APIException(
+			        "An exception occurred while attempting to select " + cls.getSimpleName() + " entities.", ex);
 		}
 		
 		return results;
