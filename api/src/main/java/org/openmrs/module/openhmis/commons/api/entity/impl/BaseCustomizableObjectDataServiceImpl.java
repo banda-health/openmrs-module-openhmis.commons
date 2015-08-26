@@ -33,16 +33,16 @@ public abstract class BaseCustomizableObjectDataServiceImpl<E extends BaseCustom
 	@SuppressWarnings("unchecked")
 	protected Collection<? extends OpenmrsObject> getRelatedObjects(E entity) {
 		Collection<? extends OpenmrsObject> result = super.getRelatedObjects(entity);
-		
+
 		if (result == null) {
 			result = new ArrayList<OpenmrsObject>();
 		}
-		
+
 		Collection attributes = entity.getAttributes();
 		if (attributes != null && attributes.size() > 0) {
 			result.addAll(attributes);
 		}
-		
+
 		return result;
 	}
 }

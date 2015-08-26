@@ -24,17 +24,17 @@ import org.openmrs.api.context.Context;
  */
 public class ProviderUtil {
 	protected ProviderUtil() {}
-	
+
 	public static Provider getCurrentProvider() {
 		return getCurrentProvider(Context.getProviderService());
 	}
-	
+
 	public static Provider getCurrentProvider(ProviderService providerService) {
 		Collection<Provider> providers = providerService.getProvidersByPerson(Context.getAuthenticatedUser().getPerson());
 		if (providers.size() > 0) {
 			return providers.iterator().next();
 		}
-		
+
 		return null;
 	}
 }

@@ -28,19 +28,19 @@ import org.openmrs.module.webservices.rest.web.resource.impl.AlreadyPaged;
  */
 public class MetadataSearcher<E extends OpenmrsMetadata> {
 	private IMetadataDataService<E> service;
-	
+
 	public MetadataSearcher(Class<? extends IMetadataDataService<E>> serviceClass) {
 		this.service = Context.getService(serviceClass);
 	}
-	
+
 	public IMetadataDataService<E> getService() {
 		return this.service;
 	}
-	
+
 	public void setService(IMetadataDataService<E> service) {
 		this.service = service;
 	}
-	
+
 	/**
 	 * Searches for entities using the specified name fragment.
 	 * @param nameFragment The name search fragment
@@ -49,11 +49,11 @@ public class MetadataSearcher<E extends OpenmrsMetadata> {
 	 */
 	public AlreadyPaged<E> searchByName(String nameFragment, RequestContext context) {
 		PagingInfo pagingInfo = PagingUtil.getPagingInfoFromContext(context);
-		
+
 		List<E> results = service.getByNameFragment(nameFragment, context.getIncludeAll(), pagingInfo);
-		
+
 		Boolean hasMoreResults = (pagingInfo.getPage() * pagingInfo.getPageSize()) < pagingInfo.getTotalRecordCount();
 		return new AlreadyPagedWithLength<E>(context, results, hasMoreResults, pagingInfo.getTotalRecordCount());
 	}
-	
+
 }

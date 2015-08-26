@@ -34,7 +34,7 @@ public interface IEntityDataService<E extends OpenmrsData> extends IObjectDataSe
 	 * @should throw NullPointerException with null entity
 	 */
 	E voidEntity(E entity, String reason);
-	
+
 	/**
 	 * Unvoid the entity record.
 	 * @param entity The entity to be revived.
@@ -42,7 +42,7 @@ public interface IEntityDataService<E extends OpenmrsData> extends IObjectDataSe
 	 * @should throw NullPointerException with null entity
 	 */
 	E unvoidEntity(E entity);
-	
+
 	/**
 	 * Returns all entity records that have the specified voided status.
 	 * @param includeVoided {@code true} to include voided entities.
@@ -51,7 +51,7 @@ public interface IEntityDataService<E extends OpenmrsData> extends IObjectDataSe
 	 * @should return all unvoided entities when includeVoided is set to false
 	 */
 	List<E> getAll(boolean includeVoided);
-	
+
 	/**
 	 * Returns all entity records that have the specified voided status and paging.
 	 * @param includeVoided {@code true} to include voided entities.

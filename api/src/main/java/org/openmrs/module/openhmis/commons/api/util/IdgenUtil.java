@@ -13,9 +13,9 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
  */
 public class IdgenUtil {
 	private static final Log LOG = LogFactory.getLog(IdgenUtil.class);
-	
+
 	protected IdgenUtil() {}
-	
+
 	/**
 	 * Gets the {@link org.openmrs.module.idgen.IdentifierSource} with the id in the specified global property.
 	 * @param propertyName The global property name.
@@ -25,24 +25,24 @@ public class IdgenUtil {
 		if (StringUtils.isEmpty(propertyName)) {
 			throw new IllegalArgumentException("The property name for the identifier source must be defined.");
 		}
-		
+
 		AdministrationService administrationService = Context.getAdministrationService();
 		IdentifierSourceService service = Context.getService(IdentifierSourceService.class);
-		
+
 		IdentifierSource source = null;
 		String property = administrationService.getGlobalProperty(propertyName);
 		Integer sourceId;
 		try {
 			sourceId = Integer.parseInt(property);
-			
+
 			source = service.getIdentifierSource(sourceId);
 		} catch (Exception ex) {
 			LOG.warn("Could not convert '" + property + "' into an integer.");
 		}
-		
+
 		return source;
 	}
-	
+
 	/**
 	 * Generates a new identifier for the {@link org.openmrs.module.idgen.IdentifierSource} defined in the specified global
 	 * property name.
@@ -51,10 +51,10 @@ public class IdgenUtil {
 	 */
 	public static String generateId(String generatorSourcePropertyName) {
 		IdentifierSource source = getIdentifierSource(generatorSourcePropertyName);
-		
+
 		return generateId(source);
 	}
-	
+
 	/**
 	 * Generates a new identifier for the specified {@link org.openmrs.module.idgen.IdentifierSource}.
 	 * @param source The IdentifierSource object.
@@ -64,7 +64,7 @@ public class IdgenUtil {
 		if (source == null) {
 			throw new IllegalArgumentException("The identifier source to generate the new identifier from is required.");
 		}
-		
+
 		IdentifierSourceService service = Context.getService(IdentifierSourceService.class);
 		return service.generateIdentifier(source, "Generating stock operation number.");
 	}

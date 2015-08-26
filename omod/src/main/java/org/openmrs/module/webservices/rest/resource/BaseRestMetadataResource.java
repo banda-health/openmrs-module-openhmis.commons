@@ -40,21 +40,21 @@ import org.springframework.dao.DataIntegrityViolationException;
  */
 public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extends MetadataDelegatingCrudResource<E>
         implements IMetadataDataServiceResource<E> {
-	
+
 	private static final Log LOG = LogFactory.getLog(BaseRestMetadataResource.class);
-	
+
 	private Class<E> entityClass = null;
-	
+
 	/**
 	 * Instantiates a new entity instance.
 	 * @return The new instance
 	 */
 	@Override
 	public abstract E newDelegate();
-	
+
 	@Override
 	public abstract Class<? extends IMetadataDataService<E>> getServiceClass();
-	
+
 	/**
 	 * Saves the entity.
 	 * @param entity The entity to save
@@ -69,7 +69,7 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 			throw new PrivilegeException("Can't save entity with name <" + entity.getName() + "> as privilege is missing");
 		}
 	}
-	
+
 	/**
 	 * Gets the {@link DelegatingResourceDescription} for the specified {@link Representation}.
 	 * @param rep The representation
@@ -82,18 +82,18 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 		description.addProperty("name");
 		description.addProperty("description");
 		description.addProperty("retired");
-		
+
 		if (!(rep instanceof RefRepresentation)) {
 			description.addProperty("retireReason");
-			
+
 			if (rep instanceof FullRepresentation) {
 				description.addProperty("auditInfo", findMethod("getAuditInfo"));
 			}
 		}
-		
+
 		return description;
 	}
-	
+
 	/**
 	 * Gets a description of the properties that can be created.
 	 * @return The resource description
@@ -103,10 +103,10 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 		DelegatingResourceDescription description = getRepresentationDescription(new DefaultRepresentation());
 		description.removeProperty("uuid");
 		description.removeProperty("retireReason");
-		
+
 		return description;
 	}
-	
+
 	/**
 	 * Gets an entity by the UUID or {@code null} if not found.
 	 * @param uniqueId The UUID for the entity
@@ -124,7 +124,7 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 			throw new PrivilegeException("Can't get entity with ID <" + uniqueId + "> as privilege is missing");
 		}
 	}
-	
+
 	/**
 	 * Purges the entity from the database.
 	 * @param entity The entity to purge
@@ -143,7 +143,7 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 			        + "> as it is still in use");
 		}
 	}
-	
+
 	/**
 	 * Gets all entities from the database using paging if specified in the context.
 	 * @param context The request context
@@ -152,11 +152,11 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	@Override
 	protected PageableResult doGetAll(RequestContext context) {
 		PagingInfo pagingInfo = PagingUtil.getPagingInfoFromContext(context);
-		
+
 		return new AlreadyPagedWithLength<E>(context, getService().getAll(context.getIncludeAll(), pagingInfo),
 		        pagingInfo.hasMoreResults(), pagingInfo.getTotalRecordCount());
 	}
-	
+
 	/**
 	 * Finds all entities with a name that starts with the specified search query ('q' parameter).
 	 * @param context The request context
@@ -166,10 +166,10 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	protected PageableResult doSearch(RequestContext context) {
 		context.setRepresentation(Representation.REF);
 		String query = context.getParameter("q");
-		
+
 		return new MetadataSearcher<E>(getServiceClass()).searchByName(query, context);
 	}
-	
+
 	/**
 	 * Gets whether the specified entity is retired.
 	 * @param entity The entity
@@ -179,7 +179,7 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	public Boolean getRetired(E entity) {
 		return entity.isRetired();
 	}
-	
+
 	/**
 	 * Gets the entity data service for this resource.
 	 * @return The entity data service
@@ -187,7 +187,7 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	protected IMetadataDataService<E> getService() {
 		return Context.getService(getServiceClass());
 	}
-	
+
 	/**
 	 * Gets a usable instance of the actual class of the generic type E defined by the implementing sub-class.
 	 * @return The class object for the entity.
@@ -196,10 +196,10 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	public Class<E> getEntityClass() {
 		if (entityClass == null) {
 			ParameterizedType parameterizedType = (ParameterizedType)getClass().getGenericSuperclass();
-			
+
 			entityClass = (Class)parameterizedType.getActualTypeArguments()[0];
 		}
-		
+
 		return entityClass;
 	}
 }

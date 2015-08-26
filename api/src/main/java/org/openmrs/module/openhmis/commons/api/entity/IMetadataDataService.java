@@ -35,7 +35,7 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @should throw IllegalArgumentException when no reason is given
 	 */
 	E retire(E metadata, String reason);
-	
+
 	/**
 	 * Unretire the specified metadata. This restores a previously retired metadata back into circulation and use.
 	 * @param metadata The metadata to unretire.
@@ -44,7 +44,7 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @should unretire the metadata
 	 */
 	E unretire(E metadata);
-	
+
 	/**
 	 * Returns all metadata records that have the specified retirement status.
 	 * @param includeRetired {@code true} to include retired metadata.
@@ -53,7 +53,7 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @should return all unretired metadata when retired is set to false
 	 */
 	List<E> getAll(boolean includeRetired);
-	
+
 	/**
 	 * Returns all metadata records that have the specified retirement status and paging.
 	 * @param includeRetired {@code true} to include retired metadata.
@@ -68,7 +68,7 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @should return paged metadata records if paging is specified
 	 */
 	List<E> getAll(boolean includeRetired, PagingInfo paging);
-	
+
 	/**
 	 * Gets all the metadata that start with the specified name.
 	 * @param nameFragment The name fragment.
@@ -82,7 +82,7 @@ public interface IMetadataDataService<E extends OpenmrsMetadata> extends IObject
 	 * @should return metadata that start with the specified name
 	 */
 	List<E> getByNameFragment(String nameFragment, boolean includeRetired);
-	
+
 	/**
 	 * Gets all the metadata that start with the specified name and paging.
 	 * @param nameFragment The name fragment.

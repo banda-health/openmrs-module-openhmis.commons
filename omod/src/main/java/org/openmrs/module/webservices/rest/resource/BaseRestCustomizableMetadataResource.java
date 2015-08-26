@@ -42,16 +42,16 @@ public abstract class BaseRestCustomizableMetadataResource<
 		if (!(rep instanceof RefRepresentation)) {
 			description.addProperty("attributes");
 		}
-		
+
 		return description;
 	}
-	
+
 	@PropertySetter("attributes")
 	public void setAttributes(E instance, List<TAttribute> attributes) {
 		if (instance.getAttributes() == null) {
 			instance.setAttributes(new HashSet<TAttribute>());
 		}
-		
+
 		BaseRestDataResource.syncCollection(instance.getAttributes(), attributes);
 		for (TAttribute attribute : instance.getAttributes()) {
 			attribute.setOwner(instance);

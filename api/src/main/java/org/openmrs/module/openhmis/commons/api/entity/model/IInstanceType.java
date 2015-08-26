@@ -28,26 +28,26 @@ public interface IInstanceType<TAttributeType extends IInstanceAttributeType<?>>
 	 * @return The attribute types.
 	 */
 	List<TAttributeType> getAttributeTypes();
-	
+
 	/**
 	 * Sets the {@link TAttributeType}'s for this {@link IInstanceType}.
 	 * @param attributeTypes The attribute types.
 	 */
 	void setAttributeTypes(List<TAttributeType> attributeTypes);
-	
+
 	/**
 	 * Adds the specified {@link TAttributeType}.
 	 * @param attributeType The attribute type to add.
 	 */
 	void addAttributeType(TAttributeType attributeType);
-	
+
 	/**
 	 * Adds the specified {@link TAttributeType} at the specified index.
 	 * @param index The index where the attribute type will be inserted or {@code null} to insert at the end.
 	 * @param attributeType The attribute type to add.
 	 */
 	void addAttributeType(Integer index, TAttributeType attributeType);
-	
+
 	/**
 	 * Removes the specified {@link TAttributeType}.
 	 * @param attributeType The attribute type to remove.

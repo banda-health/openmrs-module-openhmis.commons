@@ -26,7 +26,7 @@ import org.openmrs.module.openhmis.commons.api.entity.model.SafeIdentifierSource
  */
 public class SafeIdgenUtil {
 	protected SafeIdgenUtil() {}
-	
+
 	/**
 	 * Gets the identifier source information with the id in the specified global property.
 	 * @param propertyName The global property name.
@@ -34,22 +34,22 @@ public class SafeIdgenUtil {
 	 */
 	public static SafeIdentifierSource getIdentifierSourceInfo(String propertyName) {
 		SafeIdentifierSource result = null;
-		
+
 		IdentifierSource source = IdgenUtil.getIdentifierSource(propertyName);
 		if (source != null) {
 			result = new SafeIdentifierSource(source.getId(), source.getUuid(), source.getName());
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Gets the information for all defined identifier sources.
 	 * @return A list containing the source information.
 	 */
 	public static List<SafeIdentifierSource> getAllIdentifierSourceInfo() {
 		List<SafeIdentifierSource> results = new ArrayList<SafeIdentifierSource>();
-		
+
 		IdentifierSourceService service = Context.getService(IdentifierSourceService.class);
 		List<IdentifierSource> sources = service.getAllIdentifierSources(false);
 		if (sources != null && sources.size() > 0) {
@@ -57,7 +57,7 @@ public class SafeIdgenUtil {
 				results.add(new SafeIdentifierSource(source.getId(), source.getUuid(), source.getName()));
 			}
 		}
-		
+
 		return results;
 	}
 }
