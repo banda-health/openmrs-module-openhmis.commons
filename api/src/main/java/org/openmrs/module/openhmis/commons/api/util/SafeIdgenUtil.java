@@ -13,14 +13,13 @@
  */
 package org.openmrs.module.openhmis.commons.api.util;
 
-import org.javatuples.Triplet;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.openhmis.commons.api.entity.model.SafeIdentifierSource;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Idgen Utility class that does not directly reference the idgen module.

@@ -13,11 +13,11 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import org.openmrs.customdatatype.CustomValueDescriptor;
-
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import org.openmrs.customdatatype.CustomValueDescriptor;
 
 // @formatter:off
 /**

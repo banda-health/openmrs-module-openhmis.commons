@@ -13,12 +13,12 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.openmrs.OpenmrsObject;
 import org.openmrs.module.openhmis.commons.api.entity.model.BaseCustomizableObject;
 import org.openmrs.module.openhmis.commons.api.entity.security.IObjectAuthorizationPrivileges;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 // @formatter:off
 /**

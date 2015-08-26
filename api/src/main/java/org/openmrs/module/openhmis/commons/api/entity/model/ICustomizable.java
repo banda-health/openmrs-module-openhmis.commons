@@ -13,9 +13,9 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import org.openmrs.customdatatype.CustomValueDescriptor;
-
 import java.util.Set;
+
+import org.openmrs.customdatatype.CustomValueDescriptor;
 
 /**
  * Represents a class that can be customized with attributes.
