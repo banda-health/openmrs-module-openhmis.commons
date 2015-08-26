@@ -61,8 +61,10 @@ public abstract class BaseInstanceCustomizableObject<
 		instance.getAttributes().remove(attribute);
 	}
 	
-	public static <TA extends IInstanceAttribute<?, ?, ?>, I extends IInstanceCustomizable<?, ? extends TA>> //
-	        Set<TA> getActiveAttributes(I instance) {
+	// @formatter:off
+	public static <TA extends IInstanceAttribute<?, ?, ?>, I extends IInstanceCustomizable<?, ? extends TA>>
+			Set<TA>	getActiveAttributes(I instance) {
+	// @formatter:on
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
 			for (TA attr : instance.getAttributes()) {
@@ -74,8 +76,10 @@ public abstract class BaseInstanceCustomizableObject<
 		return ret;
 	}
 	
-	public static <TA extends IInstanceAttribute<?, ?, ?>, I extends IInstanceCustomizable<?, ? extends TA>> //
-	        Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
+	// @formatter:off
+	public static <TA extends IInstanceAttribute<?, ?, ?>, I extends IInstanceCustomizable<?, ? extends TA>>
+			Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
+	// @formatter:on
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
 			for (TA attr : instance.getAttributes()) {
