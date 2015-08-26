@@ -34,27 +34,27 @@ public abstract class BaseRestAttributeDataResource<
 			description.addProperty("attributeType", Representation.REF);
 			description.addProperty("order", findMethod("getAttributeOrder"));
 		}
-		
+
 		return description;
 	}
-	
+
 	@PropertyGetter("value")
 	public Object getPropertyValue(E instance) {
 		if (instance.getAttributeType().getFormat().contains("Concept")) {
 			ConceptService service = Context.getService(ConceptService.class);
 			Concept concept = service.getConcept(instance.getValue());
-			
+
 			return concept == null ? "" : concept.getDisplayString();
 		} else {
 			return instance.getHydratedValue();
 		}
 	}
-	
+
 	@PropertySetter("attributeType")
 	public void setAttributeType(E instance, TAttributeType attributeType) {
 		instance.setAttributeType(attributeType);
 	}
-	
+
 	public Integer getAttributeOrder(E instance) {
 		return instance.getAttributeType().getAttributeOrder();
 	}

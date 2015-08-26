@@ -21,22 +21,22 @@ import org.openmrs.customdatatype.CustomValueDescriptor;
  */
 public interface IAttributeType extends OpenmrsMetadata, CustomValueDescriptor {
 	Integer getAttributeOrder();
-	
+
 	void setAttributeOrder(Integer attributeOrder);
-	
+
 	String getFormat();
-	
+
 	void setFormat(String format);
-	
+
 	Integer getForeignKey();
-	
+
 	void setForeignKey(Integer foreignKey);
-	
+
 	String getRegExp();
-	
+
 	void setRegExp(String regExp);
-	
+
 	Boolean getRequired();
-	
+
 	void setRequired(Boolean required);
 }

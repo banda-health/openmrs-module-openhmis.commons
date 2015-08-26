@@ -31,22 +31,22 @@ public abstract class BaseRestAttributeTypeResource<E extends IAttributeType>
 		description.addProperty("regExp");
 		description.addProperty("required");
 		description.addProperty("retired");
-		
+
 		return description;
 	}
-	
+
 	@Override
 	public String getTypeName() {
 		return getEntityClass().getSimpleName();
 	}
-	
+
 	@Override
 	public PageableResult getAllByType(RequestContext context) {
 		PagingInfo info = PagingUtil.getPagingInfoFromContext(context);
-		
+
 		return new AlreadyPaged<E>(context, getService().getAll(info), info.hasMoreResults());
 	}
-	
+
 	@Override
 	protected PageableResult doSearch(RequestContext context) {
 		if (context.getType().equals(getTypeName())) {
@@ -55,12 +55,12 @@ public abstract class BaseRestAttributeTypeResource<E extends IAttributeType>
 			throw new ResourceDoesNotSupportOperationException();
 		}
 	}
-	
+
 	@Override
 	public Class<IAttributeType> getSuperclass() {
 		return IAttributeType.class;
 	}
-	
+
 	@Override
 	public Class<E> getSubclassHandled() {
 		return getEntityClass();

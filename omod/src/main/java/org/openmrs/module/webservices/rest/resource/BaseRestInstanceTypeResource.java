@@ -27,24 +27,24 @@ public abstract class BaseRestInstanceTypeResource<
 		if (!(rep instanceof RefRepresentation)) {
 			description.addProperty("attributeTypes");
 		}
-		
+
 		return description;
 	}
-	
+
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() {
 		DelegatingResourceDescription description = super.getCreatableProperties();
 		description.addProperty("attributeTypes");
-		
+
 		return description;
 	}
-	
+
 	@PropertySetter("attributeTypes")
 	public void setAttributeTypes(E instance, List<TAttributeType> attributeTypes) {
 		if (instance.getAttributeTypes() == null) {
 			instance.setAttributeTypes(new ArrayList<TAttributeType>());
 		}
-		
+
 		BaseRestDataResource.syncCollection(instance.getAttributeTypes(), attributeTypes);
 		for (TAttributeType type : instance.getAttributeTypes()) {
 			type.setOwner(instance);

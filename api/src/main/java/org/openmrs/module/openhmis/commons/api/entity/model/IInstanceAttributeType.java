@@ -22,6 +22,6 @@ public interface 	IInstanceAttributeType<TOwner extends IInstanceType<?>>
 		extends IAttributeType {
 // @formatter:on
 	TOwner getOwner();
-	
+
 	void setOwner(TOwner owner);
 }

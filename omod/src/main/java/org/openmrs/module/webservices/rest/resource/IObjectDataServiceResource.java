@@ -23,6 +23,6 @@ import org.openmrs.module.openhmis.commons.api.entity.IObjectDataService;
  */
 public interface IObjectDataServiceResource<TEntity extends OpenmrsObject, TService extends IObjectDataService<TEntity>> {
 	Class<? extends TService> getServiceClass();
-	
+
 	Class<TEntity> getEntityClass();
 }

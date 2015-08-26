@@ -20,9 +20,9 @@ package org.openmrs.module.openhmis.commons.api.entity.model;
 public class BaseInstanceAttributeType<TOwner extends IInstanceType<?>> extends BaseAttributeType
         implements IInstanceAttributeType<TOwner> {
 	public static final long serialVersionUID = 1L;
-	
+
 	private TOwner owner;
-	
+
 	/**
 	 * Gets the attribute type owner.
 	 * @return The owner
@@ -30,7 +30,7 @@ public class BaseInstanceAttributeType<TOwner extends IInstanceType<?>> extends 
 	public TOwner getOwner() {
 		return owner;
 	}
-	
+
 	/**
 	 * Sets the attribute type owner.
 	 * @param parent The owner

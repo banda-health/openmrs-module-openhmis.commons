@@ -5,7 +5,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
-import org.openmrs.api.context.ContextAuthenticationException;
 import org.openmrs.module.openhmis.commons.api.exception.PrivilegeException;
 import org.openmrs.module.openhmis.commons.api.f.Func1;
 
@@ -13,11 +12,11 @@ import org.openmrs.module.openhmis.commons.api.f.Func1;
  * Helper class for working with {@link org.openmrs.Privilege}s.
  */
 public class PrivilegeUtil {
-	
+
 	private static final Log LOG = LogFactory.getLog(PrivilegeUtil.class);
-	
+
 	protected PrivilegeUtil() {}
-	
+
 	/**
 	 * Checks if the specified user has all of the comma separated privileges.
 	 * @param user The user to check
@@ -28,12 +27,12 @@ public class PrivilegeUtil {
 		if (StringUtils.isEmpty(privileges)) {
 			return true;
 		}
-		
+
 		String[] privs = StringUtils.split(privileges, ',');
-		
+
 		return hasPrivileges(user, privs);
 	}
-	
+
 	/**
 	 * Checks if the specified user has all of the specified privileges.
 	 * @param user The user to check
@@ -44,11 +43,11 @@ public class PrivilegeUtil {
 		if (user == null) {
 			throw new IllegalArgumentException("The user to check must be defined.");
 		}
-		
+
 		if (privileges == null || privileges.length == 0) {
 			return true;
 		}
-		
+
 		Func1<String, Boolean> hasPrivFunc;
 		User currentUser = Context.getAuthenticatedUser();
 		if (user == currentUser) {
@@ -66,7 +65,7 @@ public class PrivilegeUtil {
 				}
 			};
 		}
-		
+
 		boolean result = true;
 		for (String priv : privileges) {
 			String trimmed = priv.trim();
@@ -75,10 +74,10 @@ public class PrivilegeUtil {
 				break;
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public static void requirePrivileges(User user, String privileges) {
 		boolean hasPrivileges = hasPrivileges(user, privileges);
 		if (!hasPrivileges) {
@@ -86,5 +85,5 @@ public class PrivilegeUtil {
 			throw new PrivilegeException();
 		}
 	}
-	
+
 }

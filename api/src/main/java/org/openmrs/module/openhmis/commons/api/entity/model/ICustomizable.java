@@ -13,9 +13,9 @@
  */
 package org.openmrs.module.openhmis.commons.api.entity.model;
 
-import org.openmrs.customdatatype.CustomValueDescriptor;
-
 import java.util.Set;
+
+import org.openmrs.customdatatype.CustomValueDescriptor;
 
 /**
  * Represents a class that can be customized with attributes.
@@ -27,31 +27,31 @@ public interface ICustomizable<TAttribute extends IAttribute<?, ?>> {
 	 * @return The attributes for this instance.
 	 */
 	Set<TAttribute> getAttributes();
-	
+
 	/**
 	 * Sets the {@link TAttribute}'s for this instance.
 	 * @param attributes The attributes for this instance.
 	 */
 	void setAttributes(Set<TAttribute> attributes);
-	
+
 	/**
 	 * Adds an {@link TAttribute} to the attributes for this instance.
 	 * @param attribute The attribute to add.
 	 */
 	void addAttribute(TAttribute attribute);
-	
+
 	/**
 	 * Removes an {@link TAttribute} from the attributes for this instance.
 	 * @param attribute The attribute to remove.
 	 */
 	void removeAttribute(TAttribute attribute);
-	
+
 	/**
 	 * Gets the active (that is, not retired) {@link TAttribute}'s for this instance.
 	 * @return The active attributes.
 	 */
 	Set<TAttribute> getActiveAttributes();
-	
+
 	/**
 	 * Gets the active (that is, not retired) {@link TAttribute}'s of the specified type for this instance.
 	 * @param ofType The attribute type.
