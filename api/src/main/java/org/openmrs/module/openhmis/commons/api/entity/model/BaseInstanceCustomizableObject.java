@@ -62,7 +62,7 @@ public abstract class BaseInstanceCustomizableObject<
 	}
 	
 	public static <TA extends IInstanceAttribute<?, ?, ?>, I extends IInstanceCustomizable<?, ? extends TA>> //
-	Set<TA> getActiveAttributes(I instance) {
+	        Set<TA> getActiveAttributes(I instance) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
 			for (TA attr : instance.getAttributes()) {
@@ -75,7 +75,7 @@ public abstract class BaseInstanceCustomizableObject<
 	}
 	
 	public static <TA extends IInstanceAttribute<?, ?, ?>, I extends IInstanceCustomizable<?, ? extends TA>> //
-	Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
+	        Set<TA> getActiveAttributes(I instance, CustomValueDescriptor ofType) {
 		Set<TA> ret = new HashSet<TA>();
 		if (instance.getAttributes() != null) {
 			for (TA attr : instance.getAttributes()) {
