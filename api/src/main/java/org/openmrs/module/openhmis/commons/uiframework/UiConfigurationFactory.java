@@ -11,9 +11,8 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Abstract functionality for registering a UIFramework 2.x module. This class
- * will ONLY load modules if the UiFramework 2.x module is loaded. It replaces
- * use of openmrs annotations which do not check if UiFramework 2.x has been
- * loaded.
+ * will ONLY load modules if UiFramework 2.x module is loaded. It replaces use
+ * of openmrs annotations which do not check if UiFramework 2.x has been loaded.
  */
 public abstract class UiConfigurationFactory implements BeanFactoryPostProcessor {
 
@@ -26,10 +25,11 @@ public abstract class UiConfigurationFactory implements BeanFactoryPostProcessor
 
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		log.info("Start registering " + getModuleId() + " module");
-		// checks if UiFramework's StandardModuleUiConfiguration class has been
-		// loaded.
-		Class cls = checkStandardModuleUiConfigurationClassExists();
-		if (cls != null) {
+		try {
+			// load UiFramework's StandardModuleUiConfiguration class
+			Class cls = OpenmrsClassLoader.getInstance()
+					.loadClass("org.openmrs.ui.framework.StandardModuleUiConfiguration");
+
 			// get spring's bean definition builder
 			BeanDefinitionBuilder builder = BeanDefinitionBuilder.rootBeanDefinition(cls);
 
@@ -41,19 +41,9 @@ public abstract class UiConfigurationFactory implements BeanFactoryPostProcessor
 					getModuleId() + "StandardModuleUiConfiguration", builder.getBeanDefinition());
 
 			log.info(getModuleId() + " successfully registered!");
-
-		} else {
-			log.info(getModuleId() + " not registered!");
-		}
-	}
-
-	@SuppressWarnings("rawtypes")
-	private Class checkStandardModuleUiConfigurationClassExists() {
-		try {
-			return OpenmrsClassLoader.getInstance().loadClass("org.openmrs.ui.framework.StandardModuleUiConfiguration");
 		} catch (ClassNotFoundException ex) {
-			log.info("StandardModuleUiConfiguration class not found. UIFramework 2.x module not loaded.");
+			log.info("StandardModuleUiConfiguration class not found. Unable to register " + getModuleId()
+					+ " UI 2.x module");
 		}
-		return null;
 	}
 }
