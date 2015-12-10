@@ -5,7 +5,7 @@
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>openhmis.commons</artifactId>
 	<packaging>pom</packaging>
-	<version>3.0.4</version>
+	<version>3.1.0</version>
 	<name>OpenHMIS Commons Module</name>
 	<description>Module that provides core functionality used by the OpenHMIS modules.</description>
 	<url>http://openhmis.github.com/</url>
@@ -16,6 +16,11 @@
 			<name>Modules</name>
 			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>
 		</repository>
+		<snapshotRepository>
+    		<id>openhmis-repo</id>
+			<name>Snapshots</name>
+    		<url>http://mavenrepo.openhmisafrica.org/content/repositories/snapshots</url>
+  		</snapshotRepository>
 	</distributionManagement>
 
 	<developers>
@@ -38,11 +43,11 @@
 		<connection>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</connection>
 		<developerConnection>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</developerConnection>
 		<url>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</url>
-		<tag>v3.0.4</tag>
+		<tag>v3.1.0</tag>
 	</scm>
 
 	<properties>
-		<openMRSVersion>1.9.8</openMRSVersion>
+		<openMRSVersion>1.9.9</openMRSVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<javaCompilerVersion>1.6</javaCompilerVersion>
 	</properties>

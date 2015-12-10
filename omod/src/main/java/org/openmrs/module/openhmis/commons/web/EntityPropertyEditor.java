@@ -28,23 +28,23 @@ import org.openmrs.module.openhmis.commons.api.entity.IObjectDataService;
  */
 public class EntityPropertyEditor<E extends OpenmrsObject> extends PropertyEditorSupport {
 	private IObjectDataService<E> service;
-	
+
 	public EntityPropertyEditor(Class<? extends IObjectDataService<E>> service) {
 		this.service = Context.getService(service);
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public String getAsText() {
 		E entity = (E)getValue();
-		
+
 		if (entity == null) {
 			return "";
 		} else {
 			return entity.getId().toString();
 		}
 	}
-	
+
 	@Override
 	public void setAsText(String text) {
 		if (StringUtils.isEmpty(text)) {
@@ -56,18 +56,18 @@ public class EntityPropertyEditor<E extends OpenmrsObject> extends PropertyEdito
 			} else {
 				entity = service.getByUuid(text);
 			}
-			
+
 			setValue(entity);
 			if (entity == null) {
 				throw new IllegalArgumentException("Entity ('" + getEntityClass().getName() + "') not found: " + text);
 			}
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	protected Class<E> getEntityClass() {
 		ParameterizedType parameterizedType = (ParameterizedType)getClass().getGenericSuperclass();
-		
+
 		return (Class)parameterizedType.getActualTypeArguments()[0];
 	}
 }

@@ -25,35 +25,35 @@ import org.hibernate.criterion.Order;
  */
 public class CustomizedOrderBy extends Order {
 	private String sqlExpression;
-	
+
 	public static Order asc(String sqlFormula) {
 		if (!StringUtils.endsWith(sqlFormula, " asc")) {
 			sqlFormula += " asc";
 		}
-		
+
 		return new CustomizedOrderBy(sqlFormula);
 	}
-	
+
 	public static Order desc(String sqlFormula) {
 		if (!StringUtils.endsWith(sqlFormula, " desc")) {
 			sqlFormula += " desc";
 		}
-		
+
 		return new CustomizedOrderBy(sqlFormula);
 	}
-	
+
 	protected CustomizedOrderBy(String sqlExpression) {
 		super(sqlExpression, true);
-		
+
 		this.sqlExpression = sqlExpression;
 	}
-	
+
 	public String toSqlString(Criteria criteria, CriteriaQuery criteriaQuery) throws HibernateException {
 		return sqlExpression;
 	}
-	
+
 	public String toString() {
 		return sqlExpression;
 	}
-	
+
 }

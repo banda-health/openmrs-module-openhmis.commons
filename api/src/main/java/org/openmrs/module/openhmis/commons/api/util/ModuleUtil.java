@@ -20,7 +20,7 @@ import org.openmrs.module.ModuleFactory;
  */
 public class ModuleUtil {
 	public static final String IDGEN_MODULE_ID = "idgen";
-	
+
 	public static Boolean isLoaded(String moduleId) {
 		return ModuleFactory.getStartedModuleById(moduleId) != null;
 	}

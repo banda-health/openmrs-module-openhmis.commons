@@ -26,49 +26,49 @@ public class BaseDataTemplateSearch<T extends OpenmrsData> extends BaseAuditable
 	private DateComparisonType dateVoidedComparisonType;
 	private StringComparisonType voidReasonComparisonType;
 	private Boolean includeVoided;
-	
+
 	public BaseDataTemplateSearch(T template) {
 		this(template, null);
 	}
-	
+
 	public BaseDataTemplateSearch(T template, Boolean includeVoided) {
 		super(template);
-		
+
 		this.includeVoided = includeVoided;
 		this.dateVoidedComparisonType = DateComparisonType.EQUAL;
 		this.voidReasonComparisonType = StringComparisonType.EQUAL;
 	}
-	
+
 	public DateComparisonType getDateVoidedComparisonType() {
 		return dateVoidedComparisonType;
 	}
-	
+
 	public void setDateVoidedComparisonType(DateComparisonType dateVoidedComparisonType) {
 		this.dateVoidedComparisonType = dateVoidedComparisonType;
 	}
-	
+
 	public StringComparisonType getVoidReasonComparisonType() {
 		return voidReasonComparisonType;
 	}
-	
+
 	public void setVoidReasonComparisonType(StringComparisonType voidReasonComparisonType) {
 		this.voidReasonComparisonType = voidReasonComparisonType;
 	}
-	
+
 	public boolean getIncludeVoided() {
 		return includeVoided;
 	}
-	
+
 	public void setIncludeVoided(boolean includeVoided) {
 		this.includeVoided = includeVoided;
 	}
-	
+
 	@Override
 	public void updateCriteria(Criteria criteria) {
 		super.updateCriteria(criteria);
-		
+
 		T t = getTemplate();
-		
+
 		if (includeVoided != null) {
 			if (!includeVoided) {
 				criteria.add(Restrictions.eq("voided", false));
@@ -76,7 +76,7 @@ public class BaseDataTemplateSearch<T extends OpenmrsData> extends BaseAuditable
 		} else if (t.isVoided() != null) {
 			criteria.add(Restrictions.eq("voided", t.isVoided()));
 		}
-		
+
 		if (t.getVoidedBy() != null) {
 			criteria.add(Restrictions.eq("voidedBy", t.getVoidedBy()));
 		}

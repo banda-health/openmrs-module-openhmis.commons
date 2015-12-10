@@ -8,7 +8,7 @@ import org.openmrs.BaseOpenmrsData;
  */
 public abstract class BaseSerializableOpenmrsData extends BaseOpenmrsData {
 	public static final long serialVersionUID = 0L;
-	
+
 	@Override
 	@JsonIgnore
 	public Boolean getVoided() {

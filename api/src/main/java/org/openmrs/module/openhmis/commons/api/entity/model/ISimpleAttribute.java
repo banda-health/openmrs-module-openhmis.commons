@@ -23,5 +23,5 @@ public interface ISimpleAttribute<
 			TAttributeType extends ISimpleAttributeType>
 		extends IAttribute<TOwner, TAttributeType> {
 // @formatter:on
-	
+
 }

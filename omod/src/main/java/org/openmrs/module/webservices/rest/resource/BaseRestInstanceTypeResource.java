@@ -2,7 +2,6 @@ package org.openmrs.module.webservices.rest.resource;
 
 import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttributeType;
 import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceType;
-import org.openmrs.module.webservices.rest.web.annotation.PropertySetter;
 import org.openmrs.module.webservices.rest.web.representation.RefRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
@@ -27,24 +26,23 @@ public abstract class BaseRestInstanceTypeResource<
 		if (!(rep instanceof RefRepresentation)) {
 			description.addProperty("attributeTypes");
 		}
-		
+
 		return description;
 	}
-	
+
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() {
 		DelegatingResourceDescription description = super.getCreatableProperties();
 		description.addProperty("attributeTypes");
-		
+
 		return description;
 	}
-	
-	@PropertySetter("attributeTypes")
+
 	public void setAttributeTypes(E instance, List<TAttributeType> attributeTypes) {
 		if (instance.getAttributeTypes() == null) {
 			instance.setAttributeTypes(new ArrayList<TAttributeType>());
 		}
-		
+
 		BaseRestDataResource.syncCollection(instance.getAttributeTypes(), attributeTypes);
 		for (TAttributeType type : instance.getAttributeTypes()) {
 			type.setOwner(instance);

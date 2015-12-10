@@ -14,8 +14,8 @@ public class UserBarFixExt extends HeaderIncludeExt {
 	public List<String> getHeaderFiles() {
 		List<String> files = new ArrayList<String>(1);
 		files.add(ModuleWebConstants.OPENHMIS_STYLE_URL);
-		
+
 		return files;
 	}
-	
+
 }

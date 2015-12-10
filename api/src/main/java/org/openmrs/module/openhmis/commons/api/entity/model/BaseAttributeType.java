@@ -25,7 +25,7 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	private Integer foreignKey;
 	private String regExp;
 	private Boolean required = false;
-	
+
 	/**
 	 * Gets the attribute type id.
 	 * @return The attribute type id
@@ -34,7 +34,7 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	public Integer getId() {
 		return this.attributeTypeId;
 	}
-	
+
 	/**
 	 * Sets the attribute type id.
 	 * @param id The attribute type id
@@ -43,7 +43,7 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	public void setId(Integer id) {
 		this.attributeTypeId = id;
 	}
-	
+
 	/**
 	 * Gets the attribute order.
 	 * @return The attribute order
@@ -51,7 +51,7 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	public Integer getAttributeOrder() {
 		return attributeOrder;
 	}
-	
+
 	/**
 	 * Sets the attribute order.
 	 * @param attributeOrder The attribute order
@@ -59,7 +59,7 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	public void setAttributeOrder(Integer attributeOrder) {
 		this.attributeOrder = attributeOrder;
 	}
-	
+
 	/**
 	 * Gets the attribute type format.
 	 * @return The format
@@ -67,7 +67,7 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	public String getFormat() {
 		return format;
 	}
-	
+
 	/**
 	 * Sets the attribute type format.
 	 * @param format The format
@@ -75,7 +75,7 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	public void setFormat(String format) {
 		this.format = format;
 	}
-	
+
 	/**
 	 * Gets the attribute type foreign key.
 	 * @return The foreign key
@@ -83,7 +83,7 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	public Integer getForeignKey() {
 		return foreignKey;
 	}
-	
+
 	/**
 	 * Sets the attribute type foreign key.
 	 * @param foreignKey THe foreign key
@@ -91,7 +91,7 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	public void setForeignKey(Integer foreignKey) {
 		this.foreignKey = foreignKey;
 	}
-	
+
 	/**
 	 * Gets the attribute type regular expression.
 	 * @return The regular expression
@@ -99,7 +99,7 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	public String getRegExp() {
 		return regExp;
 	}
-	
+
 	/**
 	 * Sets the attribute type regular expression
 	 * @param regExp The regular expression
@@ -107,7 +107,7 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	public void setRegExp(String regExp) {
 		this.regExp = regExp;
 	}
-	
+
 	/**
 	 * Gets whether this attribute type is required.
 	 * @return {@code true} if the attribute type is required; otherwise, {@code false}
@@ -115,7 +115,7 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	public Boolean getRequired() {
 		return required;
 	}
-	
+
 	/**
 	 * Sets whether this attribute type is required.
 	 * @param required {@code true} if the attribute type is required; otherwise, {@code false}
@@ -123,23 +123,23 @@ public abstract class BaseAttributeType extends BaseOpenmrsMetadata implements I
 	public void setRequired(Boolean required) {
 		this.required = required;
 	}
-	
+
 	@Override
 	public String getDatatypeClassname() {
 		return getFormat();
 	}
-	
+
 	@Override
 	public String getDatatypeConfig() {
 		return getForeignKey().toString();
 	}
-	
+
 	@Override
 	public String getPreferredHandlerClassname() {
 		// Default to null to simplify concrete classes
 		return null;
 	}
-	
+
 	@Override
 	public String getHandlerConfig() {
 		// Default to null to simplify concrete classes

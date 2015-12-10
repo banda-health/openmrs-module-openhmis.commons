@@ -28,18 +28,18 @@ public class ProviderPropertyEditor extends PropertyEditorSupport {
 	@Override
 	public String getAsText() {
 		Provider provider = (Provider)getValue();
-		
+
 		if (provider == null) {
 			return "";
 		} else {
 			return provider.getId().toString();
 		}
 	}
-	
+
 	@Override
 	public void setAsText(String text) {
 		ProviderService service = Context.getProviderService();
-		
+
 		if (StringUtils.isEmpty(text)) {
 			setValue(null);
 		} else {
@@ -49,7 +49,7 @@ public class ProviderPropertyEditor extends PropertyEditorSupport {
 			} else {
 				provider = service.getProviderByUuid(text);
 			}
-			
+
 			setValue(provider);
 			if (provider == null) {
 				throw new IllegalArgumentException("Provider not found: " + text);

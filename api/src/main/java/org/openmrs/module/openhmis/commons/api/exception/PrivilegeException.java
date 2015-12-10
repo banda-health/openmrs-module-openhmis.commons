@@ -19,23 +19,23 @@ import org.openmrs.api.APIException;
  * Exception thrown when there are problems with privileges
  */
 public class PrivilegeException extends APIException {
-	
+
 	public static final long serialVersionUID = 22323L;
-	
+
 	public PrivilegeException() {
 		super();
 	}
-	
+
 	public PrivilegeException(String message) {
 		super(message);
 	}
-	
+
 	public PrivilegeException(Throwable cause) {
 		super(cause);
 	}
-	
+
 	public PrivilegeException(String message, Throwable cause) {
 		super(message, cause);
 	}
-	
+
 }

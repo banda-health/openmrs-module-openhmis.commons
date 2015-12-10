@@ -21,7 +21,7 @@ public abstract class BaseSearchHandler implements SearchHandler {
 		if (!StringUtils.isEmpty(uuid)) {
 			entity = service.getByUuid(uuid);
 		}
-		
+
 		return entity;
 	}
 }

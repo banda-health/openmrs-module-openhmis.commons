@@ -34,7 +34,7 @@ public interface IObjectDataService<E extends OpenmrsObject> extends OpenmrsServ
 	 * @param repository The data repository object that the service will use
 	 */
 	void setRepository(IHibernateRepository repository);
-	
+
 	/**
 	 * Saves the object to the database, creating a new object or updating an existing one.
 	 * @param object The object to be saved to the database
@@ -46,7 +46,7 @@ public interface IObjectDataService<E extends OpenmrsObject> extends OpenmrsServ
 	 * @should create the object successfully
 	 */
 	E save(E object);
-	
+
 	/**
 	 * Saves an object to the database along with the specified related {@link OpenmrsObject}'s within a single transaction.
 	 * @param object The object to be saved to the database
@@ -54,13 +54,13 @@ public interface IObjectDataService<E extends OpenmrsObject> extends OpenmrsServ
 	 * @return The saved object.
 	 */
 	E saveAll(E object, Collection<? extends OpenmrsObject> related);
-	
+
 	/**
 	 * Saves a collection of objects to the database
 	 * @param related The related objects to be saved to the database
 	 */
 	void saveAll(Collection<? extends OpenmrsObject> collection);
-	
+
 	/**
 	 * Completely remove an object from the database (not reversible).
 	 * @param object the object to remove from the database.
@@ -68,7 +68,7 @@ public interface IObjectDataService<E extends OpenmrsObject> extends OpenmrsServ
 	 * @should delete the specified object
 	 */
 	void purge(E object);
-	
+
 	/**
 	 * Returns all object records.
 	 * @return All object records that are in the database.
@@ -77,7 +77,7 @@ public interface IObjectDataService<E extends OpenmrsObject> extends OpenmrsServ
 	 */
 	@Transactional(readOnly = true)
 	List<E> getAll();
-	
+
 	/**
 	 * Returns all object records with the specified paging.
 	 * @param paging The paging information.
@@ -92,7 +92,7 @@ public interface IObjectDataService<E extends OpenmrsObject> extends OpenmrsServ
 	 */
 	@Transactional(readOnly = true)
 	List<E> getAll(PagingInfo paging);
-	
+
 	/**
 	 * Gets the object with the specified id or {@code null} if not found.
 	 * @param id The primary key of the object to find.
@@ -103,7 +103,7 @@ public interface IObjectDataService<E extends OpenmrsObject> extends OpenmrsServ
 	 */
 	@Transactional(readOnly = true)
 	E getById(int id);
-	
+
 	/**
 	 * Gets an object by uuid.
 	 * @param uuid is the uuid of the desired object.

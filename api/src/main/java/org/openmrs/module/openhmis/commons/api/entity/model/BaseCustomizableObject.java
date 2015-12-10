@@ -30,32 +30,32 @@ public abstract class BaseCustomizableObject<TAttribute extends IAttribute<?, ?>
 		implements ICustomizable<TAttribute> {
 // @formatter:on
 	public static final long serialVersionUID = 0L;
-	
+
 	private Set<TAttribute> attributes;
-	
+
 	protected void onAddAttribute(TAttribute attribute) {
 		// Just here to allow subclass to add custom logic
 	}
-	
+
 	protected void onRemoveAttribute(TAttribute attribute) {
 		// Just here to allow subclass to add custom logic
 	}
-	
+
 	@Override
 	public Set<TAttribute> getAttributes() {
 		return attributes;
 	}
-	
+
 	@Override
 	public void setAttributes(Set<TAttribute> attributes) {
 		this.attributes = attributes;
 	}
-	
+
 	@Override
 	public Set<TAttribute> getActiveAttributes() {
 		return getActiveAttributes(null);
 	}
-	
+
 	@Override
 	public Set<TAttribute> getActiveAttributes(CustomValueDescriptor ofType) {
 		Set<TAttribute> result = new HashSet<TAttribute>();
@@ -67,34 +67,34 @@ public abstract class BaseCustomizableObject<TAttribute extends IAttribute<?, ?>
 				}
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	@Override
 	public void addAttribute(TAttribute attribute) {
 		if (attribute == null) {
 			throw new NullPointerException("The attribute to add must be defined.");
 		}
-		
+
 		Set<TAttribute> attributes = this.getAttributes();
 		if (attributes == null) {
 			// Using LinkedHashSet because it is ordered by entry versus HashSet which is not.
 			attributes = new LinkedHashSet<TAttribute>();
-			
+
 			setAttributes(attributes);
 		}
-		
+
 		onAddAttribute(attribute);
 		attributes.add(attribute);
 	}
-	
+
 	@Override
 	public void removeAttribute(TAttribute attribute) {
 		if (getAttributes() == null || attribute == null) {
 			return;
 		}
-		
+
 		onRemoveAttribute(attribute);
 		getAttributes().remove(attribute);
 	}

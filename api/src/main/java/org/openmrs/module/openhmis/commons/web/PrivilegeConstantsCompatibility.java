@@ -46,7 +46,7 @@ public class PrivilegeConstantsCompatibility {
 	public static final String GET_OBS = "Get Observations";
 	public static final String VIEW_PATIENTS = "View Patients";
 	public static final String GET_PATIENTS = "Get Patients";
-	
+
 	/*Inventory module privilege constants*/
 	public static final String GET_ROLES = "Get Roles";
 	public static final String VIEW_ROLES = "View Roles";
@@ -57,11 +57,11 @@ public class PrivilegeConstantsCompatibility {
 	public static final String GET_LOCATIONS = "Get Locations";
 	public static final String VIEW_LOCATIONS = "View Locations";
 	public static final String EDIT_PATIENT_IDENTIFIERS = "Edit Patient Identifiers";
-	
+
 	private String checkPrivilege(String currentPrivilegeName, String oldPrivilegeName) {
 		String privilegeName;
 		Privilege privilege = Context.getUserService().getPrivilege(currentPrivilegeName);
-		
+
 		if (privilege != null) {
 			privilegeName = currentPrivilegeName;
 		} else {
@@ -72,90 +72,90 @@ public class PrivilegeConstantsCompatibility {
 				privilegeName = oldPrivilegeName;
 			}
 		}
-		
+
 		return privilegeName;
 	}
-	
+
 	public String getAddEncountersPrivilege() {
 		return checkPrivilege(ADD_ENCOUNTERS, null);
 	}
-	
+
 	public String getAddVisitsPrivilege() {
 		return checkPrivilege(ADD_VISITS, null);
 	}
-	
+
 	public String getEditEncountersPrivilege() {
 		return checkPrivilege(EDIT_ENCOUNTERS, null);
 	}
-	
+
 	public String getEditPatientsPrivilege() {
 		return checkPrivilege(EDIT_PATIENTS, null);
 	}
-	
+
 	public String getEditVisitsPrivilege() {
 		return checkPrivilege(EDIT_VISITS, null);
 	}
-	
+
 	public String getDashboardSummaryPrivilege() {
 		return checkPrivilege(DASHBOARD_SUMMARY, null);
 	}
-	
+
 	public String getDashboardDemographicsPrivilege() {
 		return checkPrivilege(DASHBOARD_DEMOGRAPHICS, null);
 	}
-	
+
 	public String getDashboardOverviewPrivilege() {
 		return checkPrivilege(DASHBOARD_OVERVIEW, null);
 	}
-	
+
 	public String getDashboardVisitsPrivilege() {
 		return checkPrivilege(DASHBOARD_VISITS, null);
 	}
-	
+
 	public String getViewAdminFunctionsPrivilege() {
 		return checkPrivilege(GET_ADMIN_FUNCTIONS, VIEW_ADMIN_FUNCTIONS);
 	}
-	
+
 	public String getViewEncountersPrivilege() {
 		return checkPrivilege(GET_ENCOUNTERS, VIEW_ENCOUNTERS);
 	}
-	
+
 	public String getViewNavigationMenuPrivilege() {
 		return checkPrivilege(GET_NAVIGATION_MENU, VIEW_NAVIGATION_MENU);
 	}
-	
+
 	public String getViewObsPrivilege() {
 		return checkPrivilege(GET_OBS, VIEW_OBS);
 	}
-	
+
 	public String getViewPatientsPrivilege() {
 		return checkPrivilege(GET_PATIENTS, VIEW_PATIENTS);
 	}
-	
+
 	public String getViewVisitPrivilege() {
 		return checkPrivilege(GET_VISITS, VIEW_VISITS);
 	}
-	
+
 	public String getViewProvidersPrivilege() {
 		return checkPrivilege(GET_PROVIDERS, VIEW_PROVIDERS);
 	}
-	
+
 	public String getViewRolesPrivilege() {
 		return checkPrivilege(GET_ROLES, VIEW_ROLES);
 	}
-	
+
 	public String getViewUsersPrivilege() {
 		return checkPrivilege(GET_USERS, VIEW_USERS);
 	}
-	
+
 	public String getViewConceptsPrivilege() {
 		return checkPrivilege(GET_CONCEPTS, VIEW_CONCEPTS);
 	}
-	
+
 	public String getViewLocationsPrivilege() {
 		return checkPrivilege(GET_LOCATIONS, VIEW_LOCATIONS);
 	}
-	
+
 	public String getEditPatientIdentifiersPrivilege() {
 		return checkPrivilege(EDIT_PATIENT_IDENTIFIERS, null);
 	}

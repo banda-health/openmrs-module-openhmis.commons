@@ -26,16 +26,16 @@ public interface IAttribute<
 		extends OpenmrsObject {
 // @formatter:on
 	TOwner getOwner();
-	
+
 	void setOwner(TOwner owner);
-	
+
 	TAttributeType getAttributeType();
-	
+
 	void setAttributeType(TAttributeType attributeType);
-	
+
 	String getValue();
-	
+
 	void setValue(String value);
-	
+
 	Object getHydratedValue();
 }

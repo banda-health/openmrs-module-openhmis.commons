@@ -27,29 +27,29 @@ public abstract class BaseInstanceCustomizableMetadata<
 		implements IInstanceCustomizable<TInstanceType, TAttribute> {
 // @formatter:on
 	public static final long serialVersionUID = 1L;
-	
+
 	private TInstanceType instanceType;
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	protected void onAddAttribute(TAttribute attribute) {
 		super.onAddAttribute(attribute);
-		
+
 		((IInstanceAttribute)attribute).setOwner(this);
 	}
-	
+
 	@Override
 	protected void onRemoveAttribute(TAttribute attribute) {
 		super.onRemoveAttribute(attribute);
-		
+
 		attribute.setOwner(null);
 	}
-	
+
 	@Override
 	public TInstanceType getInstanceType() {
 		return instanceType;
 	}
-	
+
 	@Override
 	public void setInstanceType(TInstanceType instanceType) {
 		this.instanceType = instanceType;

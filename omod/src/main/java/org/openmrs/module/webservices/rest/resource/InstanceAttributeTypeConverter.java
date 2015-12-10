@@ -31,12 +31,12 @@ import org.openmrs.module.webservices.rest.web.resource.impl.MetadataDelegatingC
         supportedOpenmrsVersions = { "1.8.*", "1.9.*", "1.10.*", "1.11.*", "1.12.*" })
 public class InstanceAttributeTypeConverter<T extends IInstanceAttributeType<?>> extends MetadataDelegatingCrudResource<T> {
 	private static final String NEED_SUBCLASS_HANDLER = "This operation should be handled by a subclass handler.";
-	
+
 	@Override
 	public boolean hasTypesDefined() {
 		return true;
 	}
-	
+
 	/*TODO: This is a workaround for a possible bug in the REST module */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -45,33 +45,33 @@ public class InstanceAttributeTypeConverter<T extends IInstanceAttributeType<?>>
 		if (HibernateProxy.class.isAssignableFrom(unproxiedClass)) {
 			unproxiedClass = (Class<? extends T>)unproxiedClass.getSuperclass();
 		}
-		
+
 		return getTypeName((Class<? extends T>)unproxiedClass);
 	}
-	
+
 	@Override
 	public T newDelegate() {
 		throw new NotImplementedException(NEED_SUBCLASS_HANDLER);
 	}
-	
+
 	@Override
 	public T save(T delegate) {
 		throw new NotImplementedException(NEED_SUBCLASS_HANDLER);
 	}
-	
+
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		throw new NotImplementedException(NEED_SUBCLASS_HANDLER);
 	}
-	
+
 	@Override
 	public T getByUniqueId(String uniqueId) {
 		throw new NotImplementedException(NEED_SUBCLASS_HANDLER);
 	}
-	
+
 	@Override
 	public void purge(T delegate, RequestContext context) {
 		throw new NotImplementedException(NEED_SUBCLASS_HANDLER);
 	}
-	
+
 }

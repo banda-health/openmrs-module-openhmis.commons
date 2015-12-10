@@ -26,6 +26,6 @@ public interface IInstanceAttribute<
 		extends IAttribute<TOwner, TAttributeType> {
 // @formatter:on
 	TOwner getOwner();
-	
+
 	void setOwner(TOwner owner);
 }
