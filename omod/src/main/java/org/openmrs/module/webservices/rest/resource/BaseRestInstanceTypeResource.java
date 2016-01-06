@@ -2,7 +2,6 @@ package org.openmrs.module.webservices.rest.resource;
 
 import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceAttributeType;
 import org.openmrs.module.openhmis.commons.api.entity.model.IInstanceType;
-import org.openmrs.module.webservices.rest.web.annotation.PropertySetter;
 import org.openmrs.module.webservices.rest.web.representation.RefRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
@@ -39,8 +38,7 @@ public abstract class BaseRestInstanceTypeResource<
 		return description;
 	}
 
-	@PropertySetter("attributeTypes")
-	public void setAttributeTypes(E instance, List<TAttributeType> attributeTypes) {
+	public void setAttributeTypesBase(E instance, List<TAttributeType> attributeTypes) {
 		if (instance.getAttributeTypes() == null) {
 			instance.setAttributeTypes(new ArrayList<TAttributeType>());
 		}
