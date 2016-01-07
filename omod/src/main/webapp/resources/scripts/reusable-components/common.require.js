@@ -1,5 +1,5 @@
 /* load common modules */
-define(['js/common-js', 'reusable-components/lib/restangular.min', 'reusable-components/lib/dirPagination', 'reusable-components/lib/angular-cookies.min',
+define(['reusable-components/js/common-js', 'reusable-components/lib/restangular.min', 'reusable-components/lib/dirPagination', 'reusable-components/lib/angular-cookies.min',
     'reusable-components/models/generic.model.module', 'reusable-components/models/generic.object.model',
     'reusable-components/models/generic.metadata.model',
     'reusable-components/services/restful-services/restful-services.module',
