@@ -21,8 +21,11 @@
     return service;
 
     /* Set base url */
-    function setBaseUrl(resource) {
-      var baseUrl = "/openmrs/ws/rest/v2/" + resource + "/";
+    function setBaseUrl(resource, version) {
+      if(!angular.isDefined(version)){
+        version = 'v2';
+      }
+      var baseUrl = "/openmrs/ws/rest/" + version + "/" + resource + "/";
       RestfulService.setBaseUrl(baseUrl);
     }
 

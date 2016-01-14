@@ -11,6 +11,7 @@
     self.module_name = '';
     self.rest_entity_name = '';
     self.entity_name = '';
+    self.rest_version = 'v2';
 
     self.currentPage = self.entity_name + 'currentPage';
     self.limit = self.entity_name + 'limit';
@@ -27,10 +28,13 @@
     }
 
     // protected
-    self.bindBaseParameters = function(module_name, entity_name) {
+    self.bindBaseParameters = function(module_name, entity_name, rest_version) {
       self.module_name = module_name;
       self.rest_entity_name = entity_name.toLowerCase();
       self.entity_name = entity_name;
+      if(angular.isDefined(rest_version)){
+        self.rest_version = rest_version;
+      }
     }
 
     // public
@@ -86,7 +90,7 @@
     self.initialize = function() {
       // initialize restful webservice..
       self.getModelAndEntityName();
-      EntityRestFactory.setBaseUrl(self.module_name);
+      EntityRestFactory.setBaseUrl(self.module_name, self.rest_version);
 
       if (!angular.isDefined($scope.fetchedEntities)) {
         $scope.fetchedEntities = [];
