@@ -10,6 +10,7 @@
     self.entity_name = '';
     self.uuid = '';
     self.cancel_page = '';
+    self.rest_version = 'v2';
 
     // protected
     self.setRequiredInitParameters = self.setRequiredInitParameters || function() {
@@ -22,10 +23,13 @@
     }
 
     // protected
-    self.bindBaseParameters = function(module_name, entity_name, cancel_page) {
+    self.bindBaseParameters = function(module_name, entity_name, cancel_page, rest_version) {
       self.module_name = module_name;
       self.rest_entity_name = entity_name.toLowerCase();
       self.entity_name = entity_name;
+      if(angular.isDefined(rest_version)){
+        self.rest_version = rest_version;
+      }
       self.cancel_page = cancel_page;
     }
 
@@ -134,7 +138,7 @@
                 return;
               }
 
-              EntityRestFactory.setBaseUrl(self.module_name);
+              EntityRestFactory.setBaseUrl(self.module_name, self.rest_version);
               $scope.cancel = self.cancel;
               $scope.purge = self.purge;
               $scope.saveOrUpdate = self.saveOrUpdate;
