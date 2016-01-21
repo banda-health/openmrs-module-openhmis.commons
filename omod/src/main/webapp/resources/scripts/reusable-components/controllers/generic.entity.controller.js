@@ -23,9 +23,9 @@
     }
 
     // protected
-    self.bindBaseParameters = function(module_name, entity_name, cancel_page, rest_version) {
+    self.bindBaseParameters = function(module_name, rest_entity_name, entity_name, cancel_page, rest_version) {
       self.module_name = module_name;
-      self.rest_entity_name = entity_name.toLowerCase();
+      self.rest_entity_name = rest_entity_name;
       self.entity_name = entity_name;
       if(angular.isDefined(rest_version)){
         self.rest_version = rest_version;
@@ -46,8 +46,14 @@
     self.saveOrUpdate = self.saveOrUpdate || function() {
       var params = {};
       params = self.appendBaseParams(params);
+      self.validateBeforeSaveOrUpdate();
       EntityRestFactory.saveOrUpdateEntity(params, $scope.entity, self.onChangeEntitySuccessful, self.onChangeEntityError);
     }
+
+
+    self.validateBeforeSaveOrUpdate = self.validateBeforeSaveOrUpdate || function(){
+      console.log('validate variables/data before saving');
+        }
 
     self.retireOrUnretireCall = self.retireOrUnretireCall
             || function(retire) {
