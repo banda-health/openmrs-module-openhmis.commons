@@ -6,3 +6,17 @@
 /* User bar styles */
 #userBar { overflow: hidden; }
 #userBar span { float: left; padding: 0 10px; }
+
+table.settings{
+    width: 80%;
+    margin: 0px;
+}
+
+table.settings td{
+    border: none;
+}
+
+.settings-spacing {
+    margin: 0 30px;
+}
+

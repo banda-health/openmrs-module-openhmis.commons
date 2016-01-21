@@ -10,15 +10,22 @@
   function EntityRestFactory(RestfulService) {
 
     var service = {
+      setCustomBaseUrl: setCustomBaseUrl,
       setBaseUrl: setBaseUrl,
       loadEntity: loadEntity,
       saveOrUpdateEntity: saveOrUpdateEntity,
       retireOrUnretireEntity: retireOrUnretireEntity,
       purgeEntity: purgeEntity,
-      loadEntities: loadEntities
+      loadEntities: loadEntities,
+      loadResults: loadResults
     }
 
     return service;
+
+    /* Sets a custom url */
+    function setCustomBaseUrl(url){
+      RestfulService.setBaseUrl(url);
+    }
 
     /* Set base url */
     function setBaseUrl(resource, version) {
@@ -182,6 +189,21 @@
       delete requestParams['rest_entity_name'];
 
       RestfulService.all(rest_entity_name, requestParams, successCallback, errorCallback);
+    }
+
+      /**
+       * Retrieves any restful objects which are not openmrs data objects
+       * @param resource
+       * @param successCallback
+       * @param errorCallback
+       */
+    function loadResults(requestParams, successCallback, errorCallback){
+        var resource;
+        if("resource" in requestParams){
+          resource = requestParams['resource'];
+          delete requestParams['resource'];
+        }
+      RestfulService.all(resource, requestParams, successCallback, errorCallback);
     }
 
     /*

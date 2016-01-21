@@ -28,9 +28,9 @@
     }
 
     // protected
-    self.bindBaseParameters = function(module_name, entity_name, rest_version) {
+    self.bindBaseParameters = function(module_name, rest_entity_name, entity_name, rest_version) {
       self.module_name = module_name;
-      self.rest_entity_name = entity_name.toLowerCase();
+      self.rest_entity_name = rest_entity_name;
       self.entity_name = entity_name;
       if(angular.isDefined(rest_version)){
         self.rest_version = rest_version;
