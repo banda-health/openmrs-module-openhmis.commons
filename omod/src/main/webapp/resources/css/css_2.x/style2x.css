@@ -109,6 +109,7 @@ header .user-options li.change-location {
 }
 header .user-options li.change-location a {
     display: block;
+    text-decoration: none;
 }
 header .user-options li.change-location:hover, header .user-options li.change-location .focus {
     background: #006056;
@@ -133,12 +134,45 @@ header #session-location {
     font-size: 0.8em;
     z-index: 1;
 }
+header #session-location ul.select{
+    text-align: left;
+    margin: 0 20px;
+    padding: 0;
+}
+
+header #session-location ul{
+    list-style: none;
+}
+
+header #session-location ul.select li {
+    margin: 0 10px;
+    text-align: left;
+    display: inline-block;
+    width: 250px;
+    padding: 5px;
+    color: #007fff;
+    background-color: #FFF;
+    border-bottom: 1px solid #efefef;
+}
+header #session-location ul.select li:hover {
+    background-color: #007fff;
+    color: white;
+    cursor: pointer;
+}
+header #session-location ul.select li.selected {
+    background-color: #007fff;
+    color: white;
+    border-color: transparent;
+}
+
+
 header #session-location .select {
     font-size: 1em;
 }
 header #session-location li {
     width: 239px;
 }
+
 
 #cont {
     margin: 0px 0 0 0;
@@ -269,6 +303,26 @@ ul.icons li [class*=" icon-"] {
 
 .icon-signout:before {
     content: "\f08b";
+}
+
+.icon-map-marker:before {
+    content: "\f041";
+}
+
+.icon-caret-down:before {
+    content: "\f0d7";
+}
+
+.icon-caret-up:before {
+    content: "\f0d8";
+}
+
+.icon-caret-left:before {
+    content: "\f0d9";
+}
+
+.icon-caret-right:before {
+    content: "\f0da";
 }
 
 li [class^="sicon-"], li [class*=" icon-"], .nav li [class^="icon-"], .nav li [class*=" icon-"] {
