@@ -81,14 +81,7 @@
 				</includes>
 				<targetPath>web/module</targetPath>
 			</resource>
-			<resource>
-				<directory>web/WEB-INF</directory>
-				<filtering>false</filtering>
-				<includes>
-					<include>template/common/*</include>
-				</includes>
-				<targetPath>web/module</targetPath>
-			</resource>
+			
 		</resources>
 
 		<testResources>
