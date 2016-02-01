@@ -44,16 +44,17 @@
     }
 
     self.saveOrUpdate = self.saveOrUpdate || function() {
-      var params = {};
-      params = self.appendBaseParams(params);
-      self.validateBeforeSaveOrUpdate();
-      EntityRestFactory.saveOrUpdateEntity(params, $scope.entity, self.onChangeEntitySuccessful, self.onChangeEntityError);
+      if(self.validateBeforeSaveOrUpdate()){
+        var params = {};
+        params = self.appendBaseParams(params);
+        EntityRestFactory.saveOrUpdateEntity(params, $scope.entity, self.onChangeEntitySuccessful, self.onChangeEntityError);
+      }
     }
-
 
     self.validateBeforeSaveOrUpdate = self.validateBeforeSaveOrUpdate || function(){
       console.log('validate variables/data before saving');
-        }
+      return true;
+    }
 
     self.retireOrUnretireCall = self.retireOrUnretireCall
             || function(retire) {
@@ -153,6 +154,10 @@
 
               // load messages..
               var messageLabels = self.loadMessageLabels();
+              var additionalMessageLabels = self.setAdditionalMessageLabels()
+              if(additionalMessageLabels){
+                angular.extend(messageLabels, additionalMessageLabels);
+              }
               $scope.messageLabels = messageLabels;
             }
 
@@ -184,6 +189,10 @@
 
               return messages;
             }
+
+    self.setAdditionalMessageLabels = self.setAdditionalMessageLabels || function(){
+          console.log('define message labels');
+        }
 
     /* ENTRY POINT */
     self.loadPage();
