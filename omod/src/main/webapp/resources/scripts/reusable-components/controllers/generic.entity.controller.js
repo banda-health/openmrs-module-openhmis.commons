@@ -179,6 +179,7 @@
                       .message("openhmis.inventory.general.retired.reason");
               messages['general.retireReason'] = emr.message("general.retireReason");
               messages['general.purge'] = emr.message("general.purge");
+              messages['openhmis.inventory.general.name.required'] = emr.message("openhmis.inventory.general.name.required");
 
               if (self.uuid === null || self.uuid === undefined || self.uuid === "") {
                 messages['h2SubString'] = $filter('EmrFormat')(emr.message("openhmis.inventory.general.new"),
