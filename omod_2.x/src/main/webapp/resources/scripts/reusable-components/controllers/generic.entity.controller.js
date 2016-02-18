@@ -175,6 +175,8 @@
               messages['general.description'] = emr.message("general.description");
               messages['general.cancel'] = emr.message("general.cancel");
               messages['general.save'] = emr.message("general.save");
+              messages['general.update'] = emr.message("general.update");
+              messages['general.demo'] = emr.message("general.demo");
               messages['openhmis.inventory.general.retired.reason'] = emr
                       .message("openhmis.inventory.general.retired.reason");
               messages['general.retireReason'] = emr.message("general.retireReason");
