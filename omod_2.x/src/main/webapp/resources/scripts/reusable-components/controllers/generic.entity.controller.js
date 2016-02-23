@@ -44,16 +44,17 @@
     }
 
     self.saveOrUpdate = self.saveOrUpdate || function() {
-      var params = {};
-      params = self.appendBaseParams(params);
-      self.validateBeforeSaveOrUpdate();
-      EntityRestFactory.saveOrUpdateEntity(params, $scope.entity, self.onChangeEntitySuccessful, self.onChangeEntityError);
+      if(self.validateBeforeSaveOrUpdate()){
+        var params = {};
+        params = self.appendBaseParams(params);
+        EntityRestFactory.saveOrUpdateEntity(params, $scope.entity, self.onChangeEntitySuccessful, self.onChangeEntityError);
+      }
     }
-
 
     self.validateBeforeSaveOrUpdate = self.validateBeforeSaveOrUpdate || function(){
       console.log('validate variables/data before saving');
-        }
+      return true;
+    }
 
     self.retireOrUnretireCall = self.retireOrUnretireCall
             || function(retire) {
@@ -153,6 +154,10 @@
 
               // load messages..
               var messageLabels = self.loadMessageLabels();
+              var additionalMessageLabels = self.setAdditionalMessageLabels()
+              if(additionalMessageLabels){
+                angular.extend(messageLabels, additionalMessageLabels);
+              }
               $scope.messageLabels = messageLabels;
             }
 
@@ -174,6 +179,7 @@
                       .message("openhmis.inventory.general.retired.reason");
               messages['general.retireReason'] = emr.message("general.retireReason");
               messages['general.purge'] = emr.message("general.purge");
+              messages['openhmis.inventory.general.name.required'] = emr.message("openhmis.inventory.general.name.required");
 
               if (self.uuid === null || self.uuid === undefined || self.uuid === "") {
                 messages['h2SubString'] = $filter('EmrFormat')(emr.message("openhmis.inventory.general.new"),
@@ -184,6 +190,10 @@
 
               return messages;
             }
+
+    self.setAdditionalMessageLabels = self.setAdditionalMessageLabels || function(){
+          console.log('define message labels');
+        }
 
     /* ENTRY POINT */
     self.loadPage();
