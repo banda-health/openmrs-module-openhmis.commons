@@ -117,12 +117,22 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 		if (StringUtils.isEmpty(uniqueId)) {
 			return null;
 		}
-		try {
-			return getService().getByUuid(uniqueId);
-		} catch (PrivilegeException p) {
-			LOG.error("Exception occured when trying to get entity with ID <" + uniqueId + "> as privilege is missing", p);
-			throw new PrivilegeException("Can't get entity with ID <" + uniqueId + "> as privilege is missing");
+
+		E result = null;
+
+		// Ensure that a service is found for this resource. This is a fix for changes to the RESTWS module as of v2.12.
+		IMetadataDataService<E> service = getService();
+		if (service != null) {
+			try {
+				result = service.getByUuid(uniqueId);
+			} catch (PrivilegeException p) {
+				LOG.error("Exception occured when trying to get entity with ID <" + uniqueId
+				        + "> as privilege is missing", p);
+				throw new PrivilegeException("Can't get entity with ID <" + uniqueId + "> as privilege is missing");
+			}
 		}
+
+		return result;
 	}
 
 	/**
@@ -185,7 +195,14 @@ public abstract class BaseRestMetadataResource<E extends OpenmrsMetadata> extend
 	 * @return The entity data service
 	 */
 	protected IMetadataDataService<E> getService() {
-		return Context.getService(getServiceClass());
+		// Ensure that the service class is not null. This is a fix for changes to the RESTWS module as of v2.12.
+		Class<? extends IMetadataDataService<E>> cls = getServiceClass();
+
+		if (cls == null) {
+			return null;
+		} else {
+			return Context.getService(cls);
+		}
 	}
 
 	/**
