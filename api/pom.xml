@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>openhmis.commons</artifactId>
 		<groupId>org.openmrs.module</groupId>
-		<version>3.1.0</version>
+		<version>3.1.1</version>
 	</parent>
 
 	<artifactId>openhmis.commons-api</artifactId>
