@@ -5,7 +5,7 @@
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>openhmis.commons</artifactId>
 	<packaging>pom</packaging>
-	<version>3.1.0</version>
+	<version>3.1.1</version>
 	<name>OpenHMIS Commons Module</name>
 	<description>Module that provides core functionality used by the OpenHMIS modules.</description>
 	<url>http://openhmis.github.com/</url>
