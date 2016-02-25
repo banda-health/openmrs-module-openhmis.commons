@@ -17,7 +17,8 @@
       retireOrUnretireEntity: retireOrUnretireEntity,
       purgeEntity: purgeEntity,
       loadEntities: loadEntities,
-      loadResults: loadResults
+      loadResults: loadResults,
+      post: RestfulService.post,
     }
 
     return service;
