@@ -13,7 +13,8 @@
       all: all,
       one: one,
       remove: remove,
-      saveOrUpdate: saveOrUpdate
+      saveOrUpdate: saveOrUpdate,
+      post: customPOST
     };
 
     return service;
