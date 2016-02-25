@@ -360,3 +360,4 @@ li [class^="sicon-"], li [class*=" icon-"], .nav li [class^="icon-"], .nav li [c
     min-width: 0;
     margin-right: 10px;
 }
+.removeBold { font-weight: normal;}
