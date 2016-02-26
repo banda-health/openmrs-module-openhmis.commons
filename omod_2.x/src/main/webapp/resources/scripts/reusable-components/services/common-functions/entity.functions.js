@@ -8,13 +8,13 @@
 	
 	function EntityFunctions() {
 		var service = {
-			addExtraFormatListElements : addExtraFormatListElements
+			addExtraFormatListElements: addExtraFormatListElements
 		};
 		
 		return service;
 		
 		function addExtraFormatListElements(formatFields) {
-			for ( var format in formatFields) {
+			for (var format in formatFields) {
 				switch (formatFields[format]) {
 					// As per PersonAttributeTypeFormController.java, remove inapplicable formats
 					case "java.util.Date" :
@@ -25,11 +25,11 @@
 				}
 			}
 
-			do {
-				var undefinedId = _.indexOf(formatFields, undefined);
-				if (undefinedId !== -1)
-					formatFields.splice(undefinedId, 1);
-			} while (undefinedId !== -1)
+			var undefinedId = _.indexOf(formatFields, undefined);
+			while (undefinedId !== -1) {
+				formatFields.splice(undefinedId, 1);
+				undefinedId = _.indexOf(formatFields, undefined);
+			}
 
 			formatFields.unshift("java.lang.Character");
 			formatFields.unshift("java.lang.Integer");
@@ -38,5 +38,4 @@
 			return formatFields;
 		}
 	}
-	
 })();
