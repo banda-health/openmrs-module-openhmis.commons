@@ -7,8 +7,7 @@
 	EntityFunctions.$inject = [];
 	
 	function EntityFunctions() {
-		var service;
-		service = {
+		var service = {
 			addExtraFormatListElements : addExtraFormatListElements
 		};
 		
