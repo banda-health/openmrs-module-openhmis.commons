@@ -28,7 +28,6 @@
 
 			do {
 				var undefinedId = _.indexOf(formatFields, undefined);
-
 				if (undefinedId !== -1)
 					formatFields.splice(undefinedId, 1);
 			} while (undefinedId !== -1)
