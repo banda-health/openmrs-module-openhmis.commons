@@ -23,10 +23,27 @@
 	
 	function EntityFunctions() {
 		var service = {
+			retireUnretireDeletePopup: retireUnretireDeletePopup,
 			addExtraFormatListElements: addExtraFormatListElements
 		};
-		
+
 		return service;
+
+		/**
+		 * Show the retire/unretire and Delete popup
+		 * @param selectorId - div id
+		 */
+		function retireUnretireDeletePopup(selectorId){
+			var dialog = emr.setupConfirmationDialog({
+				selector: '#' + selectorId,
+				actions: {
+					cancel: function(){
+						dialog.close();
+					}
+				}
+			});
+			dialog.show();
+		}
 		
 		function addExtraFormatListElements(formatFields) {
 			for (var format in formatFields) {
