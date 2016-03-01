@@ -18,7 +18,7 @@
 
   var baseController = angular.module('app.genericEntityController');
 
-  function GenericEntityController($scope, $filter, $stateParams, EntityRestFactory, GenericMetadataModel) {
+  function GenericEntityController($scope, $filter, $stateParams, EntityRestFactory, GenericMetadataModel, EntityFunctions) {
     var self = this;
     self.module_name = '';
     self.rest_entity_name = '';
@@ -78,6 +78,10 @@
               EntityRestFactory.retireOrUnretireEntity(params, $scope.entity, self.onChangeEntitySuccessful,
                       self.onChangeEntityError);
             }
+
+    self.retireUnretireDeletePopup = self.retireUnretireDeletePopup || function(id){
+          EntityFunctions.retireUnretireDeletePopup(id);
+        }
 
     self.purge = self.purge || function() {
       var params = {};
@@ -165,6 +169,7 @@
               $scope.purge = self.purge;
               $scope.saveOrUpdate = self.saveOrUpdate;
               $scope.retireOrUnretireCall = self.retireOrUnretireCall;
+              $scope.retireUnretireDeletePopup = self.retireUnretireDeletePopup;
               self.bindExtraVariablesToScope('');
 
               // load messages..
