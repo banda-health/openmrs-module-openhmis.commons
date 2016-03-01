@@ -18,14 +18,17 @@
             <input type="button" class="confirm" style="background: #ff3d3d; background-color: #ff3d3d; border:#ff3d3d 1px solid" value="{{retireOrUnretire}}" ng-click="retireOrUnretireCall()" />
         </div>
         <br /><br />
-        <div class="detail-section-border-top detail-section-border-bottom">
-            <p class="checkRequired" ng-hide="entity.retireReason != '' || retireReasonIsRequiredMsg == '' || retireReasonIsRequiredMsg == undefined">{{retireReasonIsRequiredMsg}}</p>
-            <h3 ng-hide="entity.uuid == ''">
-                {{messageLabels['delete.forever']}}
-            </h3>
-            <p>
-                <input type="button" ng-hide="entity.uuid == ''" class="confirm" style="background: #ff3d3d; background-color: #ff3d3d; border:#ff3d3d 1px solid" value="{{messageLabels['general.purge']}}" ng-click="purge()"/>
-            </p>
-        </div>
+
+        <% if(config.showDeleteSection != "false"){ %>
+            <div class="detail-section-border-top detail-section-border-bottom">
+                <p class="checkRequired" ng-hide="entity.retireReason != '' || retireReasonIsRequiredMsg == '' || retireReasonIsRequiredMsg == undefined">{{retireReasonIsRequiredMsg}}</p>
+                <h3 ng-hide="entity.uuid == ''">
+                    {{messageLabels['delete.forever']}}
+                </h3>
+                <p>
+                    <input type="button" ng-hide="entity.uuid == ''" class="confirm" style="background: #ff3d3d; background-color: #ff3d3d; border:#ff3d3d 1px solid" value="{{messageLabels['general.purge']}}" ng-click="purge()"/>
+                </p>
+            </div>
+        <% } %>
     </div>
 </div>
