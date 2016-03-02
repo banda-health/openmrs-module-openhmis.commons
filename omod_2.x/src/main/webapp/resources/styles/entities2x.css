@@ -253,6 +253,10 @@ table.header-title td{
     border: 0px;
 }
 
+.autocomplete-search{
+    width: 350px;
+}
+
 .bbf-list button.bbf-remove { float: left; width: 1.9em; margin-top: -2px; padding: 0px 0px; }
 
 
