@@ -38,7 +38,7 @@
             <% if(config.typeaheadEditable) { %>
                 typeahead-editable = ${config.typeaheadEditable}
             <% } %>
-
+            ng-model-options="{ debounce: 500 }"
             autofocus />
 
     <% if(!config.typeahead) {%>
