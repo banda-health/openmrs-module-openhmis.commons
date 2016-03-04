@@ -1,0 +1,363 @@
+ul.table-layout{
+    text-align: left;
+    margin: 0 20px;
+    padding: 0;
+    font-size: 0.8em
+}
+
+ul.table-layout li{
+    margin: 0 10px;
+    text-align: left;
+    display: inline-block;
+    width: 250px;
+    padding: 5px;
+    vertical-align: text-top;
+}
+
+fieldset.format{
+    min-width: 80%;
+    margin: 0 20px;
+}
+
+table.settings{
+    width: 80%;
+    margin: 0px;
+}
+
+table.settings td{
+    border: none;
+}
+
+.settings-spacing {
+    margin: 0 30px;
+}
+
+#body {
+    font-family: "OpenSans", Arial, sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
+    max-width: 1000px;
+    margin: 10px auto;
+    background: #eeeeee;
+    color: #363463;
+}
+
+#body-wrapper {
+    margin-top: 10px;
+    padding: 10px 10px 10px 15px;
+    background-color: white;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+
+header {
+    position: relative;
+    background-color: #00463f;
+    color: #CCC;
+    line-height: 1em;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+header:before, header:after {
+    content: " ";
+    display: table;
+}
+header:after {
+    clear: both;
+}
+header a, header a:visited, header a:hover, header a:link {
+    color: white;
+}
+header h1 {
+    color: #FFF;
+    margin: 0;
+    padding: 10px;
+}
+header .logo {
+    float: left;
+    margin: 4px;
+}
+header .logo img {
+    width: 120px;
+}
+header .user-options {
+    text-align: right;
+}
+header .user-options li {
+    display: inline-block;
+    margin: 10px 0 10px 20px;
+}
+header .user-options li.change-location, header .user-options li.logout {
+    color: white;
+}
+header .user-options li.change-location {
+    border: 1px solid #006056;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+}
+header .user-options li.change-location a {
+    display: block;
+    text-decoration: none;
+}
+header .user-options li.change-location:hover, header .user-options li.change-location .focus {
+    background: #006056;
+}
+header .user-options li.change-location:hover a:hover, header .user-options li.change-location .focus a:hover {
+    text-decoration: none;
+}
+header #session-location {
+    position: absolute;
+    display: none;
+    top: 60px;
+    left: 70px;
+    background: white;
+    border: 2px solid #006056;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+    width: 853px;
+    font-size: 0.8em;
+    z-index: 1;
+}
+header #session-location ul.select{
+    text-align: left;
+    margin: 0 20px;
+    padding: 0;
+}
+
+header #session-location ul{
+    list-style: none;
+}
+
+header #session-location ul.select li {
+    margin: 0 10px;
+    text-align: left;
+    display: inline-block;
+    width: 250px;
+    padding: 5px;
+    color: #007fff;
+    background-color: #FFF;
+    border-bottom: 1px solid #efefef;
+}
+header #session-location ul.select li:hover {
+    background-color: #007fff;
+    color: white;
+    cursor: pointer;
+}
+header #session-location ul.select li.selected {
+    background-color: #007fff;
+    color: white;
+    border-color: transparent;
+}
+
+
+header #session-location .select {
+    font-size: 1em;
+}
+header #session-location li {
+    width: 239px;
+}
+
+
+#cont {
+    margin: 0px 0 0 0;
+    font-size: 1.2em;
+    padding: 10px 10px 10px 10px;
+    z-index: 8;
+}
+
+#cont h1, h2, h3, h4, h5, h6 {
+    color: #00463f;
+    clear: both;
+    margin: 10px 0;
+    font-weight: normal;
+}
+
+#cont a, a:link, #cont a:active, #cont a:visited, #cont a:hover {
+    color: #003366;
+}
+
+#cont h1 {
+    font-size: 1.5em;
+    margin: 10px 0 20px 0;
+}
+
+/*
+ *  Font Awesome 3.0.2
+ *  the iconic font designed for use with Twitter Bootstrap
+ *  -------------------------------------------------------
+ *  The full suite of pictographic icons, examples, and documentation
+ *  can be found at: http://fortawesome.github.com/Font-Awesome/
+ *
+ *  License
+ *  -------------------------------------------------------
+ *  - The Font Awesome font is licensed under the SIL Open Font License - http://scripts.sil.org/OFL
+ *  - Font Awesome CSS, LESS, and SASS files are licensed under the MIT License -
+ *    http://opensource.org/licenses/mit-license.html
+ *  - The Font Awesome pictograms are licensed under the CC BY 3.0 License - http://creativecommons.org/licenses/by/3.0/
+ *  - Attribution is no longer required in Font Awesome 3.0, but much appreciated:
+ *    "Font Awesome by Dave Gandy - http://fortawesome.github.com/Font-Awesome"
+ *
+ *  Contact
+ *  -------------------------------------------------------
+ *  Email: dave@davegandy.com
+ *  Twitter: http://twitter.com/fortaweso_me
+ *  Work: Lead Product Designer @ http://kyruus.com
+ */
+@font-face {
+    font-family: 'FontAwesome';
+    src: url("/openmrs/ms/uiframework/resource/uicommons/fonts/fontawesome-webfont.eot");
+    src: url("/openmrs/ms/uiframework/resource/uicommons/fonts/fontawesome-webfont.eot") format("embedded-opentype"),
+    url("/openmrs/ms/uiframework/resource/uicommons/fonts/fontawesome-webfont.woff") format("woff"),
+    url("/openmrs/ms/uiframework/resource/uicommons/fonts/fontawesome-webfont.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*  Font Awesome styles
+    ------------------------------------------------------- */
+[class^="icon-"], [class*=" icon-"] {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+    -webkit-font-smoothing: antialiased;
+    padding: 0.2em;/* sprites.less reset */
+    display: inline;
+    width: auto;
+    height: auto;
+    line-height: normal;
+    vertical-align: baseline;
+    background-image: none;
+    background-position: 0% 0%;
+    background-repeat: repeat;
+    margin-top: 0;
+}
+
+#breadcrumbs {
+    clear: both;
+    padding: 0px;
+    margin-top: 0;
+    font-size: 0.9em;
+    border-bottom: 1px solid white;
+    list-style-type: none;
+}
+
+#breadcrumbs a, #breadcrumbs a:link, #breadcrumbs a:visited {
+    color: #555;
+    text-decoration: underline;
+}
+#breadcrumbs a:hover, #breadcrumbs a:link:hover, #breadcrumbs a:visited:hover {
+    color: #7b7b7b;
+}
+#breadcrumbs a:first-child, #breadcrumbs a:link:first-child, #breadcrumbs a:visited:first-child {
+    text-decoration: none;
+}
+#breadcrumbs li {
+    display: inline;
+}
+#breadcrumbs li:last-child {
+    font-family: "OpenSansBold";
+    font-weight:bold;
+}
+
+ul.icons {
+    list-style-type: none;
+    text-indent: -.75em;
+}
+ul.icons li [class^="icon-"],
+ul.icons li [class*=" icon-"] {
+    width: .75em;
+}
+
+.icon-home:before {
+    content: "\f015";
+}
+
+.icon-chevron-left:before {
+    content: "\f053";
+}
+
+.icon-chevron-right:before {
+    content: "\f054";
+}
+
+.icon-user:before {
+    content: "\f007";
+}
+
+.icon-signout:before {
+    content: "\f08b";
+}
+
+.icon-map-marker:before {
+    content: "\f041";
+}
+
+.icon-caret-down:before {
+    content: "\f0d7";
+}
+
+.icon-caret-up:before {
+    content: "\f0d8";
+}
+
+.icon-caret-left:before {
+    content: "\f0d9";
+}
+
+.icon-caret-right:before {
+    content: "\f0da";
+}
+
+li [class^="sicon-"], li [class*=" icon-"], .nav li [class^="icon-"], .nav li [class*=" icon-"] {
+    display: inline-block;
+    width: 1.25em;
+    text-align: center;
+}
+
+.bbf-list button.bbf-remove { float: left; width: 1.9em; margin-top: -2px; padding: 0px 0px; }
+
+.button.confirm, button.confirm, input[type="submit"].confirm, input[type="button"].confirm, input[type="submit"].confirm, a.button.confirm {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a1d030), color-stop(100%, #88af28));
+    background: -webkit-linear-gradient(top, #a1d030, #88af28);
+    background: -moz-linear-gradient(top, #a1d030, #88af28);
+    background: -o-linear-gradient(top, #a1d030, #88af28);
+    background: -ms-linear-gradient(top, #a1d030, #88af28);
+    background: linear-gradient(top, #a1d030, #88af28);
+    background-color: #88af28;
+    border: #88af28 1px solid;
+    padding: 8px 20px;
+    display: inline-block;
+    line-height: 1.2em;
+    color: white;
+    cursor: pointer;
+    min-width: 0;
+    max-width: 300px;
+    text-decoration: none;
+    max-width: 250px;
+    min-width: 0;
+    margin-right: 10px;
+}
+.removeBold { font-weight: normal;}

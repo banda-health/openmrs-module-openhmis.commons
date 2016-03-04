@@ -1,0 +1,37 @@
+/*
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See
+ * the License for the specific language governing rights and
+ * limitations under the License.
+ *
+ * Copyright (C) OpenHMIS.  All Rights Reserved.
+ *
+ */
+
+/*
+	This css will be applied globally when the module is added. Intended use for styling header and
+	footer outside of theming.
+*/
+
+/* User bar styles */
+#userBar { overflow: hidden; }
+#userBar span { float: left; padding: 0 10px; }
+
+table.settings{
+    width: 80%;
+    margin: 0px;
+}
+
+table.settings td{
+    border: none;
+}
+
+.settings-spacing {
+    margin: 0 30px;
+}
+

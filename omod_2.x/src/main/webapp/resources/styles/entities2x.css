@@ -1,0 +1,262 @@
+/*
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See
+ * the License for the specific language governing rights and
+ * limitations under the License.
+ *
+ * Copyright (C) OpenHMIS.  All Rights Reserved.
+ *
+ */
+
+body{
+    font-size: 16px;
+}
+.clickable-tr, .institution-pagination span a {
+	cursor:pointer;/*turns to a finger instead of pointer*/
+}
+
+.clickable-tr:hover {
+	background-color: #dddddd;
+}
+
+.linkDisabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: grey;
+}
+
+a.disabled {
+    color: #A2D0DB;
+    cursor: default;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+.paging-button {
+	border: 0.5;
+	height:20px;
+	padding-top:1.4px;
+}
+
+.showing-summary-select {
+	height:20px;
+}
+
+#below-institutions-table {
+	font-size: 14px;
+}
+
+.h1-substitue-left {
+	color: #00463f;
+    clear: both;
+    font-size: 1.5em;;
+}
+
+/*Supplements bootstrap.css*/
+.searchinput {
+    width: 400px;
+}
+.searchclear {
+    position:absolute;
+    right:5px;
+    top:0;
+    bottom:0;
+    height:14px;
+    margin:auto;
+    font-size:24px;
+    cursor:pointer;
+    color:#ccc;
+    margin-top:7px;
+}
+
+.checkRequired {
+	color:red;
+}
+
+#current-institution input.ng-invalid.ng-touched {
+    border-color: red;
+}
+
+ #current-institution input.ng-valid.ng-touched {
+    border-color: #EBE9ED;
+}
+
+.successfulMessage {
+	color:green;
+}
+
+.entity-form{
+    font-size: 1.1em;
+    line-height: 35px;
+}
+
+ul.table-layout{
+    text-align: left;
+    margin: 0 20px;
+    padding: 0;
+}
+
+ul.table-layout li{
+    margin: 0 10px;
+    text-align: left;
+    display: inline-block;
+    width: 250px;
+    padding: 5px;
+    vertical-align: middle;
+}
+
+ul.table-layout li.valign {
+    vertical-align: top;
+}
+
+ul.table-layout input.minimized{
+    min-width: 5%;
+    width: 35%;
+}
+
+ul.table-layout input.maximized{
+    width: 150%;
+}
+
+ul.attributes-layout{
+    vertical-align: text-top;
+    margin-top: 10px;
+}
+
+ul.attributes-layout ul li{
+    margin: 0 0px;
+    width: 40px;
+    display: inline-block;
+}
+
+ul.autocomplete-table-layout li.ng-scope{
+    display: block;
+    width: 80%;
+    padding: 5px;
+    vertical-align: text-top;
+}
+
+ul.autocomplete-table-layout li.ng-scope a{
+    text-decoration: none;
+}
+
+ul.dialog-table-layout li{
+    width: 100px;
+}
+
+ul.table-layout li.required:before{
+    content:"*";
+    color:red;
+}
+ul.table-layout li.not-required:before{
+    content:"  ";
+    padding: 5px;
+}
+
+ul.table-layout li a:first-child{
+    text-decoration: none;
+    color:inherit;
+}
+
+ul.table-layout li a{
+    text-decoration: underline;
+}
+
+ul.table-attributes li{
+    margin: 0 0px;
+    width: 10px;
+    padding: 5px;
+}
+
+fieldset.format{
+    min-width: 80%;
+    margin: 0 80px;
+}
+
+fieldset.dialog-format{
+    min-width: 80%;
+    margin: 20px 20px 20px 20px;
+}
+
+div.dialog-format{
+    background: white;
+}
+
+div.dialog-format h2{
+    text-align: center;
+    margin: 10px;
+}
+
+.submitted .ng-invalid{
+    border:1px solid #f00;
+}
+
+.bbf-actions{
+    margin-bottom: 30px;
+}
+
+table.manage-entities-table{
+    table-layout: fixed;
+}
+
+table.manage-entities-table th:first-child, td:first-child{
+    width: 160%;
+}
+
+table.manage-entities-table th, td{
+    width: 60%;
+}
+
+table.stockroom-table{
+    width: 80%;
+    margin: 0 80px;
+}
+
+table.stockroom-table th, td{
+    width: 100%;
+}
+
+fieldset.stockroom-format{
+    margin: -1px 107px -12px 80px;
+}
+
+.pagination-options{
+    float:left;
+    margin: -9px 0px 0px 10px;
+    font-size: 16px;
+
+}
+
+.detail-section-border-top{
+    border-top: 1px solid #dddddd;
+}
+
+.detail-section-border-bottom{
+    border-bottom: 1px solid #dddddd;
+}
+
+.show-cursor{
+    cursor: pointer;
+}
+
+table.header-title{
+    border-style:hidden;
+
+}
+
+table.header-title td{
+    border: 0px;
+}
+
+.autocomplete-search{
+    width: 350px;
+}
+
+.bbf-list button.bbf-remove { float: left; width: 1.9em; margin-top: -2px; padding: 0px 0px; }
+
+
