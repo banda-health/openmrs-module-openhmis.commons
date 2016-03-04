@@ -25,6 +25,7 @@ import org.openmrs.OpenmrsData;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.entity.IEntityDataService;
+import org.openmrs.module.openhmis.commons.api.exception.PrivilegeException;
 import org.openmrs.module.openhmis.commons.api.f.Action2;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentation;
@@ -149,7 +150,21 @@ public abstract class BaseRestDataResource<E extends OpenmrsData> extends DataDe
 			return null;
 		}
 
-		return getService().getByUuid(uniqueId);
+		E result = null;
+
+		// Ensure that a service is found for this resource. This is a fix for changes to the RESTWS module as of v2.12.
+		IEntityDataService<E> service = getService();
+		if (service != null) {
+			try {
+				result = service.getByUuid(uniqueId);
+			} catch (PrivilegeException p) {
+				LOG.error("Exception occured when trying to get entity with ID <" + uniqueId + "> as privilege is missing",
+				    p);
+				throw new PrivilegeException("Can't get entity with ID <" + uniqueId + "> as privilege is missing");
+			}
+		}
+
+		return result;
 	}
 
 	@Override
@@ -190,6 +205,13 @@ public abstract class BaseRestDataResource<E extends OpenmrsData> extends DataDe
 	}
 
 	protected IEntityDataService<E> getService() {
-		return Context.getService(getServiceClass());
+		// Ensure that the service class is not null. This is a fix for changes to the RESTWS module as of v2.12.
+		Class<? extends IEntityDataService<E>> cls = getServiceClass();
+
+		if (cls == null) {
+			return null;
+		} else {
+			return Context.getService(cls);
+		}
 	}
 }
