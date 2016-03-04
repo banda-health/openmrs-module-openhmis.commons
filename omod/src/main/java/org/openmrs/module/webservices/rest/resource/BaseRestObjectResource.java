@@ -15,10 +15,13 @@ package org.openmrs.module.webservices.rest.resource;
 
 import java.lang.reflect.ParameterizedType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.IObjectDataService;
+import org.openmrs.module.openhmis.commons.api.exception.PrivilegeException;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
@@ -32,6 +35,8 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceD
  */
 public abstract class BaseRestObjectResource<E extends OpenmrsObject> extends DelegatingCrudResource<E>
         implements IObjectDataServiceResource<E, IObjectDataService<E>> {
+	private static final Log LOG = LogFactory.getLog(BaseRestObjectResource.class);
+
 	private Class<E> entityClass = null;
 
 	@Override
@@ -78,8 +83,21 @@ public abstract class BaseRestObjectResource<E extends OpenmrsObject> extends De
 			        + "To search, implement the resource getServiceClass method.");
 		}
 
-		IObjectDataService<E> service = Context.getService(clazz);
-		return service.getByUuid(uniqueId);
+		E result = null;
+
+		// Ensure that a service is found for this resource. This is a fix for changes to the RESTWS module as of v2.12.
+		IObjectDataService<E> service = getService();
+		if (service != null) {
+			try {
+				result = service.getByUuid(uniqueId);
+			} catch (PrivilegeException p) {
+				LOG.error("Exception occured when trying to get entity with ID <" + uniqueId
+				        + "> as privilege is missing", p);
+				throw new PrivilegeException("Can't get entity with ID <" + uniqueId + "> as privilege is missing");
+			}
+		}
+
+		return result;
 	}
 
 	@Override
@@ -114,7 +132,14 @@ public abstract class BaseRestObjectResource<E extends OpenmrsObject> extends De
 	}
 
 	protected IObjectDataService<E> getService() {
-		return Context.getService(getServiceClass());
+		// Ensure that the service class is not null. This is a fix for changes to the RESTWS module as of v2.12.
+		Class<? extends IObjectDataService<E>> cls = getServiceClass();
+
+		if (cls == null) {
+			return null;
+		} else {
+			return Context.getService(cls);
+		}
 	}
 
 	/**
