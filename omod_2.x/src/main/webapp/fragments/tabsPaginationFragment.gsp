@@ -1,17 +1,21 @@
+<div id="below-entities-table"
+	<% if (config.hide) { %>
+	 ng-hide=<% config.hide.each { %>
+     "${it}"
+	<% } %>
+	<% } %>>
 	<span style="float:right;">
 		<div class="entity-pagination">
 			<dir-pagination-controls
-				<% if (config.paginationId) { %>
-					pagination-id=${config.paginationId}
-				<% } %>
-				<% if (config.onPageChange) { %>
-					on-page-change=
-						<% config.onPageChange.each { %>
-								"${ it }"
-						<% } %>
-				<% } %>
+				<% if (config.paginationId) { %> pagination-id=${config.paginationId} <% } %>
+				                                 <% if (config.onPageChange) { %>
+				                                 on-page-change=
+			<% config.onPageChange.each { %>
+			"${it}"
+			<% } %>
+			<% } %>
 			>
-			</dir-pagination-controls>
+		</dir-pagination-controls>
 		</div>
 	</span>
 	<br/>
@@ -39,10 +43,10 @@
 			${ui.message('openhmis.inventory.general.show')}
 			<select id="pageSize"
 				<% if (config.model) { %>
-		            ng-model=${config.model}
-				<% } %>
-		        <% if (config.onChange) { %>
-		            ng-change=${config.onChange}>
+				    ng-model=${config.model}
+			        <% } %>
+			        <% if (config.onChange) { %>
+			        ng-change= ${config.onChange}>
 				<% } %>
 				<option value="5">5</option>
 				<option value="10">10</option>
@@ -53,3 +57,4 @@
 			${ui.message('openhmis.inventory.general.entries')}
 		</div>
 	</div>
+</div>
