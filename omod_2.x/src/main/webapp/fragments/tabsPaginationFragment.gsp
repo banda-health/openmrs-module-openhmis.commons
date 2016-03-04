@@ -1,8 +1,3 @@
-<div id="below-entities-table"
-	<% if (config.hide) { %>
-	 ng-hide=${config.hide}
-	<% } %>
->
 	<span style="float:right;">
 		<div class="entity-pagination">
 			<dir-pagination-controls
@@ -25,15 +20,15 @@
 			<span>
 				<b>
 					${ui.message('openhmis.inventory.general.showing')}
-					${config.pagingFrom}
+					{{${config.pagingFrom}}}
 					${ui.message('openhmis.inventory.general.to')}
-					${config.pagingTo}
+					{{${config.pagingTo}}}
 				</b>
 			</span>
 			<span>
 				<b>
 					${ui.message('openhmis.inventory.general.of')}
-					${config.totalNumberOfResults}
+					{{${config.totalNumberOfResults}}}
 					${ui.message('openhmis.inventory.general.entries')}
 				</b>
 			</span>
@@ -57,4 +52,3 @@
 			${ui.message('openhmis.inventory.general.entries')}
 		</div>
 	</div>
-</div>
