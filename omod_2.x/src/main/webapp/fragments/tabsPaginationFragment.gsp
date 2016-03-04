@@ -10,6 +10,7 @@
 								"${ it }"
 						<% } %>
 				<% } %>
+			>
 			</dir-pagination-controls>
 		</div>
 	</span>
