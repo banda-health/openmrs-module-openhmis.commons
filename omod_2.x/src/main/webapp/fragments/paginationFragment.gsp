@@ -24,23 +24,23 @@
 		<div id="showing-entities">
 			<span>
 				<b>
-					${ui.message('openhmis.inventory.general.showing')}
+					${ui.message('openhmis.commons.general.showing')}
 					{{${config.pagingFrom}}}
-					${ui.message('openhmis.inventory.general.to')}
+					${ui.message('openhmis.commons.general.to')}
 					{{${config.pagingTo}}}
 				</b>
 			</span>
 			<span>
 				<b>
-					${ui.message('openhmis.inventory.general.of')}
+					${ui.message('openhmis.commons.general.of')}
 					{{${config.totalNumberOfResults}}}
-					${ui.message('openhmis.inventory.general.entries')}
+					${ui.message('openhmis.commons.general.entries')}
 				</b>
 			</span>
 		</div>
 
 		<div id="includeVoided-entities">
-			${ui.message('openhmis.inventory.general.show')}
+			${ui.message('openhmis.commons.general.show')}
 			<select id="pageSize"
 				<% if (config.model) { %>
 				    ng-model=${config.model}
@@ -54,12 +54,12 @@
 				<option value="50">50</option>
 				<option value="100">100</option>
 			</select>
-			${ui.message('openhmis.inventory.general.entries')}
+			${ui.message('openhmis.commons.general.entries')}
 			<% if (config.showRetiredSection != "false") { %>
 			<span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type="checkbox" ng-checked="includeRetired"
 			                                                      ng-model="includeRetired"
 			                                                      ng-change="updateContent()"></span>
-			<span>${ui.message('openhmis.inventory.general.includeRetired')}</span>
+			<span>${ui.message('openhmis.commons.general.includeRetired')}</span>
 			<% } %>
 		</div>
 	</div>
