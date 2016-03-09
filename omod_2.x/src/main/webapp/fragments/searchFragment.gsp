@@ -29,6 +29,9 @@
                         "${ it } "
                     <% } %>
                 typeahead-append-to-body = "true"
+                typeahead-min-length="3"
+            <% } else { %>
+                ng-minlength="3"
             <% } %>
 
             <% if(config.typeaheadOnSelect) { %>

@@ -4,6 +4,7 @@
             <i class="icon-trash"></i>
             <h3>{{retireOrUnretire}}</h3>
         </span>
+        <i class="icon-remove cancel" style="float:right; cursor: pointer;" ng-click="closeThisDialog()"></i>
     </div>
     <div class="dialog-content form">
         <div>
@@ -15,9 +16,10 @@
                 <input type="text" placeholder="{{messageLabels['general.retireReason']}}"
                        ng-model="entity.retireReason" ng-disabled="entity.retired" />
             </span>
-            <input type="button" class="confirm" style="background: #ff3d3d; background-color: #ff3d3d; border:#ff3d3d 1px solid" value="{{retireOrUnretire}}" ng-click="retireOrUnretireCall()" />
+            <br />
+            <button ng-click="retireOrUnretireCall()">{{retireOrUnretire}}</button>
         </div>
-        <br /><br />
+        <br />
 
         <% if(config.showDeleteSection != "false"){ %>
             <div class="detail-section-border-top detail-section-border-bottom">
@@ -26,9 +28,13 @@
                     {{messageLabels['delete.forever']}}
                 </h3>
                 <p>
-                    <input type="button" ng-hide="entity.uuid == ''" class="confirm" style="background: #ff3d3d; background-color: #ff3d3d; border:#ff3d3d 1px solid" value="{{messageLabels['general.purge']}}" ng-click="purge()"/>
+                    <button ng-hide="entity.uuid == ''" ng-click="purge()">{{messageLabels['general.purge']}}</button>
                 </p>
             </div>
+            <br />
         <% } %>
+        <div>
+        <input type="button" class="cancel" value="{{messageLabels['general.cancel']}}" ng-click="closeThisDialog('Cancel')" />
+        </div>
     </div>
 </div>
