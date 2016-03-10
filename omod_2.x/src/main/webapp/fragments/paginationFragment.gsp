@@ -45,12 +45,13 @@
 				<option value="100">100</option>
 			</select>
 			${ui.message('openhmis.commons.general.entries')}
-			<% if (config.showRetiredSection != "false") { %>
+			<% if (config.showRetiredSection) { %>
+			<% } else { %>
 			<span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type="checkbox" ng-checked="includeRetired"
 			                                                      ng-model="includeRetired"
 			                                                      ng-change="updateContent()"></span>
 			<span>${ui.message('openhmis.commons.general.includeRetired')}</span>
-			<% } %>
+			<%} %>
 		</div>
 	</div>
 </div>
