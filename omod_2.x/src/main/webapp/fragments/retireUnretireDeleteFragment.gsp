@@ -1,8 +1,8 @@
 <div id="retireUnretireDeleteSection" class="dialog" style="display:none;">
     <div class="dialog-header">
         <span>
-            <i class="icon-trash" ng-show="retireOrUnretire === messageLabels['openhmis.inventory.general.retire']"></i>
-            <i class="icon-reply edit-action" ng-show="retireOrUnretire === messageLabels['openhmis.inventory.general.unretire']" ></i>
+            <i class="icon-trash" ng-show="retireOrUnretire === messageLabels['general.retire']"></i>
+            <i class="icon-reply edit-action" ng-show="retireOrUnretire === messageLabels['general.unretire']" ></i>
             <h3>{{retireOrUnretire}}</h3>
         </span>
         <i class="icon-remove cancel" style="float:right; cursor: pointer;" ng-click="closeThisDialog()"></i>

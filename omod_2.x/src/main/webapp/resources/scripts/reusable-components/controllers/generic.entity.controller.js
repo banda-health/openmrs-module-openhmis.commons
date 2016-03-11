@@ -209,8 +209,8 @@
                 messages['h2SubString'] = emr.message("general.edit") + ' ' + self.entity_name;
               }
 
-              messages['openhmis.inventory.general.retire'] = $filter('EmrFormat')(emr.message("openhmis.inventory.general.retire"), [self.entity_name]);
-              messages['openhmis.inventory.general.unretire'] = $filter('EmrFormat')(emr.message("openhmis.inventory.general.unretire"), [self.entity_name]);
+              messages['general.retire'] = emr.message("general.retire") + " " + self.entity_name;
+              messages['general.unretire'] = emr.message("general.unretire") + " " + self.entity_name;
 
               return messages;
             }
