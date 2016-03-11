@@ -1,66 +1,18 @@
 <%
-	def paginationId = ""
-	if (config.paginationId) {
-		paginationId = config.paginationId
-	}
-
-	def hide = ""
-	if (config.hide) {
-		hide = config.hide.each {
-			"${it}"
-		}
-	} else {
-		hide = "fetchedEntities.length == 0"
-	}
-
-	def pagingFrom = ""
-	if (config.pagingFrom) {
-		pagingFrom = config.pagingFrom
-	} else {
-		pagingFrom = "pagingFrom(currentPage, limit)"
-	}
-
-	def onPageChange = ""
-	if (config.onPageChange) {
-		onPageChange = config.onPageChange.each {
-		 "${it}"
-		}
-	} else {
-		onPageChange = "paginate(currentPage)"
-	}
-
-	def pagingTo =""
-	if (config.pagingTo) {
-		pagingTo= config.pagingTo
-	} else {
-		pagingTo = "pagingTo(currentPage, limit, totalNumOfResults)"
-	}
-
-	def totalNumberOfResults = ""
-	if (config.totalNumberOfResults) {
-		totalNumberOfResults = config.totalNumberOfResults
-	} else {
-		totalNumberOfResults = "totalNumOfResults"
-	}
-
-	def model = ""
-	if (config.model) {
-		model = config.model
-	} else {
-		model = "limit"
-	}
-
-	def onChange = ""
-	if (config.onChange) {
-		onChange = config.onChange
-	} else {
-		onChange = "updateContent()"
-	}
+	def paginationId = config.paginationId ? config.paginationId : "";
+	def hide = config.hide ? config.hide.each {"${it}"} : "fetchedEntities.length == 0";
+	def pagingFrom = config.pagingFrom ? config.pagingFrom : "pagingFrom(currentPage, limit)";
+	def onPageChange = config.onPageChange ? config.onPageChange.each {"${it}"} : "paginate(currentPage)";
+	def pagingTo = config.pagingTo ? config.pagingTo : "pagingTo(currentPage, limit, totalNumOfResults)";
+	def totalNumberOfResults = config.totalNumberOfResults ? config.totalNumberOfResults : "totalNumOfResults";
+	def model = config.model ? config.model : "limit";
+	def onChange = config.onChange ? config.onChange : "updateContent()";
 %>
 <div id="below-entities-table" ng-hide="${hide}">
 	<span style="float:right;">
 		<div class="entity-pagination">
-			<dir-pagination-controls  pagination-id="${paginationId}" on-page-change="${onPageChange}" ></dir-pagination-controls>
+			<dir-pagination-controls pagination-id="${paginationId}"
+			                         on-page-change="${onPageChange}"></dir-pagination-controls>
 		</div>
 	</span>
 	<br/>
@@ -83,7 +35,7 @@
 
 		<div id="includeVoided-entities">
 			${ui.message('openhmis.commons.general.show')}
-			<select id="pageSize" ng-model="${model}" ng-change="${onChange}" >
+			<select id="pageSize" ng-model="${model}" ng-change="${onChange}">
 				<option value="5">5</option>
 				<option value="10">10</option>
 				<option value="25">25</option>
@@ -97,7 +49,7 @@
 			                                                      ng-model="includeRetired"
 			                                                      ng-change="updateContent()"></span>
 			<span>${ui.message('openhmis.commons.general.includeRetired')}</span>
-			<%} %>
+			<% } %>
 		</div>
 	</div>
 </div>
