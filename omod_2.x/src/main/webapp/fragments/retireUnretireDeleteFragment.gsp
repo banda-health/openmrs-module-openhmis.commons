@@ -18,7 +18,12 @@
                        ng-model="entity.retireReason" ng-disabled="entity.retired" />
             </span>
             <br />
-            <button ng-click="retireOrUnretireCall()">{{retireOrUnretire}}</button>
+            <button
+                   <% if(config.retireUnretireCall) { %>
+                        ng-click=${config.retireUnretireCall}
+                   <% } else { %>
+                        ng-click="retireOrUnretireCall()"
+                   <% } %> >{{retireOrUnretire}}</button>
         </div>
         <br />
 
