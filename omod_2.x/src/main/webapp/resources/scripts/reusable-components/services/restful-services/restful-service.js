@@ -111,7 +111,7 @@
       console.log("ERROR:::Message - " + error.data.error.message);
       console.log("ERROR:::Detail - " + error.data.error.detail);
 
-      errorCallback(error.statusText);
+      errorCallback(error.data.error.message);
     }
   }
 })();
