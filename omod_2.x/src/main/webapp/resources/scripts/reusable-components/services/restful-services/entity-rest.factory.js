@@ -48,7 +48,7 @@
       if(!angular.isDefined(version)){
         version = 'v2';
       }
-      var baseUrl = "/openmrs/ws/rest/" + version + "/" + resource + "/";
+      var baseUrl = "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/" + version + "/" + resource + "/";
       RestfulService.setBaseUrl(baseUrl);
     }
 
