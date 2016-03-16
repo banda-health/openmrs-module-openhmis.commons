@@ -35,7 +35,7 @@ public abstract class BaseCustomizableMetadataDataServiceImpl<E extends BaseCust
 		}
 
 		Collection attributes = entity.getAttributes();
-		if (attributes != null && attributes.size() > 0) {
+		if (attributes != null && !attributes.isEmpty()) {
 			result.addAll(attributes);
 		}
 

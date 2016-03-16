@@ -77,7 +77,7 @@ public class HibernateRepository implements IHibernateRepository {
 		DbSession session = sessionFactory.getCurrentSession();
 		try {
 
-			if (collection != null && collection.size() > 0) {
+			if (collection != null && !collection.isEmpty()) {
 				for (OpenmrsObject obj : collection) {
 					session.saveOrUpdate(obj);
 				}
@@ -128,7 +128,7 @@ public class HibernateRepository implements IHibernateRepository {
 		try {
 			List<E> results = criteria.list();
 
-			if (results.size() > 0) {
+			if (!results.isEmpty()) {
 				result = results.get(0);
 			}
 		} catch (Exception ex) {

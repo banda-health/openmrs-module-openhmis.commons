@@ -62,7 +62,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 			}
 		});
 
-		if (updatedObjects.size() > 0) {
+		if (!updatedObjects.isEmpty()) {
 			return saveAll(entity, updatedObjects);
 		} else {
 			return save(entity);
@@ -97,7 +97,7 @@ public abstract class BaseEntityDataServiceImpl<E extends OpenmrsData>
 			}
 		});
 
-		if (updatedObjects.size() > 0) {
+		if (!updatedObjects.isEmpty()) {
 			return saveAll(entity, updatedObjects);
 		} else {
 			return save(entity);

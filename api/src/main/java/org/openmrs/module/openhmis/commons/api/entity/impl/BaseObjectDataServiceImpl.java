@@ -274,7 +274,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 		List<T> updatedObjects = new ArrayList<T>();
 
 		Collection<? extends OpenmrsObject> relatedObjects = getRelatedObjects(entity);
-		if (relatedObjects != null && relatedObjects.size() > 0) {
+		if (relatedObjects != null && !relatedObjects.isEmpty()) {
 			for (OpenmrsObject object : relatedObjects) {
 				T data = Utility.as(clazz, object);
 				if (data != null) {

@@ -257,7 +257,7 @@ public abstract class IMetadataDataServiceTest<S extends IMetadataDataService<E>
 
 		// Search using the first four characters in the name
 		List<E> entities = service.getByNameFragment(entity.getName(), false);
-		Assert.assertTrue(entities.size() > 0);
+		Assert.assertTrue(!entities.isEmpty());
 
 		// Make sure the entity is in the results
 		E found = null;

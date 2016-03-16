@@ -35,7 +35,7 @@ public abstract class BaseCustomizableEntityDataServiceImpl<E extends BaseCustom
 		}
 
 		Collection attributes = entity.getAttributes();
-		if (attributes != null && attributes.size() > 0) {
+		if (attributes != null && !attributes.isEmpty()) {
 			result.addAll(attributes);
 		}
 

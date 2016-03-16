@@ -31,7 +31,7 @@ public class ProviderUtil {
 
 	public static Provider getCurrentProvider(ProviderService providerService) {
 		Collection<Provider> providers = providerService.getProvidersByPerson(Context.getAuthenticatedUser().getPerson());
-		if (providers.size() > 0) {
+		if (!providers.isEmpty()) {
 			return providers.iterator().next();
 		}
 
