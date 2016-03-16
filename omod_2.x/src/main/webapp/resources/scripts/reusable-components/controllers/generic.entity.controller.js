@@ -125,7 +125,7 @@
 		self.onLoadEntityError = self.onLoadEntityError || function (error) {
 				var entity = GenericMetadataModel.newModelInstance();
 				self.bindEntityToScope($scope, entity);
-				var msg = $filter('EmrFormat')(emr.message("openhmis.inventory.general.error.notFound"), [self.entity_name]);
+				var msg = $filter('EmrFormat')(emr.message("openhmis.commons.general.error.notFound"), [self.entity_name]);
 				emr.errorMessage(msg + ":::" + error);
 			}
 		/* #### END CALLBACK Methods #### */
@@ -138,10 +138,10 @@
 			|| function (uuid) {
 				if (angular.isDefined($scope.entity) && angular.isDefined($scope.entity.retired)
 					&& $scope.entity.retired === true) {
-					$scope.retireOrUnretire = $filter('EmrFormat')(emr.message("openhmis.inventory.general.unretire"),
+					$scope.retireOrUnretire = $filter('EmrFormat')(emr.message("openhmis.commons.general.unretire"),
 						[self.entity_name]);
 				} else {
-					$scope.retireOrUnretire = $filter('EmrFormat')(emr.message("openhmis.inventory.general.retire"),
+					$scope.retireOrUnretire = $filter('EmrFormat')(emr.message("openhmis.commons.general.retire"),
 						[self.entity_name]);
 				}
 			}
@@ -189,21 +189,21 @@
 		self.loadMessageLabels = self.loadMessageLabels
 			|| function () {
 				var messages = {};
-				messages['delete.forever'] = $filter('EmrFormat')(emr.message("openhmis.inventory.general.delete"),
+				messages['delete.forever'] = $filter('EmrFormat')(emr.message("openhmis.commons.general.delete"),
 					[self.entity_name]);
 				messages['general.name'] = emr.message("general.name");
 				messages['general.description'] = emr.message("general.description");
 				messages['general.cancel'] = emr.message("general.cancel");
 				messages['general.save'] = emr.message("general.save");
 				messages['general.update'] = emr.message("general.update");
-				messages['openhmis.inventory.general.retired.reason'] = emr
-					.message("openhmis.inventory.general.retired.reason");
+				messages['openhmis.commons.general.retired.reason'] = emr
+					.message("openhmis.commons.general.retired.reason");
 				messages['general.retireReason'] = emr.message("general.retireReason");
 				messages['general.purge'] = emr.message("general.purge");
-				messages['openhmis.inventory.general.name.required'] = emr.message("openhmis.inventory.general.name.required");
+				messages['openhmis.commons.general.name.required'] = emr.message("openhmis.commons.general.name.required");
 
 				if (self.uuid === null || self.uuid === undefined || self.uuid === "") {
-					messages['h2SubString'] = $filter('EmrFormat')(emr.message("openhmis.inventory.general.new"),
+					messages['h2SubString'] = $filter('EmrFormat')(emr.message("openhmis.commons.general.new"),
 						[self.entity_name]);
 				} else {
 					messages['h2SubString'] = emr.message("general.edit") + ' ' + self.entity_name;
@@ -211,7 +211,7 @@
 
 				messages['general.retire'] = emr.message("general.retire") + " " + self.entity_name;
 				messages['general.unretire'] = emr.message("general.unretire") + " " + self.entity_name;
-				messages['openhmis.inventory.general.postSearchMessage'] = $filter('EmrFormat')(emr.message("openhmis.inventory.general.postSearchMessage"), [self.entity_name])
+				messages['openhmis.commons.general.postSearchMessage'] = $filter('EmrFormat')(emr.message("openhmis.commons.general.postSearchMessage"), [self.entity_name])
 
 				return messages;
 			}
