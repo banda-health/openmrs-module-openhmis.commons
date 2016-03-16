@@ -232,8 +232,14 @@
        * @returns {*}
        */
     function autocompleteSearch(requestParams, rest_entity_name, module_name, version){
-      setBaseUrl(rest_entity_name, version);
-      return Restangular.all('').customGET('', requestParams).then(
+      var resource = rest_entity_name;
+
+      if(version === 'v1'){
+        setBaseUrl(rest_entity_name, version);
+        resource = '';
+      }
+
+      return Restangular.all(resource).customGET('', requestParams).then(
           function(data) {
             setBaseUrl(module_name);
             return data.results;
