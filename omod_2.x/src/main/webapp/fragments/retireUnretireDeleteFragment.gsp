@@ -10,7 +10,7 @@
     <div class="dialog-content form">
         <div>
             <span ng-show="entity.retired">
-                {{messageLabels['openhmis.inventory.general.retired.reason']}}
+                ${ui.message('openhmis.commons.general.retired.reason')}
                 <b>{{entity.retireReason}}</b><br />
             </span>
             <span ng-hide="entity.retired">
@@ -31,7 +31,7 @@
             <div class="detail-section-border-top detail-section-border-bottom">
                 <p class="checkRequired" ng-hide="entity.retireReason != '' || retireReasonIsRequiredMsg == '' || retireReasonIsRequiredMsg == undefined">{{retireReasonIsRequiredMsg}}</p>
                 <h3 ng-hide="entity.uuid == ''">
-                    {{messageLabels['delete.forever']}}
+                    ${ui.message("general.delete")} {{entity_name}}
                 </h3>
                 <p>
                     <button ng-hide="entity.uuid == ''" ng-click="purge()">{{messageLabels['general.purge']}}</button>
