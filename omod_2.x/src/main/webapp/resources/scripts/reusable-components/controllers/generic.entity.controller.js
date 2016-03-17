@@ -120,6 +120,9 @@
 				var entity = GenericMetadataModel.populateModel(data);
 				self.bindEntityToScope($scope, entity);
 				self.bindExtraVariablesToScope(entity.uuid);
+				if(!angular.isDefined($scope.retireOrUnretire)){
+					self.loadRetireUnretireMessages();
+				}
 			}
 
 		self.onLoadEntityError = self.onLoadEntityError || function (error) {
@@ -136,13 +139,14 @@
 
 		self.bindExtraVariablesToScope = self.bindExtraVariablesToScope
 			|| function (uuid) {
+			}
+
+		self.loadRetireUnretireMessages = self.loadRetireUnretireMessages || function(){
 				if (angular.isDefined($scope.entity) && angular.isDefined($scope.entity.retired)
 					&& $scope.entity.retired === true) {
-					$scope.retireOrUnretire = $filter('EmrFormat')(emr.message("openhmis.commons.general.unretire"),
-						[self.entity_name]);
+					$scope.retireOrUnretire = emr.message("general.unretire") + " " + self.entity_name;
 				} else {
-					$scope.retireOrUnretire = $filter('EmrFormat')(emr.message("openhmis.commons.general.retire"),
-						[self.entity_name]);
+					$scope.retireOrUnretire = emr.message("general.retire") + " " + self.entity_name;
 				}
 			}
 
@@ -170,7 +174,9 @@
 				$scope.saveOrUpdate = self.saveOrUpdate;
 				$scope.retireOrUnretireCall = self.retireOrUnretireCall;
 				$scope.retireUnretireDeletePopup = self.retireUnretireDeletePopup;
-				self.bindExtraVariablesToScope('');
+				$scope.entity_name = self.entity_name;
+
+				self.bindExtraVariablesToScope(self.uuid);
 
 				// load messages..
 				var messageLabels = self.loadMessageLabels();
@@ -184,13 +190,12 @@
 		self.loadPage = self.loadPage || function () {
 				self.initialize();
 				self.loadEntity(self.uuid);
+
 			}
 
 		self.loadMessageLabels = self.loadMessageLabels
 			|| function () {
 				var messages = {};
-				messages['delete.forever'] = $filter('EmrFormat')(emr.message("openhmis.commons.general.delete"),
-					[self.entity_name]);
 				messages['general.name'] = emr.message("general.name");
 				messages['general.description'] = emr.message("general.description");
 				messages['general.cancel'] = emr.message("general.cancel");
@@ -203,8 +208,7 @@
 				messages['openhmis.commons.general.name.required'] = emr.message("openhmis.commons.general.name.required");
 
 				if (self.uuid === null || self.uuid === undefined || self.uuid === "") {
-					messages['h2SubString'] = $filter('EmrFormat')(emr.message("openhmis.commons.general.new"),
-						[self.entity_name]);
+					messages['h2SubString'] = emr.message("general.new") + ' ' + self.entity_name;
 				} else {
 					messages['h2SubString'] = emr.message("general.edit") + ' ' + self.entity_name;
 				}
