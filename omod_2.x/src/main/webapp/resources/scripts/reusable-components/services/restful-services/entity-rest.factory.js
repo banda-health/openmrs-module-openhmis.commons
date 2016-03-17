@@ -20,9 +20,9 @@
 
   angular.module('app.restfulServices').factory('EntityRestFactory', EntityRestFactory);
 
-  EntityRestFactory.$inject = ['RestfulService'];
+  EntityRestFactory.$inject = ['RestfulService', 'Restangular'];
 
-  function EntityRestFactory(RestfulService) {
+  function EntityRestFactory(RestfulService, Restangular) {
 
     var service = {
       setCustomBaseUrl: setCustomBaseUrl,
@@ -34,6 +34,7 @@
       loadEntities: loadEntities,
       loadResults: loadResults,
       post: RestfulService.post,
+      autocompleteSearch: autocompleteSearch,
     }
 
     return service;
@@ -220,6 +221,34 @@
           delete requestParams['resource'];
         }
       RestfulService.all(resource, requestParams, successCallback, errorCallback);
+    }
+
+    /**
+     *
+     * @param requestParams
+     * @param rest_entity_name
+     * @param module_name
+     * @param version
+       * @returns {*}
+       */
+    function autocompleteSearch(requestParams, rest_entity_name, module_name, version){
+      var resource = rest_entity_name;
+
+      if(version === 'v1'){
+        setBaseUrl(rest_entity_name, version);
+        resource = '';
+      }
+
+      return Restangular.all(resource).customGET('', requestParams).then(
+          function(data) {
+            setBaseUrl(module_name);
+            return data.results;
+          },
+          function(error){
+            console.log(error);
+            setBaseUrl(module_name);
+          }
+      );
     }
 
     /*
