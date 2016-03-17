@@ -22,7 +22,7 @@
 		var self = this;
 		self.module_name = '';
 		self.rest_entity_name = '';
-		self.entity_name = '';
+		self.entity_name_message_key = '';
 		self.uuid = '';
 		self.cancel_page = '';
 		self.rest_version = 'v2';
@@ -38,10 +38,10 @@
 			}
 
 		// protected
-		self.bindBaseParameters = function (module_name, rest_entity_name, entity_name, cancel_page, rest_version) {
+		self.bindBaseParameters = function (module_name, rest_entity_name, entity_name_message_key, cancel_page, rest_version) {
 			self.module_name = module_name;
 			self.rest_entity_name = rest_entity_name;
-			self.entity_name = entity_name;
+			self.entity_name_message_key = entity_name_message_key;
 			if (angular.isDefined(rest_version)) {
 				self.rest_version = rest_version;
 			}
@@ -128,7 +128,7 @@
 		self.onLoadEntityError = self.onLoadEntityError || function (error) {
 				var entity = GenericMetadataModel.newModelInstance();
 				self.bindEntityToScope($scope, entity);
-				var msg = $filter('EmrFormat')(emr.message("openhmis.commons.general.error.notFound"), [self.entity_name]);
+				var msg = $filter('EmrFormat')(emr.message("openhmis.commons.general.error.notFound"), [emr.message(self.entity_name_message_key)]);
 				emr.errorMessage(msg + ":::" + error);
 			}
 		/* #### END CALLBACK Methods #### */
@@ -144,9 +144,9 @@
 		self.loadRetireUnretireMessages = self.loadRetireUnretireMessages || function(){
 				if (angular.isDefined($scope.entity) && angular.isDefined($scope.entity.retired)
 					&& $scope.entity.retired === true) {
-					$scope.retireOrUnretire = emr.message("general.unretire") + " " + self.entity_name;
+					$scope.retireOrUnretire = emr.message("general.unretire") + " " + emr.message(self.entity_name_message_key);
 				} else {
-					$scope.retireOrUnretire = emr.message("general.retire") + " " + self.entity_name;
+					$scope.retireOrUnretire = emr.message("general.retire") + " " + emr.message(self.entity_name_message_key);
 				}
 			}
 
@@ -174,7 +174,7 @@
 				$scope.saveOrUpdate = self.saveOrUpdate;
 				$scope.retireOrUnretireCall = self.retireOrUnretireCall;
 				$scope.retireUnretireDeletePopup = self.retireUnretireDeletePopup;
-				$scope.entity_name = self.entity_name;
+				$scope.entity_name = emr.message(self.entity_name_message_key);
 
 				self.bindExtraVariablesToScope(self.uuid);
 
@@ -208,14 +208,14 @@
 				messages['openhmis.commons.general.name.required'] = emr.message("openhmis.commons.general.name.required");
 
 				if (self.uuid === null || self.uuid === undefined || self.uuid === "") {
-					messages['h2SubString'] = emr.message("general.new") + ' ' + self.entity_name;
+					messages['h2SubString'] = emr.message("general.new") + ' ' + emr.message(self.entity_name_message_key);
 				} else {
-					messages['h2SubString'] = emr.message("general.edit") + ' ' + self.entity_name;
+					messages['h2SubString'] = emr.message("general.edit") + ' ' + emr.message(self.entity_name_message_key);
 				}
 
-				messages['general.retire'] = emr.message("general.retire") + " " + self.entity_name;
-				messages['general.unretire'] = emr.message("general.unretire") + " " + self.entity_name;
-				messages['openhmis.commons.general.postSearchMessage'] = $filter('EmrFormat')(emr.message("openhmis.commons.general.postSearchMessage"), [self.entity_name])
+				messages['general.retire'] = emr.message("general.retire") + " " + emr.message(self.entity_name_message_key);
+				messages['general.unretire'] = emr.message("general.unretire") + " " + emr.message(self.entity_name_message_key);
+				messages['openhmis.commons.general.postSearchMessage'] = $filter('EmrFormat')(emr.message("openhmis.commons.general.postSearchMessage"), [emr.message(self.entity_name_message_key)])
 
 				return messages;
 			}
