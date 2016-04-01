@@ -1,31 +1,40 @@
 <!-- search and autocomplete fragment -->
+<%
+	def model = config.model;
+	def onChangeEvent = config.onChangeEvent;
+	def cssClass = config.class;
+	def placeholder = config.placeholder;
+	def typeahead = config.typeahead;
+	def typeaheadOnSelect = config.typeaheadOnSelect;
+	def typeaheadEditable = config.typeaheadEditable;
+%>
 <div class="btn-group">
-    <input type="text"
-            <% if(config.model){ %>
-                ng-model = ${config.model}
+    <input type="text" id="searchBox"
+            <% if(model){ %>
+                ng-model = ${model}
             <% } %>
 
-            <% if(config.onChangeEvent){ %>
-                ng-change = ${config.onChangeEvent}
+            <% if(onChangeEvent){ %>
+                ng-change = ${onChangeEvent}
             <% } %>
 
-            <% if(config.class){ %>
+            <% if(cssClass){ %>
                 class =
-                    <% config.class.each{ %>
+                    <% cssClass.each{ %>
                         "${ it } "
                     <% } %>
             <% } %>
 
-            <% if(config.placeholder) { %>
+            <% if(placeholder) { %>
                 placeholder =
-                    <% config.placeholder.each{ %>
+                    <% placeholder.each{ %>
                         "${ it } "
                     <% } %>
             <% } %>
 
-            <% if(config.typeahead) { %>
+            <% if(typeahead) { %>
                 typeahead =
-                    <% config.typeahead.each{ %>
+                    <% typeahead.each{ %>
                         "${ it } "
                     <% } %>
                 typeahead-append-to-body = "true"
@@ -34,17 +43,17 @@
                 ng-minlength="3"
             <% } %>
 
-            <% if(config.typeaheadOnSelect) { %>
-                typeahead-on-select = ${config.typeaheadOnSelect}
+            <% if(typeaheadOnSelect) { %>
+                typeahead-on-select = ${typeaheadOnSelect}
             <% } %>
 
-            <% if(config.typeaheadEditable) { %>
-                typeahead-editable = ${config.typeaheadEditable}
+            <% if(typeaheadEditable) { %>
+                typeahead-editable = ${typeaheadEditable}
             <% } %>
             ng-model-options="{ debounce: 500 }"
             autofocus />
 
-    <% if(!config.typeahead) {%>
-        <span id="searchclear" class="searchclear icon-remove-circle"></span>
+    <% if(!typeahead) {%>
+        <span id="searchclear" class="searchclear icon-remove-circle" href=""  ng-click=" ${model} = ''; ${onChangeEvent}" > </span>
     <% } %>
 </div>
