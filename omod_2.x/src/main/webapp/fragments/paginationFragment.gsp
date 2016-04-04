@@ -47,7 +47,7 @@
 			<% } else { %>
 			<span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type="checkbox" ng-checked="includeRetired"
 			                                                      ng-model="includeRetired"
-			                                                      ng-change="updateContent()"></span>
+			                                                      ng-change="${onChange}"></span>
 			<span>${ui.message('openhmis.commons.general.includeRetired')}</span>
 			<% } %>
 		</div>
