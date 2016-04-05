@@ -201,6 +201,7 @@
 				messages['general.cancel'] = emr.message("general.cancel");
 				messages['general.save'] = emr.message("general.save");
 				messages['general.update'] = emr.message("general.update");
+				messages['general.close'] = emr.message("general.close");
 				messages['openhmis.commons.general.retired.reason'] = emr
 					.message("openhmis.commons.general.retired.reason");
 				messages['general.retireReason'] = emr.message("general.retireReason");
