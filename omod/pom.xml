@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>openhmis.commons</artifactId>
 		<groupId>org.openmrs.module</groupId>
-		<version>3.1.2</version>
+		<version>3.2.0</version>
 	</parent>
 
 	<artifactId>openhmis.commons-omod</artifactId>
@@ -17,6 +17,13 @@
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>${project.parent.artifactId}-api</artifactId>
 			<version>${project.parent.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>${project.parent.groupId}</groupId>
+			<artifactId>${project.parent.artifactId}-omod_2.x</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -81,6 +88,14 @@
 				</includes>
 				<targetPath>web/module</targetPath>
 			</resource>
+            <resource>
+                <directory>web/WEB-INF</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>template/common/*</include>
+                </includes>
+                <targetPath>web/module</targetPath>
+            </resource>
 		</resources>
 
 		<testResources>
@@ -198,7 +213,9 @@
 						<phase>generate-resources</phase>
 						<configuration>
 							<includeGroupIds>${project.parent.groupId}</includeGroupIds>
-							<includeArtifactIds>${project.parent.artifactId}-api</includeArtifactIds>
+							<includeArtifactIds>
+								${project.parent.artifactId}-api, ${project.parent.artifactId}-omod_2.x
+							</includeArtifactIds>
 							<excludeTransitive>true</excludeTransitive>
 							<includes>**/*</includes>
 							<excludes>**/parent*.xml</excludes>
