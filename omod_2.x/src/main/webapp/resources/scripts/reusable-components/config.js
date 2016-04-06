@@ -13,9 +13,10 @@
  *
  */
 var OPENMRS_CONTEXT_PATH = window.location.pathname.split("/")[1];
+var MODULE_PATH = window.location.pathname.split('/')[2];
 
 var requirejs = {
-  baseUrl: '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/openhmis.inventory/scripts/',
+  baseUrl: '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/' + MODULE_PATH + '/scripts/',
   catchError: true,
   paths: {
     'reusable-components' : '/' + OPENMRS_CONTEXT_PATH + '/moduleResources/openhmis/commons/scripts/reusable-components/'
