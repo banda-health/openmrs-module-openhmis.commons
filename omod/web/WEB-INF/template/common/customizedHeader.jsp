@@ -42,8 +42,7 @@
 	</c:if>
 	<link rel="shortcut icon" type="image/ico" href="<openmrs:contextPath/><spring:theme code='favicon' />">
 	<link rel="icon" type="image/png" href="<openmrs:contextPath/><spring:theme code='favicon.png' />">
-
-	<script type="text/javascript" src="/openmrs/ms/uiframework/resource/uicommons/scripts/knockout-2.1.0.js"></script>
+	<script type="text/javascript" src="<%request.getContextPath();%>/ms/uiframework/resource/uicommons/scripts/knockout-2.1.0.js"></script>
 
 	<c:choose>
 		<c:when test="${!empty pageTitle}">
@@ -114,7 +113,7 @@
 				var locationId = element.attr("locationId");
 				var locationName = element.attr("locationName");
 
-				jQuery.post("/openmrs/appui/session/setLocation.action?locationId="+locationId, function (data) {
+				jQuery.post("<%request.getContextPath();%>/appui/session/setLocation.action?locationId="+locationId, function (data) {
 					sessionLocationModel.id(locationId);
 					sessionLocationModel.text(locationName);
 					jQuery('#session-location li').removeClass('selected');
@@ -135,8 +134,8 @@
 <div>
 	<header>
 		<div class="logo">
-			<a href="/openmrs/referenceapplication/home.page">
-				<img src="/openmrs/ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png">
+			<a href="<%request.getContextPath();%>/referenceapplication/home.page">
+				<img src="${pageContext.request.contextPath}/ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png">
 			</a>
 		</div>
 		<openmrs:authentication>
