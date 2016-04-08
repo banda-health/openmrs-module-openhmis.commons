@@ -42,7 +42,7 @@
 	</c:if>
 	<link rel="shortcut icon" type="image/ico" href="<openmrs:contextPath/><spring:theme code='favicon' />">
 	<link rel="icon" type="image/png" href="<openmrs:contextPath/><spring:theme code='favicon.png' />">
-	<script type="text/javascript" src="<%request.getContextPath();%>/ms/uiframework/resource/uicommons/scripts/knockout-2.1.0.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/ms/uiframework/resource/uicommons/scripts/knockout-2.1.0.js"></script>
 
 	<c:choose>
 		<c:when test="${!empty pageTitle}">
@@ -99,14 +99,14 @@
 			jQuery(".change-location a").click(function () {
 				jQuery('#session-location').show();
 				jQuery(this).addClass('focus');
-				jQuery(".change-location a i:nth-child(3)").removeClass("icon-caret-down");
-				jQuery(".change-location a i:nth-child(3)").addClass("icon-caret-up");
+				jQuery(".change-location a i:nth-child(3)").removeClass("glyphicon glyphicon-menu-down");
+				jQuery(".change-location a i:nth-child(3)").addClass("glyphicon glyphicon-menu-up");
 			});
 			jQuery('#session-location').mouseleave(function () {
 				jQuery('#session-location').hide();
 				jQuery(".change-location a").removeClass('focus');
-				jQuery(".change-location a i:nth-child(3)").addClass("icon-caret-down");
-				jQuery(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
+				jQuery(".change-location a i:nth-child(3)").removeClass("glyphicon glyphicon-menu-down");
+				jQuery(".change-location a i:nth-child(3)").addClass("glyphicon glyphicon-menu-up");
 			});
 			jQuery("#session-location ul.select li").click(function (event) {
 				var element = jQuery(event.target);
@@ -123,8 +123,8 @@
 
 				jQuery('#session-location').hide();
 				jQuery(".change-location a").removeClass('focus');
-				jQuery(".change-location a i:nth-child(3)").addClass("icon-caret-down");
-				jQuery(".change-location a i:nth-child(3)").removeClass("icon-caret-up");
+				jQuery(".change-location a i:nth-child(3)").removeClass("glyphicon glyphicon-menu-down");
+				jQuery(".change-location a i:nth-child(3)").addClass("glyphicon glyphicon-menu-up");
 			});
 		});
 	</script>
@@ -134,14 +134,14 @@
 <div>
 	<header>
 		<div class="logo">
-			<a href="<%request.getContextPath();%>/referenceapplication/home.page">
+			<a href="${pageContext.request.contextPath}/referenceapplication/home.page">
 				<img src="${pageContext.request.contextPath}/ms/uiframework/resource/uicommons/images/logo/openmrs-with-title-small.png">
 			</a>
 		</div>
 		<openmrs:authentication>
 			<c:if test="${authenticatedUser != null}">
 				<ul class="user-options">
-					<i class="icon-user small"></i>
+					<i class="glyphicon glyphicon-user small"></i>
 					<li><span id="userLoggedInAs" class="firstChild">
                         <c:choose>
 							<c:when test="${authenticatedUser.username} == null">
@@ -155,10 +155,10 @@
 					</span></li>
 					<li class="change-location">
 						<a href="javascript:void(0);">
-							<i class="icon-map-marker small"></i>
+							<i class="glyphicon glyphicon-map-marker small"></i>
 							<span data-bind="text: text"></span>
 							<c:if test="${multipleLoginLocations}">
-								<i class="icon-caret-down link"></i>
+								<i class="glyphicon glyphicon-menu-down link"></i>
 							</c:if>
 						</a>
 					</li>
@@ -166,7 +166,7 @@
 					<li><span id="userLogout">
 						<a href='${pageContext.request.contextPath}/logout'><openmrs:message code="header.logout" /></a>
 					</span></li>
-					<i class="icon-signout small"></i>
+					<i class="glyphicon glyphicon-log-out small"></i>
 				</ul>
 			</c:if>
 			<c:if test="${authenticatedUser == null}">
