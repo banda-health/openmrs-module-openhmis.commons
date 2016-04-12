@@ -113,7 +113,7 @@
 				var locationId = element.attr("locationId");
 				var locationName = element.attr("locationName");
 
-				jQuery.post("<%request.getContextPath();%>/appui/session/setLocation.action?locationId="+locationId, function (data) {
+				jQuery.post("${pageContext.request.contextPath}/appui/session/setLocation.action?locationId="+locationId, function (data) {
 					sessionLocationModel.id(locationId);
 					sessionLocationModel.text(locationName);
 					jQuery('#session-location li').removeClass('selected');
