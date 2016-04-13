@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Base Controller to manage the commons Role Creation page.
+ * Base Controller to manage the Role Creation pages.
  */
 public abstract class RoleCreationControllerBase {
 	private static final Log LOG = LogFactory.getLog(RoleCreationControllerBase.class);
