@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Base Controller to manage the Cashier Role Creation page.
+ * Base Controller to manage the commons Role Creation page.
  */
 public abstract class RoleCreationControllerBase {
 	private static final Log LOG = LogFactory.getLog(RoleCreationControllerBase.class);
@@ -62,10 +62,10 @@ public abstract class RoleCreationControllerBase {
 
 		if (action.equals("add")) {
 			addPrivileges(viewModel.getAddToRole());
-			session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "openhmis.cashier.roleCreation.page.feedback.add");
+			session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "openhmis.commons.roleCreation.page.feedback.add");
 		} else if (action.equals("remove")) {
 			removePrivileges(viewModel.getRemoveFromRole());
-			session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "openhmis.cashier.roleCreation.page.feedback.remove");
+			session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "openhmis.commons.roleCreation.page.feedback.remove");
 		} else if (action.equals("new") && newRoleValidated(viewModel, errors)) {
 			createRole(viewModel, session);
 		}
@@ -106,7 +106,7 @@ public abstract class RoleCreationControllerBase {
 	private void createRole(RoleCreationViewModel viewModel, HttpSession session) {
 		Role newRole = new Role();
 		newRole.setRole(viewModel.getNewRoleName());
-		newRole.setDescription("Users who creates and manage patient bills");
+		newRole.setDescription("openhmis.commons.roleCreation.page.roleDescription");
 		newRole.setPrivileges(privileges());
 
 		Role inheritedRole = getUserService().getRole(RoleConstants.PROVIDER);
@@ -116,15 +116,15 @@ public abstract class RoleCreationControllerBase {
 
 		getUserService().saveRole(newRole);
 
-		session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "openhmis.cashier.roleCreation.page.feedback.new");
+		session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "openhmis.commons.roleCreation.page.feedback.new");
 	}
 
 	private boolean newRoleValidated(RoleCreationViewModel viewModel, Errors errors) {
 		if (viewModel.getNewRoleName().equals(StringUtils.EMPTY)) {
-			errors.rejectValue("role", "openhmis.cashier.roleCreation.page.feedback.error.blankRole");
+			errors.rejectValue("role", "openhmis.commons.roleCreation.page.feedback.error.blankRole");
 			return false;
 		} else if (checkForDuplicateRole(viewModel.getNewRoleName())) {
-			errors.rejectValue("role", "openhmis.cashier.roleCreation.page.feedback.error.existingRole");
+			errors.rejectValue("role", "openhmis.commons.roleCreation.page.feedback.error.existingRole");
 			return false;
 		}
 
