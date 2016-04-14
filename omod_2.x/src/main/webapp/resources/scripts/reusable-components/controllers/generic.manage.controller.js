@@ -84,6 +84,9 @@
     // public
     self.updateContent = function() {
       CookiesService.set(self.includeRetired, $scope.includeRetired);
+      if($scope.searchField === undefined || $scope.searchField === ''){
+        $scope.currentPage = 1;
+      }
       self.paginate($scope.currentPage);
     }
 
