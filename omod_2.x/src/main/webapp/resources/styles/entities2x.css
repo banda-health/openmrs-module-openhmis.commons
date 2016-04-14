@@ -64,7 +64,19 @@ a.disabled {
 .searchclear {
     position:absolute;
     right:5px;
-    top:0;
+    top:0px;
+    bottom:0;
+    height:14px;
+    margin:auto;
+    font-size:24px;
+    cursor:pointer;
+    color:#ccc;
+    margin-top:7px;
+}
+
+.autocompleteclear {
+    position:absolute;
+    right:5px;
     bottom:0;
     height:14px;
     margin:auto;
