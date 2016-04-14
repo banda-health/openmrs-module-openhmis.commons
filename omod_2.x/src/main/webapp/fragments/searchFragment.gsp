@@ -7,6 +7,8 @@
 	def typeahead = config.typeahead;
 	def typeaheadOnSelect = config.typeaheadOnSelect;
 	def typeaheadEditable = config.typeaheadEditable;
+    def typeaheadClearEvent = config.typeaheadClearEvent ? config.typeaheadClearEvent : "selectConcept('')";
+    def ngEnterEvent = config.ngEnterEvent ? config.ngEnterEvent : '';
 %>
 <div class="btn-group">
     <input type="text" id="searchBox"
@@ -51,9 +53,19 @@
                 typeahead-editable = ${typeaheadEditable}
             <% } %>
             ng-model-options="{ debounce: 500 }"
+
+            <% if(ngEnterEvent != '') {%>
+                ng-enter = ${ngEnterEvent}
+            <% } %>
             autofocus />
 
-    <% if(!typeahead) {%>
-        <span id="searchclear" class="searchclear icon-remove-circle" href=""  ng-click=" ${model} = ''; ${onChangeEvent}" > </span>
-    <% } %>
+        <span id="searchclear" href=""
+            <% if(typeahead) { %>
+                ng-click = "${model} = ''; ${typeaheadClearEvent}; ${ngEnterEvent};"
+                class="autocompleteclear icon-remove-circle"
+            <% } else{ %>
+                ng-click = "${model} = ''; ${onChangeEvent}"
+                class="searchclear icon-remove-circle"
+            <% } %>>
+        </span>
 </div>
