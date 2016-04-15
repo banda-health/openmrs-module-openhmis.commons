@@ -106,7 +106,7 @@ public abstract class RoleCreationControllerBase {
 	private void createRole(RoleCreationViewModel viewModel, HttpSession session) {
 		Role newRole = new Role();
 		newRole.setRole(viewModel.getNewRoleName());
-		newRole.setDescription("openhmis.commons.roleCreation.page.roleDescription");
+		newRole.setDescription("Creates users with the module defined privileges");
 		newRole.setPrivileges(privileges());
 
 		Role inheritedRole = getUserService().getRole(RoleConstants.PROVIDER);
