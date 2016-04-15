@@ -111,7 +111,16 @@
       console.log("ERROR:::Message - " + error.data.error.message);
       console.log("ERROR:::Detail - " + error.data.error.detail);
 
-      errorCallback(error.data.error.message);
+	    function escapeHtml(message) {
+		    return message
+			    .replace(/&/g, "&amp;")
+			    .replace(/</g, "&nbsp;")
+			    .replace(/>/g, "&nbsp;")
+			    .replace(/"/g, "&quot;")
+			    .replace(/'/g, "&#039;");
+	    }
+
+	    errorCallback(escapeHtml(error.data.error.message));
     }
   }
 })();

@@ -109,7 +109,7 @@
 			}
 
 		self.onChangeEntityError = self.onChangeEntityError || function (error) {
-				emr.errorMessage(error);
+				emr.errorAlert(error);
 			}
 
 		self.onPurgeEntitySuccessful = self.onPurgeEntitySuccessful || function (data) {
