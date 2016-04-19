@@ -46,7 +46,7 @@
             <% } %>
 
             <% if(typeaheadOnSelect) { %>
-                typeahead-on-select = ${typeaheadOnSelect}
+                typeahead-on-select = "${typeaheadOnSelect}; ${ngEnterEvent}"
             <% } %>
 
             <% if(typeaheadEditable) { %>
