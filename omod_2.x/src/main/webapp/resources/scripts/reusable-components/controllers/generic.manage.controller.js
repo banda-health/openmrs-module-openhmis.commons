@@ -154,7 +154,9 @@
 
       self.bindExtraVariablesToScope();
 
-      $scope.newEntityLabel = $filter('EmrFormat')(emr.message("openhmis.inventory.general.new"), [self.entity_name]);
+      $scope.newEntityLabel = $filter('EmrFormat')(emr.message("openhmis.commons.general.new"), [self.entity_name]);
+
+      $scope.postSearchMessage = $filter('EmrFormat')(emr.message("openhmis.commons.general.postSearchMessage"), [self.entity_name]);
     }
 
     // load page..
