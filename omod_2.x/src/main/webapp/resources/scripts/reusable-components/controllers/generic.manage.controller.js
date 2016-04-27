@@ -53,7 +53,7 @@
     }
 
     // public
-    self.paginate = function(start) {
+    self.paginate = self.paginate || function(start) {
       CookiesService.set(self.currentPage, start);
       CookiesService.set(self.limit, $scope.limit);
 
