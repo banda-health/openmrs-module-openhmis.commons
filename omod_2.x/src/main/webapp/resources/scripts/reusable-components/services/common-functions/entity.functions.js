@@ -81,7 +81,7 @@
 		 * @param $scope
 		 */
 		function addAttributeType($scope) {
-			$scope.saveButton = $scope.messageLabels['general.save'];
+			$scope.saveButton = emr.message['general.save'];
 			var dialog = emr
 				.setupConfirmationDialog({
 					selector: '#attribute-types-dialog',
@@ -132,11 +132,7 @@
 			}
 
 			$scope.attributeType = editAttributeType;
-
-			$scope.editAttributeTypeTitle = $scope.messageLabels['openhmis.commons.general.edit']
-				+ ' '
-				+ $scope.messageLabels['openhmis.inventory.attribute.type.name'];
-			$scope.editButton = $scope.messageLabels['general.update'];
+			$scope.editButton = emr.message['general.update'];
 			$scope.addAttributeTypeTitle = '';
 			var dialog = emr.setupConfirmationDialog({
 				selector: '#attribute-types-dialog',
