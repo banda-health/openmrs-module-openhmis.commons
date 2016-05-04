@@ -24,6 +24,7 @@
 	function EntityFunctions() {
 		var service = {
 			retireUnretireDeletePopup: retireUnretireDeletePopup,
+			disableBackground: disableBackground,
 			addExtraFormatListElements: addExtraFormatListElements,
 			addAttributeType: addAttributeType,
 			editAttributeType: editAttributeType,
@@ -48,9 +49,19 @@
 					}
 				}
 			});
+
 			dialog.show();
+			disableBackground();
 		}
-		
+
+		/**
+		 * Disable and gray-out background when a dialog box opens up.
+		 */
+		function disableBackground(){
+			var backgroundElement = angular.element('.simplemodal-overlay');
+			backgroundElement.addClass('disable-background');
+		}
+
 		function addExtraFormatListElements(formatFields) {
 			for (var format in formatFields) {
 				switch (formatFields[format]) {
@@ -99,7 +110,6 @@
 									$scope.attributeType);
 								updateAttributeTypesOrder($scope.entity.attributeTypes);
 								$scope.attributeType = {};
-								console.log($scope.attributeTypes);
 							}
 							$scope.$apply();
 							dialog.close();

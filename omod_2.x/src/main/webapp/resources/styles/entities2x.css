@@ -269,6 +269,10 @@ table.header-title td{
     width: 350px;
 }
 
+.disable-background{
+    background: url(images/ui-bg_diagonals-medium_100_e6e6e6_40x40.png) #e6e6e6 50% 50% repeat;
+}
+
 .bbf-list button.bbf-remove { float: left; width: 1.9em; margin-top: -2px; padding: 0px 0px; }
 
 
