@@ -25,7 +25,7 @@ import org.openmrs.module.openhmis.commons.api.entity.model.SafeIdentifierSource
  * Idgen Utility class that does not directly reference the idgen module.
  */
 public class SafeIdgenUtil {
-	protected SafeIdgenUtil() {}
+	private SafeIdgenUtil() {}
 
 	/**
 	 * Gets the identifier source information with the id in the specified global property.

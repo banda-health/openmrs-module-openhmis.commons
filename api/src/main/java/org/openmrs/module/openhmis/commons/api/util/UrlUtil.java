@@ -5,7 +5,7 @@ package org.openmrs.module.openhmis.commons.api.util;
  */
 public class UrlUtil {
 
-	protected UrlUtil() {}
+	private UrlUtil() {}
 
 	/**
 	 * Adds the '.form' ending to the specified page, if it does not already exist.
