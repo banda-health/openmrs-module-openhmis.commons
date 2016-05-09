@@ -57,23 +57,20 @@
 				<input type="checkbox" ng-model="attributeType.required"/>
 			</li>
 		</ul>
-		<% if (config.module == "inventory") { %>
 		<ul class="table-layout dialog-table-layout">
 			<li class="required">
-				<span>{{messageLabels['Field.attributeName']}} {{messageLabels['Obs.order']}}</span>
+				<span>${ui.message('Field.attributeName')} ${ui.message('Obs.order')}</span>
 			</li>
 			<li>
 				<input type="number" required ng-model="attributeType.attributeOrder"/>
 			</li>
 		</ul>
-		<% } %>
 		<br/>
 
 		<div class="ngdialog-buttons detail-section-border-top">
 			<br/>
 			<input type="button" class="cancel" value="${ui.message('general.cancel')}"
 			       ng-click="cancel()"/>
-			<% if (config.module == "inventory") { %>
 			<span ng-show="addAttributeTypeTitle != ''">
 				<input type="button" class="confirm right"
 				       ng-disabled="attributeType.name == '' || attributeType.name == undefined || attributeType.attributeOrder == undefined
@@ -89,15 +86,6 @@
 				       value="{{messageLabels['openhmis.commons.general.confirm']}}"
 				       ng-click="saveOrUpdate()"/>
 			</span>
-			<% } else { %>
-			<span>
-				<input type="button" class="confirm right"
-				       ng-disabled="attributeType.name == '' || attributeType.name == undefined
-										       || attributeType.format == undefined || attributeType.format == ''"
-				       value="${ui.message('openhmis.cashier.general.confirm')}"
-				       ng-click="saveOrUpdate()"/>
-			</span>
-			<% } %>
 		</div>
 	</div>
 </div>
