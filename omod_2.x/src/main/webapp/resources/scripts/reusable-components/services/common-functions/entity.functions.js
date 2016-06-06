@@ -13,15 +13,15 @@
  *
  */
 
-(function() {
+(function () {
 	'use strict';
-	
+
 	var app = angular.module('app.entityFunctionsFactory', []);
 	app.service('EntityFunctions', EntityFunctions);
-	
-	EntityFunctions.$inject = [];
-	
-	function EntityFunctions() {
+
+	EntityFunctions.$inject = ['$filter'];
+
+	function EntityFunctions($filter) {
 		var service = {
 			retireUnretireDeletePopup: retireUnretireDeletePopup,
 			disableBackground: disableBackground,
@@ -31,7 +31,9 @@
 			removeAttributeType: removeAttributeType,
 			removeFromList: removeFromList,
 			insertTemporaryId: insertTemporaryId,
-			removeTemporaryId: removeTemporaryId
+			removeTemporaryId: removeTemporaryId,
+			validateAttributeTypes: validateAttributeTypes,
+			validateLineItems: validateLineItems,
 		};
 
 		return service;
@@ -40,11 +42,11 @@
 		 * Show the retire/unretire and Delete popup
 		 * @param selectorId - div id
 		 */
-		function retireUnretireDeletePopup(selectorId){
+		function retireUnretireDeletePopup(selectorId) {
 			var dialog = emr.setupConfirmationDialog({
 				selector: '#' + selectorId,
 				actions: {
-					cancel: function(){
+					cancel: function () {
 						dialog.close();
 					}
 				}
@@ -57,7 +59,7 @@
 		/**
 		 * Disable and gray-out background when a dialog box opens up.
 		 */
-		function disableBackground(){
+		function disableBackground() {
 			var backgroundElement = angular.element('.simplemodal-overlay');
 			backgroundElement.addClass('disable-background');
 		}
@@ -133,12 +135,12 @@
 			var tmpAttributeType = attributeType;
 
 			var editAttributeType = {
-				attributeOrder : attributeType.attributeOrder,
-				foreignKey : attributeType.foreignKey,
-				format : attributeType.format,
-				name : attributeType.name,
-				regExp : attributeType.regExp,
-				required : attributeType.required,
+				attributeOrder: attributeType.attributeOrder,
+				foreignKey: attributeType.foreignKey,
+				format: attributeType.format,
+				name: attributeType.name,
+				regExp: attributeType.regExp,
+				required: attributeType.required,
 			}
 
 			$scope.attributeType = editAttributeType;
@@ -195,17 +197,17 @@
 		/*We check the index of the attribute type in the attributeTypes array. The Attribute Type
 		 * attributeOrder is always the same as index of the attribute type then compare an assign the
 		 * attributeOrder */
-		function updateAttributeTypesOrder(attributeTypes){
-			for(var i = 0; i < attributeTypes.length; i++){
+		function updateAttributeTypesOrder(attributeTypes) {
+			for (var i = 0; i < attributeTypes.length; i++) {
 				var attributeType = attributeTypes[i];
-				if(attributeType != null) {
+				if (attributeType != null) {
 					if (attributeType.attributeOrder != i) {
 						attributeType.attributeOrder = i;
 					}
 				}
 			}
 		}
-		
+
 		/**
 		 * ng-repeat requires that every item have a unique identifier.
 		 * This function sets a temporary unique id for all attribute types in the list.
@@ -218,13 +220,13 @@
 				var index = attributeTypes.indexOf(attributeType);
 				attributeType.id = index * rand;
 			} else {
-				for ( var attributeType in attributeTypes) {
+				for (var attributeType in attributeTypes) {
 					var index = attributeTypes.indexOf(attributeType);
 					attributeType.id = index * rand;
 				}
 			}
 		}
-		
+
 		/**
 		 * Remove the temporary unique id from all operation types (attributetypes) before submitting.
 		 * @param items
@@ -235,6 +237,84 @@
 				delete attributeType.id;
 			}
 		}
+
+		// validate attribute types
+		function validateAttributeTypes(attributeTypeAttributes, attributeValues, validatedAttributeTypes) {
+			if (attributeTypeAttributes !== undefined) {
+				var failAttributeTypeValidation = false;
+				var count = 0;
+				for (var i = 0; i < attributeTypeAttributes.length; i++) {
+					var attributeType = attributeTypeAttributes[i];
+					var required = attributeType.required;
+					var requestAttributeType = {};
+					requestAttributeType['attributeType'] = attributeType.uuid;
+					var value = attributeValues[attributeType.uuid].value || "";
+					if (required && value === "") {
+						var errorMsg = $filter('EmrFormat')(emr.message("openhmis.commons.general.required.itemAttribute"), [attributeType.name]);
+						emr.errorAlert(errorMsg);
+						failAttributeTypeValidation = true;
+					} else {
+						requestAttributeType['attributeType'] = attributeType.uuid;
+						var value = attributeValues[attributeType.uuid].value || "";
+						requestAttributeType['value'] = value;
+						validatedAttributeTypes[count] = requestAttributeType;
+						count++;
+					}
+				}
+
+				if (failAttributeTypeValidation) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		function validateLineItems(lineItems, validatedItems) {
+			if (lineItems !== undefined) {
+				for (var i = 0; i < lineItems.length; i++) {
+					var lineItem = lineItems[i];
+					if (lineItem.selected) {
+						var calculatedExpiration;
+						var dateNotRequired = true;
+						var expiration = lineItem.itemStockExpirationDate;
+						if (lineItem.itemStockHasExpiration) {
+							if (expiration === undefined || expiration === "") {
+								dateNotRequired = false;
+							} else if (expiration === 'None') {
+								calculatedExpiration = false;
+								expiration = undefined;
+							} else if (expiration === 'Auto') {
+								calculatedExpiration = true;
+								expiration = undefined;
+							} else {
+								calculatedExpiration = true;
+							}
+						} else {
+							calculatedExpiration = false;
+							expiration = undefined;
+						}
+
+						if (dateNotRequired) {
+							var item = {
+								calculatedExpiration: calculatedExpiration,
+								item: lineItem.itemStock.uuid,
+								quantity: lineItem.itemStockQuantity,
+							};
+
+							if (expiration !== undefined) {
+								item['expiration'] = expiration;
+							}
+
+							validatedItems.push(item);
+						} else {
+							emr.errorAlert("openhmis.inventory.operations.error.expiryDate");
+							return false;
+						}
+					}
+				}
+			}
+			return true;
+		}
 	}
 
 	app.directive('ngEnter', function ($window) {
@@ -243,7 +323,7 @@
 				if (event.which === 13) {
 					scope.$apply(function () {
 
-						scope.$eval(attrs.ngEnter, {'event' : event});
+						scope.$eval(attrs.ngEnter, {'event': event});
 					});
 
 					event.preventDefault();
