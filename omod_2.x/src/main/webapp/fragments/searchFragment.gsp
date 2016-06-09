@@ -9,6 +9,7 @@
 	def typeaheadEditable = config.typeaheadEditable;
     def typeaheadClearEvent = config.typeaheadClearEvent ? config.typeaheadClearEvent : "selectConcept('')";
     def ngEnterEvent = config.ngEnterEvent ? config.ngEnterEvent : '';
+    def required = config.required;
 %>
 <div class="btn-group">
     <input type="text" id="searchBox"
@@ -56,6 +57,10 @@
 
             <% if(ngEnterEvent != '') {%>
                 ng-enter = ${ngEnterEvent}
+            <% } %>
+
+            <% if(required) { %>
+                required
             <% } %>
             autofocus />
 
