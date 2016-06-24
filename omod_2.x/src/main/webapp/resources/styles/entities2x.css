@@ -122,6 +122,18 @@ ul.table-layout li{
     vertical-align: middle;
 }
 
+ul.patient-details-layout{
+    text-align: left;
+    padding: 0;
+}
+
+ul.patient-details-layout li{
+    text-align: left;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px;
+}
+
 ul.table-layout li.valign {
     vertical-align: top;
 }
@@ -274,5 +286,140 @@ table.header-title td{
 }
 
 .bbf-list button.bbf-remove { float: left; width: 1.9em; margin-top: -2px; padding: 0px 0px; }
+
+fieldset.operation{
+    min-width: 90%;
+    margin: 0 80px;
+}
+.operation legend{
+    font-size:16px;
+    width:150px;
+    color: #00463f;
+    text-transform: none;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+fieldset.operation select{
+    width:220px;
+}
+fieldset.operation .action-container{
+    display: inline;
+    float: right;
+    width: 200px;
+    margin: 0px -19px 0px 0px;
+    border: 1px solid #dddddd;
+}
+fieldset.operation .action-container ul{
+    background: #363463;
+    color: white;
+    padding: 5px;
+}
+fieldset.operation .action-container h3 {
+    margin: 0;
+    color: white;
+    border-bottom: 1px solid white;
+    margin-bottom: 5px;
+    font-size: 1em;
+    margin-top: 5px;
+}
+fieldset.operation .action-container li{
+    font-size: 0.9em;
+}
+fieldset.operation .action-container a:not(.button) {
+    color: white;
+}
+fieldset.operation ul.table-layout li.change-operation-date{
+    width: 303px;
+}
+fieldset.nested{
+    border: 1px solid #666666;
+    margin: 10px 0px;
+    width: 100%;
+}
+fieldset.nested .item-stock select{
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+fieldset.nested .desc{
+    font-size: 14px;
+    font-weight: bold;
+    margin: 100px;
+}
+fieldset.nested .table-layout{
+    margin: 0 0px;
+    width: 100%;
+    margin-top: -25px;
+}
+fieldset.nested .table-layout li{
+    margin: 0 0px;
+    width: 90%;
+    vertical-align: middle;
+    padding: 0px;
+}
+fieldset.nested .table-layout .searchclear{
+    top:5px;
+}
+fieldset.nested .manage-entities-table{
+    line-height: 20px;
+    font-size: 14px;
+}
+fieldset.nested #below-entities-table .pagination-options{
+    margin: -24px 0px 0px 10px;
+    font-size:14px;
+}
+fieldset.nested #below-entities-table{
+    font-size:14px;
+}
+fieldset.patient-details{
+    border: 1px solid #666666;
+}
+fieldset.patient-details input{
+    background: #666666;
+    border-color: #666666;
+    color: white;
+}
+fieldset.operation .nested select{
+    min-width: 0px;
+    width:50px;
+    text-transform: none;
+    padding: 0px 0px;
+    display:inline-block;
+}
+table.item-stock th{
+    font-size: 12px;
+}
+
+table.item-stock td:first-child{
+    width: 5%;
+}
+table.item-stock td:nth-child(2){
+    width: 20%;
+}
+table.item-stock td:nth-child(3){
+    width: 20%;
+}
+table.item-stock td:nth-child(4){
+    width: 32%;
+}
+table.item-stock td input[type="image"]{
+    min-width:0;
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+table.item-stock .autocomplete-search{
+    width: 250px;
+}
+table.item-stock .date input{
+    margin-top: 27px;
+}
+table.item-stock .add-on{
+    position: relative;
+    left: 184px;
+    top: -37px;
+}
+table.item-stock td .details{
+    font-size : 0.8em;
+}
+
 
 

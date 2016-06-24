@@ -23,6 +23,7 @@
 
 	function EntityFunctions($filter) {
 		var service = {
+			printPage: printPage,
 			retireUnretireDeletePopup: retireUnretireDeletePopup,
 			disableBackground: disableBackground,
 			addExtraFormatListElements: addExtraFormatListElements,
@@ -37,6 +38,16 @@
 		};
 
 		return service;
+
+
+		function printPage(url) {
+			$("#printPage").remove();
+			var printPage = $('<iframe id="printPage" src="' + url + '" width="1" height="1"></iframe>');
+			printPage.load(function () {
+				$(this).get(0).contentWindow.print();
+			});
+			$("body").append(printPage);
+		}
 
 		/**
 		 * Show the retire/unretire and Delete popup
@@ -247,8 +258,13 @@
 					var attributeType = attributeTypeAttributes[i];
 					var required = attributeType.required;
 					var requestAttributeType = {};
+					var value = "";
 					requestAttributeType['attributeType'] = attributeType.uuid;
-					var value = attributeValues[attributeType.uuid].value || "";
+
+					if (attributeValues[attributeType.uuid] !== undefined) {
+						value = attributeValues[attributeType.uuid].value;
+					}
+
 					if (required && value === "") {
 						var errorMsg = $filter('EmrFormat')(emr.message("openhmis.commons.general.required.itemAttribute"), [attributeType.name]);
 						emr.errorAlert(errorMsg);

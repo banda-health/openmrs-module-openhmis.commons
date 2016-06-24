@@ -18,9 +18,9 @@
 
 	angular.module('app.restfulServices').service('CommonsRestfulFunctions', CommonsRestfulFunctions);
 
-	CommonsRestfulFunctions.$inject = ['EntityRestFactory'];
+	CommonsRestfulFunctions.$inject = ['EntityRestFactory', '$filter'];
 
-	function CommonsRestfulFunctions(EntityRestFactory) {
+	function CommonsRestfulFunctions(EntityRestFactory, $filter) {
 		var service;
 
 		service = {
@@ -35,13 +35,13 @@
 
 		/**
 		 * Patient search
-		 * @param module_name
+		 * @param module_name,
+		 * @param $scope
 		 * @param q
 		 * @param currentPage
 		 * @param limit
-		 * @param onLoadPatientsSuccessful
 		 */
-		function searchPatients(module_name, q, currentPage, limit, onLoadPatientsSuccessful) {
+		function searchPatients(module_name, q, currentPage, limit, $scope) {
 			var requestParams = []; // PaginationService.paginateParams(currentPage, limit, false, '');
 			requestParams['q'] = q;
 			requestParams['rest_entity_name'] = '';
@@ -49,19 +49,30 @@
 				"person:(gender,age,birthdate,birthdateEstimated,personName))";
 			EntityRestFactory.setBaseUrl('patient', 'v1');
 			EntityRestFactory.loadEntities(requestParams,
-				onLoadPatientsSuccessful, errorCallback);
-			//reset base url..
+				function(data){
+					$scope.patients = data.results;
+					$scope.totalNumOfResults = $scope.patients.length;
+					if (currentPage > 1) {
+						var index = (currentPage - 1) * limit;
+						$scope.patients.splice(0, index);
+					}
+					if($scope.selectExistingPatient && $scope.patients.length > 0){
+						$scope.selectedPatient = $scope.patients[0];
+						$scope.selectPatient($scope.selectedPatient);
+					}
+				}, errorCallback);
+
 			EntityRestFactory.setBaseUrl(module_name);
 		}
 
-		function searchStockOperationItems(module_name, q) {
+		function searchStockOperationItems(q) {
 			var requestParams = {};
 			requestParams['has_physical_inventory'] = 'true';
 			requestParams['q'] = q;
 			requestParams['limit'] = 10;
 			requestParams['startIndex'] = 1;
 
-			return EntityRestFactory.autocompleteSearch(requestParams, 'item', module_name);
+			return EntityRestFactory.autocompleteSearch(requestParams, 'item', 'inventory');
 		}
 
 		function getSessionLocation(module_name, onLoadSessionLocationSuccessful) {
@@ -74,32 +85,42 @@
 			EntityRestFactory.setBaseUrl(module_name);
 		}
 
-		function endVisit(module_name, visit_uuid, stopDatetime, onLoadEndVisitSuccessful) {
+		function endVisit(module_name, visit_uuid, $scope) {
 			var requestParams = {};
+			var stopDatetime = $filter('date')(new Date(), 'yyyy-MM-ddThh:mm:ss.sss');
 			requestParams['stopDatetime'] = stopDatetime.toString();
 			EntityRestFactory.setBaseUrl('', 'v1');
 			EntityRestFactory.post('visit', visit_uuid, requestParams,
-				onLoadEndVisitSuccessful,
+				function(data){
+					if (data.stopDatetime !== undefined) {
+						$scope.visit = undefined;
+					}
+				},
 				errorCallback
 			);
-			//reset base url..
+
 			EntityRestFactory.setBaseUrl(module_name);
 		}
 
-		function loadVisit(module_name, patient_uuid, onLoadVisitSuccessful) {
+		function loadVisit(module_name, patient_uuid, $scope) {
 			var requestParams = [];
 			requestParams['rest_entity_name'] = '';
 			requestParams['patient'] = patient_uuid;
 			EntityRestFactory.setBaseUrl('visit', 'v1');
 			EntityRestFactory.loadEntities(requestParams,
-				onLoadVisitSuccessful, errorCallback);
-			//reset base url..
+				function(data){
+					if (data.results) {
+						$scope.visit = data.results[0];
+					} else {
+						$scope.visit = '';
+					}
+				}, errorCallback);
+
 			EntityRestFactory.setBaseUrl(module_name);
 		}
 
 		function errorCallback(error) {
 			console.log(error);
 		}
-
 	}
 })();
