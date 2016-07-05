@@ -293,7 +293,7 @@ fieldset.operation{
 }
 .operation legend{
     font-size:16px;
-    width:150px;
+    width:190px;
     color: #00463f;
     text-transform: none;
     font-weight: bold;
@@ -337,8 +337,8 @@ fieldset.nested{
     width: 100%;
 }
 fieldset.nested .item-stock select{
-    border: 1px solid transparent;
-    background-color: transparent;
+    /*border: 1px solid transparent;
+    background-color: transparent;*/
 }
 fieldset.nested .desc{
     font-size: 14px;
@@ -380,10 +380,11 @@ fieldset.patient-details input{
 }
 fieldset.operation .nested select{
     min-width: 0px;
+    /*
     width:50px;
     text-transform: none;
     padding: 0px 0px;
-    display:inline-block;
+    display:inline-block;*/
 }
 table.item-stock th{
     font-size: 12px;
@@ -393,21 +394,28 @@ table.item-stock td:first-child{
     width: 5%;
 }
 table.item-stock td:nth-child(2){
-    width: 20%;
+    width: 43%;
 }
 table.item-stock td:nth-child(3){
-    width: 20%;
+    width: 13%;
 }
 table.item-stock td:nth-child(4){
-    width: 32%;
+    width: 15%;
+}
+table.item-stock td:nth-child(5){
+    width: 10%;
 }
 table.item-stock td input[type="image"]{
     min-width:0;
     border: 1px solid transparent;
     background-color: transparent;
+    visibility: hidden;
+}
+table.item-stock tr:hover td input[type="image"]{
+    visibility: visible;
 }
 table.item-stock .autocomplete-search{
-    width: 250px;
+    width: 350px;
 }
 table.item-stock .date input{
     margin-top: 27px;
@@ -419,6 +427,18 @@ table.item-stock .add-on{
 }
 table.item-stock td .details{
     font-size : 0.8em;
+}
+.right-justify{
+    text-align: right;
+}
+ul.table-layout .gray-button{
+    background: #666666;
+    border-color: #666666;
+    color: white;
+}
+input[type="button"].gray-button:hover{
+    background: #666666;
+    border-color: #666666;
 }
 
 

@@ -75,17 +75,6 @@
       RestfulService.one(rest_entity_name, uuid, successCallback, errorCallback);
     }
 
-    /* Checks for duplicated names */
-    function checkExistingEntity(rest_entity_name, search_query, successCallback, errorCallback) {
-      var params = {
-        includeAll: true,
-        q: search_query,
-        startIndex: 1,
-        limit: 1
-      };
-      RestfulService.all(rest_entity_name, params, successCallback, errorCallback);
-    }
-
     /*
      * Either persist a new entity or update an existing one
      */

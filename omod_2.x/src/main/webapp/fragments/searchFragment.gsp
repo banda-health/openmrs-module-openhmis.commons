@@ -10,6 +10,7 @@
     def typeaheadClearEvent = config.typeaheadClearEvent ? config.typeaheadClearEvent : "selectConcept('')";
     def ngEnterEvent = config.ngEnterEvent ? config.ngEnterEvent : '';
     def required = config.required;
+    def showRemoveIcon = config.showRemoveIcon ? config.showRemoveIcon : true;
 %>
 <div class="btn-group">
     <input type="text" id="searchBox"
@@ -64,13 +65,13 @@
             <% } %>
             autofocus />
 
-        <span id="searchclear" href=""
-            <% if(typeahead) { %>
+    <span ng-show="${showRemoveIcon}" id="searchclear" href=""
+          <% if(typeahead) { %>
                 ng-click = "${model} = ''; ${typeaheadClearEvent}; ${ngEnterEvent};"
                 class="autocompleteclear icon-remove-circle"
-            <% } else{ %>
+          <% } else{ %>
                 ng-click = "${model} = ''; ${onChangeEvent}"
                 class="searchclear icon-remove-circle"
-            <% } %>>
-        </span>
+          <% } %>>
+    </span>
 </div>
