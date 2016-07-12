@@ -83,7 +83,7 @@
 				       ng-disabled="attributeType.name == '' || attributeType.name == undefined
 										        || attributeType.attributeOrder == undefined
 										       || attributeType.format == undefined || attributeType.format == ''"
-				       value="{{messageLabels['openhmis.commons.general.confirm']}}"
+				       value="${ui.message('openhmis.commons.general.confirm')}"
 				       ng-click="saveOrUpdate()"/>
 			</span>
 		</div>
