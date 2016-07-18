@@ -53,7 +53,7 @@
     </div>
     <br />
 
-    <div ng-show="selectedPatient === '' && patient !== undefined">
+    <div id="patient-table" ng-show="selectedPatient === '' && patient !== undefined">
         <span style="margin:150px;" ng-show="patients.length == 0 && patient !== undefined && patient !== ''">
             ${ui.message('openhmis.commons.general.preSearchMessage')}
             - <b> {{patient}} </b> -

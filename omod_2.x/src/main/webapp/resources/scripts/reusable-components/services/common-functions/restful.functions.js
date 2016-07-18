@@ -13,7 +13,7 @@
  *
  */
 
-(function() {
+(function () {
 	'use strict';
 
 	angular.module('app.restfulServices').service('CommonsRestfulFunctions', CommonsRestfulFunctions);
@@ -49,14 +49,14 @@
 				"person:(gender,age,birthdate,birthdateEstimated,personName))";
 			EntityRestFactory.setBaseUrl('patient', 'v1');
 			EntityRestFactory.loadEntities(requestParams,
-				function(data){
+				function (data) {
 					$scope.patients = data.results;
 					$scope.totalNumOfResults = $scope.patients.length;
 					if (currentPage > 1) {
 						var index = (currentPage - 1) * limit;
 						$scope.patients.splice(0, index);
 					}
-					if($scope.selectExistingPatient && $scope.patients.length > 0){
+					if ($scope.selectExistingPatient && $scope.patients.length > 0) {
 						$scope.selectedPatient = $scope.patients[0];
 						$scope.selectPatient($scope.selectedPatient);
 					}
@@ -91,7 +91,7 @@
 			requestParams['stopDatetime'] = stopDatetime.toString();
 			EntityRestFactory.setBaseUrl('', 'v1');
 			EntityRestFactory.post('visit', visit_uuid, requestParams,
-				function(data){
+				function (data) {
 					if (data.stopDatetime !== undefined) {
 						$scope.visit = undefined;
 					}
@@ -108,7 +108,7 @@
 			requestParams['patient'] = patient_uuid;
 			EntityRestFactory.setBaseUrl('visit', 'v1');
 			EntityRestFactory.loadEntities(requestParams,
-				function(data){
+				function (data) {
 					if (data.results) {
 						$scope.visit = data.results[0];
 					} else {

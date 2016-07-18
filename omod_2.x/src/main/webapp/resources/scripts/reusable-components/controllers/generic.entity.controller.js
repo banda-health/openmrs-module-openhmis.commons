@@ -18,7 +18,8 @@
 
 	var baseController = angular.module('app.genericEntityController');
 
-	function GenericEntityController($scope, $filter, $stateParams, EntityRestFactory, GenericMetadataModel, EntityFunctions) {
+	function GenericEntityController($scope, $filter, $stateParams,
+	                                 EntityRestFactory, GenericMetadataModel, EntityFunctions) {
 		var self = this;
 		self.module_name = '';
 		self.rest_entity_name = '';
@@ -26,6 +27,7 @@
 		self.uuid = '';
 		self.cancel_page = '';
 		self.rest_version = 'v2';
+		self.requiredPrivileges = '';
 
 		// protected
 		self.setRequiredInitParameters = self.setRequiredInitParameters || function () {
@@ -38,11 +40,12 @@
 			}
 
 		// protected
-		self.bindBaseParameters = function (module_name, rest_entity_name, entity_name_message_key, cancel_page, rest_version) {
+		self.bindBaseParameters = function (module_name, rest_entity_name, entity_name_message_key,
+		                                    cancel_page, rest_version) {
 			self.module_name = module_name;
 			self.rest_entity_name = rest_entity_name;
 			self.entity_name_message_key = entity_name_message_key;
-			if (angular.isDefined(rest_version)) {
+			if (angular.isDefined(rest_version) && rest_version !== undefined) {
 				self.rest_version = rest_version;
 			}
 			self.cancel_page = cancel_page;
@@ -67,7 +70,7 @@
 			}
 
 		self.validateBeforeSaveOrUpdate = self.validateBeforeSaveOrUpdate || function () {
-				console.log('validate variables/data before saving');
+				//console.log('validate variables/data before saving');
 				return true;
 			}
 
@@ -120,7 +123,7 @@
 				var entity = GenericMetadataModel.populateModel(data);
 				self.bindEntityToScope($scope, entity);
 				self.bindExtraVariablesToScope(entity.uuid);
-				if(!angular.isDefined($scope.retireOrUnretire)){
+				if (!angular.isDefined($scope.retireOrUnretire)) {
 					self.loadRetireUnretireMessages();
 				}
 			}
@@ -141,7 +144,7 @@
 			|| function (uuid) {
 			}
 
-		self.loadRetireUnretireMessages = self.loadRetireUnretireMessages || function(){
+		self.loadRetireUnretireMessages = self.loadRetireUnretireMessages || function () {
 				if (angular.isDefined($scope.entity) && angular.isDefined($scope.entity.retired)
 					&& $scope.entity.retired === true) {
 					$scope.retireOrUnretire = emr.message("general.unretire") + " " + emr.message(self.entity_name_message_key);
@@ -190,8 +193,21 @@
 		self.loadPage = self.loadPage || function () {
 				self.initialize();
 				self.loadEntity(self.uuid);
-
 			}
+
+		self.checkPrivileges = self.checkPrivileges || function(privileges) {
+			var requestParams = [];
+			requestParams['resource'] = 'module/openhmis/commons/privileges.page';
+			requestParams['privileges'] = privileges;
+			EntityRestFactory.setCustomBaseUrl('/' + OPENMRS_CONTEXT_PATH + '/');
+			EntityRestFactory.loadResults(requestParams,
+				function (data) {
+					if (!data.hasPrivileges) {
+						window.location = '/' + OPENMRS_CONTEXT_PATH + '/login.htm';
+					}
+				}
+			);
+		}
 
 		self.loadMessageLabels = self.loadMessageLabels
 			|| function () {
@@ -222,7 +238,7 @@
 			}
 
 		self.setAdditionalMessageLabels = self.setAdditionalMessageLabels || function () {
-				console.log('define message labels');
+				//console.log('define message labels');
 			}
 
 		/* ENTRY POINT */

@@ -13,7 +13,7 @@
  *
  */
 
-(function() {
-  'use strict';
-  angular.module('app.genericManageController', ['app.restfulServices']);
+(function () {
+	'use strict';
+	angular.module('app.genericManageController', ['app.restfulServices']);
 })();

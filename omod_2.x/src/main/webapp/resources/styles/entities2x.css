@@ -386,8 +386,12 @@ fieldset.operation .nested select{
     padding: 0px 0px;
     display:inline-block;*/
 }
+fieldset.nested #patient-table select{
+    display: inline-block;
+    width: 40%;
+}
 table.item-stock th{
-    font-size: 12px;
+    /*font-size: 12px;*/
 }
 
 table.item-stock td:first-child{

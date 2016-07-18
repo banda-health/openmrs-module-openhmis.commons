@@ -34,7 +34,6 @@
 			insertTemporaryId: insertTemporaryId,
 			removeTemporaryId: removeTemporaryId,
 			validateAttributeTypes: validateAttributeTypes,
-			validateLineItems: validateLineItems,
 		};
 
 		return service;
@@ -267,7 +266,7 @@
 						continue;
 					}
 
-					if (required && value === "") {
+					if (required && (value === undefined || value === "")) {
 						var errorMsg = $filter('EmrFormat')(emr.message("openhmis.commons.general.required.itemAttribute"), [attributeType.name]);
 						emr.errorAlert(errorMsg);
 						failAttributeTypeValidation = true;
@@ -291,53 +290,6 @@
 			}
 			return true;
 		}
-
-		function validateLineItems(lineItems, validatedItems) {
-			if (lineItems !== undefined) {
-				for (var i = 0; i < lineItems.length; i++) {
-					var lineItem = lineItems[i];
-					if (lineItem.selected) {
-						var calculatedExpiration;
-						var dateNotRequired = true;
-						var expiration = lineItem.itemStockExpirationDate;
-						if (lineItem.itemStockHasExpiration) {
-							if (expiration === undefined || expiration === "") {
-								dateNotRequired = false;
-							} else if (expiration === 'None') {
-								calculatedExpiration = false;
-								expiration = undefined;
-							} else if (expiration === 'Auto') {
-								calculatedExpiration = true;
-								expiration = undefined;
-							} else {
-								calculatedExpiration = true;
-							}
-						} else {
-							calculatedExpiration = false;
-							expiration = undefined;
-						}
-
-						if (dateNotRequired) {
-							var item = {
-								calculatedExpiration: calculatedExpiration,
-								item: lineItem.itemStock.uuid,
-								quantity: lineItem.itemStockQuantity,
-							};
-
-							if (expiration !== undefined) {
-								item['expiration'] = expiration;
-							}
-
-							validatedItems.push(item);
-						} else {
-							emr.errorAlert("openhmis.inventory.operations.error.expiryDate");
-							return false;
-						}
-					}
-				}
-			}
-			return true;
-		}
 	}
 
 	app.directive('ngEnter', function ($window) {
@@ -345,10 +297,28 @@
 			element.bind("keydown keypress", function (event) {
 				if (event.which === 13) {
 					scope.$apply(function () {
-
 						scope.$eval(attrs.ngEnter, {'event': event});
 					});
 
+					var pageElems = document.querySelectorAll('input'),
+						focusNext = false,
+						len = pageElems.length;
+					var foundSrc = false;
+					for (var i = 0; i < len; i++) {
+						var pe = pageElems[i];
+						if(pe === event.srcElement){
+							foundSrc = true;
+						}
+
+						if (focusNext && pe !== event.srcElement && foundSrc) {
+							if (pe.style.display !== 'none' && pe.id === "searchBox") {
+								pe.focus();
+								break;
+							}
+						} else if (pe.type === "image") {
+							focusNext = true;
+						}
+					}
 					event.preventDefault();
 				}
 			});
