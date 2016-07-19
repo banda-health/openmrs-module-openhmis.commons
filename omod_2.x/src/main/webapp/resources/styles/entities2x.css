@@ -444,6 +444,6 @@ input[type="button"].gray-button:hover{
     background: #666666;
     border-color: #666666;
 }
-
-
-
+.not-valid input{
+    border: 1px red solid;
+}
