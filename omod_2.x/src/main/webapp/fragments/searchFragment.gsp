@@ -14,56 +14,57 @@
 %>
 <div class="btn-group">
     <input type="text" id="searchBox"
-            <% if(model){ %>
-                ng-model = ${model}
-            <% } %>
+          <% if(model){ %>
+              ng-model = ${model}
+          <% } %>
 
-            <% if(onChangeEvent){ %>
-                ng-change = ${onChangeEvent}
-            <% } %>
+          <% if(onChangeEvent){ %>
+              ng-change = ${onChangeEvent}
+          <% } %>
 
-            <% if(cssClass){ %>
-                class =
-                    <% cssClass.each{ %>
-                        "${ it } "
-                    <% } %>
-            <% } %>
+          <% if(cssClass){ %>
+              class =
+                  <% cssClass.each{ %>
+                      "${ it } "
+                  <% } %>
+          <% } %>
 
-            <% if(placeholder) { %>
-                placeholder =
-                    <% placeholder.each{ %>
-                        "${ it } "
-                    <% } %>
-            <% } %>
+          <% if(placeholder) { %>
+              placeholder =
+                  <% placeholder.each{ %>
+                      "${ it } "
+                  <% } %>
+          <% } %>
 
-            <% if(typeahead) { %>
-                typeahead =
-                    <% typeahead.each{ %>
-                        "${ it } "
-                    <% } %>
-                typeahead-append-to-body = "true"
-                typeahead-min-length="3"
-            <% } else { %>
-                ng-minlength="3"
-            <% } %>
+          <% if(typeahead) { %>
+              typeahead =
+                  <% typeahead.each{ %>
+                      "${ it } "
+                  <% } %>
+              typeahead-append-to-body = "true"
+              typeahead-min-length="3"
+          <% } else { %>
+              ng-minlength="3"
+          <% } %>
 
-            <% if(typeaheadOnSelect) { %>
-                typeahead-on-select = "${typeaheadOnSelect}; ${ngEnterEvent}"
-            <% } %>
+          <% if(typeaheadOnSelect) { %>
+              typeahead-on-select = "${typeaheadOnSelect}; ${ngEnterEvent}"
+          <% } %>
 
-            <% if(typeaheadEditable) { %>
-                typeahead-editable = ${typeaheadEditable}
-            <% } %>
-            ng-model-options="{ debounce: 500 }"
+          <% if(typeaheadEditable) { %>
+              typeahead-editable = ${typeaheadEditable}
+          <% } %>
+          ng-model-options="{ debounce: 500 }"
 
-            <% if(ngEnterEvent != '') {%>
-                ng-enter = ${ngEnterEvent}
-            <% } %>
+          <% if(ngEnterEvent != '') {%>
+              ng-enter = ${ngEnterEvent}
+          <% } %>
 
-            <% if(required) { %>
-                required
-            <% } %>
-            autofocus />
+          <% if(required) { %>
+              required
+          <% } %>
+          autofocus
+    />
 
     <span ng-show="${showRemoveIcon}" id="searchclear" href=""
           <% if(typeahead) { %>

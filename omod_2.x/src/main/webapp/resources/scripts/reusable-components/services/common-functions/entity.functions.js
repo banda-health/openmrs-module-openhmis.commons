@@ -250,8 +250,8 @@
 
 		// validate attribute types
 		function validateAttributeTypes(attributeTypeAttributes, attributeValues, validatedAttributeTypes) {
+			var failAttributeTypeValidation = false;
 			if (attributeTypeAttributes !== undefined) {
-				var failAttributeTypeValidation = false;
 				var count = 0;
 				for (var i = 0; i < attributeTypeAttributes.length; i++) {
 					var attributeType = attributeTypeAttributes[i];
@@ -271,11 +271,10 @@
 						emr.errorAlert(errorMsg);
 						failAttributeTypeValidation = true;
 					} else {
-						requestAttributeType['attributeType'] = attributeType.uuid;
 						var value = attributeValues[attributeType.uuid].value || "";
-						if(value.id !== undefined){
+						if (value.id !== undefined) {
 							requestAttributeType['value'] = value.id;
-						} else{
+						} else {
 							requestAttributeType['value'] = value.toString();
 						}
 
@@ -283,12 +282,8 @@
 						count++;
 					}
 				}
-
-				if (failAttributeTypeValidation) {
-					return false;
-				}
 			}
-			return true;
+			return !failAttributeTypeValidation;
 		}
 	}
 
@@ -300,16 +295,20 @@
 						scope.$eval(attrs.ngEnter, {'event': event});
 					});
 
+					// retrieve all input elements
 					var pageElems = document.querySelectorAll('input'),
 						focusNext = false,
 						len = pageElems.length;
 					var foundSrc = false;
 					for (var i = 0; i < len; i++) {
 						var pe = pageElems[i];
-						if(pe === event.srcElement){
+						// check if the selected input element IS the source element
+						// (i.e the element that triggered the event)
+						if (pe === event.srcElement) {
 							foundSrc = true;
 						}
 
+						// search for the next 'search' input element
 						if (focusNext && pe !== event.srcElement && foundSrc) {
 							if (pe.style.display !== 'none' && pe.id === "searchBox") {
 								pe.focus();
@@ -325,14 +324,14 @@
 		};
 	});
 
-	app.directive('optionsDisabled', function($parse) {
-		var disableOptions = function(scope, attr, element, data,
-		                              fnDisableIfTrue) {
+	app.directive('optionsDisabled', function ($parse) {
+		var disableOptions = function (scope, attr, element, data,
+		                               fnDisableIfTrue) {
 			// refresh the disabled options in the select element.
 			var options = element.find("option");
-			for(var pos= 0,index=0;pos<options.length;pos++){
+			for (var pos = 0, index = 0; pos < options.length; pos++) {
 				var elem = angular.element(options[pos]);
-				if(elem.val()!=""){
+				if (elem.val() != "") {
 					var locals = {};
 					locals[attr] = data[index];
 					elem.attr("disabled", fnDisableIfTrue(scope, locals));
@@ -343,21 +342,21 @@
 		return {
 			priority: 0,
 			require: 'ngModel',
-			link: function(scope, iElement, iAttrs, ctrl) {
+			link: function (scope, iElement, iAttrs, ctrl) {
 				// parse expression and build array of disabled options
 				var expElements = iAttrs.optionsDisabled.match(
 					/^\s*(.+)\s+for\s+(.+)\s+in\s+(.+)?\s*/);
 				var attrToWatch = expElements[3];
 				var fnDisableIfTrue = $parse(expElements[1]);
-				scope.$watch(attrToWatch, function(newValue, oldValue) {
-					if(newValue)
+				scope.$watch(attrToWatch, function (newValue, oldValue) {
+					if (newValue)
 						disableOptions(scope, expElements[2], iElement,
 							newValue, fnDisableIfTrue);
 				}, true);
 				// handle model updates properly
-				scope.$watch(iAttrs.ngModel, function(newValue, oldValue) {
+				scope.$watch(iAttrs.ngModel, function (newValue, oldValue) {
 					var disOptions = $parse(attrToWatch)(scope);
-					if(newValue)
+					if (newValue)
 						disableOptions(scope, expElements[2], iElement,
 							disOptions, fnDisableIfTrue);
 				});

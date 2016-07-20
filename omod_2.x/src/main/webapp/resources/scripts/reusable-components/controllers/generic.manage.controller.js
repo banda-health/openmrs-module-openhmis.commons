@@ -101,7 +101,7 @@
 			self.paginate($scope.currentPage);
 		}
 
-		self.checkPrivileges = self.checkPrivileges || function(privileges) {
+		self.checkPrivileges = self.checkPrivileges || function (privileges) {
 				var requestParams = [];
 				requestParams['resource'] = 'module/openhmis/commons/privileges.page';
 				requestParams['privileges'] = privileges;

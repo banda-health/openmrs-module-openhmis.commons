@@ -29,6 +29,8 @@
 		self.rest_version = 'v2';
 		self.requiredPrivileges = '';
 		self.PRIVILEGES_URL = 'module/openhmis/commons/privileges.page';
+		self.ROOT_URL = '/' + OPENMRS_CONTEXT_PATH + '/';
+		self.LOGIN_URL = self.ROOT_URL + 'login.htm';
 
 		// protected
 		self.setRequiredInitParameters = self.setRequiredInitParameters || function () {
@@ -195,19 +197,19 @@
 				self.loadEntity(self.uuid);
 			}
 
-		self.checkPrivileges = self.checkPrivileges || function(privileges) {
-			var requestParams = [];
-			requestParams['resource'] = self.PRIVILEGES_URL;
-			requestParams['privileges'] = privileges;
-			EntityRestFactory.setCustomBaseUrl('/' + OPENMRS_CONTEXT_PATH + '/');
-			EntityRestFactory.loadResults(requestParams,
-				function (data) {
-					if (!data.hasPrivileges) {
-						window.location = '/' + OPENMRS_CONTEXT_PATH + '/login.htm';
+		self.checkPrivileges = self.checkPrivileges || function (privileges) {
+				var requestParams = [];
+				requestParams['resource'] = self.PRIVILEGES_URL;
+				requestParams['privileges'] = privileges;
+				EntityRestFactory.setCustomBaseUrl(self.ROOT_URL);
+				EntityRestFactory.loadResults(requestParams,
+					function (data) {
+						if (!data.hasPrivileges) {
+							window.location = self.LOGIN_URL;
+						}
 					}
-				}
-			);
-		}
+				);
+			}
 
 		self.loadMessageLabels = self.loadMessageLabels
 			|| function () {

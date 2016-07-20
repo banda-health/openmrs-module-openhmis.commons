@@ -25,7 +25,6 @@
 
 		service = {
 			searchPatients: searchPatients,
-			searchStockOperationItems: searchStockOperationItems,
 			getSessionLocation: getSessionLocation,
 			endVisit: endVisit,
 			loadVisit: loadVisit,
@@ -63,16 +62,6 @@
 				}, errorCallback);
 
 			EntityRestFactory.setBaseUrl(module_name);
-		}
-
-		function searchStockOperationItems(q) {
-			var requestParams = {};
-			requestParams['has_physical_inventory'] = 'true';
-			requestParams['q'] = q;
-			requestParams['limit'] = 10;
-			requestParams['startIndex'] = 1;
-
-			return EntityRestFactory.autocompleteSearch(requestParams, 'item', 'inventory');
 		}
 
 		function getSessionLocation(module_name, onLoadSessionLocationSuccessful) {
