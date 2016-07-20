@@ -28,6 +28,7 @@
 		self.cancel_page = '';
 		self.rest_version = 'v2';
 		self.requiredPrivileges = '';
+		self.PRIVILEGES_URL = 'module/openhmis/commons/privileges.page';
 
 		// protected
 		self.setRequiredInitParameters = self.setRequiredInitParameters || function () {
@@ -70,7 +71,6 @@
 			}
 
 		self.validateBeforeSaveOrUpdate = self.validateBeforeSaveOrUpdate || function () {
-				//console.log('validate variables/data before saving');
 				return true;
 			}
 
@@ -197,7 +197,7 @@
 
 		self.checkPrivileges = self.checkPrivileges || function(privileges) {
 			var requestParams = [];
-			requestParams['resource'] = 'module/openhmis/commons/privileges.page';
+			requestParams['resource'] = self.PRIVILEGES_URL;
 			requestParams['privileges'] = privileges;
 			EntityRestFactory.setCustomBaseUrl('/' + OPENMRS_CONTEXT_PATH + '/');
 			EntityRestFactory.loadResults(requestParams,
@@ -238,7 +238,6 @@
 			}
 
 		self.setAdditionalMessageLabels = self.setAdditionalMessageLabels || function () {
-				//console.log('define message labels');
 			}
 
 		/* ENTRY POINT */

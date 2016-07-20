@@ -5,7 +5,7 @@
 %>
 <fieldset class="nested patient-details"
           ng-show="${showPatientDetails}">
-    <legend style="margin-bottom:-15px;">${ui.message('openhmis.inventory.operations.patientDetails')}</legend>
+    <legend style="margin-bottom:-15px;">${ui.message('openhmis.commons.general.patientDetails')}</legend>
     <span>
         <ul class="patient-details-layout">
             <li>
@@ -20,32 +20,32 @@
             </li>
             <li>
                 <span ng-show="visit !== undefined">
-                    <b>${ui.message('openhmis.inventory.operations.activeVisit')}:</b>
+                    <b>${ui.message('openhmis.commons.general.activeVisit')}:</b>
                     {{visit.display}}
                 </span>
             </li>
         </ul>
         <span ng-show="${changePatient}">
             <input type="button" class="btn gray-button"
-                   value="${ui.message('openhmis.inventory.operations.changePatient')}"
+                   value="${ui.message('openhmis.commons.general.changePatient')}"
                    ng-click="changePatient()" />
             <span ng-show="visit !== undefined"> | </span>
         </span>
         <input type="button" class="btn gray-button"
-               value="${ui.message('openhmis.inventory.operations.endVisit')}"
+               value="${ui.message('openhmis.commons.general.endVisit')}"
                ng-show="visit !== undefined" ng-click="endVisit()" />
     </span>
 </fieldset>
 
 <fieldset class="nested" ng-show="${showPatientSearchBox}">
-    <legend>${ui.message('openhmis.inventory.operations.findPatient')}</legend>
+    <legend>${ui.message('openhmis.commons.general.findPatient')}</legend>
     <div ng-show="selectedPatient === ''">
         <ul class="table-layout">
             <li>${ ui.includeFragment("openhmis.commons", "searchFragment", [
                     model: "patient",
                     onChangeEvent: "searchPatients()",
                     class: ["field-display ui-autocomplete-input form-control searchinput"],
-                    placeholder: [ui.message("openhmis.inventory.operations.searchPatientIdentifier")],
+                    placeholder: [ui.message("openhmis.commons.general.searchPatientIdentifier")],
                     required: true
             ])}
             </li>
@@ -64,13 +64,13 @@
                class="manage-entities-table">
             <thead>
             <tr>
-                <th style="width: 40%">${ui.message('openhmis.inventory.operation.identifier')}</th>
-                <th>${ui.message('openhmis.inventory.operation.given')}</th>
-                <th>${ui.message('openhmis.inventory.operation.middle')}</th>
-                <th>${ui.message('openhmis.inventory.operation.familyName')}</th>
-                <th style="width: 20%">${ui.message('openhmis.inventory.operation.age')}</th>
-                <th style="width: 30%">${ui.message('openhmis.inventory.operation.gender')}</th>
-                <th style="width: 40%">${ui.message('openhmis.inventory.operation.birthDate')}</th>
+                <th style="width: 40%">${ui.message('openhmis.commons.general.identifier')}</th>
+                <th>${ui.message('openhmis.commons.general.given')}</th>
+                <th>${ui.message('openhmis.commons.general.middle')}</th>
+                <th>${ui.message('openhmis.commons.general.familyName')}</th>
+                <th style="width: 20%">${ui.message('openhmis.commons.general.age')}</th>
+                <th style="width: 30%">${ui.message('openhmis.commons.general.gender')}</th>
+                <th style="width: 40%">${ui.message('openhmis.commons.general.birthDate')}</th>
             </tr>
             </thead>
             <tbody>
