@@ -9,7 +9,7 @@
 	def typeaheadEditable = config.typeaheadEditable;
     def typeaheadClearEvent = config.typeaheadClearEvent ? config.typeaheadClearEvent : "selectConcept('')";
     def ngEnterEvent = config.ngEnterEvent ? config.ngEnterEvent : '';
-    def required = config.required;
+    def required = config.required ? config.required : false;
     def showRemoveIcon = config.showRemoveIcon ? config.showRemoveIcon : true;
 %>
 <div class="btn-group">
@@ -60,7 +60,7 @@
               ng-enter = ${ngEnterEvent}
           <% } %>
 
-          <% if(required) { %>
+          <% if(required == 'true') { %>
               required
           <% } %>
           autofocus

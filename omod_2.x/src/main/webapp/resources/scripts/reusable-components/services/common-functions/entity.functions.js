@@ -259,30 +259,29 @@
 					var requestAttributeType = {};
 					var value = "";
 					requestAttributeType['attributeType'] = attributeType.uuid;
-
+					//get value
 					if (attributeValues[attributeType.uuid] !== undefined) {
 						value = attributeValues[attributeType.uuid].value;
-					} else {
-						continue;
 					}
 
+					// check if value is NOT set for required fields.
 					if (required && (value === undefined || value === "")) {
 						var errorMsg = $filter('EmrFormat')(emr.message("openhmis.commons.general.required.itemAttribute"), [attributeType.name]);
 						emr.errorAlert(errorMsg);
 						failAttributeTypeValidation = true;
 					} else {
-						var value = attributeValues[attributeType.uuid].value || "";
+						requestAttributeType['attributeType'] = attributeType.uuid;
 						if (value.id !== undefined) {
 							requestAttributeType['value'] = value.id;
 						} else {
 							requestAttributeType['value'] = value.toString();
 						}
-
 						validatedAttributeTypes[count] = requestAttributeType;
 						count++;
 					}
 				}
 			}
+
 			return !failAttributeTypeValidation;
 		}
 	}
