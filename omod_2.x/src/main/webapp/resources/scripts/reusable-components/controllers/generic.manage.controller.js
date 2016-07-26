@@ -13,7 +13,7 @@
  *
  */
 
-(function () {
+(function() {
 	'use strict';
 
 	var baseController = angular.module('app.genericManageController');
@@ -23,6 +23,8 @@
 	                                 CookiesService, CommonsRestfulFunctions) {
 
 		var self = this;
+		var ROOT_URL = '/' + OPENMRS_CONTEXT_PATH + '/';
+		var MODULE_SETTINGS_URL = 'module/openhmis/commons/privileges.page';
 
 		self.module_name = '';
 		self.rest_entity_name = '';
@@ -35,7 +37,7 @@
 		self.requiredPrivileges = '';
 
 		// protected
-		self.getModelAndEntityName = self.getModelAndEntityName || function () {
+		self.getModelAndEntityName = self.getModelAndEntityName || function() {
 				var msg = 'This method sets the required base parameters ';
 				msg += '(i.e module_name, rest_entity_name, entity_name) and MUST be implemented ';
 				msg += 'by the implementing controller. \n';
@@ -45,18 +47,18 @@
 			}
 
 		// protected
-		self.bindBaseParameters = function (module_name, rest_entity_name,
-		                                    entity_name, rest_version) {
+		self.bindBaseParameters = function(module_name, rest_entity_name,
+		                                   entity_name, rest_version) {
 			self.module_name = module_name;
 			self.rest_entity_name = rest_entity_name;
 			self.entity_name = entity_name;
-			if (angular.isDefined(rest_version)) {
+			if(angular.isDefined(rest_version)) {
 				self.rest_version = rest_version;
 			}
 		}
 
 		// public
-		self.paginate = self.paginate || function (start) {
+		self.paginate = self.paginate || function(start) {
 				CookiesService.set(self.currentPage, start);
 				CookiesService.set(self.limit, $scope.limit);
 
@@ -67,48 +69,48 @@
 			}
 
 		// protected
-		self.onPaginateSuccess = self.onPaginateSuccess || function (paginateModel) {
+		self.onPaginateSuccess = self.onPaginateSuccess || function(paginateModel) {
 				$scope.fetchedEntities = paginateModel.getEntities();
 				$scope.totalNumOfResults = paginateModel.getTotalNumOfResults();
 				$scope.numberOfPages = paginateModel.getNumberOfPages();
 			}
 
 		// protected
-		self.onPaginateError = self.onPaginateError || function (error) {
+		self.onPaginateError = self.onPaginateError || function(error) {
 				console.error(error);
 				emr.errorMessage(error);
 			}
 
 		// protected
-		self.bindExtraVariablesToScope = self.bindExtraVariablesToScope || function () {
+		self.bindExtraVariablesToScope = self.bindExtraVariablesToScope || function() {
 				// console.log('generic bind extra variables to scope');
 			}
 
 		// public
-		self.updateContent = function () {
+		self.updateContent = function() {
 			CookiesService.set(self.includeRetired, $scope.includeRetired);
-			if ($scope.searchField === undefined || $scope.searchField === '') {
+			if($scope.searchField === undefined || $scope.searchField === '') {
 				$scope.currentPage = 1;
 			}
 			self.paginate($scope.currentPage);
 		}
 
 		// protected
-		self.loadPage = function () {
+		self.loadPage = function() {
 			// define and/or instantiate variables
 			self.initialize();
 			// load 1st page..
 			self.paginate($scope.currentPage);
 		}
 
-		self.checkPrivileges = self.checkPrivileges || function (privileges) {
+		self.checkPrivileges = self.checkPrivileges || function(privileges) {
 				var requestParams = [];
-				requestParams['resource'] = 'module/openhmis/commons/privileges.page';
+				requestParams['resource'] = MODULE_SETTINGS_URL;
 				requestParams['privileges'] = privileges;
-				EntityRestFactory.setCustomBaseUrl('/' + OPENMRS_CONTEXT_PATH + '/');
+				EntityRestFactory.setCustomBaseUrl(ROOT_URL);
 				EntityRestFactory.loadResults(requestParams,
-					function (data) {
-						if (!data.hasPrivileges) {
+					function(data) {
+						if(!data.hasPrivileges) {
 							window.location = '/' + OPENMRS_CONTEXT_PATH + '/login.htm';
 						}
 					}
@@ -117,44 +119,44 @@
 
 		// public
 		// navigate to entity page
-		self.loadEntityPage = function (url) {
+		self.loadEntityPage = function(url) {
 			window.location = url;
 		}
 
 		// protected
-		self.initialize = function () {
+		self.initialize = function() {
 			// initialize restful webservice..
 			self.getModelAndEntityName();
 			EntityRestFactory.setBaseUrl(self.module_name, self.rest_version);
 
-			if (!angular.isDefined($scope.fetchedEntities)) {
+			if(!angular.isDefined($scope.fetchedEntities)) {
 				$scope.fetchedEntities = [];
 			}
 
-			if (!angular.isDefined($scope.searchField)) {
+			if(!angular.isDefined($scope.searchField)) {
 				$scope.searchField = '';
 			}
 
-			if (!angular.isDefined(CookiesService.get(self.currentPage))
+			if(!angular.isDefined(CookiesService.get(self.currentPage))
 				|| (CookiesService.get(self.currentPage) === "undefined")) {
 				$scope.currentPage = 1;
 			} else {
 				$scope.currentPage = CookiesService.get(self.currentPage);
 			}
 
-			if (!angular.isDefined(CookiesService.get(self.limit)) || (CookiesService.get(self.limit) === "undefined")) {
+			if(!angular.isDefined(CookiesService.get(self.limit)) || (CookiesService.get(self.limit) === "undefined")) {
 				$scope.limit = 10;
 			} else {
 				$scope.limit = CookiesService.get(self.limit);
 			}
-			if (!angular.isDefined($scope.numberOfPages)) {
+			if(!angular.isDefined($scope.numberOfPages)) {
 				$scope.numberOfPages = 0;
 			}
-			if (!angular.isDefined($scope.totalNumOfResults)) {
+			if(!angular.isDefined($scope.totalNumOfResults)) {
 				$scope.totalNumOfResults = 0;
 			}
 
-			if (!angular.isDefined(CookiesService.get(self.includeRetired))) {
+			if(!angular.isDefined(CookiesService.get(self.includeRetired))) {
 				$scope.includeRetired = false;
 				CookiesService.set(self.includeRetired, $scope.includeRetired);
 			} else {

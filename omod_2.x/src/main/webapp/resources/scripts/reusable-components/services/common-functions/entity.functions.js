@@ -13,7 +13,7 @@
  *
  */
 
-(function () {
+(function() {
 	'use strict';
 
 	var app = angular.module('app.entityFunctionsFactory', []);
@@ -42,7 +42,7 @@
 		function printPage(url) {
 			$("#printPage").remove();
 			var printPage = $('<iframe id="printPage" src="' + url + '" width="1" height="1"></iframe>');
-			printPage.load(function () {
+			printPage.load(function() {
 				$(this).get(0).contentWindow.print();
 			});
 			$("body").append(printPage);
@@ -56,7 +56,7 @@
 			var dialog = emr.setupConfirmationDialog({
 				selector: '#' + selectorId,
 				actions: {
-					cancel: function () {
+					cancel: function() {
 						dialog.close();
 					}
 				}
@@ -75,8 +75,8 @@
 		}
 
 		function addExtraFormatListElements(formatFields) {
-			for (var format in formatFields) {
-				switch (formatFields[format]) {
+			for(var format in formatFields) {
+				switch(formatFields[format]) {
 					// As per PersonAttributeTypeFormController.java, remove inapplicable formats
 					case "java.util.Date" :
 					case "org.openmrs.Patient.exitReason" :
@@ -87,7 +87,7 @@
 			}
 
 			var undefinedId = _.indexOf(formatFields, undefined);
-			while (undefinedId !== -1) {
+			while(undefinedId !== -1) {
 				formatFields.splice(undefinedId, 1);
 				undefinedId = _.indexOf(formatFields, undefined);
 			}
@@ -109,11 +109,11 @@
 				.setupConfirmationDialog({
 					selector: '#attribute-types-dialog',
 					actions: {
-						confirm: function () {
+						confirm: function() {
 							$scope.entity.attributeTypes = $scope.entity.attributeTypes
 								|| [];
 							$scope.submitted = true;
-							if (angular.isDefined($scope.attributeType)
+							if(angular.isDefined($scope.attributeType)
 								&& $scope.attributeType.name !== "" && $scope.attributeType.format !== "") {
 								$scope.entity.attributeTypes
 									.push($scope.attributeType);
@@ -126,7 +126,7 @@
 							$scope.$apply();
 							dialog.close();
 						},
-						cancel: function () {
+						cancel: function() {
 							dialog.close();
 						}
 					}
@@ -159,7 +159,7 @@
 			var dialog = emr.setupConfirmationDialog({
 				selector: '#attribute-types-dialog',
 				actions: {
-					confirm: function () {
+					confirm: function() {
 						tmpAttributeType.attributeOrder = $scope.attributeType.attributeOrder;
 						tmpAttributeType.foreignKey = $scope.attributeType.foreignKey;
 						tmpAttributeType.format = $scope.attributeType.format;
@@ -172,7 +172,7 @@
 						$scope.attributeType = {};
 						dialog.close();
 					},
-					cancel: function () {
+					cancel: function() {
 						$scope.attributeType = {};
 						dialog.close();
 					}
@@ -199,7 +199,7 @@
 		 */
 		function removeFromList(attributeType, attributeTypes) {
 			var index = attributeTypes.indexOf(attributeType);
-			if (index != -1) {
+			if(index != -1) {
 				attributeTypes.splice(index, 1);
 			}
 		}
@@ -208,10 +208,10 @@
 		 * attributeOrder is always the same as index of the attribute type then compare an assign the
 		 * attributeOrder */
 		function updateAttributeTypesOrder(attributeTypes) {
-			for (var i = 0; i < attributeTypes.length; i++) {
+			for(var i = 0; i < attributeTypes.length; i++) {
 				var attributeType = attributeTypes[i];
-				if (attributeType != null) {
-					if (attributeType.attributeOrder != i) {
+				if(attributeType != null) {
+					if(attributeType.attributeOrder != i) {
 						attributeType.attributeOrder = i;
 					}
 				}
@@ -226,11 +226,11 @@
 		 */
 		function insertTemporaryId(attributeTypes, attributeType) {
 			var rand = Math.floor((Math.random() * 99) + 1);
-			if (angular.isDefined(attributeType)) {
+			if(angular.isDefined(attributeType)) {
 				var index = attributeTypes.indexOf(attributeType);
 				attributeType.id = index * rand;
 			} else {
-				for (var attributeType in attributeTypes) {
+				for(var attributeType in attributeTypes) {
 					var index = attributeTypes.indexOf(attributeType);
 					attributeType.id = index * rand;
 				}
@@ -242,7 +242,7 @@
 		 * @param items
 		 */
 		function removeTemporaryId(attributeTypes) {
-			for (var index in attributeTypes) {
+			for(var index in attributeTypes) {
 				var attributeType = attributeTypes[index];
 				delete attributeType.id;
 			}
@@ -251,27 +251,27 @@
 		// validate attribute types
 		function validateAttributeTypes(attributeTypeAttributes, attributeValues, validatedAttributeTypes) {
 			var failAttributeTypeValidation = false;
-			if (attributeTypeAttributes !== undefined) {
+			if(attributeTypeAttributes !== undefined) {
 				var count = 0;
-				for (var i = 0; i < attributeTypeAttributes.length; i++) {
+				for(var i = 0; i < attributeTypeAttributes.length; i++) {
 					var attributeType = attributeTypeAttributes[i];
 					var required = attributeType.required;
 					var requestAttributeType = {};
 					var value = "";
 					requestAttributeType['attributeType'] = attributeType.uuid;
 					//get value
-					if (attributeValues[attributeType.uuid] !== undefined) {
+					if(attributeValues[attributeType.uuid] !== undefined) {
 						value = attributeValues[attributeType.uuid].value;
 					}
 
 					// check if value is NOT set for required fields.
-					if (required && (value === undefined || value === "")) {
+					if(required && (value === undefined || value === "")) {
 						var errorMsg = $filter('EmrFormat')(emr.message("openhmis.commons.general.required.itemAttribute"), [attributeType.name]);
 						emr.errorAlert(errorMsg);
 						failAttributeTypeValidation = true;
 					} else {
 						requestAttributeType['attributeType'] = attributeType.uuid;
-						if (value.id !== undefined) {
+						if(value.id !== undefined) {
 							requestAttributeType['value'] = value.id;
 						} else {
 							requestAttributeType['value'] = value.toString();
@@ -286,11 +286,15 @@
 		}
 	}
 
-	app.directive('ngEnter', function ($window) {
-		return function (scope, element, attrs) {
-			element.bind("keydown keypress", function (event) {
-				if (event.which === 13) {
-					scope.$apply(function () {
+	app.directive('ngEnter', function($window) {
+		return function(scope, element, attrs) {
+			/**
+			 * This function binds an on-enter event on any line item auto-complete
+			 * search box and moves focus to the next available search box.
+			 */
+			element.bind("keydown keypress", function(event) {
+				if(event.which === 13) {
+					scope.$apply(function() {
 						scope.$eval(attrs.ngEnter, {'event': event});
 					});
 
@@ -299,21 +303,21 @@
 						focusNext = false,
 						len = pageElems.length;
 					var foundSrc = false;
-					for (var i = 0; i < len; i++) {
+					for(var i = 0; i < len; i++) {
 						var pe = pageElems[i];
 						// check if the selected input element IS the source element
 						// (i.e the element that triggered the event)
-						if (pe === event.srcElement) {
+						if(pe === event.srcElement) {
 							foundSrc = true;
 						}
 
 						// search for the next 'search' input element
-						if (focusNext && pe !== event.srcElement && foundSrc) {
-							if (pe.style.display !== 'none' && pe.id === "searchBox") {
+						if(focusNext && pe !== event.srcElement && foundSrc) {
+							if(pe.style.display !== 'none' && pe.id === "searchBox") {
 								pe.focus();
 								break;
 							}
-						} else if (pe.type === "image") {
+						} else if(pe.type === "image") {
 							focusNext = true;
 						}
 					}
@@ -323,14 +327,14 @@
 		};
 	});
 
-	app.directive('optionsDisabled', function ($parse) {
-		var disableOptions = function (scope, attr, element, data,
-		                               fnDisableIfTrue) {
+	app.directive('optionsDisabled', function($parse) {
+		var disableOptions = function(scope, attr, element, data,
+		                              fnDisableIfTrue) {
 			// refresh the disabled options in the select element.
 			var options = element.find("option");
-			for (var pos = 0, index = 0; pos < options.length; pos++) {
+			for(var pos = 0, index = 0; pos < options.length; pos++) {
 				var elem = angular.element(options[pos]);
-				if (elem.val() != "") {
+				if(elem.val() != "") {
 					var locals = {};
 					locals[attr] = data[index];
 					elem.attr("disabled", fnDisableIfTrue(scope, locals));
@@ -341,21 +345,21 @@
 		return {
 			priority: 0,
 			require: 'ngModel',
-			link: function (scope, iElement, iAttrs, ctrl) {
+			link: function(scope, iElement, iAttrs, ctrl) {
 				// parse expression and build array of disabled options
 				var expElements = iAttrs.optionsDisabled.match(
 					/^\s*(.+)\s+for\s+(.+)\s+in\s+(.+)?\s*/);
 				var attrToWatch = expElements[3];
 				var fnDisableIfTrue = $parse(expElements[1]);
-				scope.$watch(attrToWatch, function (newValue, oldValue) {
-					if (newValue)
+				scope.$watch(attrToWatch, function(newValue, oldValue) {
+					if(newValue)
 						disableOptions(scope, expElements[2], iElement,
 							newValue, fnDisableIfTrue);
 				}, true);
 				// handle model updates properly
-				scope.$watch(iAttrs.ngModel, function (newValue, oldValue) {
+				scope.$watch(iAttrs.ngModel, function(newValue, oldValue) {
 					var disOptions = $parse(attrToWatch)(scope);
-					if (newValue)
+					if(newValue)
 						disableOptions(scope, expElements[2], iElement,
 							disOptions, fnDisableIfTrue);
 				});

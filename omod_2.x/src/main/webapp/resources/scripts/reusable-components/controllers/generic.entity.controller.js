@@ -13,7 +13,7 @@
  *
  */
 
-(function () {
+(function() {
 	'use strict';
 
 	var baseController = angular.module('app.genericEntityController');
@@ -33,7 +33,7 @@
 		self.LOGIN_URL = self.ROOT_URL + 'login.htm';
 
 		// protected
-		self.setRequiredInitParameters = self.setRequiredInitParameters || function () {
+		self.setRequiredInitParameters = self.setRequiredInitParameters || function() {
 				var msg = 'This method sets the required base parameters ';
 				msg += '(i.e module_name, rest_entity_name, entity_name) and MUST be implemented ';
 				msg += 'by the implementing controller. \n';
@@ -43,60 +43,60 @@
 			}
 
 		// protected
-		self.bindBaseParameters = function (module_name, rest_entity_name, entity_name_message_key,
-		                                    cancel_page, rest_version) {
+		self.bindBaseParameters = function(module_name, rest_entity_name, entity_name_message_key,
+		                                   cancel_page, rest_version) {
 			self.module_name = module_name;
 			self.rest_entity_name = rest_entity_name;
 			self.entity_name_message_key = entity_name_message_key;
-			if (angular.isDefined(rest_version) && rest_version !== undefined) {
+			if(angular.isDefined(rest_version) && rest_version !== undefined) {
 				self.rest_version = rest_version;
 			}
 			self.cancel_page = cancel_page;
 		}
 
 		// protected
-		self.bindEntityToScope = self.bindEntityToScope || function (scope, entity) {
+		self.bindEntityToScope = self.bindEntityToScope || function(scope, entity) {
 				scope.entity = entity;
 			}
 
 		// protected
-		self.getUuid = self.getUuid || function () {
+		self.getUuid = self.getUuid || function() {
 				return $stateParams['uuid'];
 			}
 
-		self.saveOrUpdate = self.saveOrUpdate || function () {
-				if (self.validateBeforeSaveOrUpdate()) {
+		self.saveOrUpdate = self.saveOrUpdate || function() {
+				if(self.validateBeforeSaveOrUpdate()) {
 					var params = {};
 					params = self.appendBaseParams(params);
 					EntityRestFactory.saveOrUpdateEntity(params, $scope.entity, self.onChangeEntitySuccessful, self.onChangeEntityError);
 				}
 			}
 
-		self.validateBeforeSaveOrUpdate = self.validateBeforeSaveOrUpdate || function () {
+		self.validateBeforeSaveOrUpdate = self.validateBeforeSaveOrUpdate || function() {
 				return true;
 			}
 
 		self.retireOrUnretireCall = self.retireOrUnretireCall
-			|| function (retire) {
+			|| function(retire) {
 				var params = {};
 				params = self.appendBaseParams(params);
 				EntityRestFactory.retireOrUnretireEntity(params, $scope.entity, self.onChangeEntitySuccessful,
 					self.onChangeEntityError);
 			}
 
-		self.retireUnretireDeletePopup = self.retireUnretireDeletePopup || function (id) {
+		self.retireUnretireDeletePopup = self.retireUnretireDeletePopup || function(id) {
 				EntityFunctions.retireUnretireDeletePopup(id);
 			}
 
-		self.purge = self.purge || function () {
+		self.purge = self.purge || function() {
 				var params = {};
 				params = self.appendBaseParams(params);
 				$scope.entity.purge = true;
 				EntityRestFactory.purgeEntity(params, $scope.entity, self.onPurgeEntitySuccessful, self.onChangeEntityError);
 			}
 
-		self.loadEntity = self.loadEntity || function (uuid) {
-				if (angular.isDefined(uuid) && uuid !== "") {
+		self.loadEntity = self.loadEntity || function(uuid) {
+				if(angular.isDefined(uuid) && uuid !== "") {
 					var params = {
 						uuid: uuid
 					};
@@ -109,28 +109,28 @@
 			}
 
 		/* #### START CALLBACK Methods #### */
-		self.onChangeEntitySuccessful = self.onChangeEntitySuccessful || function (data) {
+		self.onChangeEntitySuccessful = self.onChangeEntitySuccessful || function(data) {
 				self.cancel();
 			}
 
-		self.onChangeEntityError = self.onChangeEntityError || function (error) {
+		self.onChangeEntityError = self.onChangeEntityError || function(error) {
 				emr.errorAlert(error);
 			}
 
-		self.onPurgeEntitySuccessful = self.onPurgeEntitySuccessful || function (data) {
+		self.onPurgeEntitySuccessful = self.onPurgeEntitySuccessful || function(data) {
 				self.cancel();
 			}
 
-		self.onLoadEntitySuccessful = self.onLoadEntitySuccessful || function (data) {
+		self.onLoadEntitySuccessful = self.onLoadEntitySuccessful || function(data) {
 				var entity = GenericMetadataModel.populateModel(data);
 				self.bindEntityToScope($scope, entity);
 				self.bindExtraVariablesToScope(entity.uuid);
-				if (!angular.isDefined($scope.retireOrUnretire)) {
+				if(!angular.isDefined($scope.retireOrUnretire)) {
 					self.loadRetireUnretireMessages();
 				}
 			}
 
-		self.onLoadEntityError = self.onLoadEntityError || function (error) {
+		self.onLoadEntityError = self.onLoadEntityError || function(error) {
 				var entity = GenericMetadataModel.newModelInstance();
 				self.bindEntityToScope($scope, entity);
 				var msg = $filter('EmrFormat')(emr.message("openhmis.commons.general.error.notFound"), [emr.message(self.entity_name_message_key)]);
@@ -138,16 +138,16 @@
 			}
 		/* #### END CALLBACK Methods #### */
 
-		self.cancel = self.cancel || function () {
+		self.cancel = self.cancel || function() {
 				window.location = self.cancel_page;
 			}
 
 		self.bindExtraVariablesToScope = self.bindExtraVariablesToScope
-			|| function (uuid) {
+			|| function(uuid) {
 			}
 
-		self.loadRetireUnretireMessages = self.loadRetireUnretireMessages || function () {
-				if (angular.isDefined($scope.entity) && angular.isDefined($scope.entity.retired)
+		self.loadRetireUnretireMessages = self.loadRetireUnretireMessages || function() {
+				if(angular.isDefined($scope.entity) && angular.isDefined($scope.entity.retired)
 					&& $scope.entity.retired === true) {
 					$scope.retireOrUnretire = emr.message("general.unretire") + " " + emr.message(self.entity_name_message_key);
 				} else {
@@ -155,19 +155,19 @@
 				}
 			}
 
-		self.appendBaseParams = self.appendBaseParams || function (params) {
-				if (params) {
+		self.appendBaseParams = self.appendBaseParams || function(params) {
+				if(params) {
 					params['rest_entity_name'] = self.rest_entity_name;
 					return params;
 				}
 			}
 
 		self.initialize = self.initialize
-			|| function () {
+			|| function() {
 				self.uuid = self.getUuid();
 				self.setRequiredInitParameters();
 
-				if (!angular.isDefined(self.module_name) || !angular.isDefined(self.rest_entity_name)) {
+				if(!angular.isDefined(self.module_name) || !angular.isDefined(self.rest_entity_name)) {
 					console
 						.log("Ensure that the module_name, rest_entity_name and cancel_page parameters have been set in the self.setRequiredInitParameters method.");
 					return;
@@ -186,25 +186,25 @@
 				// load messages..
 				var messageLabels = self.loadMessageLabels();
 				var additionalMessageLabels = self.setAdditionalMessageLabels()
-				if (additionalMessageLabels) {
+				if(additionalMessageLabels) {
 					angular.extend(messageLabels, additionalMessageLabels);
 				}
 				$scope.messageLabels = messageLabels;
 			}
 
-		self.loadPage = self.loadPage || function () {
+		self.loadPage = self.loadPage || function() {
 				self.initialize();
 				self.loadEntity(self.uuid);
 			}
 
-		self.checkPrivileges = self.checkPrivileges || function (privileges) {
+		self.checkPrivileges = self.checkPrivileges || function(privileges) {
 				var requestParams = [];
 				requestParams['resource'] = self.PRIVILEGES_URL;
 				requestParams['privileges'] = privileges;
 				EntityRestFactory.setCustomBaseUrl(self.ROOT_URL);
 				EntityRestFactory.loadResults(requestParams,
-					function (data) {
-						if (!data.hasPrivileges) {
+					function(data) {
+						if(!data.hasPrivileges) {
 							window.location = self.LOGIN_URL;
 						}
 					}
@@ -212,7 +212,7 @@
 			}
 
 		self.loadMessageLabels = self.loadMessageLabels
-			|| function () {
+			|| function() {
 				var messages = {};
 				messages['general.name'] = emr.message("general.name");
 				messages['general.description'] = emr.message("general.description");
@@ -226,7 +226,7 @@
 				messages['general.purge'] = emr.message("general.purge");
 				messages['openhmis.commons.general.name.required'] = emr.message("openhmis.commons.general.name.required");
 
-				if (self.uuid === null || self.uuid === undefined || self.uuid === "") {
+				if(self.uuid === null || self.uuid === undefined || self.uuid === "") {
 					messages['h2SubString'] = emr.message("general.new") + ' ' + emr.message(self.entity_name_message_key);
 				} else {
 					messages['h2SubString'] = emr.message("general.edit") + ' ' + emr.message(self.entity_name_message_key);
@@ -239,7 +239,7 @@
 				return messages;
 			}
 
-		self.setAdditionalMessageLabels = self.setAdditionalMessageLabels || function () {
+		self.setAdditionalMessageLabels = self.setAdditionalMessageLabels || function() {
 			}
 
 		/* ENTRY POINT */

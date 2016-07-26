@@ -13,12 +13,15 @@
  *
  */
 
-(function () {
+(function() {
 	'use strict';
 
 	angular.module('app.restfulServices').service('CommonsRestfulFunctions', CommonsRestfulFunctions);
 
 	CommonsRestfulFunctions.$inject = ['EntityRestFactory', '$filter'];
+
+	var ROOT_URL;
+	var FIELD_ATTRIBUTES_FRAGMENT_URL = 'module/openhmis/common/fieldAttributes.page';
 
 	function CommonsRestfulFunctions(EntityRestFactory, $filter) {
 		var service;
@@ -28,6 +31,8 @@
 			getSessionLocation: getSessionLocation,
 			endVisit: endVisit,
 			loadVisit: loadVisit,
+			populateFieldAttributesData: populateFieldAttributesData,
+			searchPerson: searchPerson,
 		};
 
 		return service;
@@ -48,14 +53,14 @@
 				"person:(gender,age,birthdate,birthdateEstimated,personName))";
 			EntityRestFactory.setBaseUrl('patient', 'v1');
 			EntityRestFactory.loadEntities(requestParams,
-				function (data) {
+				function(data) {
 					$scope.patients = data.results;
 					$scope.totalNumOfResults = $scope.patients.length;
-					if (currentPage > 1) {
+					if(currentPage > 1) {
 						var index = (currentPage - 1) * limit;
 						$scope.patients.splice(0, index);
 					}
-					if ($scope.selectExistingPatient && $scope.patients.length > 0) {
+					if($scope.selectExistingPatient && $scope.patients.length > 0) {
 						$scope.selectedPatient = $scope.patients[0];
 						$scope.selectPatient($scope.selectedPatient);
 					}
@@ -80,8 +85,8 @@
 			requestParams['stopDatetime'] = stopDatetime.toString();
 			EntityRestFactory.setBaseUrl('', 'v1');
 			EntityRestFactory.post('visit', visit_uuid, requestParams,
-				function (data) {
-					if (data.stopDatetime !== undefined) {
+				function(data) {
+					if(data.stopDatetime !== undefined) {
 						$scope.visit = undefined;
 					}
 				},
@@ -97,8 +102,8 @@
 			requestParams['patient'] = patient_uuid;
 			EntityRestFactory.setBaseUrl('visit', 'v1');
 			EntityRestFactory.loadEntities(requestParams,
-				function (data) {
-					if (data.results) {
+				function(data) {
+					if(data.results) {
 						$scope.visit = data.results[0];
 					} else {
 						$scope.visit = '';
@@ -106,6 +111,71 @@
 				}, errorCallback);
 
 			EntityRestFactory.setBaseUrl(module_name);
+		}
+
+		function populateFieldAttributesData(base_url, fieldAttributesData, attributeTypes) {
+			ROOT_URL = base_url;
+			for(var i = 0; i < attributeTypes.length; i++) {
+				var attribute = attributeTypes[i];
+				if(attribute.format === 'org.openmrs.Concept' && attribute.foreignKey !== null) {
+					getFieldAttributesData('concept', attribute.foreignKey, function(data) {
+						if(data !== undefined) {
+							fieldAttributesData[data.foreignKey] = data.results;
+						}
+					});
+				} else if(attribute.format === 'org.openmrs.User') {
+					getFieldAttributesData('user', '', function(data) {
+						if(data !== undefined) {
+							fieldAttributesData['users'] = data.results;
+						}
+					});
+				} else if(attribute.format === 'org.openmrs.Location') {
+					getFieldAttributesData('location', '', function(data) {
+						if(data !== undefined) {
+							fieldAttributesData['locations'] = data.results;
+						}
+					});
+				} else if(attribute.format === 'org.openmrs.Drug') {
+					getFieldAttributesData('drug', '', function(data) {
+						if(data !== undefined) {
+							fieldAttributesData['drugs'] = data.results;
+						}
+					});
+				} else if(attribute.format === 'org.openmrs.Provider') {
+					getFieldAttributesData('provider', '', function(data) {
+						if(data !== undefined) {
+							fieldAttributesData['providers'] = data.results;
+						}
+					});
+				} else if(attribute.format === 'org.openmrs.ProgramWorkflow') {
+					getFieldAttributesData('programworkflow', '', function(data) {
+						if(data !== undefined) {
+							fieldAttributesData['programworkflow'] = data.results;
+						}
+					});
+				}
+			}
+		}
+
+		function getFieldAttributesData(type, foreignKey, onLoadAttributeDataSuccessful) {
+			var requestParams = [];
+			requestParams['resource'] = FIELD_ATTRIBUTES_FRAGMENT_URL;
+			requestParams['type'] = type;
+			requestParams['foreignKey'] = foreignKey;
+			EntityRestFactory.setCustomBaseUrl(ROOT_URL);
+			EntityRestFactory.loadResults(requestParams,
+				onLoadAttributeDataSuccessful, errorCallback);
+		}
+
+		function searchPerson(module_name, q, type) {
+			var requestParams = [];
+			requestParams['q'] = q;
+			if(type === 'patient') {
+				requestParams['v'] = "custom:(patientIdentifier:(uuid,identifier)," +
+					"person:(personName))";
+			}
+
+			return EntityRestFactory.autocompleteSearch(requestParams, type, module_name, 'v1');
 		}
 
 		function errorCallback(error) {
