@@ -31,7 +31,8 @@
 			removeAttributeType: removeAttributeType,
 			removeFromList: removeFromList,
 			insertTemporaryId: insertTemporaryId,
-			removeTemporaryId: removeTemporaryId
+			removeTemporaryId: removeTemporaryId,
+			findIndexByKeyValue: findIndexByKeyValue
 		};
 
 		return service;
@@ -234,6 +235,22 @@
 				var attributeType = attributeTypes[index];
 				delete attributeType.id;
 			}
+		}
+		
+		/**
+		 * Gets the Index of a given element in an array
+		 * @params arrayToSearch
+		 * @params key
+		 * @params valueToSearch
+		 * @returns index || null
+		 * */
+		function findIndexByKeyValue(arrayToSearch, key, valueToSearch) {
+			for (var i = 0; i < arrayToSearch.length; i++) {
+				if (arrayToSearch[i][key] == valueToSearch) {
+					return i;
+				}
+			}
+			return null;
 		}
 	}
 
