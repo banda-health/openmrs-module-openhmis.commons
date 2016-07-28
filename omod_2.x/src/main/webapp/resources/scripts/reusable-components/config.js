@@ -22,3 +22,18 @@ var requirejs = {
     'reusable-components' : '/' + OPENMRS_CONTEXT_PATH + '/moduleResources/openhmis/commons/scripts/reusable-components/'
   }
 };
+
+// handle general exceptions
+var handleException = function(exception, cause) {
+  // unknown provider..
+  var exc = String(exception);
+  if (exc.indexOf("unpr") !== -1) {
+    console.log(exc);
+  } else if (exc.indexOf("session") !== -1 || exc.indexOf("timeout") !== -1) {
+    console.log(exc + " - " + cause);
+    emr.message("SESSION TIMEOUT");
+  } else {
+    console.log(exc + " - " + cause);
+    emr.message(cause);
+  }
+};
