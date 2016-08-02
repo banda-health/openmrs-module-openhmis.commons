@@ -56,11 +56,11 @@
 				function(data) {
 					$scope.patients = data.results;
 					$scope.totalNumOfResults = $scope.patients.length;
-					if(currentPage > 1) {
+					if (currentPage > 1) {
 						var index = (currentPage - 1) * limit;
 						$scope.patients.splice(0, index);
 					}
-					if($scope.selectExistingPatient && $scope.patients.length > 0) {
+					if ($scope.selectExistingPatient && $scope.patients.length > 0) {
 						$scope.selectedPatient = $scope.patients[0];
 						$scope.selectPatient($scope.selectedPatient);
 					}
@@ -86,7 +86,7 @@
 			EntityRestFactory.setBaseUrl('', 'v1');
 			EntityRestFactory.post('visit', visit_uuid, requestParams,
 				function(data) {
-					if(data.stopDatetime !== undefined) {
+					if (data.stopDatetime !== undefined) {
 						$scope.visit = undefined;
 					}
 				},
@@ -103,7 +103,7 @@
 			EntityRestFactory.setBaseUrl('visit', 'v1');
 			EntityRestFactory.loadEntities(requestParams,
 				function(data) {
-					if(data.results) {
+					if (data.results) {
 						$scope.visit = data.results[0];
 					} else {
 						$scope.visit = '';
@@ -115,41 +115,41 @@
 
 		function populateFieldAttributesData(base_url, fieldAttributesData, attributeTypes) {
 			ROOT_URL = base_url;
-			for(var i = 0; i < attributeTypes.length; i++) {
+			for (var i = 0; i < attributeTypes.length; i++) {
 				var attribute = attributeTypes[i];
-				if(attribute.format === 'org.openmrs.Concept' && attribute.foreignKey !== null) {
+				if (attribute.format === 'org.openmrs.Concept' && attribute.foreignKey !== null) {
 					getFieldAttributesData('concept', attribute.foreignKey, function(data) {
-						if(data !== undefined) {
+						if (data !== undefined) {
 							fieldAttributesData[data.foreignKey] = data.results;
 						}
 					});
-				} else if(attribute.format === 'org.openmrs.User') {
+				} else if (attribute.format === 'org.openmrs.User') {
 					getFieldAttributesData('user', '', function(data) {
-						if(data !== undefined) {
+						if (data !== undefined) {
 							fieldAttributesData['users'] = data.results;
 						}
 					});
-				} else if(attribute.format === 'org.openmrs.Location') {
+				} else if (attribute.format === 'org.openmrs.Location') {
 					getFieldAttributesData('location', '', function(data) {
-						if(data !== undefined) {
+						if (data !== undefined) {
 							fieldAttributesData['locations'] = data.results;
 						}
 					});
-				} else if(attribute.format === 'org.openmrs.Drug') {
+				} else if (attribute.format === 'org.openmrs.Drug') {
 					getFieldAttributesData('drug', '', function(data) {
-						if(data !== undefined) {
+						if (data !== undefined) {
 							fieldAttributesData['drugs'] = data.results;
 						}
 					});
-				} else if(attribute.format === 'org.openmrs.Provider') {
+				} else if (attribute.format === 'org.openmrs.Provider') {
 					getFieldAttributesData('provider', '', function(data) {
-						if(data !== undefined) {
+						if (data !== undefined) {
 							fieldAttributesData['providers'] = data.results;
 						}
 					});
-				} else if(attribute.format === 'org.openmrs.ProgramWorkflow') {
+				} else if (attribute.format === 'org.openmrs.ProgramWorkflow') {
 					getFieldAttributesData('programworkflow', '', function(data) {
-						if(data !== undefined) {
+						if (data !== undefined) {
 							fieldAttributesData['programworkflow'] = data.results;
 						}
 					});
@@ -170,7 +170,7 @@
 		function searchPerson(module_name, q, type) {
 			var requestParams = [];
 			requestParams['q'] = q;
-			if(type === 'patient') {
+			if (type === 'patient') {
 				requestParams['v'] = "custom:(patientIdentifier:(uuid,identifier)," +
 					"person:(personName))";
 			}
@@ -179,7 +179,7 @@
 		}
 
 		function errorCallback(error) {
-			console.log(error);
+			emr.errorMessage(error);
 		}
 	}
 })();

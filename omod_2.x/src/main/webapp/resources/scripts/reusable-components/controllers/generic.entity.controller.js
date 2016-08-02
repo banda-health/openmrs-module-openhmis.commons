@@ -48,7 +48,7 @@
 			self.module_name = module_name;
 			self.rest_entity_name = rest_entity_name;
 			self.entity_name_message_key = entity_name_message_key;
-			if(angular.isDefined(rest_version) && rest_version !== undefined) {
+			if (angular.isDefined(rest_version) && rest_version !== undefined) {
 				self.rest_version = rest_version;
 			}
 			self.cancel_page = cancel_page;
@@ -65,7 +65,7 @@
 			}
 
 		self.saveOrUpdate = self.saveOrUpdate || function() {
-				if(self.validateBeforeSaveOrUpdate()) {
+				if (self.validateBeforeSaveOrUpdate()) {
 					var params = {};
 					params = self.appendBaseParams(params);
 					EntityRestFactory.saveOrUpdateEntity(params, $scope.entity, self.onChangeEntitySuccessful, self.onChangeEntityError);
@@ -76,8 +76,7 @@
 				return true;
 			}
 
-		self.retireOrUnretireCall = self.retireOrUnretireCall
-			|| function(retire) {
+		self.retireOrUnretireCall = self.retireOrUnretireCall || function(retire) {
 				var params = {};
 				params = self.appendBaseParams(params);
 				EntityRestFactory.retireOrUnretireEntity(params, $scope.entity, self.onChangeEntitySuccessful,
@@ -96,7 +95,7 @@
 			}
 
 		self.loadEntity = self.loadEntity || function(uuid) {
-				if(angular.isDefined(uuid) && uuid !== "") {
+				if (angular.isDefined(uuid) && uuid !== "") {
 					var params = {
 						uuid: uuid
 					};
@@ -125,7 +124,7 @@
 				var entity = GenericMetadataModel.populateModel(data);
 				self.bindEntityToScope($scope, entity);
 				self.bindExtraVariablesToScope(entity.uuid);
-				if(!angular.isDefined($scope.retireOrUnretire)) {
+				if (!angular.isDefined($scope.retireOrUnretire)) {
 					self.loadRetireUnretireMessages();
 				}
 			}
@@ -147,7 +146,7 @@
 			}
 
 		self.loadRetireUnretireMessages = self.loadRetireUnretireMessages || function() {
-				if(angular.isDefined($scope.entity) && angular.isDefined($scope.entity.retired)
+				if (angular.isDefined($scope.entity) && angular.isDefined($scope.entity.retired)
 					&& $scope.entity.retired === true) {
 					$scope.retireOrUnretire = emr.message("general.unretire") + " " + emr.message(self.entity_name_message_key);
 				} else {
@@ -156,7 +155,7 @@
 			}
 
 		self.appendBaseParams = self.appendBaseParams || function(params) {
-				if(params) {
+				if (params) {
 					params['rest_entity_name'] = self.rest_entity_name;
 					return params;
 				}
@@ -167,7 +166,7 @@
 				self.uuid = self.getUuid();
 				self.setRequiredInitParameters();
 
-				if(!angular.isDefined(self.module_name) || !angular.isDefined(self.rest_entity_name)) {
+				if (!angular.isDefined(self.module_name) || !angular.isDefined(self.rest_entity_name)) {
 					console
 						.log("Ensure that the module_name, rest_entity_name and cancel_page parameters have been set in the self.setRequiredInitParameters method.");
 					return;
@@ -186,7 +185,7 @@
 				// load messages..
 				var messageLabels = self.loadMessageLabels();
 				var additionalMessageLabels = self.setAdditionalMessageLabels()
-				if(additionalMessageLabels) {
+				if (additionalMessageLabels) {
 					angular.extend(messageLabels, additionalMessageLabels);
 				}
 				$scope.messageLabels = messageLabels;
@@ -204,7 +203,7 @@
 				EntityRestFactory.setCustomBaseUrl(self.ROOT_URL);
 				EntityRestFactory.loadResults(requestParams,
 					function(data) {
-						if(!data.hasPrivileges) {
+						if (!data.hasPrivileges) {
 							window.location = self.LOGIN_URL;
 						}
 					}
@@ -226,7 +225,7 @@
 				messages['general.purge'] = emr.message("general.purge");
 				messages['openhmis.commons.general.name.required'] = emr.message("openhmis.commons.general.name.required");
 
-				if(self.uuid === null || self.uuid === undefined || self.uuid === "") {
+				if (self.uuid === null || self.uuid === undefined || self.uuid === "") {
 					messages['h2SubString'] = emr.message("general.new") + ' ' + emr.message(self.entity_name_message_key);
 				} else {
 					messages['h2SubString'] = emr.message("general.edit") + ' ' + emr.message(self.entity_name_message_key);

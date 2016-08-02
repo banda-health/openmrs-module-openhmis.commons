@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/module/openhmis/commons/privileges.page")
 public class PrivilegesController {
 	private static final Log LOG = LogFactory.getLog(PrivilegesController.class);
+
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
 	public SimpleObject get(
