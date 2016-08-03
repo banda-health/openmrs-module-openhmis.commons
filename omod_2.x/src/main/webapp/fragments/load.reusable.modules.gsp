@@ -26,5 +26,6 @@
     ui.includeJavascript("openhmis.commons", "reusable-components/controllers/generic.entity.controller.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/controllers/generic.manage.controller.module.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/controllers/generic.manage.controller.js")
+    ui.includeJavascript("openhmis.commons", "reusable-components/constants.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/config.js")
 %>

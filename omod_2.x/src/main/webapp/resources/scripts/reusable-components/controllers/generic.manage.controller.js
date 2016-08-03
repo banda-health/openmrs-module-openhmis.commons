@@ -21,16 +21,11 @@
 	function GenericManageController($scope, $filter, EntityRestFactory, PaginationService,
 	                                 CssStylesFactory, GenericMetadataModel,
 	                                 CookiesService, CommonsRestfulFunctions) {
-
 		var self = this;
-		var ROOT_URL = '/' + OPENMRS_CONTEXT_PATH + '/';
-		var MODULE_SETTINGS_URL = 'module/openhmis/commons/privileges.page';
-
 		self.module_name = '';
 		self.rest_entity_name = '';
 		self.entity_name = '';
 		self.rest_version = 'v2';
-
 		self.currentPage = self.entity_name + 'currentPage';
 		self.limit = self.entity_name + 'limit';
 		self.includeRetired = self.entity_name + 'includeRetired';
@@ -111,7 +106,7 @@
 				EntityRestFactory.loadResults(requestParams,
 					function(data) {
 						if (!data.hasPrivileges) {
-							window.location = ROOT_URL + 'login.htm';
+							window.location = LOGIN_URL;
 						}
 					}
 				);

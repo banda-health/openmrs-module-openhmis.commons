@@ -12,14 +12,11 @@
  * Copyright (C) OpenHMIS.  All Rights Reserved.
  *
  */
-var OPENMRS_CONTEXT_PATH = window.location.pathname.split("/")[1];
-var MODULE_PATH = window.location.pathname.split('/')[2];
-
 var requirejs = {
-	baseUrl: '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/' + MODULE_PATH + '/scripts/',
+	baseUrl: COMMONS_RESOURCES_URL,
 	catchError: true,
 	paths: {
-		'reusable-components': '/' + OPENMRS_CONTEXT_PATH + '/moduleResources/openhmis/commons/scripts/reusable-components/'
+		'reusable-components': REUSABLE_COMPONENTS_URL
 	}
 };
 
