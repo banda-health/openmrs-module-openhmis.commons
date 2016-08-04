@@ -110,6 +110,16 @@ public class HibernateRepository implements IHibernateRepository {
 
 	@Override
 	@SuppressWarnings("unchecked")
+	public <T> T selectValue(Query query) {
+		try {
+			return (T)query.uniqueResult();
+		} catch (Exception ex) {
+			throw new APIException("An exception occurred while attempting to selecting a value.", ex);
+		}
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
 	public <E extends OpenmrsObject> E selectSingle(Class<E> cls, Serializable id) {
 		DbSession session = sessionFactory.getCurrentSession();
 
