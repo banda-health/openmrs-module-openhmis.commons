@@ -19,9 +19,9 @@
 	var app = angular.module('app.entityFunctionsFactory', []);
 	app.service('EntityFunctions', EntityFunctions);
 	
-	EntityFunctions.$inject = [];
+	EntityFunctions.$inject = ['$filter'];
 	
-	function EntityFunctions() {
+	function EntityFunctions($filter) {
 		var service = {
 			retireUnretireDeletePopup: retireUnretireDeletePopup,
 			disableBackground: disableBackground,
@@ -193,9 +193,9 @@
 			}
 		}
 
-		/*We check the index of the attribute type in the attributeTypes array. The Attribute Type
+		/* We check the index of the attribute type in the attributeTypes array. The Attribute Type
 		 * attributeOrder is always the same as index of the attribute type then compare an assign the
-		 * attributeOrder */
+		 * attributeOrder*/
 		function updateAttributeTypesOrder(attributeTypes){
 			for(var i = 0; i < attributeTypes.length; i++){
 				var attributeType = attributeTypes[i];
@@ -243,7 +243,7 @@
 		 * @params key
 		 * @params valueToSearch
 		 * @returns index || null
-		 * */
+		 *
 		function findIndexByKeyValue(arrayToSearch, key, valueToSearch) {
 			for (var i = 0; i < arrayToSearch.length; i++) {
 				if (arrayToSearch[i][key] == valueToSearch) {
@@ -251,6 +251,10 @@
 				}
 			}
 			return null;
+		}*/
+		
+		function findIndexByKeyValue(arrayToSearch, valueToSearch) {
+			return $filter('filter')(arrayToSearch, {id: valueToSearch}, true);
 		}
 	}
 
