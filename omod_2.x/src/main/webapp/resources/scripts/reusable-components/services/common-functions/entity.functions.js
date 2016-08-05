@@ -18,9 +18,9 @@
 
 	var app = angular.module('app.entityFunctionsFactory', []);
 	app.service('EntityFunctions', EntityFunctions);
-
+	
 	EntityFunctions.$inject = ['$filter'];
-
+	
 	function EntityFunctions($filter) {
 		var service = {
 			printPage: printPage,
@@ -33,7 +33,8 @@
 			removeFromList: removeFromList,
 			insertTemporaryId: insertTemporaryId,
 			removeTemporaryId: removeTemporaryId,
-			validateAttributeTypes: validateAttributeTypes,
+			findIndexByKeyValue: findIndexByKeyValue,
+			validateAttributeTypes: validateAttributeTypes
 		};
 
 		return service;
@@ -204,9 +205,9 @@
 			}
 		}
 
-		/*We check the index of the attribute type in the attributeTypes array. The Attribute Type
+		/* We check the index of the attribute type in the attributeTypes array. The Attribute Type
 		 * attributeOrder is always the same as index of the attribute type then compare an assign the
-		 * attributeOrder */
+		 * attributeOrder*/
 		function updateAttributeTypesOrder(attributeTypes) {
 			for (var i = 0; i < attributeTypes.length; i++) {
 				var attributeType = attributeTypes[i];
@@ -247,7 +248,18 @@
 				delete attributeType.id;
 			}
 		}
-
+		
+		/**
+		 * Gets the Index of a given element in an array
+		 * @params arrayToSearch
+		 * @params key
+		 * @params valueToSearch
+		 * @returns index || null
+		 **/
+		function findIndexByKeyValue(arrayToSearch, valueToSearch) {
+			return arrayToSearch.indexOf($filter('filter')(arrayToSearch, {id: valueToSearch}, true)[0]);
+		}
+		
 		// validate attribute types
 		function validateAttributeTypes(attributeTypeAttributes, attributeValues, validatedAttributeTypes) {
 			var failAttributeTypeValidation = false;
