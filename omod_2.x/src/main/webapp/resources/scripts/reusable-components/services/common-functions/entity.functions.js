@@ -15,14 +15,15 @@
 
 (function() {
 	'use strict';
-	
+
 	var app = angular.module('app.entityFunctionsFactory', []);
 	app.service('EntityFunctions', EntityFunctions);
-	
-	EntityFunctions.$inject = [];
-	
-	function EntityFunctions() {
+
+	EntityFunctions.$inject = ['$filter'];
+
+	function EntityFunctions($filter) {
 		var service = {
+			printPage: printPage,
 			retireUnretireDeletePopup: retireUnretireDeletePopup,
 			disableBackground: disableBackground,
 			addExtraFormatListElements: addExtraFormatListElements,
@@ -31,20 +32,31 @@
 			removeAttributeType: removeAttributeType,
 			removeFromList: removeFromList,
 			insertTemporaryId: insertTemporaryId,
-			removeTemporaryId: removeTemporaryId
+			removeTemporaryId: removeTemporaryId,
+			validateAttributeTypes: validateAttributeTypes,
 		};
 
 		return service;
+
+
+		function printPage(url) {
+			$("#printPage").remove();
+			var printPage = $('<iframe id="printPage" src="' + url + '" width="1" height="1"></iframe>');
+			printPage.load(function() {
+				$(this).get(0).contentWindow.print();
+			});
+			$("body").append(printPage);
+		}
 
 		/**
 		 * Show the retire/unretire and Delete popup
 		 * @param selectorId - div id
 		 */
-		function retireUnretireDeletePopup(selectorId){
+		function retireUnretireDeletePopup(selectorId) {
 			var dialog = emr.setupConfirmationDialog({
 				selector: '#' + selectorId,
 				actions: {
-					cancel: function(){
+					cancel: function() {
 						dialog.close();
 					}
 				}
@@ -57,7 +69,7 @@
 		/**
 		 * Disable and gray-out background when a dialog box opens up.
 		 */
-		function disableBackground(){
+		function disableBackground() {
 			var backgroundElement = angular.element('.simplemodal-overlay');
 			backgroundElement.addClass('disable-background');
 		}
@@ -97,7 +109,7 @@
 				.setupConfirmationDialog({
 					selector: '#attribute-types-dialog',
 					actions: {
-						confirm: function () {
+						confirm: function() {
 							$scope.entity.attributeTypes = $scope.entity.attributeTypes
 								|| [];
 							$scope.submitted = true;
@@ -114,7 +126,7 @@
 							$scope.$apply();
 							dialog.close();
 						},
-						cancel: function () {
+						cancel: function() {
 							dialog.close();
 						}
 					}
@@ -133,12 +145,12 @@
 			var tmpAttributeType = attributeType;
 
 			var editAttributeType = {
-				attributeOrder : attributeType.attributeOrder,
-				foreignKey : attributeType.foreignKey,
-				format : attributeType.format,
-				name : attributeType.name,
-				regExp : attributeType.regExp,
-				required : attributeType.required,
+				attributeOrder: attributeType.attributeOrder,
+				foreignKey: attributeType.foreignKey,
+				format: attributeType.format,
+				name: attributeType.name,
+				regExp: attributeType.regExp,
+				required: attributeType.required,
 			}
 
 			$scope.attributeType = editAttributeType;
@@ -147,7 +159,7 @@
 			var dialog = emr.setupConfirmationDialog({
 				selector: '#attribute-types-dialog',
 				actions: {
-					confirm: function () {
+					confirm: function() {
 						tmpAttributeType.attributeOrder = $scope.attributeType.attributeOrder;
 						tmpAttributeType.foreignKey = $scope.attributeType.foreignKey;
 						tmpAttributeType.format = $scope.attributeType.format;
@@ -160,7 +172,7 @@
 						$scope.attributeType = {};
 						dialog.close();
 					},
-					cancel: function () {
+					cancel: function() {
 						$scope.attributeType = {};
 						dialog.close();
 					}
@@ -195,17 +207,17 @@
 		/*We check the index of the attribute type in the attributeTypes array. The Attribute Type
 		 * attributeOrder is always the same as index of the attribute type then compare an assign the
 		 * attributeOrder */
-		function updateAttributeTypesOrder(attributeTypes){
-			for(var i = 0; i < attributeTypes.length; i++){
+		function updateAttributeTypesOrder(attributeTypes) {
+			for (var i = 0; i < attributeTypes.length; i++) {
 				var attributeType = attributeTypes[i];
-				if(attributeType != null) {
+				if (attributeType != null) {
 					if (attributeType.attributeOrder != i) {
 						attributeType.attributeOrder = i;
 					}
 				}
 			}
 		}
-		
+
 		/**
 		 * ng-repeat requires that every item have a unique identifier.
 		 * This function sets a temporary unique id for all attribute types in the list.
@@ -218,13 +230,13 @@
 				var index = attributeTypes.indexOf(attributeType);
 				attributeType.id = index * rand;
 			} else {
-				for ( var attributeType in attributeTypes) {
+				for (var attributeType in attributeTypes) {
 					var index = attributeTypes.indexOf(attributeType);
 					attributeType.id = index * rand;
 				}
 			}
 		}
-		
+
 		/**
 		 * Remove the temporary unique id from all operation types (attributetypes) before submitting.
 		 * @param items
@@ -235,21 +247,122 @@
 				delete attributeType.id;
 			}
 		}
+
+		// validate attribute types
+		function validateAttributeTypes(attributeTypeAttributes, attributeValues, validatedAttributeTypes) {
+			var failAttributeTypeValidation = false;
+			if (attributeTypeAttributes !== undefined) {
+				var count = 0;
+				for (var i = 0; i < attributeTypeAttributes.length; i++) {
+					var attributeType = attributeTypeAttributes[i];
+					var required = attributeType.required;
+					var requestAttributeType = {};
+					var value = "";
+					requestAttributeType['attributeType'] = attributeType.uuid;
+					//get value
+					if (attributeValues[attributeType.uuid] !== undefined) {
+						value = attributeValues[attributeType.uuid].value;
+					}
+
+					// check if value is NOT set for required fields.
+					if (required && (value === undefined || value === "")) {
+						var errorMsg = $filter('EmrFormat')(emr.message("openhmis.commons.general.required.itemAttribute"), [attributeType.name]);
+						emr.errorAlert(errorMsg);
+						failAttributeTypeValidation = true;
+					} else {
+						if (value.id !== undefined) {
+							requestAttributeType['value'] = value.id;
+						} else {
+							requestAttributeType['value'] = value.toString();
+						}
+						validatedAttributeTypes[count] = requestAttributeType;
+						count++;
+					}
+				}
+			}
+
+			return !failAttributeTypeValidation;
+		}
 	}
 
-	app.directive('ngEnter', function ($window) {
-		return function (scope, element, attrs) {
-			element.bind("keydown keypress", function (event) {
+	app.directive('ngEnter', function($window) {
+		return function(scope, element, attrs) {
+			/**
+			 * This function binds an on-enter event on any line item auto-complete
+			 * search box and moves focus to the next available search box.
+			 */
+			element.bind("keydown keypress", function(event) {
 				if (event.which === 13) {
-					scope.$apply(function () {
-
-						scope.$eval(attrs.ngEnter, {'event' : event});
+					scope.$apply(function() {
+						scope.$eval(attrs.ngEnter, {'event': event});
 					});
 
+					// retrieve all input elements
+					var pageElems = document.querySelectorAll('input'),
+						focusNext = false,
+						len = pageElems.length;
+					var foundSrc = false;
+					for (var i = 0; i < len; i++) {
+						var pe = pageElems[i];
+						// check if the selected input element IS the source element
+						// (i.e the element that triggered the event)
+						if (pe === event.srcElement) {
+							foundSrc = true;
+						}
+
+						// search for the next 'search' input element
+						if (focusNext && pe !== event.srcElement && foundSrc) {
+							if (pe.style.display !== 'none' && pe.id === "searchBox") {
+								pe.focus();
+								break;
+							}
+						} else if (pe.type === "image") {
+							focusNext = true;
+						}
+					}
 					event.preventDefault();
 				}
 			});
 		};
 	});
 
+	app.directive('optionsDisabled', function($parse) {
+		var disableOptions = function(scope, attr, element, data,
+		                              fnDisableIfTrue) {
+			// refresh the disabled options in the select element.
+			var options = element.find("option");
+			for (var pos = 0, index = 0; pos < options.length; pos++) {
+				var elem = angular.element(options[pos]);
+				if (elem.val() != "") {
+					var locals = {};
+					locals[attr] = data[index];
+					elem.attr("disabled", fnDisableIfTrue(scope, locals));
+					index++;
+				}
+			}
+		};
+		return {
+			priority: 0,
+			require: 'ngModel',
+			link: function(scope, iElement, iAttrs, ctrl) {
+				// parse expression and build array of disabled options
+				var expElements = iAttrs.optionsDisabled.match(
+					/^\s*(.+)\s+for\s+(.+)\s+in\s+(.+)?\s*/);
+				var attrToWatch = expElements[3];
+				var fnDisableIfTrue = $parse(expElements[1]);
+				scope.$watch(attrToWatch, function(newValue, oldValue) {
+					if (newValue)
+						disableOptions(scope, expElements[2], iElement,
+							newValue, fnDisableIfTrue);
+				}, true);
+				// handle model updates properly
+				scope.$watch(iAttrs.ngModel, function(newValue, oldValue) {
+					var disOptions = $parse(attrToWatch)(scope);
+					if (newValue)
+						disableOptions(scope, expElements[2], iElement,
+							disOptions, fnDisableIfTrue);
+				});
+			}
+		};
+	});
 })();
