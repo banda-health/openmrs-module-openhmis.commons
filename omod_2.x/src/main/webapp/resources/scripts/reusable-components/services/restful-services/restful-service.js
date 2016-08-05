@@ -65,7 +65,7 @@
         if (typeof successCallback === 'function') successCallback(data);
       }, function(error) {
         if (typeof errorCallback === 'function') {
-          commonErrorHandling(errorCallback, uuid, params, error);
+          commonErrorHandling(errorCallback, uuid, '', error);
         }
       });
     }
