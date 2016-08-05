@@ -12,13 +12,28 @@
  * Copyright (C) OpenHMIS.  All Rights Reserved.
  *
  */
-var OPENMRS_CONTEXT_PATH = window.location.pathname.split("/")[1];
-var MODULE_PATH = window.location.pathname.split('/')[2];
-
 var requirejs = {
-  baseUrl: '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/' + MODULE_PATH + '/scripts/',
-  catchError: true,
-  paths: {
-    'reusable-components' : '/' + OPENMRS_CONTEXT_PATH + '/moduleResources/openhmis/commons/scripts/reusable-components/'
-  }
+	baseUrl: COMMONS_RESOURCES_URL,
+	catchError: true,
+	paths: {
+		'reusable-components': REUSABLE_COMPONENTS_URL
+	}
 };
+
+// handle general exceptions
+var ohmis = {};
+ohmis.handleException = function() {
+	return function(exception, cause) {
+		// unknown provider..
+		var exc = String(exception);
+		if (exc.indexOf("unpr") !== -1) {
+			console.log(exc);
+		} else if (exc.indexOf("session") !== -1 || exc.indexOf("timeout") !== -1) {
+			console.log(exc + " - " + cause);
+			emr.message("SESSION TIMEOUT");
+		} else {
+			console.log(exc + " - " + cause);
+			emr.message(cause);
+		}
+	};
+}
