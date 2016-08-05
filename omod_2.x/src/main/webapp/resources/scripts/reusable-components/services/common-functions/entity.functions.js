@@ -243,18 +243,10 @@
 		 * @params key
 		 * @params valueToSearch
 		 * @returns index || null
-		 *
-		function findIndexByKeyValue(arrayToSearch, key, valueToSearch) {
-			for (var i = 0; i < arrayToSearch.length; i++) {
-				if (arrayToSearch[i][key] == valueToSearch) {
-					return i;
-				}
-			}
-			return null;
-		}*/
+		 **/
 		
 		function findIndexByKeyValue(arrayToSearch, valueToSearch) {
-			return $filter('filter')(arrayToSearch, {id: valueToSearch}, true);
+			return arrayToSearch.indexOf($filter('filter')(arrayToSearch, {id: valueToSearch}, true)[0]);
 		}
 	}
 
