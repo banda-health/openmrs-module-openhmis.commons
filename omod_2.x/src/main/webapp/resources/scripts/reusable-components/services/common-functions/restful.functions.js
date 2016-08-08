@@ -33,6 +33,8 @@
 			loadVisit: loadVisit,
 			populateFieldAttributesData: populateFieldAttributesData,
 			searchPerson: searchPerson,
+			loadStockRooms: loadStockRooms,
+			searchReportItems: searchReportItems
 		};
 
 		return service;
@@ -177,6 +179,26 @@
 
 			return EntityRestFactory.autocompleteSearch(requestParams, type, module_name, 'v1');
 		}
+
+		function loadStockRooms(rest_entity_name, successCallback) {
+			var requestParams = {};
+			requestParams['rest_entity_name'] = rest_entity_name;
+			EntityRestFactory.loadEntities(requestParams, successCallback, function(error) {
+				console.log(error);
+			});
+		}
+
+		function searchReportItems(module_name, q) {
+			var requestParams = {};
+			requestParams['has_physical_inventory'] = 'true';
+			requestParams['q'] = q;
+			requestParams['limit'] = 10;
+			requestParams['startIndex'] = 1;
+
+			return EntityRestFactory.autocompleteSearch(requestParams, 'item', module_name);
+		}
+
+
 
 		function errorCallback(error) {
 			emr.errorMessage(error);
