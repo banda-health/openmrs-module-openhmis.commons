@@ -171,6 +171,7 @@
 
 		function searchPerson(module_name, q, type) {
 			var requestParams = [];
+
 			requestParams['q'] = q;
 			if (type === 'patient') {
 				requestParams['v'] = "custom:(patientIdentifier:(uuid,identifier)," +
@@ -187,13 +188,12 @@
 		}
 
 		function searchItems(module_name, q) {
-			var requestParams = {};
-			requestParams['has_physical_inventory'] = 'true';
-			requestParams['q'] = q;
-			requestParams['limit'] = 10;
-			requestParams['startIndex'] = 1;
-
-			return EntityRestFactory.autocompleteSearch(requestParams, 'item', module_name);
+			EntityRestFactory.setBaseUrl(module_name);
+		    var requestParams = {};
+		    requestParams['q'] = q;
+		    requestParams['limit'] = 10;
+		    requestParams['startIndex'] = 1;
+		    return EntityRestFactory.autocompleteSearch(requestParams, 'item');
 		}
 
 
