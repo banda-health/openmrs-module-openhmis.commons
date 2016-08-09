@@ -188,7 +188,7 @@
 			});
 		}
 
-		function searchReportItems(module_name, q) {
+		function searchItems(module_name, q) {
 			var requestParams = {};
 			requestParams['has_physical_inventory'] = 'true';
 			requestParams['q'] = q;
