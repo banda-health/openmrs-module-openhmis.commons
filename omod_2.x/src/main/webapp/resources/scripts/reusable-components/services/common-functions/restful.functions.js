@@ -34,7 +34,7 @@
 			populateFieldAttributesData: populateFieldAttributesData,
 			searchPerson: searchPerson,
 			loadStockRooms: loadStockRooms,
-			searchReportItems: searchReportItems
+			searchItems: searchItems
 		};
 
 		return service;
@@ -183,9 +183,7 @@
 		function loadStockRooms(rest_entity_name, successCallback) {
 			var requestParams = {};
 			requestParams['rest_entity_name'] = rest_entity_name;
-			EntityRestFactory.loadEntities(requestParams, successCallback, function(error) {
-				console.log(error);
-			});
+			EntityRestFactory.loadEntities(requestParams, successCallback, errorCallback);
 		}
 
 		function searchItems(module_name, q) {
