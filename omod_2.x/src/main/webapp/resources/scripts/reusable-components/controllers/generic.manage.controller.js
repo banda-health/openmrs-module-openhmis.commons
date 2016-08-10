@@ -100,7 +100,7 @@
 
 		self.checkPrivileges = self.checkPrivileges || function(privileges) {
 				var requestParams = [];
-				requestParams['resource'] = MODULE_SETTINGS_URL;
+				requestParams['resource'] = MODULE_PRIVILEGE_SETTINGS_URL;
 				requestParams['privileges'] = privileges;
 				EntityRestFactory.setCustomBaseUrl(ROOT_URL);
 				EntityRestFactory.loadResults(requestParams,
