@@ -23,7 +23,7 @@ import org.openmrs.api.context.Context;
  * Utility class for {@link org.openmrs.Provider}s.
  */
 public class ProviderUtil {
-	private ProviderUtil() {}
+	protected ProviderUtil() {}
 
 	public static Provider getCurrentProvider() {
 		return getCurrentProvider(Context.getProviderService());
@@ -31,7 +31,7 @@ public class ProviderUtil {
 
 	public static Provider getCurrentProvider(ProviderService providerService) {
 		Collection<Provider> providers = providerService.getProvidersByPerson(Context.getAuthenticatedUser().getPerson());
-		if (providers.size() > 0) {
+		if (!providers.isEmpty()) {
 			return providers.iterator().next();
 		}
 

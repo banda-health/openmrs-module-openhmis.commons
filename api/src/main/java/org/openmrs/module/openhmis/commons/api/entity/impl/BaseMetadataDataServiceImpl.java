@@ -72,7 +72,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 				        setRetireProperties(metadata, reason, user, dateRetired);
 			        }
 		        });
-		if (updatedObjects.size() > 0) {
+		if (!updatedObjects.isEmpty()) {
 			return saveAll(entity, updatedObjects);
 		} else {
 			return save(entity);
@@ -114,7 +114,7 @@ public abstract class BaseMetadataDataServiceImpl<E extends OpenmrsMetadata>
 				        setUnretireProperties(metadata);
 			        }
 		        });
-		if (updatedObjects.size() > 0) {
+		if (!updatedObjects.isEmpty()) {
 			return saveAll(entity, updatedObjects);
 		} else {
 			return save(entity);
