@@ -33,6 +33,8 @@
 			loadVisit: loadVisit,
 			populateFieldAttributesData: populateFieldAttributesData,
 			searchPerson: searchPerson,
+			loadStockRooms: loadStockRooms,
+			searchItems: searchItems
 		};
 
 		return service;
@@ -169,6 +171,7 @@
 
 		function searchPerson(module_name, q, type) {
 			var requestParams = [];
+
 			requestParams['q'] = q;
 			if (type === 'patient') {
 				requestParams['v'] = "custom:(patientIdentifier:(uuid,identifier)," +
@@ -177,6 +180,23 @@
 
 			return EntityRestFactory.autocompleteSearch(requestParams, type, module_name, 'v1');
 		}
+
+		function loadStockRooms(rest_entity_name, successCallback) {
+			var requestParams = {};
+			requestParams['rest_entity_name'] = rest_entity_name;
+			EntityRestFactory.loadEntities(requestParams, successCallback, errorCallback);
+		}
+
+		function searchItems(module_name, q) {
+			EntityRestFactory.setBaseUrl(module_name);
+		    var requestParams = {};
+		    requestParams['q'] = q;
+		    requestParams['limit'] = 10;
+		    requestParams['startIndex'] = 1;
+		    return EntityRestFactory.autocompleteSearch(requestParams, 'item');
+		}
+
+
 
 		function errorCallback(error) {
 			emr.errorMessage(error);

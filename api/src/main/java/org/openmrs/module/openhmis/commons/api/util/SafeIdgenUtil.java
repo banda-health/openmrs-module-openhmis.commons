@@ -25,7 +25,7 @@ import org.openmrs.module.openhmis.commons.api.entity.model.SafeIdentifierSource
  * Idgen Utility class that does not directly reference the idgen module.
  */
 public class SafeIdgenUtil {
-	private SafeIdgenUtil() {}
+	protected SafeIdgenUtil() {}
 
 	/**
 	 * Gets the identifier source information with the id in the specified global property.
@@ -52,7 +52,7 @@ public class SafeIdgenUtil {
 
 		IdentifierSourceService service = Context.getService(IdentifierSourceService.class);
 		List<IdentifierSource> sources = service.getAllIdentifierSources(false);
-		if (sources != null && sources.size() > 0) {
+		if (sources != null && !sources.isEmpty()) {
 			for (IdentifierSource source : sources) {
 				results.add(new SafeIdentifierSource(source.getId(), source.getUuid(), source.getName()));
 			}
