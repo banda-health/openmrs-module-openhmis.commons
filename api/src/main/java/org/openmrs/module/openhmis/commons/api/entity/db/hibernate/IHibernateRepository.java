@@ -75,6 +75,14 @@ public interface IHibernateRepository {
 	<T> T selectValue(Criteria criteria);
 
 	/**
+	 * Executes the specified {@link org.hibernate.Query} and returns the resulting value.
+	 * @param query The criteria to execute which must result in a single value.
+	 * @param <T> The expected value type.
+	 * @return The result of the query.
+	 */
+	<T> T selectValue(Query query);
+
+	/**
 	 * Selects a single entity from the database with the specified id.
 	 * @param cls The entity class.
 	 * @param id The id of the entity.

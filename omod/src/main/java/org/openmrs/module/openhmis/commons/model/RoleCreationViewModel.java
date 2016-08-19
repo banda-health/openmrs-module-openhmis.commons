@@ -1,5 +1,7 @@
 package org.openmrs.module.openhmis.commons.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * A view model used by role creation pages.
  */
@@ -26,7 +28,7 @@ public class RoleCreationViewModel {
 	}
 
 	public String getNewRoleName() {
-		return newRoleName;
+		return StringUtils.strip(newRoleName);
 	}
 
 	public void setNewRoleName(String newRoleName) {

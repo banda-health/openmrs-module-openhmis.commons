@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
@@ -274,7 +275,7 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 		List<T> updatedObjects = new ArrayList<T>();
 
 		Collection<? extends OpenmrsObject> relatedObjects = getRelatedObjects(entity);
-		if (relatedObjects != null && relatedObjects.size() > 0) {
+		if (relatedObjects != null && !relatedObjects.isEmpty()) {
 			for (OpenmrsObject object : relatedObjects) {
 				T data = Utility.as(clazz, object);
 				if (data != null) {
@@ -361,5 +362,19 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 		}
 
 		return criteria;
+	}
+
+	protected Query createPagingQuery(PagingInfo pagingInfo, Query query) {
+		if (query == null) {
+			throw new IllegalArgumentException("The query must be defined.");
+		}
+
+		if (pagingInfo != null && pagingInfo.getPage() > 0 && pagingInfo.getPageSize() > 0) {
+			query.setFirstResult((pagingInfo.getPage() - 1) * pagingInfo.getPageSize());
+			query.setMaxResults(pagingInfo.getPageSize());
+			query.setFetchSize(pagingInfo.getPageSize());
+		}
+
+		return query;
 	}
 }

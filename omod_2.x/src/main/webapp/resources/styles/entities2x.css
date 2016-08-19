@@ -64,7 +64,19 @@ a.disabled {
 .searchclear {
     position:absolute;
     right:5px;
-    top:0;
+    top:0px;
+    bottom:0;
+    height:14px;
+    margin:auto;
+    font-size:24px;
+    cursor:pointer;
+    color:#ccc;
+    margin-top:7px;
+}
+
+.autocompleteclear {
+    position:absolute;
+    right:5px;
     bottom:0;
     height:14px;
     margin:auto;
@@ -108,6 +120,18 @@ ul.table-layout li{
     width: 250px;
     padding: 5px;
     vertical-align: middle;
+}
+
+ul.patient-details-layout{
+    text-align: left;
+    padding: 0;
+}
+
+ul.patient-details-layout li{
+    text-align: left;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px;
 }
 
 ul.table-layout li.valign {
@@ -257,6 +281,179 @@ table.header-title td{
     width: 350px;
 }
 
+.disable-background{
+    background: url(images/ui-bg_diagonals-medium_100_e6e6e6_40x40.png) #e6e6e6 50% 50% repeat;
+}
+
 .bbf-list button.bbf-remove { float: left; width: 1.9em; margin-top: -2px; padding: 0px 0px; }
 
+fieldset.content{
+    min-width: 90%;
+    margin: 0 80px;
+}
+.content legend{
+    font-size:16px;
+    width:190px;
+    color: #00463f;
+    text-transform: none;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+fieldset.content select{
+    width:220px;
+}
+fieldset.content .action-container{
+    display: inline;
+    float: right;
+    width: 200px;
+    margin: 0px 34px 0px 0px;
+    border: 1px solid #dddddd;
+}
+fieldset.content .action-container ul{
+    background: #363463;
+    color: white;
+    padding: 5px;
+}
+fieldset.content .action-container h3 {
+    margin: 0;
+    color: white;
+    border-bottom: 1px solid white;
+    margin-bottom: 5px;
+    font-size: 1em;
+    margin-top: 5px;
+}
+fieldset.content .action-container li{
+    font-size: 0.9em;
+}
+fieldset.content .action-container a:not(.button) {
+    color: white;
+}
+fieldset.content ul.table-layout li.change-operation-date{
+    width: 303px;
+}
+fieldset.nested{
+    border: 1px solid #666666;
+    margin: 10px 0px;
+    width: 100%;
+}
+fieldset.nested .line-item select{
+}
+fieldset.nested .desc{
+    font-size: 14px;
+    font-weight: bold;
+    margin: 100px;
+}
+fieldset.nested .table-layout{
+    margin: 0 0px;
+    width: 100%;
+    margin-top: -25px;
+}
+fieldset.nested .table-layout li{
+    margin: 0 0px;
+    width: 90%;
+    vertical-align: middle;
+    padding: 0px;
+}
+fieldset.nested .table-layout .searchclear{
+    top:5px;
+}
+fieldset.nested .manage-entities-table{
+    line-height: 20px;
+    font-size: 14px;
+}
+fieldset.nested #below-entities-table .pagination-options{
+    margin: -24px 0px 0px 10px;
+    font-size:14px;
+}
+fieldset.nested #below-entities-table{
+    font-size:14px;
+}
+fieldset.patient-details{
+    border: 1px solid #666666;
+}
+fieldset.patient-details input{
+    background: #666666;
+    border-color: #666666;
+    color: white;
+}
+fieldset.content .nested select{
+    min-width: 0px;
+}
+fieldset.nested #patient-table select{
+    display: inline-block;
+    width: 40%;
+}
+table.line-item th{
+}
+
+table.line-item td:first-child{
+    width: 5%;
+}
+table.line-item td:nth-child(2){
+    width: 43%;
+}
+table.line-item td:nth-child(3){
+    width: 13%;
+}
+table.line-item td:nth-child(4){
+    width: 15%;
+}
+table.line-item td:nth-child(5){
+    width: 10%;
+}
+table.line-item td input[type="image"]{
+    min-width:0;
+    border: 1px solid transparent;
+    background-color: transparent;
+    visibility: hidden;
+}
+table.line-item tr:hover td input[type="image"]{
+    visibility: visible;
+}
+table.line-item .autocomplete-search{
+    width: 350px;
+}
+table.line-item .date input{
+    margin-top: 27px;
+}
+table.line-item .add-on{
+    position: relative;
+    left: 184px;
+    top: -37px;
+}
+table.line-item td .details{
+    font-size : 0.8em;
+}
+.right-justify{
+    text-align: right;
+}
+ul.table-layout .gray-button{
+    background: #666666;
+    border-color: #666666;
+    color: white;
+}
+input[type="button"].gray-button:hover{
+    background: #666666;
+    border-color: #666666;
+}
+.not-valid input{
+    border: 1px red solid;
+}
+table.bool{
+    width: 50%;
+    margin: 0 -10px;
+}
+table.bool tr{
+    line-height: 20px;
+    border-style: none;
+}
+table.bool td{
+    border-style: none;
+}
+.hide-dialog{
+    display: none;
+}
+.align-right{
+    float: right;
+}
 

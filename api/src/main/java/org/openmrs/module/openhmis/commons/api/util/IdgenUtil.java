@@ -14,7 +14,7 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 public class IdgenUtil {
 	private static final Log LOG = LogFactory.getLog(IdgenUtil.class);
 
-	protected IdgenUtil() {}
+	private IdgenUtil() {}
 
 	/**
 	 * Gets the {@link org.openmrs.module.idgen.IdentifierSource} with the id in the specified global property.

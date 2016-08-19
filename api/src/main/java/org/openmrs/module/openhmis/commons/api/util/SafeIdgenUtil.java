@@ -52,7 +52,7 @@ public class SafeIdgenUtil {
 
 		IdentifierSourceService service = Context.getService(IdentifierSourceService.class);
 		List<IdentifierSource> sources = service.getAllIdentifierSources(false);
-		if (sources != null && sources.size() > 0) {
+		if (sources != null && !sources.isEmpty()) {
 			for (IdentifierSource source : sources) {
 				results.add(new SafeIdentifierSource(source.getId(), source.getUuid(), source.getName()));
 			}

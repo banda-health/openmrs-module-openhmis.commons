@@ -65,7 +65,7 @@
         if (typeof successCallback === 'function') successCallback(data);
       }, function(error) {
         if (typeof errorCallback === 'function') {
-          commonErrorHandling(errorCallback, uuid, params, error);
+          commonErrorHandling(errorCallback, uuid, '', error);
         }
       });
     }
@@ -103,15 +103,26 @@
       if (angular.isDefined(uuid)) {
         console.log("ERROR:::uuid - " + uuid);
       }
+
       if (angular.isDefined(parameters)) {
         console.log("ERROR:::Parmaters - " + parameters);
       }
+
       console.log("ERROR:::Status code - " + error.status);
       console.log("ERROR:::Status Text - " + error.statusText);
       console.log("ERROR:::Message - " + error.data.error.message);
       console.log("ERROR:::Detail - " + error.data.error.detail);
 
-      errorCallback(error.data.error.message);
+      errorCallback(escapeHtml(error.data.error.message));
+    }
+
+    function escapeHtml(message) {
+      return message
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&nbsp;")
+          .replace(/>/g, "&nbsp;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
     }
   }
 })();

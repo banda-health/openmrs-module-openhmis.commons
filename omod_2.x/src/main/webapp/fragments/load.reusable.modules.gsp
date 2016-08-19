@@ -21,9 +21,11 @@
     ui.includeJavascript("openhmis.commons", "reusable-components/services/cookies/cookies.service.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/services/restful-services/entity-rest.factory.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/services/common-functions/entity.functions.js")
+    ui.includeJavascript("openhmis.commons", "reusable-components/services/common-functions/restful.functions.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/controllers/generic.entity.controller.module.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/controllers/generic.entity.controller.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/controllers/generic.manage.controller.module.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/controllers/generic.manage.controller.js")
+    ui.includeJavascript("openhmis.commons", "reusable-components/constants.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/config.js")
 %>

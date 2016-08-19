@@ -77,7 +77,7 @@ public class HibernateRepository implements IHibernateRepository {
 		DbSession session = sessionFactory.getCurrentSession();
 		try {
 
-			if (collection != null && collection.size() > 0) {
+			if (collection != null && !collection.isEmpty()) {
 				for (OpenmrsObject obj : collection) {
 					session.saveOrUpdate(obj);
 				}
@@ -110,6 +110,16 @@ public class HibernateRepository implements IHibernateRepository {
 
 	@Override
 	@SuppressWarnings("unchecked")
+	public <T> T selectValue(Query query) {
+		try {
+			return (T)query.uniqueResult();
+		} catch (Exception ex) {
+			throw new APIException("An exception occurred while attempting to selecting a value.", ex);
+		}
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
 	public <E extends OpenmrsObject> E selectSingle(Class<E> cls, Serializable id) {
 		DbSession session = sessionFactory.getCurrentSession();
 
@@ -128,7 +138,7 @@ public class HibernateRepository implements IHibernateRepository {
 		try {
 			List<E> results = criteria.list();
 
-			if (results.size() > 0) {
+			if (!results.isEmpty()) {
 				result = results.get(0);
 			}
 		} catch (Exception ex) {

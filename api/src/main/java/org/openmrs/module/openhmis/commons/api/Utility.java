@@ -31,7 +31,7 @@ public class Utility {
 	private static final int DATE_TIME_TEXT_LENGTH = 16;
 	private static final int DATE_TIME_SECOND_TEXT_LENGTH = 19;
 
-	protected Utility() {}
+	private Utility() {}
 
 	/**
 	 * Returns the specified object as the specified class or returns null if the cast is not supported.

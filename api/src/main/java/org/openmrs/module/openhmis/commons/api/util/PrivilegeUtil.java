@@ -15,7 +15,7 @@ public class PrivilegeUtil {
 
 	private static final Log LOG = LogFactory.getLog(PrivilegeUtil.class);
 
-	protected PrivilegeUtil() {}
+	private PrivilegeUtil() {}
 
 	/**
 	 * Checks if the specified user has all of the comma separated privileges.

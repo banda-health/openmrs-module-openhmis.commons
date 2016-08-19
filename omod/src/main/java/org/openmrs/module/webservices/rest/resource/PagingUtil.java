@@ -20,7 +20,7 @@ import org.openmrs.module.webservices.rest.web.RequestContext;
  * Utility class for extracting paging information from a request
  */
 public class PagingUtil {
-	protected PagingUtil() {}
+	private PagingUtil() {}
 
 	public static PagingInfo getPagingInfoFromContext(RequestContext context) {
 		Integer page = (context.getStartIndex() / context.getLimit()) + 1;

@@ -26,7 +26,7 @@ import org.openmrs.util.OpenmrsClassLoader;
 public class AttributeUtil {
 	private static final Log LOG = LogFactory.getLog(AttributeUtil.class);
 
-	protected AttributeUtil() {}
+	private AttributeUtil() {}
 
 	/**
 	 * Attempts to create a new instance of the specified class and hydrate (deserialize) it using the specified string
