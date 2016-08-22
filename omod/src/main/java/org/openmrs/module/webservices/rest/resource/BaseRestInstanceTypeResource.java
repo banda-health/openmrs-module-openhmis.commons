@@ -38,7 +38,7 @@ public abstract class BaseRestInstanceTypeResource<
 		return description;
 	}
 
-	public void setAttributeTypesBase(E instance, List<TAttributeType> attributeTypes) {
+	protected void baseSetAttributeTypes(E instance, List<TAttributeType> attributeTypes) {
 		if (instance.getAttributeTypes() == null) {
 			instance.setAttributeTypes(new ArrayList<TAttributeType>());
 		}

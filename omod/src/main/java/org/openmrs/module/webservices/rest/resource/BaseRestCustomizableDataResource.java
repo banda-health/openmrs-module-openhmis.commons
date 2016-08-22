@@ -16,7 +16,6 @@ package org.openmrs.module.webservices.rest.resource;
 import org.openmrs.OpenmrsData;
 import org.openmrs.module.openhmis.commons.api.entity.model.IAttribute;
 import org.openmrs.module.openhmis.commons.api.entity.model.ICustomizable;
-import org.openmrs.module.webservices.rest.web.annotation.PropertySetter;
 import org.openmrs.module.webservices.rest.web.representation.RefRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
@@ -46,8 +45,7 @@ public abstract class BaseRestCustomizableDataResource<
 		return description;
 	}
 
-	@PropertySetter("attributes")
-	public void setAttributes(E instance, List<TAttribute> attributes) {
+	protected void baseSetAttributes(E instance, List<TAttribute> attributes) {
 		if (instance.getAttributes() == null) {
 			instance.setAttributes(new HashSet<TAttribute>());
 		}
