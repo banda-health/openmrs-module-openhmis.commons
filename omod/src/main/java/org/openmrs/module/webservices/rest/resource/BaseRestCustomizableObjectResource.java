@@ -47,8 +47,7 @@ public abstract class BaseRestCustomizableObjectResource<
 		return description;
 	}
 
-	@PropertySetter("attributes")
-	public void setAttributes(E instance, List<TAttribute> attributes) {
+	protected void setAttributes(E instance, List<TAttribute> attributes) {
 		if (instance.getAttributes() == null) {
 			instance.setAttributes(new HashSet<TAttribute>());
 		}
