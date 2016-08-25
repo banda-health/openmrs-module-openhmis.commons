@@ -456,4 +456,9 @@ table.bool td{
 .align-right{
     float: right;
 }
-
+.loading-msg{
+    margin: 200px;
+}
+.loading-img{
+    margin: 150px;
+}
