@@ -57,7 +57,7 @@
         <span style="margin:150px;" ng-show="patients.length == 0 && patient !== undefined && patient !== ''">
             ${ui.message('openhmis.commons.general.preSearchMessage')}
             - <b> {{patient}} </b> -
-        {{postSearchMessage}}
+            ${ui.message('openhmis.commons.general.patientPostSearchMessage')}
         </span>
         <table ng-show="patients.length !== 0"
                style="margin-bottom:5px;"

@@ -114,6 +114,7 @@
 
 		self.onChangeEntityError = self.onChangeEntityError || function(error) {
 				emr.errorAlert(error);
+				$scope.loading = false;
 			}
 
 		self.onPurgeEntitySuccessful = self.onPurgeEntitySuccessful || function(data) {
@@ -179,6 +180,7 @@
 				$scope.retireOrUnretireCall = self.retireOrUnretireCall;
 				$scope.retireUnretireDeletePopup = self.retireUnretireDeletePopup;
 				$scope.entity_name = emr.message(self.entity_name_message_key);
+				$scope.loading = false;
 
 				self.bindExtraVariablesToScope(self.uuid);
 

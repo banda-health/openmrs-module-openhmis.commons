@@ -28,7 +28,7 @@
 
 		service = {
 			searchPatients: searchPatients,
-			getSessionLocation: getSessionLocation,
+			getSession: getSession,
 			endVisit: endVisit,
 			loadVisit: loadVisit,
 			populateFieldAttributesData: populateFieldAttributesData,
@@ -71,12 +71,12 @@
 			EntityRestFactory.setBaseUrl(module_name);
 		}
 
-		function getSessionLocation(module_name, onLoadSessionLocationSuccessful) {
+		function getSession(module_name, onLoadSessionSuccessful) {
 			var requestParams = [];
 			requestParams['rest_entity_name'] = 'session';
 			EntityRestFactory.setBaseUrl('appui', 'v1');
 			EntityRestFactory.loadEntities(requestParams,
-				onLoadSessionLocationSuccessful, errorCallback);
+				onLoadSessionSuccessful, errorCallback);
 			//reset base url..
 			EntityRestFactory.setBaseUrl(module_name);
 		}
@@ -195,8 +195,6 @@
 		    requestParams['startIndex'] = 1;
 		    return EntityRestFactory.autocompleteSearch(requestParams, 'item');
 		}
-
-
 
 		function errorCallback(error) {
 			emr.errorMessage(error);
