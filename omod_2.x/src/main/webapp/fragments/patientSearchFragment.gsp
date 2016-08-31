@@ -61,7 +61,7 @@
         </span>
         <table ng-show="patients.length !== 0"
                style="margin-bottom:5px;"
-               class="manage-entities-table">
+               class="manage-entities-table" navigate-table>
             <thead>
             <tr>
                 <th style="width: 40%">${ui.message('openhmis.commons.general.identifier')}</th>
