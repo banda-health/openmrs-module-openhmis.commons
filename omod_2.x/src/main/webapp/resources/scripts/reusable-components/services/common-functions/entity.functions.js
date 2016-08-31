@@ -19,9 +19,9 @@
 	var app = angular.module('app.entityFunctionsFactory', []);
 	app.service('EntityFunctions', EntityFunctions);
 	
-	EntityFunctions.$inject = ['$filter'];
+	EntityFunctions.$inject = ['$filter', '$timeout'];
 	
-	function EntityFunctions($filter) {
+	function EntityFunctions($filter, $timeout) {
 		var service = {
 			printPage: printPage,
 			retireUnretireDeletePopup: retireUnretireDeletePopup,
@@ -34,7 +34,8 @@
 			insertTemporaryId: insertTemporaryId,
 			removeTemporaryId: removeTemporaryId,
 			findIndexByKeyValue: findIndexByKeyValue,
-			validateAttributeTypes: validateAttributeTypes
+			validateAttributeTypes: validateAttributeTypes,
+			focusOnElement: focusOnElement,
 		};
 
 		return service;
@@ -295,7 +296,30 @@
 
 			return !failAttributeTypeValidation;
 		}
+
+		function focusOnElement(elementId) {
+			$timeout(function() {
+				var elem = document.getElementById(elementId);
+				elem.focus();
+				elem.select();
+			}, 100);
+		}
 	}
+
+	app.directive('navigateTable', function() {
+		return function(scope, element, attr){
+			element.bind("keydown keypress", function(event) {
+				if (event.which === 38) {
+					var target = $(event.target).prev();
+					$(target).trigger('focus');
+				}
+				if (event.which === 40) {
+					var target = $(event.target).next();
+					$(target).trigger('focus');
+				}
+			});
+		}
+	});
 
 	app.directive('ngEnter', function($window) {
 		return function(scope, element, attrs) {
