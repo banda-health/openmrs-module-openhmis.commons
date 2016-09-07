@@ -1,8 +1,0 @@
-/*
-	This css will be applied globally when the module is added. Intended use for styling header and
-	footer outside of theming.
-*/
-
-/* User bar styles */
-#userBar { overflow: hidden; }
-#userBar span { float: left; padding: 0 10px; }
