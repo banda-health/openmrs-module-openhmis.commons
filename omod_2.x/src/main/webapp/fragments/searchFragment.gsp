@@ -13,7 +13,7 @@
     def showRemoveIcon = config.showRemoveIcon ? config.showRemoveIcon : true;
 %>
 <div class="btn-group">
-    <input type="text" id="searchBox" autocomplete=false autocomplete="off"
+    <input type="text" id="searchBox" autocomplete="off" 
           <% if(model){ %>
               ng-model = ${model}
           <% } %>
