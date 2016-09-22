@@ -19,7 +19,8 @@
 	var baseController = angular.module('app.genericEntityController');
 
 	function GenericEntityController($scope, $filter, $stateParams,
-	                                 EntityRestFactory, GenericMetadataModel, EntityFunctions) {
+	                                 EntityRestFactory, GenericMetadataModel,
+	                                 EntityFunctions, CssStylesFactory) {
 		var self = this;
 		self.module_name = '';
 		self.rest_entity_name = '';
@@ -183,6 +184,8 @@
 				$scope.loading = false;
 
 				self.bindExtraVariablesToScope(self.uuid);
+
+				$scope.strikeThrough = CssStylesFactory.strikeThrough;
 
 				// load messages..
 				var messageLabels = self.loadMessageLabels();
