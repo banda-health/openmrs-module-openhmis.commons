@@ -36,6 +36,7 @@
 			findIndexByKeyValue: findIndexByKeyValue,
 			validateAttributeTypes: validateAttributeTypes,
 			focusOnElement: focusOnElement,
+			getVisitNoteEncounter: getVisitNoteEncounter,
 		};
 
 		return service;
@@ -303,6 +304,30 @@
 				elem.focus();
 				elem.select();
 			}, 100);
+		}
+
+		function getVisitNoteEncounter(patientUuid, sectionId){
+			jQuery("#" + sectionId).empty();
+			var params = [];
+			params['patientUuid'] = patientUuid;
+			emr.getFragmentActionWithCallback('openhmis.commons', 'patientSearch', 'getEncounter', params,
+				function(data){
+					if(data != null && data.encounterId != null){
+						params = [];
+						params['encounterId'] = data.encounterId;
+						emr.getFragmentActionWithCallback('coreapps', 'visit/visitDetails', 'getEncounterDetails', params,
+							function(data) {
+								if(data != null){
+									var formatDiagnosis = '';
+									data.diagnoses.forEach(function (diagnosis){
+										formatDiagnosis += diagnosis.question + ' - ' + diagnosis.answer + ' ';
+									});
+									jQuery("#" + sectionId).append(document.createTextNode(formatDiagnosis));
+								}
+							});
+					}
+				}
+			);
 		}
 	}
 

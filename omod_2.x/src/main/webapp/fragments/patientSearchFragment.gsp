@@ -3,7 +3,8 @@
     def showPatientSearchBox = config.showPatientSearchBox ? config.showPatientSearchBox : true;
     def changePatient = config.changePatient ? config.changePatient : true;
 %>
-<fieldset class="nested patient-details"
+
+<fieldset id="patientSearch" class="nested patient-details"
           ng-show="${showPatientDetails}">
     <legend style="margin-bottom:-15px;">${ui.message('openhmis.commons.general.patientDetails')}</legend>
     <span>
@@ -34,6 +35,9 @@
         <input type="button" class="btn gray-button"
                value="${ui.message('openhmis.commons.general.endVisit')}"
                ng-show="visit !== undefined" ng-click="endVisit()" />
+
+        <!-- Display visit not encounter diagnoses -->
+        <span id="diagnosis"></span>
     </span>
 </fieldset>
 
@@ -77,7 +81,8 @@
             <tr class="clickable-tr" pagination-id="__patients"
                 dir-paginate="patient in patients | itemsPerPage: limit"
                 total-items="totalNumOfResults" current-page="currentPage"
-                ng-click="selectPatient(patient)" ng-enter="selectPatient(patient)"
+                ng-click="selectPatient(patient); getVisitNoteEncounter(patient.uuid, 'diagnosis')"
+                ng-enter="selectPatient(patient); getVisitNoteEncounter(patient.uuid, 'diagnosis')"
                 tabindex="0">
                 <td>{{patient.patientIdentifier.identifier}}</td>
                 <td>{{patient.person.personName.givenName}}</td>

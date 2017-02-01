@@ -462,3 +462,9 @@ table.bool td{
 .loading-img{
     margin: 150px;
 }
+#diagnosis{
+    font-size: 14px;
+    margin-left: 20px;
+    position:relative;
+    top: -7px;
+}
