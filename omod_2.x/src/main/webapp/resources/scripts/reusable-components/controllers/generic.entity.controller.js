@@ -201,7 +201,7 @@
 				self.loadEntity(self.uuid);
 			}
 
-		self.checkPrivileges = self.checkPrivileges || function(privileges) {
+		self.checkPrivileges = self.checkPrivileges || function(privileges, onHasPrivilegesCallback) {
 				var requestParams = [];
 				requestParams['resource'] = self.PRIVILEGES_URL;
 				requestParams['privileges'] = privileges;
@@ -209,7 +209,11 @@
 				EntityRestFactory.loadResults(requestParams,
 					function(data) {
 						if (!data.hasPrivileges) {
-							window.location = self.LOGIN_URL;
+							if(onHasPrivilegesCallback !== undefined){
+								onHasPrivilegesCallback(data.hasPrivileges);
+							} else {
+								window.location = self.LOGIN_URL;
+							}
 						}
 					}
 				);
