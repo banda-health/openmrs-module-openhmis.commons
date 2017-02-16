@@ -194,6 +194,7 @@
 					angular.extend(messageLabels, additionalMessageLabels);
 				}
 				$scope.messageLabels = messageLabels;
+				$scope.getVisitNoteEncounter = EntityFunctions.getVisitNoteEncounter;
 			}
 
 		self.loadPage = self.loadPage || function() {
