@@ -11,7 +11,7 @@
     def ngEnterEvent = config.ngEnterEvent ? config.ngEnterEvent : '';
     def required = config.required ? config.required : false;
     def showRemoveIcon = config.showRemoveIcon ? config.showRemoveIcon : true;
-	def ngDisabled = config.ngDisabled;
+	def ngDisabled = config.ngDisabled ? config.ngDisabled: '';
 %>
 <div class="btn-group">
     <input type="text" id="searchBox" autocomplete="off" 
