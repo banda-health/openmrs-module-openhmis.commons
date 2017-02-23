@@ -11,12 +11,17 @@
     def ngEnterEvent = config.ngEnterEvent ? config.ngEnterEvent : '';
     def required = config.required ? config.required : false;
     def showRemoveIcon = config.showRemoveIcon ? config.showRemoveIcon : true;
+	def ngDisabled = config.ngDisabled ? config.ngDisabled: false;
 %>
 <div class="btn-group">
     <input type="text" id="searchBox" autocomplete="off" 
           <% if(model){ %>
               ng-model = ${model}
           <% } %>
+
+           <% if (ngDisabled) { %>
+              ng-disabled = ${ngDisabled}
+           <% } %>
 
           <% if(onChangeEvent){ %>
               ng-change = ${onChangeEvent}
