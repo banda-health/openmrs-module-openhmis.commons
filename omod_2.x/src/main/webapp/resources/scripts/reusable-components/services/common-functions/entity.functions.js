@@ -36,6 +36,7 @@
 			findIndexByKeyValue: findIndexByKeyValue,
 			validateAttributeTypes: validateAttributeTypes,
 			focusOnElement: focusOnElement,
+			extractUrlArgs: extractUrlArgs,
 		};
 
 		return service;
@@ -303,6 +304,21 @@
 				elem.focus();
 				elem.select();
 			}, 100);
+		}
+
+		function extractUrlArgs(urlArgs) {
+			var urlParams = [];
+			urlArgs = urlArgs.replace('?', '');
+			if(urlArgs.indexOf("&") > 0) {
+				var params = urlArgs.split("&");
+				for(var i = 0; i < params.length; i++) {
+					var param = params[i];
+					var paramArgs = param.split("=");
+					urlParams[paramArgs[0]] = paramArgs[1];
+				}
+			}
+
+			return urlParams;
 		}
 	}
 
