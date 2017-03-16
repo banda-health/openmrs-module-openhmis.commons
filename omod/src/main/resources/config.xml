@@ -21,6 +21,7 @@
 
 	<require_modules>
 		<require_module version="2.6">org.openmrs.module.webservices.rest</require_module>
+		<require_module version="2.6">org.openmrs.module.appframework</require_module>
 	</require_modules>
 
 	<!-- Module Activator -->
