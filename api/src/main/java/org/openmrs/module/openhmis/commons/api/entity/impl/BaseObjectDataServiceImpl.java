@@ -25,7 +25,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.impl.CriteriaImpl;
 import org.hibernate.transform.ResultTransformer;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.api.context.Context;
@@ -314,7 +313,8 @@ public abstract class BaseObjectDataServiceImpl<E extends OpenmrsObject, P exten
 				Projection projection = null;
 				ResultTransformer transformer = null;
 
-				CriteriaImpl impl = Utility.as(CriteriaImpl.class, criteria);
+				CriteriaImplWrapper impl = new CriteriaImplWrapper(criteria);
+				//CriteriaImpl impl = Utility.as(CriteriaImpl.class, criteria);
 				if (impl != null) {
 					projection = impl.getProjection();
 					transformer = impl.getResultTransformer();
