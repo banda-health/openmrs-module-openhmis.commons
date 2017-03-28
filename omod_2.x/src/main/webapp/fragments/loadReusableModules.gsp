@@ -4,7 +4,11 @@
     ui.includeJavascript("openhmis.commons", "reusable-components/js/common-js.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/lib/restangular.min.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/lib/dirPagination.js")
-    ui.includeJavascript("openhmis.commons", "reusable-components/lib/angular-cookies.min.js")
+    if (angularVersion == "1.5") {
+        ui.includeJavascript("openhmis.commons", "reusable-components/lib/angular-cookies.min.1.5.8.js")
+    } else {
+        ui.includeJavascript("openhmis.commons", "reusable-components/lib/angular-cookies.min.js")
+    }
     ui.includeJavascript("openhmis.commons", "reusable-components/models/generic.model.module.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/models/generic.object.model.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/models/generic.metadata.model.js")
@@ -17,8 +21,14 @@
     ui.includeJavascript("openhmis.commons", "reusable-components/models/paginate.model.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/services/pagination/pagination.module.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/services/pagination/pagination.service.js")
+
     ui.includeJavascript("openhmis.commons", "reusable-components/services/cookies/cookies.module.js")
-    ui.includeJavascript("openhmis.commons", "reusable-components/services/cookies/cookies.service.js")
+    if (angularVersion == "1.5") {
+        ui.includeJavascript("openhmis.commons", "reusable-components/services/cookies/cookies.service.1.5.js")
+    } else {
+        ui.includeJavascript("openhmis.commons", "reusable-components/services/cookies/cookies.service.js")
+    }
+
     ui.includeJavascript("openhmis.commons", "reusable-components/services/restful-services/entity-rest.factory.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/services/common-functions/entity.functions.js")
     ui.includeJavascript("openhmis.commons", "reusable-components/services/common-functions/restful.functions.js")
