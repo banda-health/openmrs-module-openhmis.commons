@@ -25,6 +25,6 @@ public abstract class BaseSerializableOpenmrsMetadata extends BaseOpenmrsMetadat
 	@Override
 	@JsonIgnore
 	public Boolean getRetired() {
-		return isRetired();
+		return super.getRetired();
 	}
 }
