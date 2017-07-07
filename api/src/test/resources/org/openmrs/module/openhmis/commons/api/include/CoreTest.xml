@@ -29,7 +29,7 @@
 						location_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
 						uuid="1ac98ec8-e9d9-4626-998c-c795c2f0aa9f"/>
 	<patient_identifier_type patient_identifier_type_id="0" name="Test Identifier Type" description="Test description"
-							 creator="1" date_created="2005-01-01 00:00:00.0" required="false"
+							 check_digit="false" creator="1" date_created="2005-01-01 00:00:00.0" required="false"
 							 retired="false" uuid="0cbecb62-7249-4f91-8edf-d0206ecceb63"/>
 
 	<patient patient_id="1" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
@@ -37,7 +37,7 @@
 						location_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
 						uuid="4028814B3A0CDF3A013A0CDF3A3D0000"/>
 	<patient_identifier_type patient_identifier_type_id="1" name="Test Identifier Type" description="Test description"
-							 creator="1" date_created="2005-01-01 00:00:00.0" required="false"
+							 check_digit="false" creator="1" date_created="2005-01-01 00:00:00.0" required="false"
 							 retired="false" uuid="4028814B3A0CDF3A013A0CDF73C40003"/>
 
 	<person_name person_name_id="0" preferred="true" person_id="0" given_name="John" middle_name=" " family_name="Doe"
