@@ -8,20 +8,17 @@ import org.junit.Test;
 import org.openmrs.Role;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.openhmis.commons.api.TestUtil;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.openhmis.commons.api.BaseModuleContextTest;
+import org.openmrs.module.openhmis.commons.api.TestConstants;
 
-public class LazyRoleTest extends BaseModuleContextSensitiveTest {
-
-	public static final String XML_DATASET_PATH = "org/openmrs/module/openhmis/commons/api/include/";
-
-	public static final String XML_OPENHMIS_COMMONS_CORE_TEST_DATASET = "coreTest";
+public class LazyRoleTest extends BaseModuleContextTest {
+	public static final String BILL_DATASET = TestConstants.BASE_DATASET_DIR + "BillTest.xml";
 
 	private UserService userService;
 
 	@Before
 	public void before() throws Exception {
-		executeDataSet(XML_DATASET_PATH + new TestUtil().getTestDatasetFilename(XML_OPENHMIS_COMMONS_CORE_TEST_DATASET));
+		super.executeDataSet(TestConstants.CORE_DATASET);
 
 		userService = Context.getUserService();
 	}

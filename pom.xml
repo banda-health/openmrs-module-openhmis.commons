@@ -50,7 +50,6 @@
 	<!-- default properties for installation -->
 	<properties>
 		<openMRSVersion>1.9.9</openMRSVersion>
-		<openMRSMinorVersion>1.9</openMRSMinorVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<javaCompilerVersion>1.8</javaCompilerVersion>
 	</properties>
@@ -325,7 +324,6 @@
 			<id>openmrs-2.0</id>
 			<properties>
 				<openMRSVersion>2.0.5</openMRSVersion>
-				<openMRSMinorVersion>2.0</openMRSMinorVersion>
 			</properties>
 		</profile>
 	</profiles>
