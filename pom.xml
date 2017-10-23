@@ -47,6 +47,7 @@
 		<tag>HEAD</tag>
 	</scm>
 
+	<!-- default properties for installation -->
 	<properties>
 		<openMRSVersion>2.0.5</openMRSVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -317,4 +318,13 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+
+	<profiles>
+		<profile>
+			<id>openmrs-2.0</id>
+			<properties>
+				<openMRSVersion>2.0.5</openMRSVersion>
+			</properties>
+		</profile>
+	</profiles>
 </project>
