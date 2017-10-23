@@ -1,13 +1,8 @@
 package org.openmrs.module.openhmis.commons.api;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Properties;
 
 import org.openmrs.util.OpenmrsConstants;
-import org.openmrs.util.OpenmrsUtil;
 
 public class TestUtil {
 
