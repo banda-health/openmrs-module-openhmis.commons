@@ -28,7 +28,7 @@ public abstract class BaseModuleContextTest extends BaseModuleContextSensitiveTe
 			conn.prepareStatement("SET REFERENTIAL_INTEGRITY FALSE").execute();
 
 			// See if a versioned data file exists
-			String datasetFilenameToUse = new TestUtil().getVersionedFileIfExists(datasetFilename);
+			String datasetFilenameToUse = TestUtil.getVersionedFileIfExists(datasetFilename);
 
 			super.executeDataSet(datasetFilenameToUse);
 		} finally {

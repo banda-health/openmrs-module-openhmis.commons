@@ -145,7 +145,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>legacyui-omod</artifactId>
-				<version>1.3.2-SNAPSHOT</version>
+				<version>1.3.2</version>
 				<scope>provided</scope>
 			</dependency>
 
