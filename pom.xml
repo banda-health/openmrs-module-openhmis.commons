@@ -5,7 +5,7 @@
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>openhmis.commons</artifactId>
 	<packaging>pom</packaging>
-	<version>3.4.3</version>
+	<version>3.5.0</version>
 	<name>OpenHMIS Commons Module</name>
 	<description>Module that provides core functionality used by the OpenHMIS modules.</description>
 	<url>http://openhmis.github.com/</url>
@@ -14,7 +14,8 @@
 		<repository>
 			<id>openmrs-repo</id>
 			<name>Modules</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>
+			<!--<url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url> -->
+			<url>https://openmrs.jfrog.io/openmrs/modules/</url>
 		</repository>
 		<snapshotRepository>
     		<id>openhmis-repo</id>
@@ -44,13 +45,13 @@
 		<connection>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</connection>
 		<developerConnection>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</developerConnection>
 		<url>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</url>
-		<tag>v3.4.3</tag>
+		<tag>v3.5.0</tag>
 	</scm>
 
 	<properties>
 		<openMRSVersion>1.9.9</openMRSVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<javaCompilerVersion>1.6</javaCompilerVersion>
+		<javaCompilerVersion>1.8</javaCompilerVersion>
 	</properties>
 
 	<dependencyManagement>
