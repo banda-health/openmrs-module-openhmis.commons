@@ -12,6 +12,6 @@ public abstract class BaseSerializableOpenmrsData extends BaseOpenmrsData {
 	@Override
 	@JsonIgnore
 	public Boolean getVoided() {
-		return isVoided();
+		return super.getVoided();
 	}
 }
