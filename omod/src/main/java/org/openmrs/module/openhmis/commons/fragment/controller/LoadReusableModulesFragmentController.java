@@ -28,18 +28,23 @@ public class LoadReusableModulesFragmentController {
 	public static final String UI_FRAMEWORK_MODULE_ID = "uiframework";
 
 	/**
+	 * The module id for the UI Commons omod.
+	 */
+	public static final String UI_COMMONS_MODULE_ID = "uicommons";
+
+	/**
 	 * Adds the angular version as an model attribute and renders the fragment.
 	 */
 	public void controller(FragmentModel model) {
-		Module module = ModuleFactory.getModuleById(UI_FRAMEWORK_MODULE_ID);
+		Module uiFrameworkModule = ModuleFactory.getModuleById(UI_FRAMEWORK_MODULE_ID);
+		Module uiCommonsModule = ModuleFactory.getModuleById(UI_COMMONS_MODULE_ID);
 
 		String angularVersion;
-		if (module == null) {
+		if (uiFrameworkModule == null || uiCommonsModule == null) {
 			angularVersion = "0.0";
 		} else {
-			String currentVersion = module.getVersion();
-
-			if (ModuleUtil.compareVersion(currentVersion, "3.9") >= 0) {
+			if (ModuleUtil.compareVersion(uiFrameworkModule.getVersion(), "3.9") >= 0
+			        && ModuleUtil.compareVersion(uiCommonsModule.getVersion(), "2.1") >= 0) {
 				angularVersion = "1.5";
 			} else {
 				angularVersion = "1.3";
