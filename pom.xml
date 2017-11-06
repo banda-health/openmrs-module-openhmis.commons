@@ -37,7 +37,8 @@
 	<modules>
 		<module>tools</module>
 		<module>api</module>
-		<module>omod_2.x</module>
+		<module>api-1.11</module>
+		<module>api-2.0</module>
 		<module>omod</module>
 	</modules>
 
@@ -72,6 +73,12 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-omod</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>openhmis.commons-omod_2.x</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

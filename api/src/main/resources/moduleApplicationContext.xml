@@ -7,4 +7,6 @@
 	<bean id="genericRepository" class="org.openmrs.module.openhmis.commons.api.entity.db.hibernate.HibernateRepository">
 		<constructor-arg name="sessionFactory" ref="dbSessionFactory"/>
 	</bean>
+
+	<bean id="compatibilityConstantsHolder" class="org.openmrs.module.openhmis.commons.api.compatibility.CompatibilityConstantsHolder" />
 </beans>
