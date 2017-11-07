@@ -39,6 +39,7 @@
 		<module>tools</module>
 		<module>api</module>
 		<module>api-2.0</module>
+		<module>api-base</module>
 		<module>omod</module>
 	</modules>
 
