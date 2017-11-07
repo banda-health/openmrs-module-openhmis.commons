@@ -1,13 +1,12 @@
-package org.openmrs.module.openhmis.commons.api.util;
+package org.openmrs.module.openhmis.commons.api.compatibility;
 
 import org.openmrs.annotation.OpenmrsProfile;
-import org.openmrs.module.openhmis.commons.api.compatibility.PrivilegeConstants;
 
 /**
  * Specific implementation for the privileges to be pulled from the OpenMRS class using available properties
  */
 @OpenmrsProfile(openmrsPlatformVersion = "1.9.9 - 1.12.*")
-public class PrivilegeConstantsV1o11 implements PrivilegeConstants {
+public class PrivilegeConstantsV1o9 implements PrivilegeConstants {
 
 	public final String GET_LOCATIONS = org.openmrs.util.PrivilegeConstants.VIEW_LOCATIONS;
 

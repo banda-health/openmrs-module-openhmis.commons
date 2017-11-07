@@ -34,10 +34,10 @@
 		<name>OpenHMIS</name>
 		<url>http://openhmis.github.com/OpenHMIS/</url>
 	</organization>
+
 	<modules>
 		<module>tools</module>
 		<module>api</module>
-		<module>api-1.11</module>
 		<module>api-2.0</module>
 		<module>omod</module>
 	</modules>

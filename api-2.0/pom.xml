@@ -27,12 +27,19 @@
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>openhmis.commons-api</artifactId>
+			<artifactId>${project.parent.artifactId}-api</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
 		<plugins>
 			<plugin>
 				<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
