@@ -37,6 +37,7 @@
 
 	<modules>
 		<module>tools</module>
+		<module>tests</module>
 		<module>api</module>
 		<module>api-2.0</module>
 		<module>api-base</module>
@@ -106,7 +107,6 @@
 				<artifactId>openmrs-api</artifactId>
 				<version>${openMRSVersion}</version>
 				<type>test-jar</type>
-				<scope>test</scope>
 			</dependency>
 
 			<dependency>
@@ -114,7 +114,6 @@
 				<artifactId>openmrs-web</artifactId>
 				<version>${openMRSVersion}</version>
 				<type>test-jar</type>
-				<scope>test</scope>
 			</dependency>
 
 			<dependency>
@@ -122,7 +121,6 @@
 				<artifactId>openmrs-test</artifactId>
 				<version>${openMRSVersion}</version>
 				<type>pom</type>
-				<scope>test</scope>
 			</dependency>
 
 			<!-- End OpenMRS core -->
@@ -162,7 +160,6 @@
 				<groupId>org.powermock</groupId>
 				<artifactId>powermock-module-junit4-rule-agent</artifactId>
 				<version>1.7.0</version>
-				<scope>test</scope>
 			</dependency>
 
 			<dependency>

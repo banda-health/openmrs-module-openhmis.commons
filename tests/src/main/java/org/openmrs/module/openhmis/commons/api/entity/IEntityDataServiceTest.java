@@ -22,6 +22,9 @@ import org.openmrs.OpenmrsData;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 
+/**
+ * Class to hold common entity data service test functionality.
+ */
 public abstract class IEntityDataServiceTest<S extends IEntityDataService<E>, E extends OpenmrsData>
         extends IObjectDataServiceTest<S, E> {
 	public static void assertOpenmrsData(OpenmrsData expected, OpenmrsData actual) {
