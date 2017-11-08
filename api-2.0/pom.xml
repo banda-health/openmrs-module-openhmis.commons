@@ -14,14 +14,14 @@
 	<description>API project for the OpenHMIS Commons module</description>
 
 	<properties>
-		<openMRSBuildVersion>2.0.5</openMRSBuildVersion>
+		<openMRSVersion>2.0.5</openMRSVersion>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.openmrs.api</groupId>
 			<artifactId>openmrs-api</artifactId>
-			<version>${openMRSBuildVersion}</version>
+			<version>${openMRSVersion}</version>
 			<type>jar</type>
 		</dependency>
 
@@ -29,6 +29,11 @@
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>${project.parent.artifactId}-api-base</artifactId>
 			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>legacyui-omod</artifactId>
 		</dependency>
 	</dependencies>
 

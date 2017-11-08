@@ -22,6 +22,10 @@ public class PrivilegeConstantsCompatibilityV1o9
 	public final String GET_ENCOUNTERS = PrivilegeConstants.VIEW_ENCOUNTERS;
 	public final String GET_OBS = PrivilegeConstants.VIEW_OBS;
 	public final String GET_PATIENTS = PrivilegeConstants.VIEW_PATIENTS;
+	public final String DASHBOARD_SUMMARY = PrivilegeConstants.DASHBOARD_SUMMARY;
+	public final String DASHBOARD_DEMOGRAPHICS = PrivilegeConstants.DASHBOARD_DEMOGRAPHICS;
+	public final String DASHBOARD_OVERVIEW = PrivilegeConstants.DASHBOARD_OVERVIEW;
+	public final String DASHBOARD_VISITS = PrivilegeConstants.DASHBOARD_VISITS;
 
 	/* Inventory Module privilege constants */
 	public final String GET_ROLES = PrivilegeConstants.VIEW_ROLES;

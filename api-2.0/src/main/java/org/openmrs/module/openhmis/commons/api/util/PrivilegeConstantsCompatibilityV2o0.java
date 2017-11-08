@@ -3,6 +3,7 @@ package org.openmrs.module.openhmis.commons.api.util;
 import org.openmrs.annotation.OpenmrsProfile;
 import org.openmrs.module.openhmis.commons.api.compatibility.PrivilegeConstantsCompatibility;
 import org.openmrs.util.PrivilegeConstants;
+import org.openmrs.web.ApplicationPrivilegeConstants;
 
 /**
  * Specific implementation for the privileges to be pulled from the OpenMRS class using available properties
@@ -22,6 +23,10 @@ public class PrivilegeConstantsCompatibilityV2o0 implements PrivilegeConstantsCo
 	public final String GET_ENCOUNTERS = PrivilegeConstants.GET_ENCOUNTERS;
 	public final String GET_OBS = PrivilegeConstants.GET_OBS;
 	public final String GET_PATIENTS = PrivilegeConstants.GET_PATIENTS;
+	public final String DASHBOARD_SUMMARY = ApplicationPrivilegeConstants.DASHBOARD_SUMMARY;
+	public final String DASHBOARD_DEMOGRAPHICS = ApplicationPrivilegeConstants.DASHBOARD_DEMOGRAPHICS;
+	public final String DASHBOARD_OVERVIEW = ApplicationPrivilegeConstants.DASHBOARD_OVERVIEW;
+	public final String DASHBOARD_VISITS = ApplicationPrivilegeConstants.DASHBOARD_VISITS;
 
 	/* Inventory Module privilege constants */
 	public final String GET_ROLES = PrivilegeConstants.GET_ROLES;

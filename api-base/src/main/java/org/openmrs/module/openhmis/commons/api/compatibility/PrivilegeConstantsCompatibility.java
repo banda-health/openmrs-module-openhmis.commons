@@ -17,6 +17,10 @@ public interface PrivilegeConstantsCompatibility {
 	String GET_ENCOUNTERS = new String();
 	String GET_OBS = new String();
 	String GET_PATIENTS = new String();
+	String DASHBOARD_SUMMARY = new String();
+	String DASHBOARD_DEMOGRAPHICS = new String();
+	String DASHBOARD_OVERVIEW = new String();
+	String DASHBOARD_VISITS = new String();
 
 	/* Inventory Module privilege constants */
 	String GET_ROLES = new String();
