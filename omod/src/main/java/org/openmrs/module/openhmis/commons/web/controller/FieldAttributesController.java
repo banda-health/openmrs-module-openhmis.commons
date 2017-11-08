@@ -3,7 +3,7 @@ package org.openmrs.module.openhmis.commons.web.controller;
 import org.openmrs.Concept;
 import org.openmrs.Program;
 import org.openmrs.ProgramWorkflow;
-import org.openmrs.module.openhmis.commons.api.compatibility.PrivilegeConstants;
+import org.openmrs.module.openhmis.commons.api.compatibility.PrivilegeConstantsCompatibility;
 import org.openmrs.module.openhmis.commons.model.FieldAttributeType;
 import org.openmrs.module.webservices.rest.SimpleObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.List;
 public class FieldAttributesController extends AbstractFieldAttributesController {
 
 	@Autowired
-	private PrivilegeConstants privilegeConstants;
+	private PrivilegeConstantsCompatibility privilegeConstantsCompatibility;
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
@@ -65,7 +65,7 @@ public class FieldAttributesController extends AbstractFieldAttributesController
 	 */
 	private String getLocations() {
 		SimpleObject results = new SimpleObject();
-		if (hasPrivileges(privilegeConstants.GET_LOCATIONS)) {
+		if (hasPrivileges(privilegeConstantsCompatibility.GET_LOCATIONS)) {
 			results.put("results", populateObjects(getLocationService().getAllLocations(false)));
 		}
 		return convertToJSON(results);
@@ -77,7 +77,7 @@ public class FieldAttributesController extends AbstractFieldAttributesController
 	 */
 	private String getDrugs() {
 		SimpleObject results = new SimpleObject();
-		if (hasPrivileges(privilegeConstants.GET_CONCEPT_CLASSES)) {
+		if (hasPrivileges(privilegeConstantsCompatibility.GET_CONCEPT_CLASSES)) {
 			results.put("results", populateObjects(getConceptService().getAllDrugs()));
 		}
 		return convertToJSON(results);
@@ -89,7 +89,7 @@ public class FieldAttributesController extends AbstractFieldAttributesController
 	 */
 	private String getUsers() {
 		SimpleObject results = new SimpleObject();
-		if (hasPrivileges(privilegeConstants.GET_USERS)) {
+		if (hasPrivileges(privilegeConstantsCompatibility.GET_USERS)) {
 			results.put("results", populateObjects(getUserService().getAllUsers()));
 		}
 		return convertToJSON(results);
@@ -101,7 +101,7 @@ public class FieldAttributesController extends AbstractFieldAttributesController
 	 */
 	private String getProviders() {
 		SimpleObject results = new SimpleObject();
-		if (hasPrivileges(privilegeConstants.GET_PROVIDERS)) {
+		if (hasPrivileges(privilegeConstantsCompatibility.GET_PROVIDERS)) {
 			results.put("results", populateObjects(getProviderService().getAllProviders()));
 		}
 		return convertToJSON(results);
@@ -114,7 +114,7 @@ public class FieldAttributesController extends AbstractFieldAttributesController
 	 */
 	private String getConcepts(String foreignKey) {
 		SimpleObject results = new SimpleObject();
-		if (hasPrivileges(privilegeConstants.GET_CONCEPTS)) {
+		if (hasPrivileges(privilegeConstantsCompatibility.GET_CONCEPTS)) {
 			Concept concept = getConceptService().getConcept(Integer.valueOf(foreignKey));
 			if (concept != null) {
 				results.put("results", populateObjects(concept.getAnswers()));
