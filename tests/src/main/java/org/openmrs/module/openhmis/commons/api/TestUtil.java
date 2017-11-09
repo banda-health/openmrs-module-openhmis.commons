@@ -28,20 +28,21 @@ public class TestUtil {
 		String datasetFilePath =
 		        datasetFile.getPath().substring(0, datasetFile.getPath().lastIndexOf(datasetFileNameWithoutExtension));
 
-		int j = openMRSMajorVersionNumber;
+		int majorVersionNumber = openMRSMajorVersionNumber;
 		// Cycle through version numbers to check for each file
-		for (int i = openMRSMinorVersionNumber; i >= 0; i--) {
+		for (int minorVersionNumber = openMRSMinorVersionNumber; minorVersionNumber >= 0; minorVersionNumber--) {
 			String versionedDatasetFileName =
-			        datasetFilePath + datasetFileNameWithoutExtension + "-" + j + "." + i + datasetFileExtension;
+			        datasetFilePath + datasetFileNameWithoutExtension + "-" + majorVersionNumber + "." +
+					        minorVersionNumber + datasetFileExtension;
 			File versionedDatasetFile = new File(versionedDatasetFileName);
 			if (versionedDatasetFile.exists()) {
 				return versionedDatasetFileName;
 			}
 
 			// Assume the minor version is never higher than 30 (arbitrary assumption)
-			if (i == 0 && j > 1) {
-				i = 30;
-				j--;
+			if (minorVersionNumber == 0 && majorVersionNumber > 1) {
+				minorVersionNumber = 30;
+				majorVersionNumber--;
 			}
 		}
 
