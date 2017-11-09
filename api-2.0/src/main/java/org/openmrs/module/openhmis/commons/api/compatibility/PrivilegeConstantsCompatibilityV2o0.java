@@ -1,7 +1,6 @@
-package org.openmrs.module.openhmis.commons.api.util;
+package org.openmrs.module.openhmis.commons.api.compatibility;
 
 import org.openmrs.annotation.OpenmrsProfile;
-import org.openmrs.module.openhmis.commons.api.compatibility.PrivilegeConstantsCompatibility;
 import org.openmrs.util.PrivilegeConstants;
 import org.openmrs.web.ApplicationPrivilegeConstants;
 

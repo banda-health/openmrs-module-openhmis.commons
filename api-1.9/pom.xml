@@ -8,12 +8,23 @@
 		<version>3.6.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>openhmis.commons-api</artifactId>
+	<artifactId>openhmis.commons-api-1.9</artifactId>
 	<packaging>jar</packaging>
-	<name>OpenHMIS Commons Module API</name>
+	<name>OpenHMIS Commons Module API 1.9</name>
 	<description>API project for the OpenHMIS Commons module</description>
 
+	<properties>
+		<openMRSVersion>1.9.9</openMRSVersion>
+	</properties>
+
 	<dependencies>
+		<dependency>
+			<groupId>org.openmrs.api</groupId>
+			<artifactId>openmrs-api</artifactId>
+			<version>${openMRSVersion}</version>
+			<type>jar</type>
+		</dependency>
+
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>${project.parent.artifactId}-api-base</artifactId>
@@ -22,42 +33,12 @@
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>${project.parent.artifactId}-api-1.9</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>${project.parent.artifactId}-api-2.0</artifactId>
-			<version>${project.parent.version}</version>
+			<artifactId>legacyui-omod</artifactId>
 		</dependency>
 	</dependencies>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-
 		<plugins>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
 				<artifactId>maven-java-formatter-plugin</artifactId>
