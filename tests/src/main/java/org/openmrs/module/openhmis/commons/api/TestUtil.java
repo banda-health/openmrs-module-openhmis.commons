@@ -33,7 +33,7 @@ public class TestUtil {
 		for (int minorVersionNumber = openMRSMinorVersionNumber; minorVersionNumber >= 0; minorVersionNumber--) {
 			String versionedDatasetFileName =
 			        datasetFilePath + datasetFileNameWithoutExtension + "-" + majorVersionNumber + "." +
-					        minorVersionNumber + datasetFileExtension;
+			                minorVersionNumber + datasetFileExtension;
 			File versionedDatasetFile = new File(versionedDatasetFileName);
 			if (versionedDatasetFile.exists()) {
 				return versionedDatasetFileName;
