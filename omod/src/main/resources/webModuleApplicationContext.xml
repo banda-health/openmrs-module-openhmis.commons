@@ -7,8 +7,6 @@
   		    http://www.springframework.org/schema/context
   		    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<import resource="classpath*:moduleApplicationContext.xml" />
-
 	<!-- Add here beans related to the web context -->
 
 
