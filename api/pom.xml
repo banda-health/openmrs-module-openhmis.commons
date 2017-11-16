@@ -22,13 +22,13 @@
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>${project.parent.artifactId}-api-1.9</artifactId>
+			<artifactId>${project.parent.artifactId}-api-1.x</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>${project.parent.artifactId}-api-2.0</artifactId>
+			<artifactId>${project.parent.artifactId}-api-2.x</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 	</dependencies>

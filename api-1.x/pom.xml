@@ -8,9 +8,9 @@
 		<version>3.6.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>openhmis.commons-api-1.9</artifactId>
+	<artifactId>openhmis.commons-api-1.x</artifactId>
 	<packaging>jar</packaging>
-	<name>OpenHMIS Commons Module API 1.9</name>
+	<name>OpenHMIS Commons Module API 1.x</name>
 	<description>API project for the OpenHMIS Commons module</description>
 
 	<properties>

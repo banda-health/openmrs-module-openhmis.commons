@@ -7,7 +7,7 @@ import org.openmrs.util.PrivilegeConstants;
  * Specific implementation for the privileges to be pulled from the OpenMRS class using available properties
  */
 @OpenmrsProfile(openmrsPlatformVersion = "1.9.9 - 1.12.*")
-public class PrivilegeConstantsCompatibilityV1o9
+public class PrivilegeConstantsCompatibility_1x
         implements PrivilegeConstantsCompatibility {
 
 	/* Commons privilege constants */

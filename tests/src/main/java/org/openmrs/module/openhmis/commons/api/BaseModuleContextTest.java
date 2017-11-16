@@ -27,7 +27,8 @@ public abstract class BaseModuleContextTest extends BaseModuleContextSensitiveTe
 		try {
 			conn.prepareStatement("SET REFERENTIAL_INTEGRITY FALSE").execute();
 
-			// See if a versioned data file exists
+			// If a versioned file exists and we need to be using a versioned file based on the OMRS version,
+			// make sure we get the correct file name if it exists
 			String datasetFilenameToUse = TestUtil.getVersionedFileIfExists(datasetFilename);
 
 			super.executeDataSet(datasetFilenameToUse);

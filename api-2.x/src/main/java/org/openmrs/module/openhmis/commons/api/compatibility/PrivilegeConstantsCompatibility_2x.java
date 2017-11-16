@@ -8,7 +8,7 @@ import org.openmrs.web.ApplicationPrivilegeConstants;
  * Specific implementation for the privileges to be pulled from the OpenMRS class using available properties
  */
 @OpenmrsProfile(openmrsPlatformVersion = "2.*")
-public class PrivilegeConstantsCompatibilityV2o0 implements PrivilegeConstantsCompatibility {
+public class PrivilegeConstantsCompatibility_2x implements PrivilegeConstantsCompatibility {
 
 	/* Commons privilege constants */
 	public final String GET_LOCATIONS = PrivilegeConstants.GET_LOCATIONS;
