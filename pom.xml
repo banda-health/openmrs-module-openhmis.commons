@@ -14,7 +14,6 @@
 		<repository>
 			<id>openmrs-repo</id>
 			<name>Modules</name>
-			<!--<url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url> -->
 			<url>https://openmrs.jfrog.io/openmrs/modules/</url>
 		</repository>
 		<snapshotRepository>
@@ -32,7 +31,7 @@
 
 	<organization>
 		<name>OpenHMIS</name>
-		<url>http://openhmis.github.com/OpenHMIS/</url>
+		<url>http://www.github.com/OpenHMIS/</url>
 	</organization>
 	<modules>
 		<module>tools</module>
@@ -297,7 +296,7 @@
 		<repository>
 			<id>openmrs-repo</id>
 			<name>OpenMRS Nexus Repository</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+			<url>https://openmrs.jfrog.io/openmrs/public</url>
 		</repository>
 	</repositories>
 
@@ -305,7 +304,7 @@
 		<pluginRepository>
 			<id>openmrs-repo</id>
 			<name>OpenMRS Nexus Repository</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+			<url>https://openmrs.jfrog.io/openmrs/public</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
