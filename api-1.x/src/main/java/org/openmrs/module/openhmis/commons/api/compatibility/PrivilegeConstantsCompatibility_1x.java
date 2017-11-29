@@ -7,26 +7,27 @@ import org.openmrs.util.PrivilegeConstants;
  * Specific implementation for the privileges to be pulled from the OpenMRS class using available properties
  */
 @OpenmrsProfile(openmrsPlatformVersion = "1.9.9 - 1.12.*")
-public class PrivilegeConstantsCompatibility_1x
-        implements PrivilegeConstantsCompatibility {
+public class PrivilegeConstantsCompatibility_1x extends PrivilegeConstantsCompatibility {
 
-	/* Commons privilege constants */
-	public final String GET_LOCATIONS = PrivilegeConstants.VIEW_LOCATIONS;
-	public final String GET_CONCEPT_CLASSES = PrivilegeConstants.VIEW_CONCEPT_CLASSES;
-	public final String GET_USERS = PrivilegeConstants.VIEW_USERS;
-	public final String GET_PROVIDERS = PrivilegeConstants.VIEW_PROVIDERS;
-	public final String GET_CONCEPTS = PrivilegeConstants.VIEW_CONCEPTS;
+	static {
+		/* Commons privilege constants */
+		GET_LOCATIONS = PrivilegeConstants.VIEW_LOCATIONS;
+		GET_CONCEPT_CLASSES = PrivilegeConstants.VIEW_CONCEPT_CLASSES;
+		GET_USERS = PrivilegeConstants.VIEW_USERS;
+		GET_PROVIDERS = PrivilegeConstants.VIEW_PROVIDERS;
+		GET_CONCEPTS = PrivilegeConstants.VIEW_CONCEPTS;
 
-	/* Cashier Module privilege constants */
-	public final String GET_VISITS = PrivilegeConstants.VIEW_VISITS;
-	public final String GET_ENCOUNTERS = PrivilegeConstants.VIEW_ENCOUNTERS;
-	public final String GET_OBS = PrivilegeConstants.VIEW_OBS;
-	public final String GET_PATIENTS = PrivilegeConstants.VIEW_PATIENTS;
-	public final String DASHBOARD_SUMMARY = PrivilegeConstants.DASHBOARD_SUMMARY;
-	public final String DASHBOARD_DEMOGRAPHICS = PrivilegeConstants.DASHBOARD_DEMOGRAPHICS;
-	public final String DASHBOARD_OVERVIEW = PrivilegeConstants.DASHBOARD_OVERVIEW;
-	public final String DASHBOARD_VISITS = PrivilegeConstants.DASHBOARD_VISITS;
+		/* Cashier Module privilege constants */
+		GET_VISITS = PrivilegeConstants.VIEW_VISITS;
+		GET_ENCOUNTERS = PrivilegeConstants.VIEW_ENCOUNTERS;
+		GET_OBS = PrivilegeConstants.VIEW_OBS;
+		GET_PATIENTS = PrivilegeConstants.VIEW_PATIENTS;
+		DASHBOARD_SUMMARY = PrivilegeConstants.DASHBOARD_SUMMARY;
+		DASHBOARD_DEMOGRAPHICS = PrivilegeConstants.DASHBOARD_DEMOGRAPHICS;
+		DASHBOARD_OVERVIEW = PrivilegeConstants.DASHBOARD_OVERVIEW;
+		DASHBOARD_VISITS = PrivilegeConstants.DASHBOARD_VISITS;
 
-	/* Inventory Module privilege constants */
-	public final String GET_ROLES = PrivilegeConstants.VIEW_ROLES;
+		/* Inventory Module privilege constants */
+		GET_ROLES = PrivilegeConstants.VIEW_ROLES;
+	}
 }
