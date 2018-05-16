@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<person person_id="0" gender="M" birthdate="1950-04-01" dead="false" creator="1" date_created="2005-01-01 00:00:00.0"
+			voided="false" uuid="5631b434-78aa-102b-91a0-001e378eb67e"/>
+	<person person_id="2" gender="M" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+			uuid="1716432a-4bf9-436c-baad-f03236e960e1"/>
+	<person person_id="3" gender="M" dead="true" creator="1" date_created="2005-01-01 00:00:00.0" voided="true"
+			uuid="d707fad8-dbe4-40bb-bd25-321477ca18b0"/>
+	<person_name person_name_id="2" preferred="true" person_id="2" prefix="Dr." given_name="John" middle_name="Andrew"
+				 family_name="Smith" family_name2="Johnson" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+				 uuid="54fdf8e8-1a80-45cf-a3fd-4fabd1b8ffab"/>
+	<person_name person_name_id="3" preferred="true" person_id="3" prefix="" given_name="I" middle_name="am"
+				 family_name="voided" family_name2="Johnson" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+				 uuid="1be83481-5ace-4a97-8510-d2e1257b6f6a"/>
+
+	<provider provider_id="0" name="Test 1 Provider" identifier="8A760" creator="1" date_created="2005-01-01 00:00:00.0"
+			  retired="0" uuid="a2c3868a-6b90-11e0-93c3-18a905e044dc"/>
+	<provider provider_id="1" name="Test 2 Provider" person_id="2" identifier="8A761" creator="1"
+			  date_created="2005-01-01 00:00:00.0" retired="0" uuid="a3a5913e-6b94-11e0-93c3-18a905e044dc"/>
+	<provider provider_id="2" name="Test 3 Provider" person_id="3" identifier="8A762" creator="1"
+			  date_created="2005-01-01 00:00:00.0" retired="0" uuid="ae401f88-6b94-11e0-93c3-18a905e044dc"/>
+
+	<location location_id="0" name="Test Location 0 " creator="1" date_created="2005-01-01 00:00:00.0" retired="false"
+			  uuid="ef93c695-ac43-450a-93f8-4b2b4d50a3c8"/>
+	<location location_id="1" name="Test Location 2" creator="1" date_created="2005-01-01 00:00:00.0" retired="false"
+			  uuid="FF8081813D91C2DA013D91C3D8040001"/>
+	<patient patient_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+	<patient_identifier patient_identifier_id="0" patient_id="0" identifier="Test 1234" identifier_type="1" preferred="1"
+						location_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+						uuid="1ac98ec8-e9d9-4626-998c-c795c2f0aa9f"/>
+	<patient_identifier_type patient_identifier_type_id="0" name="Test Identifier Type" description="Test description"
+							 check_digit="false" creator="1" date_created="2005-01-01 00:00:00.0" required="false"
+							 retired="false" uuid="0cbecb62-7249-4f91-8edf-d0206ecceb63"/>
+
+	<patient patient_id="1" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+	<patient_identifier patient_identifier_id="1" patient_id="1" identifier="Test 2345" identifier_type="1" preferred="1"
+						location_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+						uuid="4028814B3A0CDF3A013A0CDF3A3D0000"/>
+	<patient_identifier_type patient_identifier_type_id="1" name="Test Identifier Type" description="Test description"
+							 check_digit="false" creator="1" date_created="2005-01-01 00:00:00.0" required="false"
+							 retired="false" uuid="4028814B3A0CDF3A013A0CDF73C40003"/>
+
+	<person_name person_name_id="0" preferred="true" person_id="0" given_name="John" middle_name=" " family_name="Doe"
+				 creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+				 uuid="0f1f7d08-076b-4fc6-acac-4bb91515141e"/>
+
+	<role role="Grandchild" description="This is a test role" uuid="FF8081813DD43016013DD43016B10000"/>
+	<role role="Child Role" description="This is a test role" uuid="94d62f4b-dd14-4597-be10-402def31094c"/>
+	<role role="Parent" description="This is a test parent role" uuid="8de52b9e-e07d-4978-ba4a-a3828c13e482"/>
+	<role role="Other" description="Some role" uuid="FF8081813DD43016013DD4353AC70001"/>
+	<role_role parent_role="Parent" child_role="Child Role"/>
+	<role_role parent_role="Child Role" child_role="Grandchild"/>
+
+	<person person_id="5506" gender="M" dead="false" creator="1" date_created="2008-08-15 15:57:09.0" voided="false"
+			uuid="4e7f6953-0f86-4702-a06b-17112e8f144b"/>
+	<person_name person_name_id="5" preferred="true" person_id="5506" given_name="Jack" middle_name=" " family_name="Black"
+				 creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+				 uuid="6fc41fe3-b01f-42a8-a825-547d779b27d5"/>
+	<users user_id="5506" person_id="5506" system_id="7-5" username="correctlyhashedSha1"
+		   password="4a1750c8607d0fa237de36c6305715c223415189" salt="c788c6ad82a157b712392ca695dfcf2eed193d7f"
+		   secret_question=""
+		   creator="1" date_created="2008-08-15 15:57:09.0" changed_by="1" date_changed="2008-08-18 11:51:56.0"
+		   retired="false" retire_reason="" uuid="06d05314-e132-11de-babe-001e378eb67e"/>
+	<user_role user_id="5506" role="Child Role"/>
+</dataset>

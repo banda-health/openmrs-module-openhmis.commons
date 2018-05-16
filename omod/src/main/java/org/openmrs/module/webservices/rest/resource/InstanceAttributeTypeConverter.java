@@ -28,7 +28,7 @@ import org.openmrs.module.webservices.rest.web.resource.impl.MetadataDelegatingC
  * @param <T> The instance attribute type class
  */
 @Resource(name = RestConstants.VERSION_2 + "/openhmis/attributetype", supportedClass = IInstanceAttributeType.class,
-        supportedOpenmrsVersions = { "1.8.*", "1.9.*", "1.10.*", "1.11.*", "1.12.*" })
+        supportedOpenmrsVersions = { "1.8.*", "1.9.*", "1.10.*", "1.11.*", "1.12.*", "2.*" })
 public class InstanceAttributeTypeConverter<T extends IInstanceAttributeType<?>> extends MetadataDelegatingCrudResource<T> {
 	private static final String NEED_SUBCLASS_HANDLER = "This operation should be handled by a subclass handler.";
 

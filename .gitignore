@@ -16,7 +16,7 @@
 .cache
 
 # idea conf files
-# .idea
+.idea
 *.iml
 *.ipr
 *.iws
