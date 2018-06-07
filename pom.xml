@@ -5,7 +5,7 @@
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>openhmis.commons</artifactId>
 	<packaging>pom</packaging>
-	<version>4.0.0</version>
+	<version>4.1.0-SNAPSHOT</version>
 	<name>OpenHMIS Commons Module</name>
 	<description>Module that provides core functionality used by the OpenHMIS modules.</description>
 	<url>http://openhmis.github.com/</url>
@@ -49,7 +49,7 @@
 		<connection>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</connection>
 		<developerConnection>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</developerConnection>
 		<url>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</url>
-		<tag>v4.0.0</tag>
+		<tag>v3.5.0</tag>
 	</scm>
 
 	<!-- default properties for installation -->
