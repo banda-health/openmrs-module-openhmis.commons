@@ -5,7 +5,7 @@
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>openhmis.commons</artifactId>
 	<packaging>pom</packaging>
-	<version>3.5.0</version>
+	<version>4.0.0</version>
 	<name>OpenHMIS Commons Module</name>
 	<description>Module that provides core functionality used by the OpenHMIS modules.</description>
 	<url>http://openhmis.github.com/</url>
@@ -14,7 +14,6 @@
 		<repository>
 			<id>openmrs-repo</id>
 			<name>Modules</name>
-			<!--<url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url> -->
 			<url>https://openmrs.jfrog.io/openmrs/modules/</url>
 		</repository>
 		<snapshotRepository>
@@ -32,11 +31,16 @@
 
 	<organization>
 		<name>OpenHMIS</name>
-		<url>http://openhmis.github.com/OpenHMIS/</url>
+		<url>http://www.github.com/OpenHMIS/</url>
 	</organization>
+
 	<modules>
 		<module>tools</module>
+		<module>tests</module>
 		<module>api</module>
+		<module>api-1.x</module>
+		<module>api-2.x</module>
+		<module>api-base</module>
 		<module>omod_2.x</module>
 		<module>omod</module>
 	</modules>
@@ -45,13 +49,14 @@
 		<connection>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</connection>
 		<developerConnection>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</developerConnection>
 		<url>scm:git:git@github.com:OpenHMIS/openmrs-module-openhmis.commons.git</url>
-		<tag>v3.5.0</tag>
+		<tag>v4.0.0</tag>
 	</scm>
 
+	<!-- default properties for installation -->
 	<properties>
 		<openMRSVersion>1.9.9</openMRSVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<javaCompilerVersion>1.8</javaCompilerVersion>
+		<javaCompilerVersion>1.7</javaCompilerVersion>
 	</properties>
 
 	<dependencyManagement>
@@ -71,6 +76,12 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-omod</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>openhmis.commons-omod_2.x</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
@@ -97,7 +108,6 @@
 				<artifactId>openmrs-api</artifactId>
 				<version>${openMRSVersion}</version>
 				<type>test-jar</type>
-				<scope>test</scope>
 			</dependency>
 
 			<dependency>
@@ -105,7 +115,6 @@
 				<artifactId>openmrs-web</artifactId>
 				<version>${openMRSVersion}</version>
 				<type>test-jar</type>
-				<scope>test</scope>
 			</dependency>
 
 			<dependency>
@@ -113,7 +122,6 @@
 				<artifactId>openmrs-test</artifactId>
 				<version>${openMRSVersion}</version>
 				<type>pom</type>
-				<scope>test</scope>
 			</dependency>
 
 			<!-- End OpenMRS core -->
@@ -143,10 +151,16 @@
 			</dependency>
 
 			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>legacyui-omod</artifactId>
+				<version>0.2.1</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
 				<groupId>org.powermock</groupId>
 				<artifactId>powermock-module-junit4-rule-agent</artifactId>
-				<version>1.4.10</version>
-				<scope>test</scope>
+				<version>1.7.0</version>
 			</dependency>
 
 			<dependency>
@@ -197,8 +211,8 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<target>1.6</target>
-						<source>1.6</source>
+						<target>${javaCompilerVersion}</target>
+						<source>${javaCompilerVersion}</source>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -297,7 +311,7 @@
 		<repository>
 			<id>openmrs-repo</id>
 			<name>OpenMRS Nexus Repository</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+			<url>https://openmrs.jfrog.io/openmrs/public</url>
 		</repository>
 	</repositories>
 
@@ -305,10 +319,20 @@
 		<pluginRepository>
 			<id>openmrs-repo</id>
 			<name>OpenMRS Nexus Repository</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+			<url>https://openmrs.jfrog.io/openmrs/public</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+
+	<profiles>
+		<profile>
+			<id>openmrs-2.0</id>
+			<properties>
+				<openMRSVersion>2.0.5</openMRSVersion>
+				<javaCompilerVersion>1.8</javaCompilerVersion>
+			</properties>
+		</profile>
+	</profiles>
 </project>
