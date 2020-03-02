@@ -17,9 +17,9 @@
 			<url>https://openmrs.jfrog.io/openmrs/modules/</url>
 		</repository>
 		<snapshotRepository>
-    		<id>openhmis-repo</id>
+    			<id>openhmis-repo</id>
 			<name>Snapshots</name>
-    		<url>http://mavenrepo.openhmisafrica.org/content/repositories/snapshots</url>
+    			<url>https://mavenrepo.openhmisafrica.org/content/repositories/snapshots</url>
   		</snapshotRepository>
 	</distributionManagement>
 
