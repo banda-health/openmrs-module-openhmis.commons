@@ -19,7 +19,7 @@
 		<snapshotRepository>
     			<id>openhmis-repo</id>
 			<name>Snapshots</name>
-    			<url>https://mavenrepo.openhmisafrica.org/content/repositories/snapshots</url>
+    			<url>http://mavenrepo.openhmisafrica.org/content/repositories/snapshots</url>
   		</snapshotRepository>
 	</distributionManagement>
 
